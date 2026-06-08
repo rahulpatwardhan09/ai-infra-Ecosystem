@@ -3,728 +3,388 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>The AI Infrastructure Stack — A Living Map</title>
-<meta name="description" content="A community-maintained map of the AI infrastructure ecosystem — 200+ companies across 11 layers, from silicon to application.">
-<meta property="og:title" content="The AI Infrastructure Stack — A Living Map">
-<meta property="og:description" content="200+ companies across 11 layers. Silicon → Application. Updated June 2026.">
+<title>AI Infrastructure Stack — A Living Map</title>
+<meta name="description" content="A community-maintained map of the AI infrastructure ecosystem across Jensen Huang's five-layer cake, with a deep dive into the infrastructure layer.">
+<meta property="og:title" content="AI Infrastructure Stack — A Living Map">
+<meta property="og:description" content="200+ companies. Infrastructure expanded in full. Community maintained, June 2026.">
 <meta property="og:type" content="website">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="The AI Infrastructure Stack — A Living Map">
-<meta name="twitter:description" content="200+ companies across 11 layers, from silicon to application. Community-maintained.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Mono:wght@400;500&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@300;400;500;600;700;800&family=Geist+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
 :root {
-  --ink:        #0A0E1A;
-  --ink-2:      #2C3347;
-  --ink-3:      #5A6278;
-  --ink-4:      #8E95A8;
-  --rule:       #DDE1EA;
-  --rule-light: #ECEEF3;
-  --surface:    #F6F7FA;
-  --white:      #FFFFFF;
-  --accent:     #FF5C00;
-  --accent-2:   #FF8040;
-  --accent-bg:  #FFF3EC;
-  --accent-rule:#FFCFB0;
-  --green:      #0D7A4E;
-  --green-bg:   #E6F5EE;
-  --green-rule: #A3D9BE;
-  --gold:       #9A6E00;
+  --bg:          #F2F3F5;
+  --surface:     #FFFFFF;
+  --surface-2:   #F7F8FA;
+  --surface-3:   #ECEEF2;
+  --border:      #E2E4E9;
+  --border-2:    #CDD0D8;
+  --ink:         #0D1117;
+  --ink-2:       #24292F;
+  --ink-3:       #57606A;
+  --ink-4:       #8C959F;
+  --accent:      #FF5C00;
+  --accent-light:#FFF0E8;
+  --accent-mid:  #FFD4B8;
+  --infra:       #1A56DB;
+  --infra-light: #EBF0FF;
+  --infra-mid:   #C7D6FF;
+  --green:       #1A7F37;
+  --green-light: #DAFBE1;
+  --green-mid:   #A3D9AF;
+  --gold:        #9A6700;
+  --gold-light:  #FFF8C5;
+  --amber:       #BC4C00;
+  --amber-light: #FFEBE9;
+  --font: 'Geist', system-ui, sans-serif;
+  --mono: 'Geist Mono', monospace;
+  --r:    6px;
+  --r-lg: 10px;
+  --r-xl: 14px;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{font-size:14px;-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale}
+body{background:var(--bg);color:var(--ink);font-family:var(--font);line-height:1.5}
 
-  --font-serif: 'DM Serif Display', Georgia, serif;
-  --font-sans:  'DM Sans', system-ui, sans-serif;
-  --font-mono:  'DM Mono', 'Courier New', monospace;
+/* ── TOPBAR ── */
+.topbar{
+  background:var(--surface);border-bottom:1px solid var(--border);
+  height:48px;display:flex;align-items:center;padding:0 32px;gap:20px;
+  position:sticky;top:0;z-index:200;
 }
-
-*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-html { font-size: 15px; -webkit-font-smoothing: antialiased; }
-body {
-  background: var(--white);
-  color: var(--ink);
-  font-family: var(--font-sans);
-  line-height: 1.6;
+.topbar-logo{
+  display:flex;align-items:center;gap:8px;text-decoration:none;flex-shrink:0;
 }
-
-/* ── MASTHEAD ── */
-.masthead {
-  border-bottom: 1px solid var(--rule);
-  padding: 0 40px;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  height: 52px;
+.topbar-logo-mark{
+  width:24px;height:24px;border-radius:6px;background:var(--ink);
+  display:flex;align-items:center;justify-content:center;
+  font-size:11px;font-weight:700;color:#fff;font-family:var(--mono);
+  letter-spacing:-0.5px;flex-shrink:0;
 }
-.masthead-left {
-  display: flex;
-  align-items: center;
-  gap: 20px;
+.topbar-name{font-size:13px;font-weight:600;color:var(--ink)}
+.topbar-sep{width:1px;height:16px;background:var(--border);flex-shrink:0}
+.topbar-tag{
+  font-family:var(--mono);font-size:10px;color:var(--ink-4);
+  letter-spacing:0.3px;
 }
-.masthead-pub {
-  font-family: var(--font-serif);
-  font-size: 17px;
-  color: var(--ink);
-  letter-spacing: -0.3px;
+.topbar-right{margin-left:auto;display:flex;align-items:center;gap:8px}
+.share-btn{
+  display:flex;align-items:center;gap:5px;padding:5px 12px;
+  background:var(--ink);color:#fff;border:none;border-radius:var(--r);
+  font-family:var(--font);font-size:12px;font-weight:500;cursor:pointer;
+  transition:opacity .15s;
 }
-.masthead-issue {
-  font-family: var(--font-mono);
-  font-size: 10px;
-  color: var(--ink-4);
-  letter-spacing: 0.5px;
-  text-transform: uppercase;
-  border-left: 1px solid var(--rule);
-  padding-left: 16px;
-}
-.masthead-right {
-  display: flex;
-  align-items: center;
-  gap: 14px;
-}
-.share-btn {
-  display: flex;
-  align-items: center;
-  gap: 6px;
-  padding: 6px 14px;
-  background: var(--ink);
-  color: var(--white);
-  border: none;
-  border-radius: 6px;
-  font-family: var(--font-sans);
-  font-size: 12px;
-  font-weight: 500;
-  cursor: pointer;
-  transition: background 0.15s;
-  text-decoration: none;
-}
-.share-btn:hover { background: var(--ink-2); }
-.share-btn svg { width: 12px; height: 12px; fill: currentColor; }
-.updated-tag {
-  font-family: var(--font-mono);
-  font-size: 10px;
-  color: var(--ink-4);
-  letter-spacing: 0.3px;
-}
+.share-btn:hover{opacity:.85}
+.share-btn svg{width:11px;height:11px;fill:currentColor;flex-shrink:0}
 
 /* ── HERO ── */
-.hero {
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 56px 40px 40px;
-  display: grid;
-  grid-template-columns: 1fr auto;
-  gap: 40px;
-  align-items: end;
-  border-bottom: 2px solid var(--ink);
+.hero{
+  background:var(--surface);border-bottom:1px solid var(--border);
+  padding:32px 32px 28px;
 }
-.hero-kicker {
-  font-family: var(--font-mono);
-  font-size: 10px;
-  letter-spacing: 2px;
-  text-transform: uppercase;
-  color: var(--accent);
-  margin-bottom: 14px;
+.hero-inner{max-width:1280px;margin:0 auto;display:grid;grid-template-columns:1fr auto;gap:40px;align-items:center}
+.hero-eyebrow{
+  display:inline-flex;align-items:center;gap:6px;
+  font-family:var(--mono);font-size:10px;color:var(--ink-4);
+  text-transform:uppercase;letter-spacing:1px;margin-bottom:12px;
 }
-.hero-title {
-  font-family: var(--font-serif);
-  font-size: 52px;
-  line-height: 1.05;
-  letter-spacing: -1px;
-  color: var(--ink);
-  margin-bottom: 18px;
+.hero-eyebrow-dot{width:5px;height:5px;border-radius:50%;background:var(--accent);flex-shrink:0;animation:blink 2s infinite}
+@keyframes blink{0%,100%{opacity:1}50%{opacity:.3}}
+.hero-title{
+  font-size:28px;font-weight:700;letter-spacing:-0.8px;line-height:1.2;
+  color:var(--ink);margin-bottom:10px;
 }
-.hero-title em {
-  font-style: italic;
-  color: var(--ink-3);
-}
-.hero-body {
-  font-size: 15px;
-  color: var(--ink-3);
-  max-width: 580px;
-  line-height: 1.75;
-}
-.hero-stats {
-  display: flex;
-  flex-direction: column;
-  gap: 18px;
-  text-align: right;
-  flex-shrink: 0;
-}
-.stat-block {}
-.stat-num {
-  font-family: var(--font-serif);
-  font-size: 42px;
-  line-height: 1;
-  color: var(--ink);
-}
-.stat-label {
-  font-family: var(--font-mono);
-  font-size: 9px;
-  color: var(--ink-4);
-  text-transform: uppercase;
-  letter-spacing: 1px;
-  margin-top: 2px;
-}
+.hero-sub{font-size:13px;color:var(--ink-3);line-height:1.65;max-width:560px}
+.hero-sub a{color:var(--infra);text-decoration:none;border-bottom:1px solid var(--infra-mid)}
+.hero-sub a:hover{border-bottom-color:var(--infra)}
+.hero-stats{display:flex;gap:24px;flex-shrink:0}
+.hstat{text-align:center}
+.hstat-n{font-size:28px;font-weight:700;letter-spacing:-1px;color:var(--ink);line-height:1}
+.hstat-l{font-family:var(--mono);font-size:9px;color:var(--ink-4);text-transform:uppercase;letter-spacing:.8px;margin-top:3px}
 
-/* ── TOOLBAR ── */
-.toolbar {
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 14px 40px;
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  flex-wrap: wrap;
-  border-bottom: 1px solid var(--rule);
-  position: sticky;
-  top: 0;
-  background: rgba(255,255,255,0.96);
-  backdrop-filter: blur(8px);
-  z-index: 100;
+/* ── JENSEN BAR ── */
+.jensen-bar{background:var(--surface-2);border-bottom:1px solid var(--border);padding:8px 32px}
+.jensen-inner{
+  max-width:1280px;margin:0 auto;
+  display:flex;align-items:center;gap:10px;font-size:11px;color:var(--ink-4);
 }
-.toolbar-sep {
-  width: 1px;
-  height: 20px;
-  background: var(--rule);
-  margin: 0 4px;
+.jensen-badge{
+  font-family:var(--mono);font-size:9px;background:var(--surface-3);
+  border:1px solid var(--border);padding:2px 8px;border-radius:4px;
+  color:var(--ink-3);white-space:nowrap;flex-shrink:0;
 }
-.view-toggle {
-  display: flex;
-  background: var(--surface);
-  border: 1px solid var(--rule);
-  border-radius: 8px;
-  padding: 3px;
-  gap: 2px;
-}
-.view-btn {
-  padding: 5px 13px;
-  border-radius: 5px;
-  border: none;
-  background: transparent;
-  font-family: var(--font-sans);
-  font-size: 12px;
-  font-weight: 500;
-  color: var(--ink-3);
-  cursor: pointer;
-  transition: all 0.12s;
-  white-space: nowrap;
-}
-.view-btn.active {
-  background: var(--white);
-  color: var(--ink);
-  font-weight: 600;
-  box-shadow: 0 1px 3px rgba(0,0,0,0.08);
-}
-.filter-btn {
-  padding: 5px 13px;
-  border-radius: 20px;
-  border: 1px solid var(--rule);
-  background: var(--white);
-  font-family: var(--font-sans);
-  font-size: 11px;
-  font-weight: 500;
-  color: var(--ink-3);
-  cursor: pointer;
-  transition: all 0.12s;
-  white-space: nowrap;
-}
-.filter-btn:hover { background: var(--surface); }
-.filter-btn.active { background: var(--ink); color: var(--white); border-color: var(--ink); }
-.search-wrap { position: relative; margin-left: auto; }
-.search-input {
-  padding: 6px 14px 6px 30px;
-  border: 1px solid var(--rule);
-  border-radius: 20px;
-  font-family: var(--font-sans);
-  font-size: 12px;
-  color: var(--ink);
-  background: var(--white);
-  width: 200px;
-  outline: none;
-  transition: border 0.15s, box-shadow 0.15s;
-}
-.search-input:focus {
-  border-color: var(--ink-3);
-  box-shadow: 0 0 0 3px rgba(10,14,26,0.06);
-}
-.search-icon {
-  position: absolute;
-  left: 10px;
-  top: 50%;
-  transform: translateY(-50%);
-  color: var(--ink-4);
-  font-size: 11px;
-  pointer-events: none;
-}
+.jensen-bar a{color:var(--infra);text-decoration:none}
+.jensen-bar a:hover{text-decoration:underline}
 
-/* ── MAIN CONTENT ── */
-.main {
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 24px 40px 80px;
+/* ── CONTROLS ── */
+.controls{
+  background:var(--surface);border-bottom:1px solid var(--border);
+  padding:0 32px;display:flex;align-items:center;gap:8px;flex-wrap:wrap;
+  min-height:44px;position:sticky;top:48px;z-index:190;
 }
+.ctrl-label{font-family:var(--mono);font-size:9px;text-transform:uppercase;letter-spacing:1px;color:var(--ink-4);flex-shrink:0}
+.ctrl-sep{width:1px;height:16px;background:var(--border);margin:0 4px;flex-shrink:0}
+.seg{display:flex;background:var(--surface-3);border:1px solid var(--border);border-radius:var(--r);padding:2px;gap:2px;flex-shrink:0}
+.seg-btn{
+  padding:4px 11px;border-radius:4px;border:none;background:transparent;
+  font-family:var(--font);font-size:11px;font-weight:500;color:var(--ink-3);
+  cursor:pointer;transition:all .1s;white-space:nowrap;
+}
+.seg-btn.active{background:var(--surface);color:var(--ink);font-weight:600;box-shadow:0 1px 3px rgba(0,0,0,.08)}
+.pill-btn{
+  padding:4px 11px;border-radius:20px;border:1px solid var(--border);
+  background:var(--surface);font-family:var(--font);font-size:11px;
+  font-weight:500;color:var(--ink-3);cursor:pointer;transition:all .1s;white-space:nowrap;
+}
+.pill-btn:hover{background:var(--surface-3)}
+.pill-btn.active{background:var(--ink);color:#fff;border-color:var(--ink)}
+.search-wrap{position:relative;margin-left:auto}
+.search-input{
+  padding:5px 12px 5px 28px;border:1px solid var(--border);border-radius:20px;
+  font-family:var(--font);font-size:11px;color:var(--ink);background:var(--surface);
+  width:180px;outline:none;transition:border .15s,box-shadow .15s;
+}
+.search-input:focus{border-color:var(--infra);box-shadow:0 0 0 3px var(--infra-light)}
+.search-ico{position:absolute;left:9px;top:50%;transform:translateY(-50%);color:var(--ink-4);font-size:11px;pointer-events:none}
+.xbtn{padding:4px 10px;background:var(--surface);border:1px solid var(--border);border-radius:var(--r);font-family:var(--font);font-size:11px;color:var(--ink-3);cursor:pointer;font-weight:500}
+.xbtn:hover{background:var(--surface-3)}
 
-/* ── DIRECTION INDICATORS ── */
-.dir-row {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  margin-bottom: 8px;
+/* ── REGION BAR ── */
+.region-bar{
+  background:var(--surface-2);border-bottom:1px solid var(--border);
+  padding:6px 32px;display:none;align-items:center;gap:6px;flex-wrap:wrap;
 }
-.dir-row.bottom { margin-top: 6px; margin-bottom: 0; }
-.dir-label {
-  font-family: var(--font-mono);
-  font-size: 9px;
-  text-transform: uppercase;
-  letter-spacing: 2px;
-  color: var(--ink-4);
-  white-space: nowrap;
-}
-.dir-rule {
-  flex: 1;
-  height: 1px;
-  background: linear-gradient(90deg, var(--rule), transparent);
-}
+.region-bar.visible{display:flex}
+.region-label{font-family:var(--mono);font-size:9px;color:var(--ink-4);text-transform:uppercase;letter-spacing:1px;margin-right:2px;flex-shrink:0}
 
-/* ── LAYER (STACK MODE) ── */
-.layer {
-  margin-bottom: 4px;
-  border: 1px solid var(--rule);
-  border-radius: 10px;
-  overflow: hidden;
-  transition: box-shadow 0.18s;
+/* ── LEGEND BAR ── */
+.legend-bar{
+  background:var(--surface-2);border-bottom:1px solid var(--border);
+  padding:6px 32px;display:none;align-items:center;gap:16px;flex-wrap:wrap;
 }
-.layer:hover { box-shadow: 0 2px 10px rgba(0,0,0,0.04); }
-.layer.vcl { border: 1.5px solid var(--accent-rule); background: var(--accent-bg); }
-.layer.vcl:hover { box-shadow: 0 2px 12px rgba(255,92,0,0.08); }
+.legend-bar.show{display:flex}
+.leg-item{display:flex;align-items:center;gap:5px}
+.leg-dot{width:7px;height:7px;border-radius:50%;border:1.5px solid;flex-shrink:0}
+.leg-label{font-family:var(--mono);font-size:9px;color:var(--ink-4);text-transform:uppercase;letter-spacing:.6px}
+.legend-right{margin-left:auto;display:flex;gap:6px}
 
-.layer-hdr {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 13px 18px;
-  cursor: pointer;
-  user-select: none;
-  gap: 12px;
-}
-.layer-hdr:hover { background: rgba(0,0,0,0.012); }
-.vcl .layer-hdr:hover { background: rgba(255,92,0,0.03); }
+/* ── MAIN ── */
+.main{max-width:1280px;margin:0 auto;padding:20px 32px 80px}
 
-.layer-left { display: flex; align-items: center; gap: 12px; min-width: 0; }
-.layer-bar { width: 3px; height: 36px; border-radius: 2px; flex-shrink: 0; }
-.layer-name {
-  font-family: var(--font-sans);
-  font-size: 13px;
-  font-weight: 600;
-  letter-spacing: -0.1px;
-}
-.layer-desc { font-size: 11px; color: var(--ink-4); margin-top: 1px; }
-.vcl-badge {
-  font-family: var(--font-mono);
-  font-size: 9px;
-  font-weight: 500;
-  color: var(--accent);
-  background: transparent;
-  border: 1px solid var(--accent-rule);
-  padding: 2px 7px;
-  border-radius: 4px;
-  letter-spacing: 0.3px;
-  flex-shrink: 0;
-}
-.layer-right {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  flex-shrink: 0;
-}
-.layer-count {
-  font-family: var(--font-mono);
-  font-size: 10px;
-  color: var(--ink-4);
-}
-.chevron {
-  font-size: 10px;
-  color: var(--ink-4);
-  transition: transform 0.22s ease;
-}
-.chevron.open { transform: rotate(180deg); }
+/* ── DIRECTION RAILS ── */
+.rail{display:flex;align-items:center;gap:10px;margin-bottom:6px}
+.rail.bottom{margin-top:6px;margin-bottom:0}
+.rail-label{font-family:var(--mono);font-size:9px;text-transform:uppercase;letter-spacing:2px;color:var(--ink-4);white-space:nowrap}
+.rail-line{flex:1;height:1px;background:linear-gradient(90deg,var(--border),transparent)}
 
-/* ── LAYER CONTENT ── */
-.layer-body { display: none; padding: 0 18px 18px 33px; }
-.layer-body.open { display: block; }
-.subcat { margin-bottom: 16px; }
-.subcat-name {
-  font-family: var(--font-mono);
-  font-size: 9px;
-  font-weight: 500;
-  text-transform: uppercase;
-  letter-spacing: 1.5px;
-  margin-bottom: 8px;
-  padding-left: 2px;
+/* ── CONTEXT LAYER (thin bar for App/Models/Chips/Energy) ── */
+.ctx-bar{
+  display:flex;align-items:center;gap:10px;
+  background:var(--surface);border:1px solid var(--border);border-radius:var(--r-lg);
+  padding:9px 14px;margin-bottom:4px;
 }
-.cards { display: flex; flex-wrap: wrap; gap: 6px; }
+.ctx-stripe{width:3px;height:18px;border-radius:2px;flex-shrink:0}
+.ctx-name{font-size:11px;font-weight:600;white-space:nowrap}
+.ctx-pills{display:flex;flex-wrap:wrap;gap:4px;margin-left:4px}
+.ctx-pill{
+  font-size:10px;color:var(--ink-3);background:var(--surface-3);
+  border:1px solid var(--border);padding:2px 8px;border-radius:10px;white-space:nowrap;
+}
+.ctx-pill.more{border-style:dashed;color:var(--ink-4)}
+
+/* ── INFRA HEADER ── */
+.infra-hdr{
+  display:flex;align-items:center;gap:12px;
+  padding:14px 0 12px;margin-bottom:4px;
+  border-bottom:1px solid var(--border);
+}
+.infra-hdr-icon{
+  width:32px;height:32px;border-radius:8px;background:var(--infra);
+  display:flex;align-items:center;justify-content:center;font-size:15px;flex-shrink:0;
+}
+.infra-hdr-title{font-size:15px;font-weight:700;color:var(--infra);letter-spacing:-.3px}
+.infra-hdr-desc{font-size:11px;color:var(--ink-3);margin-top:2px;line-height:1.5}
+
+/* ── SUBLAYER BLOCK ── */
+.sublayer{
+  background:var(--surface);border:1px solid var(--border);
+  border-radius:var(--r-xl);margin-bottom:4px;overflow:hidden;
+  transition:box-shadow .15s;
+}
+.sublayer:hover{box-shadow:0 2px 8px rgba(0,0,0,.05)}
+.sublayer-hdr{
+  display:flex;align-items:center;padding:12px 16px;
+  cursor:pointer;user-select:none;gap:10px;
+  border-left:3px solid var(--infra);
+}
+.sublayer-hdr:hover{background:var(--surface-2)}
+.sublayer-icon{
+  width:28px;height:28px;border-radius:6px;background:var(--infra-light);
+  display:flex;align-items:center;justify-content:center;font-size:13px;flex-shrink:0;
+}
+.sublayer-title{font-size:13px;font-weight:600;color:var(--infra)}
+.sublayer-desc{font-size:11px;color:var(--ink-4);margin-top:1px;max-width:480px}
+.sublayer-right{display:flex;align-items:center;gap:8px;margin-left:auto;flex-shrink:0}
+.sublayer-count{font-family:var(--mono);font-size:10px;color:var(--ink-4)}
+.chevron{font-size:9px;color:var(--ink-4);transition:transform .2s}
+.chevron.open{transform:rotate(180deg)}
+.sublayer-body{display:none;padding:0 16px 16px 16px}
+.sublayer-body.open{display:block}
+
+/* ── SUBCAT ── */
+.subcat{margin-bottom:14px}
+.subcat-hdr{
+  display:flex;align-items:center;gap:8px;
+  padding:6px 0 7px;margin-bottom:8px;
+  border-bottom:1px solid var(--border);
+}
+.subcat-name{font-family:var(--mono);font-size:9px;font-weight:500;text-transform:uppercase;letter-spacing:1.2px;color:var(--ink-3)}
+.subcat-count{font-family:var(--mono);font-size:9px;color:var(--ink-4);margin-left:auto}
+
+/* ── CARD GRID ── */
+.card-grid{display:flex;flex-wrap:wrap;gap:5px}
 
 /* ── COMPANY CARD ── */
-.card {
-  display: inline-flex;
-  flex-direction: column;
-  padding: 8px 12px;
-  border-radius: 8px;
-  min-width: 148px;
-  max-width: 210px;
-  border: 1px solid var(--rule);
-  background: var(--white);
-  transition: all 0.13s;
-  position: relative;
+.card{
+  display:flex;align-items:flex-start;gap:8px;
+  padding:9px 11px;border-radius:var(--r);
+  border:1px solid var(--border);background:var(--surface);
+  min-width:170px;max-width:230px;flex:1 1 170px;
+  transition:all .12s;position:relative;
 }
-.card:hover { box-shadow: 0 3px 10px rgba(0,0,0,0.07); transform: translateY(-1px); }
-.card.self { background: var(--accent-bg); border-color: var(--accent-rule); }
-.card.self:hover { box-shadow: 0 3px 10px rgba(255,92,0,0.10); }
-.card-top { display: flex; align-items: center; gap: 6px; margin-bottom: 3px; }
-.tier-pip {
-  width: 6px;
-  height: 6px;
-  border-radius: 50%;
-  border: 1.5px solid;
-  flex-shrink: 0;
-  background: transparent;
+.card:hover{border-color:var(--border-2);box-shadow:0 2px 8px rgba(0,0,0,.07);transform:translateY(-1px)}
+.card-logo{
+  width:24px;height:24px;border-radius:5px;flex-shrink:0;
+  display:flex;align-items:center;justify-content:center;
+  font-size:10px;font-weight:700;color:#fff;
+  background:var(--ink-3);overflow:hidden;
+  border:1px solid rgba(0,0,0,.06);
 }
-.card-name {
-  font-size: 12px;
-  font-weight: 600;
-  letter-spacing: -0.1px;
-  color: var(--ink);
-  line-height: 1.3;
+.card-logo img{width:100%;height:100%;object-fit:contain;border-radius:4px}
+.card-body{min-width:0;flex:1}
+.card-name{font-size:11px;font-weight:600;color:var(--ink);line-height:1.3;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.card-desc{font-size:10px;color:var(--ink-4);line-height:1.4;margin-top:2px}
+.card-tags{display:flex;flex-wrap:wrap;gap:3px;margin-top:5px}
+.tag{
+  font-family:var(--mono);font-size:8px;font-weight:500;
+  padding:1px 5px;border-radius:3px;white-space:nowrap;
 }
-.card.self .card-name { color: var(--accent); }
-.card-desc { font-size: 10px; color: var(--ink-4); line-height: 1.4; }
-.oss-pip {
-  font-family: var(--font-mono);
-  font-size: 8px;
-  font-weight: 500;
-  color: var(--green);
-  background: var(--green-bg);
-  border: 1px solid var(--green-rule);
-  padding: 1px 4px;
-  border-radius: 3px;
-  margin-left: 3px;
-  flex-shrink: 0;
-}
-.region-pip { font-size: 9px; margin-left: 2px; opacity: 0.6; }
-.vcl-self-tag {
-  position: absolute;
-  top: -7px;
-  right: 8px;
-  font-family: var(--font-mono);
-  font-size: 8px;
-  font-weight: 500;
-  color: var(--white);
-  background: var(--accent);
-  padding: 1px 6px;
-  border-radius: 3px;
-  letter-spacing: 0.3px;
-}
+.tag-oss{background:var(--green-light);color:var(--green);border:1px solid var(--green-mid)}
+.tag-dom{background:var(--gold-light);color:var(--gold);border:1px solid #EED888}
+.tag-maj{background:var(--surface-3);color:var(--ink-3);border:1px solid var(--border)}
+.tag-em {background:#FFF4E0;color:#974A00;border:1px solid #FFCB7A}
+.tag-st {background:var(--surface-3);color:var(--ink-4);border:1px solid var(--border)}
 
-/* ── OVERVIEW MODE (pills) ── */
-.layer.ov-layer { overflow: visible; }
-.layer.ov-layer .layer-hdr { cursor: default; }
-.layer.ov-layer .layer-hdr:hover { background: transparent; }
-.vcl.ov-layer .layer-hdr:hover { background: rgba(255,92,0,0.02); }
-.pills-row { display: flex; flex-wrap: wrap; gap: 5px; padding: 0 18px 14px 33px; }
-.pill {
-  display: inline-flex;
-  align-items: center;
-  gap: 5px;
-  padding: 4px 10px;
-  border-radius: 20px;
-  border: 1px solid var(--rule);
-  background: var(--white);
-  font-size: 11px;
-  font-weight: 600;
-  color: var(--ink);
-  white-space: nowrap;
-  transition: all 0.1s;
-  cursor: default;
-}
-.pill:hover { box-shadow: 0 2px 6px rgba(0,0,0,0.06); transform: translateY(-1px); }
-.pill.self-pill { background: var(--accent-bg); border-color: var(--accent-rule); color: var(--accent); }
-.pill-dot { width: 6px; height: 6px; border-radius: 50%; border: 1.5px solid; flex-shrink: 0; }
-.pill-oss {
-  font-family: var(--font-mono);
-  font-size: 8px;
-  color: var(--green);
-  background: var(--green-bg);
-  border: 1px solid var(--green-rule);
-  padding: 1px 3px;
-  border-radius: 3px;
-}
-.more-pill {
-  display: inline-flex;
-  align-items: center;
-  padding: 4px 10px;
-  border-radius: 20px;
-  border: 1px dashed var(--rule);
-  font-size: 10px;
-  color: var(--ink-4);
-  font-weight: 500;
-  cursor: pointer;
-  transition: all 0.1s;
-  background: transparent;
-  font-family: var(--font-sans);
-}
-.more-pill:hover { background: var(--surface); color: var(--ink-3); }
+/* vCluster Labs card */
+.card.vcl{background:var(--accent-light);border-color:var(--accent-mid)}
+.card.vcl:hover{border-color:var(--accent);box-shadow:0 2px 10px rgba(255,92,0,.12)}
+.card.vcl .card-name{color:var(--accent)}
+.card.vcl .card-logo{background:var(--accent)}
 
-/* ── INSIGHT PANEL ── */
-.insight {
-  margin: 2px 0 12px;
-  border: 1px solid var(--rule-light);
-  border-radius: 8px;
-  overflow: hidden;
+/* ── OVERVIEW PILLS ── */
+.pill-row{display:flex;flex-wrap:wrap;gap:4px;padding:0 16px 12px}
+.pill{
+  display:inline-flex;align-items:center;gap:5px;
+  padding:4px 10px;border-radius:20px;
+  border:1px solid var(--border);background:var(--surface-3);
+  font-size:11px;font-weight:500;color:var(--ink);white-space:nowrap;
+  cursor:default;transition:all .1s;
 }
-.insight-hdr {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  padding: 8px 12px;
-  cursor: pointer;
-  background: var(--surface);
-  user-select: none;
+.pill:hover{box-shadow:0 2px 6px rgba(0,0,0,.07);transform:translateY(-1px);background:var(--surface)}
+.pill.vcl{background:var(--accent-light);border-color:var(--accent-mid);color:var(--accent)}
+.pill-dot{width:5px;height:5px;border-radius:50%;flex-shrink:0}
+.pill-oss{font-family:var(--mono);font-size:8px;color:var(--green);background:var(--green-light);border:1px solid var(--green-mid);padding:1px 3px;border-radius:3px}
+.more-pill{
+  display:inline-flex;align-items:center;padding:4px 10px;border-radius:20px;
+  border:1px dashed var(--border-2);font-size:10px;color:var(--ink-4);font-weight:500;
+  cursor:pointer;background:transparent;font-family:var(--font);transition:all .1s;
 }
-.insight-hdr:hover { background: var(--rule-light); }
-.insight-hdr-label {
-  font-family: var(--font-mono);
-  font-size: 9px;
-  font-weight: 500;
-  text-transform: uppercase;
-  letter-spacing: 1px;
-  color: var(--ink-4);
-}
-.insight-hdr-icon { font-size: 12px; }
-.insight-toggle {
-  font-family: var(--font-mono);
-  font-size: 9px;
-  color: var(--ink-4);
-  margin-left: auto;
-}
-.insight-body { display: none; padding: 14px 16px; background: var(--white); }
-.insight-body.open { display: block; }
-.ins-tabs { display: flex; gap: 4px; margin-bottom: 12px; }
-.ins-tab {
-  padding: 4px 12px;
-  border-radius: 14px;
-  border: 1px solid var(--rule);
-  font-size: 11px;
-  font-weight: 500;
-  color: var(--ink-3);
-  cursor: pointer;
-  background: transparent;
-  font-family: var(--font-sans);
-  transition: all 0.1s;
-}
-.ins-tab:hover { background: var(--surface); }
-.ins-tab.active { background: var(--ink); color: var(--white); border-color: var(--ink); }
-.ins-pane { display: none; }
-.ins-pane.active { display: block; }
-.ins-text { font-size: 12px; color: var(--ink-3); line-height: 1.75; }
+.more-pill:hover{background:var(--surface-3);color:var(--ink-3)}
 
-/* ── LEGEND ROW ── */
-.legend-row {
-  display: flex;
-  align-items: center;
-  gap: 16px;
-  flex-wrap: wrap;
-  padding: 10px 40px;
-  border-bottom: 1px solid var(--rule-light);
-  background: var(--surface);
-  max-width: 100%;
+/* ── INTEL PANEL ── */
+.intel-wrap{margin:8px 0 12px;border:1px solid var(--infra-mid);border-radius:var(--r-lg);overflow:hidden}
+.intel-hdr{
+  display:flex;align-items:center;gap:8px;padding:7px 12px;
+  cursor:pointer;user-select:none;background:var(--infra-light);transition:background .1s;
 }
-.legend-item { display: flex; align-items: center; gap: 5px; }
-.legend-dot { width: 8px; height: 8px; border-radius: 50%; border: 2px solid; }
-.legend-label { font-family: var(--font-mono); font-size: 9px; color: var(--ink-4); text-transform: uppercase; letter-spacing: 0.8px; }
-.legend-right { margin-left: auto; display: flex; gap: 6px; }
-.exp-btn {
-  padding: 4px 11px;
-  background: var(--white);
-  border: 1px solid var(--rule);
-  border-radius: 6px;
-  font-family: var(--font-sans);
-  font-size: 11px;
-  color: var(--ink-3);
-  cursor: pointer;
-  font-weight: 500;
+.intel-hdr:hover{background:#dce8ff}
+.intel-hdr-label{font-family:var(--mono);font-size:9px;font-weight:500;text-transform:uppercase;letter-spacing:1px;color:var(--infra);flex:1}
+.intel-toggle{font-family:var(--mono);font-size:9px;color:var(--infra);opacity:.6}
+.intel-body{display:none;background:var(--surface)}
+.intel-body.open{display:block}
+.intel-tabs{display:flex;gap:4px;padding:10px 12px 6px;border-bottom:1px solid var(--border)}
+.intel-tab{
+  padding:3px 10px;border-radius:12px;border:1px solid var(--border);
+  font-size:11px;font-weight:500;color:var(--ink-3);cursor:pointer;
+  background:transparent;font-family:var(--font);transition:all .1s;
 }
-.exp-btn:hover { background: var(--rule-light); }
+.intel-tab:hover{background:var(--surface-3)}
+.intel-tab.active{background:var(--infra);color:#fff;border-color:var(--infra)}
+.intel-pane{display:none;padding:10px 12px 12px}
+.intel-pane.active{display:block}
+.intel-text{font-size:11px;color:var(--ink-3);line-height:1.75}
 
-/* ── REGION STRIP ── */
-.region-strip {
-  display: none;
-  align-items: center;
-  gap: 6px;
-  flex-wrap: wrap;
-  padding: 8px 40px 6px;
-  border-bottom: 1px solid var(--rule-light);
-  background: var(--white);
+/* ── CTA ── */
+.cta{
+  margin-top:40px;background:var(--ink);border-radius:var(--r-xl);
+  padding:32px 40px;display:flex;align-items:center;justify-content:space-between;gap:24px;flex-wrap:wrap;
 }
-.region-strip.visible { display: flex; }
-.region-label { font-family: var(--font-mono); font-size: 9px; color: var(--ink-4); text-transform: uppercase; letter-spacing: 1px; margin-right: 2px; }
-.reg-btn {
-  padding: 3px 11px;
-  border-radius: 20px;
-  border: 1px solid var(--rule);
-  background: var(--white);
-  font-size: 11px;
-  font-weight: 500;
-  color: var(--ink-3);
-  cursor: pointer;
-  transition: all 0.1s;
-  font-family: var(--font-sans);
+.cta-eyebrow{font-family:var(--mono);font-size:9px;text-transform:uppercase;letter-spacing:1.5px;color:rgba(255,255,255,.4);margin-bottom:8px}
+.cta-title{font-size:18px;font-weight:700;color:#fff;letter-spacing:-.3px;margin-bottom:6px}
+.cta-sub{font-size:12px;color:rgba(255,255,255,.5);line-height:1.65;max-width:440px}
+.cta-btn{
+  display:inline-flex;align-items:center;gap:6px;padding:10px 20px;
+  background:#fff;color:var(--ink);border-radius:var(--r);
+  font-family:var(--font);font-size:12px;font-weight:600;
+  text-decoration:none;transition:all .15s;white-space:nowrap;flex-shrink:0;border:none;cursor:pointer;
 }
-.reg-btn:hover { background: var(--surface); }
-.reg-btn.active { background: var(--ink); border-color: var(--ink); color: var(--white); }
+.cta-btn:hover{background:var(--surface-3)}
 
-/* ── CTA FOOTER ── */
-.cta-section {
-  margin-top: 48px;
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 1px;
-  background: var(--rule);
-  border: 1px solid var(--rule);
-  border-radius: 12px;
-  overflow: hidden;
+/* ── TOAST / FOOTER ── */
+.toast{
+  position:fixed;bottom:20px;right:20px;background:var(--ink);color:#fff;
+  font-family:var(--font);font-size:12px;font-weight:500;padding:8px 16px;
+  border-radius:var(--r);opacity:0;transform:translateY(6px);
+  transition:opacity .2s,transform .2s;pointer-events:none;z-index:999;
 }
-.cta-panel {
-  background: var(--white);
-  padding: 32px 36px;
+.toast.show{opacity:1;transform:translateY(0)}
+footer{
+  border-top:1px solid var(--border);padding:16px 32px;
+  max-width:1280px;margin:0 auto;
+  display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px;
 }
-.cta-panel.accent { background: var(--ink); }
-.cta-kicker {
-  font-family: var(--font-mono);
-  font-size: 9px;
-  text-transform: uppercase;
-  letter-spacing: 2px;
-  color: var(--ink-4);
-  margin-bottom: 10px;
-}
-.cta-panel.accent .cta-kicker { color: rgba(255,255,255,0.4); }
-.cta-title {
-  font-family: var(--font-serif);
-  font-size: 22px;
-  line-height: 1.2;
-  color: var(--ink);
-  margin-bottom: 10px;
-}
-.cta-panel.accent .cta-title { color: var(--white); }
-.cta-body {
-  font-size: 13px;
-  color: var(--ink-3);
-  line-height: 1.7;
-  margin-bottom: 20px;
-}
-.cta-panel.accent .cta-body { color: rgba(255,255,255,0.6); }
-.cta-btn {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  padding: 10px 20px;
-  border-radius: 8px;
-  font-family: var(--font-sans);
-  font-size: 13px;
-  font-weight: 600;
-  cursor: pointer;
-  text-decoration: none;
-  transition: all 0.15s;
-  border: none;
-}
-.cta-btn.primary { background: var(--accent); color: var(--white); }
-.cta-btn.primary:hover { background: var(--accent-2); }
-.cta-btn.ghost { background: transparent; color: var(--white); border: 1.5px solid rgba(255,255,255,0.25); }
-.cta-btn.ghost:hover { background: rgba(255,255,255,0.08); border-color: rgba(255,255,255,0.4); }
-
-/* ── TOAST ── */
-.toast {
-  position: fixed;
-  bottom: 24px;
-  right: 24px;
-  background: var(--ink);
-  color: var(--white);
-  font-family: var(--font-sans);
-  font-size: 13px;
-  font-weight: 500;
-  padding: 10px 18px;
-  border-radius: 8px;
-  opacity: 0;
-  transform: translateY(6px);
-  transition: opacity 0.2s, transform 0.2s;
-  pointer-events: none;
-  z-index: 999;
-}
-.toast.show { opacity: 1; transform: translateY(0); }
-
-/* ── FOOTER ── */
-.site-footer {
-  border-top: 1px solid var(--rule);
-  padding: 20px 40px;
-  max-width: 1200px;
-  margin: 0 auto;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  flex-wrap: wrap;
-  gap: 10px;
-}
-.footer-left { font-size: 12px; color: var(--ink-4); line-height: 1.6; }
-.footer-left a { color: var(--accent); text-decoration: none; }
-.footer-left a:hover { text-decoration: underline; }
-.footer-right {
-  font-family: var(--font-mono);
-  font-size: 10px;
-  color: var(--ink-4);
-  letter-spacing: 0.5px;
-}
+.footer-l{font-size:11px;color:var(--ink-4)}
+.footer-r{font-family:var(--mono);font-size:10px;color:var(--ink-4);letter-spacing:.3px}
 
 /* ── RESPONSIVE ── */
-@media (max-width: 768px) {
-  .masthead { padding: 0 20px; }
-  .hero { grid-template-columns: 1fr; padding: 36px 20px 28px; gap: 24px; }
-  .hero-stats { flex-direction: row; text-align: left; flex-wrap: wrap; }
-  .hero-title { font-size: 34px; }
-  .main { padding: 16px 20px 60px; }
-  .toolbar { padding: 10px 20px; }
-  .cta-section { grid-template-columns: 1fr; }
-  .legend-row { padding: 10px 20px; }
-  .region-strip.visible { padding: 8px 20px 6px; }
-  .site-footer { padding: 16px 20px; flex-direction: column; align-items: flex-start; }
+@media(max-width:768px){
+  .topbar,.hero-inner,.controls,.main,footer{padding-left:16px;padding-right:16px}
+  .jensen-bar,.region-bar,.legend-bar{padding-left:16px;padding-right:16px}
+  .hero-inner{grid-template-columns:1fr}
+  .hero-stats{flex-direction:row;flex-wrap:wrap}
+  .hero-title{font-size:22px}
+  .card{min-width:140px}
 }
 
-/* ── STAGGER ANIMATION ── */
-@keyframes fadeUp {
-  from { opacity: 0; transform: translateY(8px); }
-  to   { opacity: 1; transform: translateY(0); }
-}
-.layer { animation: fadeUp 0.3s ease both; }
-.layer:nth-child(1) { animation-delay: 0.02s; }
-.layer:nth-child(2) { animation-delay: 0.05s; }
-.layer:nth-child(3) { animation-delay: 0.08s; }
-.layer:nth-child(4) { animation-delay: 0.11s; }
-.layer:nth-child(5) { animation-delay: 0.14s; }
-.layer:nth-child(6) { animation-delay: 0.17s; }
-.layer:nth-child(7) { animation-delay: 0.20s; }
-.layer:nth-child(8) { animation-delay: 0.23s; }
-.layer:nth-child(9) { animation-delay: 0.26s; }
-.layer:nth-child(10){ animation-delay: 0.29s; }
-.layer:nth-child(11){ animation-delay: 0.32s; }
+/* ── ANIMATIONS ── */
+@keyframes fadeUp{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
+.sublayer{animation:fadeUp .25s ease both}
+.sublayer:nth-child(1){animation-delay:.03s}.sublayer:nth-child(2){animation-delay:.06s}
+.sublayer:nth-child(3){animation-delay:.09s}.sublayer:nth-child(4){animation-delay:.12s}
+.sublayer:nth-child(5){animation-delay:.15s}.sublayer:nth-child(6){animation-delay:.18s}
 </style>
 </head>
 <body>
 
-<!-- MASTHEAD -->
-<header class="masthead">
-  <div class="masthead-left">
-    <span class="masthead-pub">AI Infrastructure Stack</span>
-    <span class="masthead-issue">Vol. 1 &nbsp;·&nbsp; June 2026 &nbsp;·&nbsp; Community Edition</span>
-  </div>
-  <div class="masthead-right">
-    <span class="updated-tag" id="coCount"></span>
+<header class="topbar">
+  <a class="topbar-logo" href="#">
+    <div class="topbar-logo-mark">AI</div>
+    <span class="topbar-name">AI Infra Stack</span>
+  </a>
+  <div class="topbar-sep"></div>
+  <span class="topbar-tag">Community Edition · June 2026</span>
+  <div class="topbar-right">
+    <span id="coCount" style="font-family:var(--mono);font-size:10px;color:var(--ink-4)"></span>
     <button class="share-btn" onclick="copyLink()">
       <svg viewBox="0 0 16 16"><path d="M13.5 1a1.5 1.5 0 1 0 0 3 1.5 1.5 0 0 0 0-3zM11 2.5a2.5 2.5 0 1 1 .603 1.628l-6.718 3.12a2.499 2.499 0 0 1 0 1.504l6.718 3.12a2.5 2.5 0 1 1-.488.876l-6.718-3.12a2.5 2.5 0 1 1 0-3.256l6.718-3.12A2.5 2.5 0 0 1 11 2.5z"/></svg>
       Share
@@ -732,719 +392,899 @@ body {
   </div>
 </header>
 
-<!-- HERO -->
-<section class="hero">
-  <div>
-    <div class="hero-kicker">A living reference &nbsp;·&nbsp; Community maintained</div>
-    <h1 class="hero-title">The New<br><em>AI Infrastructure</em><br>Stack</h1>
-    <p class="hero-body">
-      Every meaningful player building the infrastructure layer of AI — from bare silicon
-      to the frameworks developers use daily. Updated as the landscape shifts.
-      Built to be shared.
-    </p>
-  </div>
-  <div class="hero-stats">
-    <div class="stat-block">
-      <div class="stat-num" id="heroCoCount">—</div>
-      <div class="stat-label">companies mapped</div>
+<div class="hero">
+  <div class="hero-inner">
+    <div>
+      <div class="hero-eyebrow"><span class="hero-eyebrow-dot"></span>Living reference · Community maintained</div>
+      <h1 class="hero-title">The AI Infrastructure Stack</h1>
+      <p class="hero-sub">Every meaningful company building the infrastructure layer of AI — mapped across <a href="https://blogs.nvidia.com/blog/ai-5-layer-cake" target="_blank">Jensen Huang's five-layer cake</a>. Infrastructure expanded in full detail, with Applications, Models, Chips, and Energy shown as context.</p>
     </div>
-    <div class="stat-block">
-      <div class="stat-num">11</div>
-      <div class="stat-label">stack layers</div>
-    </div>
-    <div class="stat-block">
-      <div class="stat-num" id="heroOSSCount">—</div>
-      <div class="stat-label">open-source projects</div>
+    <div class="hero-stats">
+      <div class="hstat"><div class="hstat-n" id="heroCoCount">—</div><div class="hstat-l">Companies</div></div>
+      <div class="hstat"><div class="hstat-n">5</div><div class="hstat-l">Layers</div></div>
+      <div class="hstat"><div class="hstat-n" id="heroOSSCount">—</div><div class="hstat-l">OSS</div></div>
     </div>
   </div>
-</section>
+</div>
 
-<!-- LEGEND (reference mode only) -->
-<div class="legend-row" id="legendRow" style="display:none">
-  <div class="legend-item"><div class="legend-dot" style="border-color:#9A6E00"></div><span class="legend-label">Market leader</span></div>
-  <div class="legend-item"><div class="legend-dot" style="border-color:#666"></div><span class="legend-label">Major player</span></div>
-  <div class="legend-item"><div class="legend-dot" style="border-color:#B87333"></div><span class="legend-label">Emerging</span></div>
-  <div class="legend-item"><div class="legend-dot" style="border-color:#AAA"></div><span class="legend-label">Startup</span></div>
-  <div class="legend-item" style="margin-left:8px">
-    <span style="font-family:var(--font-mono);font-size:8px;color:var(--green);background:var(--green-bg);border:1px solid var(--green-rule);padding:2px 5px;border-radius:3px">OSS</span>
-    <span class="legend-label" style="margin-left:5px">Open source</span>
+<div class="jensen-bar">
+  <div class="jensen-inner">
+    <span class="jensen-badge">Framework</span>
+    Jensen Huang's five-layer cake — introduced at Davos 2026, expanded in
+    <a href="https://blogs.nvidia.com/blog/ai-5-layer-cake" target="_blank">"AI Is a 5-Layer Cake"</a> (March 2026).
+    Application → Model → Infrastructure → Chips → Energy.
+  </div>
+</div>
+
+<!-- LEGEND -->
+<div class="legend-bar" id="legendRow">
+  <div class="leg-item"><div class="leg-dot" style="border-color:#9A6E00;background:var(--gold-light)"></div><span class="leg-label">Leader</span></div>
+  <div class="leg-item"><div class="leg-dot" style="border-color:#666;background:var(--surface-3)"></div><span class="leg-label">Major</span></div>
+  <div class="leg-item"><div class="leg-dot" style="border-color:#BC4C00;background:var(--amber-light)"></div><span class="leg-label">Emerging</span></div>
+  <div class="leg-item"><div class="leg-dot" style="border-color:#AAA;background:var(--surface-3)"></div><span class="leg-label">Startup</span></div>
+  <div class="leg-item" style="margin-left:8px">
+    <span style="font-family:var(--mono);font-size:8px;color:var(--green);background:var(--green-light);border:1px solid var(--green-mid);padding:1px 5px;border-radius:3px">OSS</span>
+    <span class="leg-label" style="margin-left:5px">Open source</span>
   </div>
   <div class="legend-right">
-    <button class="exp-btn" onclick="expandAll()">Expand all</button>
-    <button class="exp-btn" onclick="collapseAll()">Collapse all</button>
+    <button class="xbtn" onclick="expandAll()">Expand all</button>
+    <button class="xbtn" onclick="collapseAll()">Collapse all</button>
   </div>
 </div>
 
-<!-- REGION STRIP (reference mode only) -->
-<div class="region-strip" id="regionStrip">
+<!-- REGION BAR -->
+<div class="region-bar" id="regionBar">
   <span class="region-label">Region</span>
-  <button class="reg-btn active" data-reg="all"    onclick="setRegion('all')">All</button>
-  <button class="reg-btn" data-reg="us"     onclick="setRegion('us')">🇺🇸 US</button>
-  <button class="reg-btn" data-reg="eu"     onclick="setRegion('eu')">🇪🇺 Europe</button>
-  <button class="reg-btn" data-reg="canada" onclick="setRegion('canada')">🇨🇦 Canada</button>
-  <button class="reg-btn" data-reg="apac"   onclick="setRegion('apac')">🌏 APAC</button>
-  <button class="reg-btn" data-reg="il"     onclick="setRegion('il')">🇮🇱 Israel</button>
-  <button class="reg-btn" data-reg="global" onclick="setRegion('global')">🌐 Global / OSS</button>
+  <button class="pill-btn active" data-reg="all"    onclick="setRegion('all')">All</button>
+  <button class="pill-btn" data-reg="us"            onclick="setRegion('us')">🇺🇸 US</button>
+  <button class="pill-btn" data-reg="eu"            onclick="setRegion('eu')">🇪🇺 Europe</button>
+  <button class="pill-btn" data-reg="apac"          onclick="setRegion('apac')">🌏 APAC</button>
+  <button class="pill-btn" data-reg="global"        onclick="setRegion('global')">🌐 Global / OSS</button>
 </div>
 
-<!-- TOOLBAR -->
-<div class="toolbar">
-  <span style="font-family:var(--font-mono);font-size:9px;text-transform:uppercase;letter-spacing:1px;color:var(--ink-4)">View</span>
-  <div class="view-toggle">
-    <button class="view-btn active" id="btn-ov" onclick="setMode('overview')">Overview</button>
-    <button class="view-btn" id="btn-ref" onclick="setMode('reference')">Full Reference</button>
+<!-- CONTROLS -->
+<div class="controls">
+  <span class="ctrl-label">View</span>
+  <div class="seg">
+    <button class="seg-btn active" id="btn-ov"  onclick="setMode('overview')">Overview</button>
+    <button class="seg-btn"        id="btn-ref" onclick="setMode('reference')">Full Reference</button>
   </div>
-  <div class="toolbar-sep"></div>
-  <span style="font-family:var(--font-mono);font-size:9px;text-transform:uppercase;letter-spacing:1px;color:var(--ink-4)">Lens</span>
-  <button class="filter-btn active" data-aud="all"           onclick="setAudience('all')">All</button>
-  <button class="filter-btn" data-aud="cloud-builder" onclick="setAudience('cloud-builder')">AI Cloud</button>
-  <button class="filter-btn" data-aud="hardware"      onclick="setAudience('hardware')">Hardware</button>
-  <button class="filter-btn" data-aud="mlops"         onclick="setAudience('mlops')">MLOps</button>
+  <div class="ctrl-sep"></div>
+  <span class="ctrl-label">Lens</span>
+  <button class="pill-btn active" data-aud="all"          onclick="setAudience('all')">All</button>
+  <button class="pill-btn"        data-aud="ai-developer" onclick="setAudience('ai-developer')">AI Developer</button>
+  <button class="pill-btn"        data-aud="ai-builder"   onclick="setAudience('ai-builder')">AI Builder</button>
+  <button class="pill-btn"        data-aud="investor"     onclick="setAudience('investor')">Investor / Analyst</button>
+  <div class="ctrl-sep"></div>
+  <span class="ctrl-label">Tier</span>
+  <button class="pill-btn active" data-tier="all"      onclick="setTier('all')">All</button>
+  <button class="pill-btn"        data-tier="leaders"  onclick="setTier('leaders')">Leaders</button>
+  <button class="pill-btn"        data-tier="emerging" onclick="setTier('emerging')">Emerging & Startups</button>
   <div class="search-wrap">
-    <span class="search-icon">⌕</span>
+    <span class="search-ico">⌕</span>
     <input class="search-input" type="text" placeholder="Search companies…" oninput="setSearch(this.value)">
   </div>
 </div>
 
-<!-- MAIN MAP -->
 <main class="main">
-  <div class="dir-row">
-    <span class="dir-label">Application ▾</span>
-    <div class="dir-rule"></div>
-  </div>
+  <div class="rail"><span class="rail-label">Application ▾</span><div class="rail-line"></div></div>
   <div id="map"></div>
-  <div class="dir-row bottom">
-    <span class="dir-label">▴ Hardware</span>
-    <div class="dir-rule"></div>
-  </div>
+  <div class="rail bottom"><span class="rail-label">▴ Energy</span><div class="rail-line"></div></div>
 
-  <!-- CTA -->
-  <div class="cta-section" style="grid-template-columns:1fr">
-    <div class="cta-panel">
-      <div class="cta-kicker">Open contribution</div>
-      <div class="cta-title">Know a company<br>that belongs here?</div>
-      <p class="cta-body">
-        This map is a living reference. If you're building in AI infrastructure — or you know a company that should be listed — we want to hear from you. We review and update regularly.
-      </p>
-      <a href="mailto:ecosystem@vcluster.com?subject=Suggest a company for the AI Infra Map" class="cta-btn primary">
-        Suggest a company →
-      </a>
+  <div class="cta">
+    <div>
+      <div class="cta-eyebrow">Open contribution</div>
+      <div class="cta-title">Know a company that belongs here?</div>
+      <p class="cta-sub">This map is a living reference. If you're building in AI infrastructure — or know a company that should be listed — we want to hear from you.</p>
     </div>
+    <a href="mailto:ecosystem@vcluster.com?subject=Suggest a company for the AI Infra Map" class="cta-btn">Suggest a company →</a>
   </div>
 </main>
 
-<!-- FOOTER -->
-<footer class="site-footer">
-  <div class="footer-left">Last updated: June 2026 &nbsp;·&nbsp; Community maintained</div>
-  <div class="footer-right">Built with ♥ for the AI infra community</div>
+<footer>
+  <span class="footer-l">Last updated: June 2026 · Community maintained</span>
+  <span class="footer-r">Built with ♥ for the AI infra community</span>
 </footer>
-
-<!-- TOAST -->
 <div class="toast" id="toast">Link copied to clipboard</div>
 
 <script>
-/* ─────────────────────────────────────────────
-   DATA
-───────────────────────────────────────────── */
-const TIERS = {
-  dominant:{ pip:'#9A6E00', text:'#6B4D00' },
-  major:   { pip:'#666',    text:'#333'    },
-  emerging:{ pip:'#B87333', text:'#7A4E1E' },
-  startup: { pip:'#AAA',    text:'#666'    }
+/* ── LOGO COLORS per company ── */
+const LOGO_COLORS = {
+  'AWS':'#FF9900','Microsoft Azure':'#0078D4','Google Cloud':'#4285F4','Oracle Cloud':'#C74634',
+  'CoreWeave':'#6B3FA0','Lambda':'#00A67E','Together AI':'#0066FF','Nebius':'#4A90D9',
+  'Crusoe':'#2A9D5C','RunPod':'#7928CA','Scaleway':'#7B35C1','OVHcloud':'#123F6D',
+  'Vultr':'#007BFC','DigitalOcean':'#0080FF','Fluidstack':'#1A1A2E','Nscale':'#0A1628',
+  'Kubernetes (CNCF)':'#326CE5','Red Hat OpenShift':'#EE0000','Rancher (SUSE)':'#30BA78',
+  'vCluster':'#FF5C00','vNode':'#FF5C00','vMetal':'#FF5C00',
+  'NVIDIA DSX':'#76B900','KAI Scheduler':'#76B900','NVIDIA AICR':'#76B900','NVSentinel':'#76B900','NVIDIA Infra Controller':'#76B900',
+  'Run:ai (NVIDIA)':'#76B900','NVIDIA GPU Operator':'#76B900',
+  'Kueue':'#326CE5','Volcano (CNCF)':'#326CE5','Karpenter':'#FF9900','k0rdent':'#6B3FA0','Kamaji':'#0066FF',
+  'Slurm (SchedMD)':'#1A3A5C','Ray (Anyscale)':'#0056A0','Slinky (CNCF)':'#326CE5',
+  'SkyPilot':'#5B7FFF','dstack':'#2D3250','Kubeflow':'#2196F3',
+  'Temporal':'#141414','Inngest':'#4F46E5','Daytona':'#0F172A',
+  'Argo CD':'#EF7B4D','Flux':'#5468FF','Helm':'#0F1689','Crossplane':'#D64292',
+  'Amazon EKS':'#FF9900','Google GKE':'#4285F4','Azure AKS':'#0078D4',
+  'RKE2':'#30BA78','Kubeadm':'#326CE5',
+  'OPA / Kyverno':'#7B2D8B','Falco':'#00AEC7','Trivy':'#1904DA',
+  'Keycloak':'#4D9A39','Okta':'#007DC1','Auth0':'#EB5424',
+  'KServe':'#326CE5','Ray Serve':'#0056A0','Prometheus':'#E6522C','DCGM':'#76B900',
+  'Ceph':'#EF5C55','Hedgehog':'#1A6B3C','DriveNets':'#003087','Aviz Networks':'#0066CC',
+  'Weights & Biases':'#FFBE00','MLflow':'#0194E2','Comet':'#262834','Snorkel':'#5856D6','Determined AI':'#DC1C2E',
+  'NVIDIA Triton':'#76B900','vLLM':'#5B7FFF','NVIDIA Dynamo':'#76B900',
+  'llm-d (CNCF)':'#326CE5','TGI (HuggingFace)':'#FF9D00','SGLang':'#FF4F00',
+  'Modal':'#7928CA','Fireworks AI':'#FF4B00','Baseten':'#0F1117','Replicate':'#0A0A0A',
+  'FriendliAI':'#5B5BD6','Modular':'#0D0D0D',
+  'Arize AI':'#7C3AED','Datadog':'#632CA6','Dynatrace':'#1496FF','Grafana':'#F46800',
+  'Elastic':'#FEC514','Fiddler':'#2563EB','Evidently AI':'#FF6B35',
+  'WEKA':'#003087','Vast Data':'#00B4D8','DDN':'#003087','Pure Storage':'#FF4701','MinIO':'#C72E49',
+  'Databricks':'#FF3621','Snowflake':'#29B5E8',
+  'Turbopuffer':'#1A1A2E','LanceDB':'#0F172A','ClickHouse':'#FFCC01','SurrealDB':'#FF00A0','PlanetScale':'#0F0F0F',
+  'NVIDIA Mellanox':'#76B900','Broadcom':'#CC0000','Arista Networks':'#2CC84D','Cisco':'#049FD9',
+  'Akamai':'#009BDE','Coherent':'#003087','Lightmatter':'#1A1A2E','Ayar Labs':'#5B5BD6',
+  'Equinix':'#ED2224','Digital Realty':'#0070AD','Vantage':'#003087','QTS (Blackstone)':'#1A1A2E',
+  'Vertiv':'#CC0000','Schneider Electric':'#3DCD58','CoolIT Systems':'#0066CC','Crusoe Energy':'#2A9D5C','Bloom Energy':'#1E88E5',
+  'NVIDIA DGX':'#76B900','HPE':'#01A982','Dell':'#007DB8','Supermicro':'#CE1126',
+  'Canonical MAAS':'#E95420','Ironic (OpenStack)':'#D90036','Netris':'#5B5BD6',
+  'Paper Compute':'#0F172A','Runlayer':'#1A1A2E',
+  'OpenAI':'#10A37F','Anthropic':'#CC785C','Google DeepMind':'#4285F4','Meta AI':'#0866FF',
+  'DeepSeek':'#4D6BFE','Mistral AI':'#FF7000','xAI':'#1A1A1A','Cohere':'#39594D',
+  'Hugging Face':'#FF9D00','NVIDIA NGC':'#76B900','Ollama':'#0F172A',
+  'GitHub Copilot':'#24292E','Cursor':'#1A1A2E','Cognition':'#5B5BD6','Replit':'#F26207',
+  'LangChain':'#1C3C5E','LlamaIndex':'#FF4F00','CrewAI':'#0F172A','AutoGen':'#0078D4',
+  'Harvey':'#1A1A2E','Sierra':'#1A1A2E','Perplexity AI':'#1A1A2E','Abridge':'#2563EB',
+  'SemiAnalysis':'#1A1A2E','The New Stack':'#0066CC','TLDR AI':'#1A1A2E',
+  'KubeCon / CNCF':'#326CE5','AI Engineer':'#1A1A2E','GTC (NVIDIA)':'#76B900',
+  'NVIDIA':'#76B900','AMD':'#ED1C24','Intel':'#0071C5','Cerebras':'#FF4500',
+  'Groq':'#F55036','Tenstorrent':'#FF3D00','Etched':'#1A1A2E',
+  'Google TPU':'#4285F4','AWS Trainium':'#FF9900','Microsoft Maia':'#0078D4',
+  'SK Hynix':'#003087','Samsung':'#1428A0','Micron':'#CC0000',
 };
 
-const REGION_FLAGS = { us:'🇺🇸', eu:'🇪🇺', canada:'🇨🇦', apac:'🌏', il:'🇮🇱', global:'🌐' };
-
-// Company metadata: oss flag, region
-const CM = {
-  'LangChain':           { oss:true,  r:'us'     },
-  'LlamaIndex':          { oss:true,  r:'us'     },
-  'CrewAI':              { oss:true,  r:'us'     },
-  'Weaviate':            { oss:true,  r:'eu'     },
-  'Milvus':              { oss:true,  r:'global' },
-  'Qdrant':              { oss:true,  r:'eu'     },
-  'MLflow':              { oss:true,  r:'us'     },
-  'vLLM':                { oss:true,  r:'us'     },
-  'TGI (HuggingFace)':   { oss:true,  r:'global' },
-  'llm-d (CNCF)':        { oss:true,  r:'global' },
-  'Evidently AI':        { oss:true,  r:'global' },
-  'Grafana':             { oss:true,  r:'global' },
-  'Ray':                 { oss:true,  r:'us'     },
-  'Ray (Anyscale)':      { oss:true,  r:'us'     },
-  'SkyPilot':            { oss:true,  r:'us'     },
-  'Slinky (CNCF)':       { oss:true,  r:'global' },
-  'Kubeflow':            { oss:true,  r:'global' },
-  'dstack':              { oss:true,  r:'eu'     },
-  'vCluster':            { oss:true,  r:'us'     },
-  'vNode':               { oss:true,  r:'us'     },
-  'Kubernetes (CNCF)':   { oss:true,  r:'global' },
-  'Kamaji':              { oss:true,  r:'eu'     },
-  'k0rdent':             { oss:true,  r:'global' },
-  'KAI Scheduler':       { oss:true,  r:'il'     },
-  'Kueue (K8s SIG)':     { oss:true,  r:'global' },
-  'Volcano (CNCF)':      { oss:true,  r:'global' },
-  'Karpenter':           { oss:true,  r:'us'     },
-  'KubeVirt':            { oss:true,  r:'global' },
-  'Slurm (SchedMD)':     { r:'us'     },
-  'MinIO':               { oss:true,  r:'us'     },
-  'SONiC':               { oss:true,  r:'global' },
-  'Ironic (OpenStack)':  { oss:true,  r:'global' },
-  'OpenStack':           { oss:true,  r:'global' },
-  'Canonical MAAS':      { r:'eu'     },
-  'Hugging Face':        { r:'us'     },
-  'Ollama':              { oss:true,  r:'us'     },
-  'Nebius':              { r:'eu'     },
-  'Scaleway':            { r:'eu'     },
-  'OVHcloud':            { r:'eu'     },
-  'Nscale':              { r:'eu'     },
-  'Mistral AI':          { r:'eu'     },
-  'SemiAnalysis':        { r:'us'     },
-  'Gartner':             { r:'us'     },
-  'Forrester':           { r:'us'     },
-  'IDC':                 { r:'us'     },
-  'NVSentinel':          { oss:true,  r:'us'     },
-  'NVIDIA AICR':         { oss:true,  r:'us'     },
-  'NVIDIA Infra Controller':{ oss:true, r:'us'   },
-};
-
-const AUDIENCE_LAYERS = {
-  'all':          ['analyst','application','models','mlops','orchestration','cloud','storage','networking','datacenter','hardware','silicon'],
-  'cloud-builder':['application','models','mlops','orchestration','cloud','storage'],
-  'hardware':     ['silicon','hardware','networking','datacenter','orchestration','cloud'],
-  'mlops':        ['application','models','mlops','orchestration','cloud','storage']
-};
-
-const LAYER_INSIGHTS = {
-  orchestration:{
-    challenge:"GPU clusters are stateful, multi-tenant environments with no shared-tenancy primitives. Kubernetes was designed for stateless workloads — GPU memory, NUMA topology, InfiniBand fabric, and MIG partitioning all require custom operators that didn't exist three years ago.",
-    innovation:"The shift from namespace-level to control-plane-level tenant isolation is underway. Projects like vCluster give each team a full Kubernetes API server, enabling true self-service without blast radius. NVIDIA's DSX OS (KAI Scheduler, Dynamo, AICR) is converging GPU scheduling with K8s-native primitives.",
-    funding:"Run:ai acquired by NVIDIA for ~$700M in 2024. Significant NVIDIA investment in DSX OS and open-source GPU scheduling primitives. Kubernetes-native GPU orchestration is becoming table stakes — the value is moving to the platform and developer experience layer."
-  },
-  cloud:{
-    challenge:"GPU availability constraints are easing as new supply comes online, but operational maturity varies dramatically. Many GPU clouds still lack the managed Kubernetes, self-service environments, and day-2 ops that enterprise AI teams expect.",
-    innovation:"GPU-native clouds are building vertically integrated stacks: compute + storage + orchestration + ML tooling. CoreWeave's K8s-first architecture and Lambda's 1-Click Clusters point toward a future where the cloud and the platform are inseparable.",
-    funding:"CoreWeave raised $7.5B in 2024 at a ~$19B valuation. Together AI raised $305M. The GPU cloud market is bifurcating: hyperscalers on price, specialists on performance and developer experience."
-  },
-  mlops:{
-    challenge:"LLM inference at scale is architecturally different from traditional ML serving. PagedAttention (vLLM), speculative decoding, and continuous batching require infrastructure teams to understand model internals. Most MLOps tooling was built for batch training, not interactive inference.",
-    innovation:"Kubernetes-native inference is emerging as a category. llm-d (CNCF) and NVIDIA Dynamo bring distributed LLM serving into the K8s control plane. The inference layer is becoming the primary cost driver — optimization tooling (TensorRT-LLM, SGLang) is capturing significant value.",
-    funding:"Weights & Biases raised $200M at a $1.25B valuation. Hugging Face is valued at $4.5B. Inference infrastructure startups (Modal, Baseten, Fireworks) raised $500M+ combined in 2024-25."
-  },
-  silicon:{
-    challenge:"NVIDIA controls ~80% of training silicon. HBM memory constitutes 30% of hyperscaler component spend — up from 8% in 2022. Custom ASIC development requires $500M+ and 3–5 years.",
-    innovation:"The copper-to-light transition in chip packaging is accelerating. Custom inference ASICs (Etched, d-Matrix) target specific model architectures rather than competing with NVIDIA on general training.",
-    funding:"US chip startups raised $4.7B in 2026 YTD. Cerebras raised $1B, Tenstorrent raised $693M. SK Hynix's HBM near-monopoly is generating record profits."
-  },
-  hardware:{
-    challenge:"Server OEMs are supply-constrained on liquid cooling infrastructure while demand compounds. GPU server configurations change every 12–18 months (H100 → H200 → B200 → GB200), stranding capex in rapidly-depreciating hardware.",
-    innovation:"Bare metal provisioning is evolving beyond PXE boot — Metal3/Ironic-based lifecycle management, GPU health validation, and automated network isolation are becoming standard requirements for AI-optimized infrastructure.",
-    funding:"$4.7B raised by US infrastructure startups in 2026 YTD. Server OEMs (Supermicro, Dell) seeing 2–3x revenue growth driven entirely by GPU server demand."
+function logoEl(name, isVcl) {
+  const color = isVcl ? '#FF5C00' : (LOGO_COLORS[name] || '#57606A');
+  const initials = name.replace(/[^A-Za-z0-9 ]/g,'').split(/\s+/).map(w=>w[0]||'').join('').slice(0,2).toUpperCase() || name.slice(0,2).toUpperCase();
+  // Try favicon
+  const domain = DOMAINS[name];
+  if (domain) {
+    return `<div class="card-logo"><img src="https://www.google.com/s2/favicons?domain=${domain}&sz=32" loading="lazy" onerror="this.style.display='none';this.parentNode.style.background='${color}';this.parentNode.textContent='${initials}'"></div>`;
   }
+  return `<div class="card-logo" style="background:${color}">${initials}</div>`;
+}
+
+const DOMAINS = {
+  'AWS':'aws.amazon.com','Microsoft Azure':'azure.microsoft.com','Google Cloud':'cloud.google.com',
+  'Oracle Cloud':'oracle.com','CoreWeave':'coreweave.com','Lambda':'lambdalabs.com',
+  'Together AI':'together.ai','Nebius':'nebius.com','Crusoe':'crusoe.ai','Vultr':'vultr.com',
+  'RunPod':'runpod.io','Scaleway':'scaleway.com','OVHcloud':'ovhcloud.com',
+  'DigitalOcean':'digitalocean.com','Fluidstack':'fluidstack.io','Nscale':'nscale.ai',
+  'Kubernetes (CNCF)':'kubernetes.io','Red Hat OpenShift':'redhat.com','Rancher (SUSE)':'rancher.com',
+  'vCluster':'vcluster.com','vNode':'vnode.com','vMetal':'vmetal.ai',
+  'NVIDIA DSX':'nvidia.com','KAI Scheduler':'github.com','Run:ai (NVIDIA)':'run.ai',
+  'NVIDIA GPU Operator':'nvidia.com','Kueue':'kueue.sigs.k8s.io','Volcano (CNCF)':'volcano.sh',
+  'Karpenter':'karpenter.sh','k0rdent':'k0rdent.io','Kamaji':'kamaji.clastix.io',
+  'Slurm (SchedMD)':'schedmd.com','Ray (Anyscale)':'ray.io','Slinky (CNCF)':'slinky.io',
+  'SkyPilot':'skypilot.readthedocs.io','dstack':'dstack.ai','Kubeflow':'kubeflow.org',
+  'Temporal':'temporal.io','Inngest':'inngest.com','Daytona':'daytona.io',
+  'Argo CD':'argo-cd.readthedocs.io','Flux':'fluxcd.io','Helm':'helm.sh','Crossplane':'crossplane.io',
+  'Amazon EKS':'aws.amazon.com','Google GKE':'cloud.google.com','Azure AKS':'azure.microsoft.com',
+  'RKE2':'rke2.io','Kubeadm':'kubernetes.io',
+  'OPA / Kyverno':'kyverno.io','Falco':'falco.org','Trivy':'trivy.dev',
+  'Keycloak':'keycloak.org','Okta':'okta.com','Auth0':'auth0.com',
+  'KServe':'kserve.github.io','Ray Serve':'docs.ray.io','Prometheus':'prometheus.io','DCGM':'developer.nvidia.com',
+  'Ceph':'ceph.io','Hedgehog':'hedgehog.tech','DriveNets':'drivenets.com','Aviz Networks':'aviznetworks.com',
+  'Weights & Biases':'wandb.ai','MLflow':'mlflow.org','Comet':'comet.com',
+  'Snorkel':'snorkel.ai','NVIDIA Triton':'nvidia.com','vLLM':'vllm.ai',
+  'NVIDIA Dynamo':'nvidia.com','llm-d (CNCF)':'github.com',
+  'TGI (HuggingFace)':'huggingface.co','SGLang':'sglang.ai',
+  'Modal':'modal.com','Fireworks AI':'fireworks.ai','Baseten':'baseten.co','Replicate':'replicate.com',
+  'FriendliAI':'friendli.ai','Modular':'modular.com',
+  'Arize AI':'arize.com','Datadog':'datadoghq.com','Dynatrace':'dynatrace.com',
+  'Grafana':'grafana.com','Elastic':'elastic.co','Fiddler':'fiddler.ai','Evidently AI':'evidentlyai.com',
+  'WEKA':'weka.io','Vast Data':'vastdata.com','DDN':'ddn.com','Pure Storage':'purestorage.com',
+  'MinIO':'min.io','Databricks':'databricks.com','Snowflake':'snowflake.com',
+  'Turbopuffer':'turbopuffer.com','LanceDB':'lancedb.com','ClickHouse':'clickhouse.com',
+  'SurrealDB':'surrealdb.com','PlanetScale':'planetscale.com',
+  'NVIDIA Mellanox':'nvidia.com','Broadcom':'broadcom.com','Arista Networks':'arista.com',
+  'Cisco':'cisco.com','Akamai':'akamai.com','Coherent':'coherent.com',
+  'Equinix':'equinix.com','Digital Realty':'digitalrealty.com','Vertiv':'vertiv.com',
+  'Schneider Electric':'se.com','Crusoe Energy':'crusoe.ai','Bloom Energy':'bloomenergy.com',
+  'NVIDIA DGX':'nvidia.com','HPE':'hpe.com','Dell':'dell.com','Supermicro':'supermicro.com',
+  'vMetal':'vmetal.ai','Canonical MAAS':'maas.io','Ironic (OpenStack)':'docs.openstack.org',
+  'Netris':'netris.io','Paper Compute':'papercompute.com','Runlayer':'runlayer.com',
+  'OpenAI':'openai.com','Anthropic':'anthropic.com','Google DeepMind':'deepmind.google',
+  'Meta AI':'ai.meta.com','DeepSeek':'deepseek.com','Mistral AI':'mistral.ai',
+  'xAI':'x.ai','Cohere':'cohere.com','Hugging Face':'huggingface.co',
+  'NVIDIA NGC':'catalog.ngc.nvidia.com','Ollama':'ollama.ai',
+  'GitHub Copilot':'github.com','Cursor':'cursor.sh','Cognition':'cognition.ai',
+  'Replit':'replit.com','LangChain':'langchain.com','LlamaIndex':'llamaindex.ai',
+  'CrewAI':'crewai.com','AutoGen':'microsoft.com','Harvey':'harvey.ai','Sierra':'sierra.ai',
+  'Perplexity AI':'perplexity.ai','Abridge':'abridge.com',
+  'SemiAnalysis':'semianalysis.com','The New Stack':'thenewstack.io',
+  'KubeCon / CNCF':'cncf.io','AI Engineer':'ai.engineer','GTC (NVIDIA)':'nvidia.com',
+  'NVIDIA':'nvidia.com','AMD':'amd.com','Intel':'intel.com','Cerebras':'cerebras.ai',
+  'Groq':'groq.com','Tenstorrent':'tenstorrent.com',
+  'Google TPU':'cloud.google.com','AWS Trainium':'aws.amazon.com','Microsoft Maia':'azure.microsoft.com',
+  'SK Hynix':'skhynix.com','Samsung':'samsung.com','Micron':'micron.com',
+};
+
+const TIERS = { dominant:{cls:'tag-dom',label:'Leader'}, major:{cls:'tag-maj',label:'Major'}, emerging:{cls:'tag-em',label:'Emerging'}, startup:{cls:'tag-st',label:'Startup'} };
+const FLAGS  = { us:'🇺🇸', eu:'🇪🇺', apac:'🌏', global:'🌐' };
+
+const REGIONS = {
+  'GitHub Copilot':'us','Cursor':'us','Windsurf':'us','Cognition':'us','Replit':'us',
+  'LangChain':'us','LlamaIndex':'us','CrewAI':'us','AutoGen':'us',
+  'Harvey':'us','Sierra':'us','Perplexity AI':'us','Abridge':'us',
+  'SemiAnalysis':'us','The New Stack':'us','TLDR AI':'us',
+  'KubeCon / CNCF':'global','AI Engineer':'us','GTC (NVIDIA)':'us',
+  'OpenAI':'us','Anthropic':'us','Google DeepMind':'us','Meta AI':'us',
+  'DeepSeek':'apac','xAI':'us','Cohere':'us','Mistral AI':'eu',
+  'Hugging Face':'us','NVIDIA NGC':'us','Ollama':'us',
+  'AWS':'us','Microsoft Azure':'us','Google Cloud':'us','Oracle Cloud':'us',
+  'CoreWeave':'us','Lambda':'us','Together AI':'us','Crusoe':'us','Vultr':'us','RunPod':'us',
+  'Nebius':'eu','Scaleway':'eu','OVHcloud':'eu',
+  'Kubernetes (CNCF)':'global','vCluster':'us','vNode':'us',
+  'Red Hat OpenShift':'us','Rancher (SUSE)':'eu','k0rdent':'global','Kamaji':'eu',
+  'NVIDIA DSX':'us','KAI Scheduler':'us','NVIDIA AICR':'us','NVSentinel':'us',
+  'Run:ai (NVIDIA)':'us','NVIDIA GPU Operator':'us','Kueue':'global','Volcano (CNCF)':'global',
+  'Weights & Biases':'us','MLflow':'global','vLLM':'us',
+  'NVIDIA Triton':'us','NVIDIA Dynamo':'us','llm-d (CNCF)':'global',
+  'Ray (Anyscale)':'us','Modal':'us','Kubeflow':'global',
+  'Arize AI':'us','Datadog':'us',
+  'WEKA':'us','Vast Data':'us','DDN':'us','MinIO':'us','Databricks':'us','Snowflake':'us',
+  'NVIDIA Mellanox':'us','Broadcom':'us','Arista Networks':'us','Coherent':'us',
+  'Lightmatter':'us','Ayar Labs':'us',
+  'NVIDIA':'us','AMD':'us','Intel':'us','Cerebras':'us','Groq':'us','Tenstorrent':'us','Etched':'us',
+  'Google TPU':'us','AWS Trainium':'us','Microsoft Maia':'us',
+  'SK Hynix':'apac','Samsung':'apac','Micron':'us',
+  'NVIDIA DGX':'us','HPE':'us','Dell':'us','Supermicro':'us',
+  'vMetal':'us','NVIDIA Infra Controller':'us','Canonical MAAS':'eu','Ironic (OpenStack)':'global','Netris':'us',
+  'Equinix':'us','Digital Realty':'us','Vantage':'us','QTS (Blackstone)':'us',
+  'Vertiv':'us','Schneider Electric':'eu','CoolIT Systems':'us','Bloom Energy':'us','Crusoe Energy':'us',
+  'SkyPilot':'us','dstack':'eu','Slurm (SchedMD)':'us','Slinky (CNCF)':'global',
+  'Fireworks AI':'us','Baseten':'us','Replicate':'us','Grafana':'global',
+  'Pure Storage':'us','Shadeform':'us','Fluidstack':'eu','Nscale':'eu',
+  'FriendliAI':'us','Modular':'us','Comet':'us','Snorkel':'us',
+  'Dynatrace':'eu','Elastic':'us','Fiddler':'us',
+  'Turbopuffer':'us','LanceDB':'us','ClickHouse':'us','SurrealDB':'global','PlanetScale':'us',
+  'Akamai':'us','Paper Compute':'us','Runlayer':'us',
+  'Temporal':'us','Inngest':'us','Daytona':'eu',
+  'Argo CD':'global','Flux':'global','Helm':'global','Crossplane':'global',
+  'Amazon EKS':'us','Google GKE':'us','Azure AKS':'us','RKE2':'us','Kubeadm':'global',
+  'OPA / Kyverno':'global','Falco':'global','Trivy':'global',
+  'Keycloak':'global','Okta':'us','Auth0':'us',
+  'KServe':'global','Ray Serve':'us','Prometheus':'global','DCGM':'us',
+  'Ceph':'global','Hedgehog':'us','DriveNets':'il','Aviz Networks':'us',
+};
+
+const AUDIENCE_SUBLAYERS = {
+  // AI Developer: building apps/agents on top of models — cloud + orchestration + MLOps
+  'ai-developer': ['cloud','orchestration','mlops'],
+  // AI Builder: building AI infrastructure itself — all infra sublayers
+  'ai-builder':   ['cloud','orchestration','mlops','storage-net','dc-metal'],
+  // Investor/Analyst: full stack, nothing hidden
+  'investor':     null,
+  'all':          null,
 };
 
 const LAYERS = [
-  { id:'analyst', name:'Analyst, Media & Community', color:'#455A64',
-    desc:'Analysts, publications, podcasts, and community voices shaping AI infrastructure discourse',
+  { id:'application', name:'Applications', color:'#5E35B1',
+    desc:'AI products, developer tools, vertical software, agent frameworks',
     subs:[
-      {name:'Analyst Firms',cos:[
-        {n:'SemiAnalysis',    d:'Deep-dive AI infra research, Dylan Patel',        t:'major',   f:true},
-        {n:'Gartner',         d:'Enterprise tech research, Magic Quadrant',         t:'dominant',f:true},
-        {n:'Forrester',       d:'Enterprise tech research, wave reports',           t:'major'},
-        {n:'IDC',             d:'Market intelligence, AI infra sizing',             t:'major'},
+      { name:'AI-Native Developer Tools', cos:[
+        {n:'GitHub Copilot',d:'AI pair programmer, VS Code & JetBrains',t:'dominant',f:true},
+        {n:'Cursor',        d:'AI-native code editor, deep codebase context',t:'major',f:true},
+        {n:'Windsurf',      d:'AI-native IDE by Codeium, agentic coding',t:'emerging'},
+        {n:'Cognition',     d:'Devin — AI software engineering agent',t:'emerging',f:true},
+        {n:'Replit',        d:'AI-powered cloud IDE',t:'major'},
       ]},
-      {name:'Media & Publications',cos:[
-        {n:'The New Stack',   d:'Cloud-native, K8s, platform engineering coverage', t:'major',   f:true},
-        {n:'HPCwire',         d:'HPC, AI compute, data center editorial',           t:'major'},
-        {n:'TLDR AI',         d:'Daily AI newsletter, large developer audience',    t:'emerging',f:true},
-        {n:'CTO Craft',       d:'CTO community, engineering leadership content',    t:'emerging'},
+      { name:'Agent & LLM Frameworks', cos:[
+        {n:'LangChain',  d:'LLM orchestration, LangGraph agents',t:'major',f:true,oss:true},
+        {n:'LlamaIndex', d:'Data framework for LLM apps, RAG',t:'major',f:true,oss:true},
+        {n:'CrewAI',     d:'Multi-agent orchestration',t:'emerging',f:true,oss:true},
+        {n:'AutoGen',    d:'Multi-agent conversational systems (Microsoft)',t:'emerging',oss:true},
       ]},
-      {name:'Conferences & Communities',cos:[
-        {n:'KubeCon / CNCF',  d:'Premier cloud-native conference & community',      t:'dominant',f:true},
-        {n:'MLOps Community', d:'Practitioners community, events, podcast',         t:'emerging'},
-        {n:'AI Engineer',     d:'AI engineering practitioners conference',          t:'emerging',f:true},
+      { name:'Vertical AI', cos:[
+        {n:'Harvey',        d:'AI for legal',t:'emerging',f:true},
+        {n:'Sierra',        d:'AI customer service agents',t:'emerging',f:true},
+        {n:'Perplexity AI', d:'AI answer engine',t:'major',f:true},
+        {n:'Abridge',       d:'AI clinical documentation',t:'emerging'},
+      ]},
+      { name:'Analyst, Media & Community', cos:[
+        {n:'SemiAnalysis',  d:'Deep-dive GPU/AI infra research',t:'major',f:true},
+        {n:'The New Stack', d:'Cloud-native, K8s, platform engineering',t:'major',f:true},
+        {n:'TLDR AI',       d:'Daily AI newsletter',t:'emerging',f:true},
+        {n:'KubeCon / CNCF',d:'Premier cloud-native conference & community',t:'dominant',f:true,oss:true},
+        {n:'AI Engineer',   d:'AI engineering practitioners conference',t:'emerging',f:true},
+        {n:'GTC (NVIDIA)',  d:'NVIDIA annual AI & accelerated computing conf.',t:'major',f:true},
       ]},
     ]
   },
-  { id:'application', name:'AI Application & Developer Layer', color:'#5E35B1',
-    desc:'Frameworks, vector DBs, AI-native developer platforms and tooling',
+  { id:'models', name:'Models', color:'#C2185B',
+    desc:'Foundation models, open-weight releases, model hubs',
     subs:[
-      {name:'AI & Agent Frameworks',cos:[
-        {n:'LangChain',       d:'LLM framework, agents, LangGraph',                t:'major',   f:true},
-        {n:'LlamaIndex',      d:'Data framework, RAG',                             t:'major',   f:true},
-        {n:'CrewAI',          d:'Multi-agent orchestration',                       t:'emerging',f:true},
+      { name:'Frontier Model Labs', cos:[
+        {n:'OpenAI',         d:'GPT-4o, o1/o3, Sora',t:'dominant',f:true},
+        {n:'Anthropic',      d:'Claude 4 family',t:'dominant',f:true},
+        {n:'Google DeepMind',d:'Gemini 2.5, AlphaFold',t:'dominant',f:true},
+        {n:'Meta AI',        d:'Llama 4 open-weight',t:'dominant',f:true,oss:true},
+        {n:'DeepSeek',       d:'R1/V3 — open-weight reasoning',t:'major',f:true,oss:true},
+        {n:'Mistral AI',     d:'European frontier lab, open-weight',t:'major',oss:true},
+        {n:'xAI',            d:'Grok, Colossus 200k GPU cluster',t:'major'},
+        {n:'Cohere',         d:'Enterprise LLMs, RAG-optimized',t:'major'},
       ]},
-      {name:'Vector Databases',cos:[
-        {n:'Pinecone',        d:'Managed vector DB',                               t:'major',   f:true},
-        {n:'Weaviate',        d:'OSS vector DB, hybrid search',                    t:'major',   f:true},
-        {n:'Milvus',          d:'Scalable vector DB',                              t:'major'},
-        {n:'Qdrant',          d:'Rust-native vector search',                       t:'emerging'},
-      ]},
-      {name:'Developer Platforms',cos:[
-        {n:'GitHub Copilot',  d:'AI pair programmer',                              t:'dominant',f:true},
-        {n:'Cursor',          d:'AI-native code editor',                           t:'major',   f:true},
-        {n:'Windsurf',        d:'AI-native IDE by Codeium',                        t:'emerging'},
-        {n:'Replit',          d:'AI-powered cloud IDE',                            t:'major'},
-        {n:'Cognition',       d:'Devin, AI software engineering agent',            t:'emerging'},
-      ]},
-      {name:'Vertical AI',cos:[
-        {n:'Harvey',          d:'AI for legal, enterprise LLM workflows',          t:'emerging',f:true},
-        {n:'Sierra',          d:'AI customer service agents',                      t:'emerging',f:true},
-        {n:'Perplexity AI',   d:'AI-native answer engine',                         t:'major',   f:true},
-        {n:'Open Evidence',   d:'AI for medical evidence and clinical research',   t:'emerging'},
+      { name:'Model Hubs & Local Inference', cos:[
+        {n:'Hugging Face',d:'Model hub, Transformers, datasets',t:'dominant',f:true,oss:true},
+        {n:'NVIDIA NGC',  d:'Pre-trained models, curated GPU containers',t:'major'},
+        {n:'Ollama',      d:'Run LLMs locally, simple CLI',t:'emerging',f:true,oss:true},
       ]},
     ]
   },
-  { id:'models', name:'Foundation Models & Hubs', color:'#C2185B',
-    desc:'Frontier models, open-source hubs, fine-tuning services',
+  { id:'infrastructure', name:'Infrastructure', color:'#1A56DB',
+    desc:'Cloud, orchestration, MLOps, storage, networking',
     subs:[
-      {name:'Frontier Models',cos:[
-        {n:'OpenAI',          d:'GPT-4o, o1/o3, Sora',                            t:'dominant',f:true},
-        {n:'Anthropic',       d:'Claude Opus 4 / Sonnet 4 / Haiku',               t:'dominant',f:true},
-        {n:'Google DeepMind', d:'Gemini 2.5, AlphaFold',                          t:'dominant',f:true},
-        {n:'Meta AI',         d:'Llama 4, open-weight frontier',                  t:'dominant',f:true},
-        {n:'DeepSeek',        d:'R1/V3, open-weight, cost-efficient reasoning',   t:'major',   f:true},
-        {n:'Mistral AI',      d:'EU, open-weight LLMs',                           t:'major'},
-        {n:'xAI',             d:'Grok, Colossus cluster',                         t:'major'},
-        {n:'Cohere',          d:'Enterprise LLMs, RAG',                           t:'major'},
-        {n:'Essential AI',    d:'Founded by Attention Is All You Need co-authors', t:'emerging'},
+      { name:'AI Cloud & Compute', cos:[
+        {n:'AWS',            d:'EC2 P5/Trn2, EKS, SageMaker',t:'dominant',f:true},
+        {n:'Microsoft Azure',d:'ND H100/H200, AKS, Azure OpenAI',t:'dominant',f:true},
+        {n:'Google Cloud',   d:'A3/A4, GKE, TPU, Hypercomputer',t:'dominant',f:true},
+        {n:'CoreWeave',      d:'K8s-native GPU cloud, NVIDIA Elite',t:'major',f:true},
+        {n:'Lambda',         d:'1-Click Clusters, H100/H200',t:'major',f:true},
+        {n:'Together AI',    d:'GPU cloud + inference',t:'major',f:true},
+        {n:'Nebius',         d:'Full-stack AI cloud, K8s + Slurm, EU',t:'major',f:true},
+        {n:'RunPod',         d:'Serverless GPU, community cloud',t:'emerging',f:true},
       ]},
-      {name:'Model Hubs',cos:[
-        {n:'Hugging Face',    d:'Model hub, Transformers, datasets',              t:'dominant',f:true},
-        {n:'NVIDIA NGC',      d:'Pre-trained models, containers',                 t:'major'},
-        {n:'Ollama',          d:'Run LLMs locally',                               t:'emerging',f:true},
+      { name:'Cluster Orchestration & Tenant Isolation', cos:[
+        {n:'Kubernetes (CNCF)', d:'De facto standard, DRA, GPU device plugins',t:'dominant',f:true,oss:true},
+        {n:'vCluster',          d:'Full K8s API per team on shared infra',t:'major',f:true,oss:true,vcl:true},
+        {n:'vNode',             d:'Kernel-native workload sandboxing',t:'emerging',f:true,vcl:true},
+        {n:'Red Hat OpenShift', d:'Enterprise K8s, GPU Operator',t:'major',f:true},
+        {n:'NVIDIA DSX',        d:'AI factory: DSX OS, Sim, MaxLPS',t:'major',f:true},
+        {n:'Run:ai (NVIDIA)',   d:'GPU virtualization, quotas',t:'major',f:true},
+      ]},
+      { name:'MLOps, Training & Inference', cos:[
+        {n:'Weights & Biases',d:'Experiment tracking, evals, registry',t:'major',f:true},
+        {n:'vLLM',            d:'OSS LLM inference, PagedAttention',t:'major',f:true,oss:true},
+        {n:'NVIDIA Triton',   d:'Multi-framework inference server',t:'major',f:true,oss:true},
+        {n:'NVIDIA Dynamo',   d:'Distributed inference, multi-node LLM',t:'emerging',f:true,oss:true},
+        {n:'llm-d (CNCF)',    d:'K8s-native disaggregated LLM inference',t:'startup',f:true,oss:true},
+        {n:'Ray (Anyscale)',  d:'Distributed training + serving',t:'major',f:true,oss:true},
+        {n:'Modal',           d:'Serverless GPU, Python-native',t:'emerging',f:true},
+        {n:'Datadog',         d:'GPU + LLM monitoring',t:'major',f:true},
+      ]},
+      { name:'Storage & Networking', cos:[
+        {n:'WEKA',           d:'Parallel file system, GPU-Direct Storage',t:'major',f:true},
+        {n:'Vast Data',      d:'Universal all-flash storage, AI-native',t:'major',f:true},
+        {n:'MinIO',          d:'S3-compatible OSS object storage',t:'emerging',f:true,oss:true},
+        {n:'NVIDIA Mellanox',d:'InfiniBand, ConnectX-7, Quantum switches',t:'dominant',f:true},
+        {n:'Broadcom',       d:'Tomahawk 6, Jericho3-AI, 1.6Tbps',t:'dominant',f:true},
+        {n:'Arista Networks',d:'Etherlink AI, scale-out networking',t:'major',f:true},
       ]},
     ]
   },
-  { id:'mlops', name:'MLOps, Training & Inference', color:'#00838F',
-    desc:'Model training, serving, experiment tracking, observability',
+  { id:'chips', name:'Chips', color:'#B71C1C',
+    desc:'GPUs, custom ASICs, HBM memory, server systems',
     subs:[
-      {name:'Training & Tracking',cos:[
-        {n:'Weights & Biases', d:'Experiment tracking, evals, registry',          t:'major',   f:true},
-        {n:'MLflow',           d:'OSS ML lifecycle, model registry',              t:'major',   f:true},
-        {n:'Determined AI',    d:'Distributed training, HPO (HPE)',               t:'emerging'},
+      { name:'GPU & Accelerators', cos:[
+        {n:'NVIDIA',     d:'H100/H200/B200/GB200, CUDA, ~80% share',t:'dominant',f:true},
+        {n:'AMD',        d:'MI300X/MI325X, ROCm',t:'major',f:true},
+        {n:'Intel',      d:'Gaudi 3, Ethernet-native',t:'major'},
+        {n:'Cerebras',   d:'Wafer-scale engine',t:'emerging',f:true},
+        {n:'Groq',       d:'LPU, ultra-low latency inference',t:'emerging',f:true},
+        {n:'Google TPU', d:'TPU v6e/v8, JAX/Pathways',t:'major',f:true},
       ]},
-      {name:'Inference & Model Serving',cos:[
-        {n:'NVIDIA Triton',   d:'Multi-framework inference, TensorRT-LLM',        t:'major',   f:true},
-        {n:'vLLM',            d:'OSS LLM inference, PagedAttention',              t:'major',   f:true},
-        {n:'NVIDIA Dynamo',   d:'Distributed inference for multi-node LLM (DSX OS)', t:'emerging',f:true},
-        {n:'TGI (HuggingFace)',d:'Text Generation Inference',                     t:'major'},
-        {n:'llm-d (CNCF)',    d:'K8s-native LLM inference',                      t:'startup', f:true},
-        {n:'Fireworks AI',    d:'Inference platform, compound AI',               t:'emerging'},
-        {n:'Modal',           d:'Serverless GPU, Python-native',                  t:'emerging',f:true},
-        {n:'Baseten',         d:'Inference platform for custom ML models',        t:'emerging'},
-        {n:'Replicate',       d:'Run OSS models via API',                         t:'emerging'},
+      { name:'HBM & Memory', cos:[
+        {n:'SK Hynix',d:'HBM3E leader, ~95% GPU memory share',t:'dominant',f:true},
+        {n:'Samsung',  d:'HBM3E, CXL memory',t:'major'},
+        {n:'Micron',   d:'HBM3E, CXL pooling',t:'major'},
       ]},
-      {name:'Observability & Evaluation',cos:[
-        {n:'Arize AI',        d:'ML observability, LLM tracing & evals',         t:'emerging',f:true},
-        {n:'Datadog',         d:'GPU & LLM monitoring, full-stack observability', t:'major',   f:true},
-        {n:'Grafana',         d:'OSS metrics/logs/traces, widely used in K8s',    t:'major'},
-        {n:'WhyLabs',         d:'ML monitoring, data & model health',             t:'emerging'},
-        {n:'Evidently AI',    d:'OSS ML monitoring, data drift detection',        t:'emerging'},
-      ]},
-      {name:'End-User AI Tooling',cos:[
-        {n:'Jupyter',         d:'Interactive notebooks, ML standard',             t:'dominant',f:true},
-        {n:'Ray',             d:'Distributed train/serve runtime',                t:'major',   f:true},
-        {n:'Run:ai',          d:'Self-service GPU access, workload mgmt',         t:'major',   f:true},
-        {n:'SkyPilot',        d:'Multi-cloud job launcher',                       t:'startup'},
-        {n:'Slinky',          d:'Slurm workloads on K8s',                         t:'startup'},
+      { name:'Server Systems', cos:[
+        {n:'NVIDIA DGX', d:'DGX B200/H100, SuperPOD',t:'dominant',f:true},
+        {n:'HPE',        d:'ProLiant Gen12, Cray EX',t:'major',f:true},
+        {n:'Dell',       d:'PowerEdge AI Factory',t:'major',f:true},
+        {n:'Supermicro', d:'GPU servers, rack-scale',t:'major'},
       ]},
     ]
   },
-  { id:'orchestration', name:'Tenant Isolation & Cluster Orchestration', color:'#FF5C00',
-    desc:'Kubernetes tenant clusters, GPU scheduling, secure runtimes, cluster lifecycle for AI',
-    vcl:true,
+  { id:'energy', name:'Energy', color:'#2E7D32',
+    desc:'Power, cooling, data centers, bare metal provisioning',
     subs:[
-      {name:'vCluster Labs',cos:[
-        {n:'vCluster',        d:'Tenant cluster orchestration — EKS-like managed K8s on any infra',  t:'major',   f:true, self:true},
-        {n:'vNode',           d:'Kernel-native AI workload sandboxing, no micro-VM overhead',        t:'emerging',f:true, self:true},
-        {n:'vMetal',          d:'Bare metal provisioning & lifecycle (Metal3/Ironic, PXE boot)',      t:'emerging',        self:true},
-        {n:'Certified Stacks',d:'Preconfigured AI environments: Run:ai, Ray, Jupyter, Slinky',       t:'emerging',        self:true},
+      { name:'Data Center Operators', cos:[
+        {n:'Equinix',        d:'260+ DCs globally, xScale AI campuses',t:'dominant',f:true},
+        {n:'Digital Realty', d:'300+ DCs, PlatformDIGITAL',t:'dominant',f:true},
+        {n:'Vantage',        d:'Hyperscale campuses, Stargate partner',t:'major'},
+        {n:'QTS (Blackstone)',d:'Mega-campus builds, 1GW+',t:'major'},
       ]},
-      {name:'AI Factory Platforms',cos:[
-        {n:'NVIDIA DSX',      d:'Unified AI factory: DSX OS (KAI Scheduler, Dynamo, AICR, NVSentinel, NVCF) + Reference Designs', t:'major',f:true},
-        {n:'NVIDIA AICR',     d:'AI Cluster Runtime — canonical NVIDIA-accelerated K8s runtime',    t:'emerging'},
-        {n:'NVSentinel',      d:'K8s-native GPU monitoring and fault remediation (DSX OS, OSS)',     t:'emerging'},
-        {n:'KAI Scheduler',   d:'Scalable K8s scheduler for GPU resource allocation (NVIDIA DSX OS, OSS)', t:'emerging',f:true},
+      { name:'Cooling & Power', cos:[
+        {n:'Vertiv',            d:'Liquid cooling, power infra for AI racks',t:'major',f:true},
+        {n:'Schneider Electric',d:'DC power distribution, cooling',t:'major'},
+        {n:'Crusoe Energy',     d:'Stranded gas to AI compute power',t:'emerging',f:true},
+        {n:'Bloom Energy',      d:'Solid oxide fuel cells for DC power',t:'emerging'},
       ]},
-      {name:'Kubernetes Platforms',cos:[
-        {n:'Kubernetes (CNCF)',d:'De facto standard, DRA, GPU plugins',                              t:'dominant',f:true},
-        {n:'Red Hat OpenShift',d:'Enterprise K8s, GPU operator',                                    t:'major',   f:true},
-        {n:'Rancher (SUSE)',  d:'Multi-cluster K8s management',                                      t:'major'},
-        {n:'Kamaji',          d:'OSS hosted control planes, lightweight',                            t:'startup'},
-        {n:'Rafay',           d:'K8s operations platform, enterprise',                               t:'emerging'},
-        {n:'k0rdent',         d:'Cluster lifecycle management, GitOps',                              t:'startup'},
-      ]},
-      {name:'GPU Scheduling',cos:[
-        {n:'Run:ai (NVIDIA)', d:'GPU virtualization, quotas, fractions — acquired by NVIDIA 2024',   t:'major',   f:true},
-        {n:'NVIDIA GPU Operator',d:'GPU lifecycle on K8s',                                          t:'major'},
-        {n:'Kueue (K8s SIG)',  d:'Job queueing, gang scheduling',                                   t:'emerging'},
-        {n:'Volcano (CNCF)',   d:'Batch scheduling, GPU-aware',                                      t:'emerging'},
-        {n:'Karpenter',        d:'K8s node auto-provisioning, GPU-aware',                           t:'emerging'},
-      ]},
-      {name:'Workload Orchestration',cos:[
-        {n:'Ray (Anyscale)',  d:'Distributed compute, train + serve',                               t:'major',   f:true},
-        {n:'Slurm (SchedMD)', d:'HPC job scheduler, research standard',                             t:'major',   f:true},
-        {n:'Slinky (CNCF)',   d:'Slurm-on-K8s bridge',                                              t:'startup'},
-        {n:'Kubeflow',        d:'ML pipelines on K8s',                                              t:'emerging'},
-        {n:'dstack',          d:'OSS ML orchestration, multi-cloud',                                t:'startup'},
-      ]},
-      {name:'FinOps & Cost Optimization',cos:[
-        {n:'CAST AI',         d:'K8s cost optimization, GPU rightsizing',                           t:'emerging'},
-        {n:'Kubecost',        d:'K8s cost monitoring and allocation',                               t:'emerging'},
-        {n:'Spot.io (NetApp)',d:'Spot instance optimization for GPU workloads',                     t:'major'},
-      ]},
-    ]
-  },
-  { id:'cloud', name:'AI Cloud Providers', color:'#1565C0',
-    desc:'GPU cloud platforms delivering compute-as-a-service',
-    subs:[
-      {name:'Hyperscalers',cos:[
-        {n:'AWS',             d:'EC2 P5/Trn2, EKS, SageMaker',                    t:'dominant',f:true},
-        {n:'Microsoft Azure', d:'ND H100/H200, AKS, OpenAI partnership',          t:'dominant',f:true},
-        {n:'Google Cloud',    d:'A3/A4 VMs, GKE, TPU, Hypercomputer',             t:'dominant',f:true},
-        {n:'Oracle Cloud',    d:'BM.GPU, OKE, Superclusters',                     t:'major'},
-      ]},
-      {name:'AI Clouds (GPU-native)',cos:[
-        {n:'CoreWeave',       d:'K8s-native GPU cloud, NVIDIA elite partner',     t:'major',   f:true},
-        {n:'Lambda',          d:'1-Click Clusters, H100/H200',                    t:'major',   f:true},
-        {n:'Together AI',     d:'Training + inference, OSS models',               t:'major',   f:true},
-        {n:'Nebius',          d:'Full-stack AI cloud, K8s/Slurm, EU',             t:'major',   f:true},
-        {n:'Crusoe',          d:'Clean energy AI cloud',                          t:'emerging',f:true},
-        {n:'Vultr',           d:'32 regions, bare-metal GPUs',                    t:'major'},
-        {n:'Cirrascale',      d:'Dedicated GPU clusters',                         t:'emerging'},
-      ]},
-      {name:'GPU Marketplaces',cos:[
-        {n:'RunPod',          d:'Serverless GPU, community cloud',                t:'emerging',f:true},
-        {n:'Vast.ai',         d:'GPU marketplace, spot pricing',                  t:'emerging'},
-        {n:'Shadeform',       d:'GPU aggregator, 15+ providers',                  t:'startup'},
-        {n:'Fluidstack',      d:'Distributed GPU cloud',                          t:'startup'},
-        {n:'SF Compute',      d:'H100 clusters, simple API',                      t:'startup'},
-      ]},
-      {name:'Sovereign & Regional',cos:[
-        {n:'Scaleway',        d:'EU sovereign AI cloud',                          t:'emerging',f:true},
-        {n:'OVHcloud',        d:'EU-based, data sovereignty',                     t:'major',   f:true},
-        {n:'Nscale',          d:'EU AI cloud, GPU infrastructure',                t:'emerging'},
-        {n:'DigitalOcean',    d:'Developer cloud, GPU instances',                 t:'major'},
-      ]},
-    ]
-  },
-  { id:'storage', name:'Storage & Data Infrastructure', color:'#2E7D32',
-    desc:'High-performance parallel storage and data pipelines for AI',
-    subs:[
-      {name:'AI-Optimized Storage',cos:[
-        {n:'WEKA',            d:'Parallel file system, GPU-direct storage',        t:'major',   f:true},
-        {n:'Vast Data',       d:'Universal storage, disaggregated',               t:'major',   f:true},
-        {n:'DDN',             d:'AI400X, Lustre-based, HPC heritage',             t:'major'},
-        {n:'Pure Storage',    d:'FlashBlade, AI-Ready Infrastructure',            t:'major'},
-        {n:'MinIO',           d:'S3-compatible object storage, OSS',              t:'emerging',f:true},
-      ]},
-      {name:'Data Platforms',cos:[
-        {n:'Databricks',      d:'Lakehouse, Unity Catalog, MLflow',               t:'major',   f:true},
-        {n:'Snowflake',       d:'Data cloud, Cortex AI',                          t:'major',   f:true},
-      ]},
-    ]
-  },
-  { id:'networking', name:'Networking & Interconnect', color:'#E65100',
-    desc:'High-speed fabrics, switches, and interconnects for multi-GPU clusters',
-    subs:[
-      {name:'Network Silicon & Switches',cos:[
-        {n:'NVIDIA Mellanox', d:'InfiniBand, ConnectX-7, Quantum-X800',            t:'dominant',f:true},
-        {n:'Broadcom',        d:'Tomahawk 6, Jericho3-AI, 1.6Tbps',              t:'dominant',f:true},
-        {n:'Arista Networks', d:'Etherlink AI, high-radix spine-leaf',            t:'major',   f:true},
-        {n:'Cisco',           d:'Silicon One, AI-optimized Ethernet',             t:'major'},
-      ]},
-      {name:'Optical & Interconnect',cos:[
-        {n:'Coherent',        d:'800G/1.6T optical transceivers',                 t:'major',   f:true},
-        {n:'Lightmatter',     d:'Photonic interconnect for AI',                   t:'startup'},
-        {n:'Ayar Labs',       d:'Optical I/O chiplets, CXL',                     t:'startup'},
-      ]},
-    ]
-  },
-  { id:'datacenter', name:'Data Center & Physical Infra', color:'#BF360C',
-    desc:'Power, cooling, colocation for AI compute at scale',
-    subs:[
-      {name:'Colocation & DC Operators',cos:[
-        {n:'Equinix',         d:'260+ DCs globally, xScale AI',                   t:'dominant',f:true},
-        {n:'Digital Realty',  d:'300+ DCs, PlatformDIGITAL',                     t:'dominant',f:true},
-        {n:'Vantage Data Centers',d:'Hyperscale campuses, Stargate',              t:'major'},
-        {n:'QTS (Blackstone)',d:'Mega-campus builds, 1GW+',                      t:'major'},
-      ]},
-      {name:'Cooling & Power',cos:[
-        {n:'Vertiv',          d:'Liquid cooling, thermal, power infrastructure',  t:'major',   f:true},
-        {n:'Schneider Electric',d:'DC power, cooling, software',                 t:'major'},
-        {n:'CoolIT Systems',  d:'Direct liquid cooling for AI racks',             t:'emerging'},
-        {n:'Crusoe Energy',   d:'Flared gas to AI compute',                       t:'emerging'},
-        {n:'Bloom Energy',    d:'Solid oxide fuel cells for data centers',        t:'emerging'},
-      ]},
-    ]
-  },
-  { id:'hardware', name:'Hardware Systems & Bare Metal', color:'#D84315',
-    desc:'Bare metal GPU/CPU servers, storage & networking devices, machine lifecycle',
-    subs:[
-      {name:'Server OEMs',cos:[
-        {n:'NVIDIA DGX',      d:'DGX B200/H100, SuperPOD, turnkey AI systems',    t:'dominant',f:true},
-        {n:'HPE',             d:'ProLiant, Cray EX, AI servers',                  t:'major',   f:true},
-        {n:'Dell',            d:'PowerEdge, AI Factory',                          t:'major',   f:true},
-        {n:'Supermicro',      d:'GPU servers, liquid-cooled, rack-scale',         t:'major'},
-      ]},
-      {name:'Bare Metal Provisioning',cos:[
-        {n:'vMetal',          d:'Bare metal provisioning & lifecycle for AI infra (Metal3/Ironic)', t:'emerging',f:true,self:true},
-        {n:'NVIDIA Infra Controller',d:'Bare-metal provisioning for multi-tenant GPU infra (DSX OS, OSS)', t:'emerging'},
-        {n:'Canonical MAAS',  d:'Metal as a Service',                             t:'emerging'},
-        {n:'Ironic (OpenStack)',d:'Bare metal provisioning service, OSS',         t:'emerging'},
-      ]},
-      {name:'Network Automation',cos:[
-        {n:'Netris',          d:'Automated network isolation for tenant clusters', t:'emerging',f:true},
-        {n:'NVIDIA Cumulus',  d:'Linux network OS for switches',                  t:'major'},
-        {n:'SONiC',           d:'OSS network OS, Azure-originated',               t:'emerging'},
-      ]},
-    ]
-  },
-  { id:'silicon', name:'Silicon & Accelerators', color:'#B71C1C',
-    desc:'GPUs, TPUs, custom ASICs powering training and inference',
-    subs:[
-      {name:'GPU & Accelerator Vendors',cos:[
-        {n:'NVIDIA',          d:'H100/H200/B200/GB200, CUDA, ~80% market share',  t:'dominant',f:true},
-        {n:'AMD',             d:'MI300X/MI325X, ROCm, inference growth',          t:'major',   f:true},
-        {n:'Intel',           d:'Gaudi 3, Ethernet-native, enterprise',           t:'major'},
-        {n:'Cerebras',        d:'Wafer-scale engine, single-chip',                t:'emerging',f:true},
-        {n:'Groq',            d:'LPU inference, ultra-low latency',               t:'emerging'},
-        {n:'Tenstorrent',     d:'RISC-V AI accelerators',                         t:'emerging'},
-        {n:'Etched',          d:'Sohu: transformer-specific ASIC',                t:'startup'},
-      ]},
-      {name:'Hyperscaler Custom Silicon',cos:[
-        {n:'Google TPU',      d:'TPU v6e/v8, JAX/Pathways ecosystem',             t:'major',   f:true},
-        {n:'AWS Trainium',    d:'Trainium2, Inferentia2, NeuronSDK',              t:'major'},
-        {n:'Microsoft Maia',  d:'Maia 100, Azure-integrated chip',                t:'major'},
-      ]},
-      {name:'HBM & Memory',cos:[
-        {n:'SK Hynix',        d:'HBM3E leader, ~95% market share',                t:'dominant',f:true},
-        {n:'Samsung',         d:'HBM3E, CXL memory',                              t:'major'},
-        {n:'Micron',          d:'HBM3E, CXL pooling',                             t:'major'},
+      { name:'Bare Metal Provisioning', cos:[
+        {n:'vMetal',                d:'Bare metal provisioning & lifecycle (Metal3/Ironic)',t:'emerging',f:true,vcl:true},
+        {n:'NVIDIA Infra Controller',d:'Bare-metal provisioning, multi-tenant GPU infra',t:'emerging',oss:true},
+        {n:'Canonical MAAS',        d:'Metal as a Service',t:'emerging'},
+        {n:'Ironic (OpenStack)',     d:'OSS bare metal provisioning',t:'emerging',oss:true},
+        {n:'Netris',                d:'Network automation for tenant cluster environments',t:'emerging',f:true},
       ]},
     ]
   },
 ];
 
-/* ─────────────────────────────────────────────
-   STATE
-───────────────────────────────────────────── */
-let mode = 'overview';
-let audience = 'all';
-let region = 'all';
-let search = '';
-const expanded = new Set(['orchestration','cloud','mlops']);
+const INFRA_SUBLAYERS = [
+  { id:'cloud', name:'AI Cloud & Compute', icon:'☁️',
+    desc:'Hyperscalers, GPU-native clouds, sovereign clouds, and GPU marketplaces',
+    subs:[
+      { name:'Hyperscalers', cos:[
+        {n:'AWS',            d:'EC2 P5/Trn2, EKS, SageMaker. Broadest AI service portfolio',t:'dominant',f:true},
+        {n:'Microsoft Azure',d:'ND H100/H200, AKS, Azure OpenAI Service',t:'dominant',f:true},
+        {n:'Google Cloud',   d:'A3/A4, GKE, TPU, Hypercomputer',t:'dominant',f:true},
+        {n:'Oracle Cloud',   d:'BM.GPU bare-metal, OKE, RDMA-native',t:'major'},
+      ]},
+      { name:'GPU-Native AI Clouds', cos:[
+        {n:'CoreWeave',  d:'K8s-native GPU cloud, NVIDIA Elite partner',t:'major',f:true},
+        {n:'Lambda',     d:'1-Click Clusters, H100/H200, NVIDIA NCP',t:'major',f:true},
+        {n:'Together AI',d:'GPU cloud + inference, strong OSS model support',t:'major',f:true},
+        {n:'Nebius',     d:'Full-stack AI cloud, K8s + Slurm, EU-HQ',t:'major',f:true},
+        {n:'Crusoe',     d:'Clean energy GPU cloud',t:'emerging',f:true},
+        {n:'Vultr',      d:'32-region GPU cloud, bare metal',t:'major'},
+        {n:'RunPod',     d:'Serverless GPU, community cloud',t:'emerging',f:true},
+        {n:'Fluidstack', d:'Distributed GPU cloud, multi-region',t:'startup'},
+        {n:'Shadeform',  d:'GPU aggregator across 15+ providers',t:'startup'},
+        {n:'Paper Compute',d:'GPU cloud, simple API and developer experience',t:'startup'},
+        {n:'Runlayer',   d:'GPU cloud infrastructure for AI workloads',t:'startup'},
+      ]},
+      { name:'Sovereign & Regional', cos:[
+        {n:'Scaleway',     d:'EU sovereign AI cloud, GPU instances, K8s',t:'emerging',f:true},
+        {n:'OVHcloud',     d:'European cloud, data sovereignty',t:'major',f:true},
+        {n:'Nscale',       d:'European AI cloud, GPU infrastructure',t:'emerging'},
+        {n:'DigitalOcean', d:'Developer-focused cloud, GPU droplets',t:'major'},
+      ]},
+    ]
+  },
+  { id:'orchestration', name:'Cluster Orchestration & Tenant Isolation', icon:'🏗️',
+    desc:'Kubernetes platforms, tenant cluster orchestration, GPU scheduling, AI factory software',
+    subs:[
+      { name:'Kubernetes Platforms', cos:[
+        {n:'Kubernetes (CNCF)',d:'De facto standard, DRA, GPU device plugins',t:'dominant',f:true,oss:true},
+        {n:'Red Hat OpenShift',d:'Enterprise K8s, GPU Operator, security hardening',t:'major',f:true},
+        {n:'Amazon EKS',       d:'Managed K8s on AWS, widely adopted in enterprise',t:'major',f:true},
+        {n:'Google GKE',       d:'Managed K8s on GCP, Autopilot mode',t:'major',f:true},
+        {n:'Azure AKS',        d:'Managed K8s on Azure, GPU node pools',t:'major',f:true},
+        {n:'Rancher (SUSE)',   d:'Multi-cluster K8s management',t:'major'},
+        {n:'RKE2',             d:'SUSE Rancher K8s, security-hardened, FIPS-compliant',t:'emerging',oss:true},
+        {n:'Kamaji',           d:'OSS hosted control planes',t:'startup',oss:true},
+        {n:'k0rdent',          d:'Cluster lifecycle management, GitOps',t:'startup',oss:true},
+        {n:'Rafay',            d:'K8s operations platform, enterprise',t:'emerging'},
+        {n:'Kubeadm',          d:'Bootstrap tool for K8s clusters, OSS standard',t:'major',oss:true},
+      ]},
+      { name:'GitOps & Delivery', cos:[
+        {n:'Argo CD',          d:'Declarative GitOps continuous delivery for Kubernetes',t:'major',f:true,oss:true},
+        {n:'Flux',             d:'CNCF GitOps toolkit for Kubernetes',t:'major',f:true,oss:true},
+        {n:'Helm',             d:'Kubernetes package manager, chart standard',t:'dominant',f:true,oss:true},
+        {n:'Crossplane',       d:'OSS control plane framework, provision infra from K8s',t:'emerging',f:true,oss:true},
+      ]},
+      { name:'Tenant Cluster Orchestration', cos:[
+        {n:'vCluster',d:'Full K8s API server per team on shared infra. OSS, GPU-native',t:'major',f:true,oss:true,vcl:true},
+        {n:'vNode',   d:'Kernel-native workload sandboxing, Linux user namespaces, no VM overhead',t:'emerging',f:true,vcl:true},
+      ]},
+      { name:'AI Factory Platforms', cos:[
+        {n:'NVIDIA DSX',           d:'Unified AI factory: DSX OS, Sim, MaxLPS, Reference Designs',t:'major',f:true},
+        {n:'KAI Scheduler',        d:'NVIDIA OSS K8s scheduler, topology-aware GPU placement',t:'emerging',f:true,oss:true},
+        {n:'NVIDIA AICR',          d:'AI Cluster Runtime — canonical NVIDIA-accelerated K8s',t:'emerging',oss:true},
+        {n:'NVSentinel',           d:'K8s-native GPU health monitoring and fault remediation',t:'emerging',oss:true},
+        {n:'NVIDIA Infra Controller',d:'Bare-metal provisioning for multi-tenant GPU infra (DSX OS)',t:'emerging',oss:true},
+      ]},
+      { name:'GPU Scheduling', cos:[
+        {n:'Run:ai (NVIDIA)',    d:'GPU virtualization, fractional GPUs, quota mgmt',t:'major',f:true},
+        {n:'NVIDIA GPU Operator',d:'Automates GPU driver/plugin lifecycle on K8s',t:'major',oss:true},
+        {n:'Kueue',              d:'K8s-native job queueing and gang scheduling',t:'emerging',oss:true},
+        {n:'Volcano (CNCF)',     d:'GPU-aware batch scheduling for Kubernetes',t:'emerging',oss:true},
+        {n:'Karpenter',          d:'K8s node auto-provisioner, GPU-aware, spot-friendly',t:'emerging',oss:true},
+      ]},
+      { name:'Security, Policy & Identity', cos:[
+        {n:'OPA / Kyverno',    d:'Policy engine and admission controller for Kubernetes',t:'major',f:true,oss:true},
+        {n:'Falco',            d:'OSS runtime security and threat detection for K8s',t:'major',f:true,oss:true},
+        {n:'Trivy',            d:'OSS container and IaC vulnerability scanner',t:'major',f:true,oss:true},
+        {n:'Keycloak',         d:'OSS identity and access management, SSO',t:'major',f:true,oss:true},
+        {n:'Okta',             d:'Enterprise identity platform, workforce and customer IAM',t:'dominant',f:true},
+        {n:'Auth0',            d:'Developer-friendly identity platform (Okta)',t:'major'},
+      ]},
+      { name:'Workload Orchestration', cos:[
+        {n:'Slurm (SchedMD)',d:'HPC job scheduler, research standard',t:'major',f:true},
+        {n:'Slinky (CNCF)', d:'Bridge between Slurm and Kubernetes',t:'startup',oss:true},
+        {n:'Ray (Anyscale)',d:'Distributed compute for training and serving',t:'major',f:true,oss:true},
+        {n:'SkyPilot',      d:'Multi-cloud job launcher, least-cost spot',t:'startup',oss:true},
+        {n:'dstack',        d:'OSS ML orchestration for multi-cloud GPU',t:'startup',oss:true},
+        {n:'Kubeflow',      d:'ML pipelines on Kubernetes',t:'emerging',oss:true},
+        {n:'Temporal',      d:'Durable workflow orchestration for AI agent pipelines',t:'emerging',f:true},
+        {n:'Inngest',       d:'Event-driven workflow platform for agentic workloads',t:'startup',f:true},
+        {n:'Daytona',       d:'Development environment orchestration',t:'startup'},
+      ]},
+    ]
+  },
+  { id:'mlops', name:'MLOps, Training & Inference', icon:'⚙️',
+    desc:'Experiment tracking, distributed training, inference serving, observability',
+    subs:[
+      { name:'Training & Experiment Tracking', cos:[
+        {n:'Weights & Biases',d:'Experiment tracking, evals, registry. MLOps standard',t:'major',f:true},
+        {n:'MLflow',          d:'OSS ML lifecycle — tracking, registry, projects',t:'major',f:true,oss:true},
+        {n:'Comet',           d:'ML experiment tracking and model monitoring',t:'emerging',f:true},
+        {n:'Snorkel',         d:'Programmatic data labeling and training data creation',t:'emerging',f:true},
+        {n:'Determined AI',   d:'Distributed training platform (HPE)',t:'emerging'},
+      ]},
+      { name:'Inference & Model Serving', cos:[
+        {n:'NVIDIA Triton',   d:'Multi-framework inference server, TensorRT-LLM',t:'major',f:true,oss:true},
+        {n:'vLLM',            d:'OSS LLM inference, PagedAttention',t:'major',f:true,oss:true},
+        {n:'NVIDIA Dynamo',   d:'Distributed inference for multi-node LLM (DSX OS)',t:'emerging',f:true,oss:true},
+        {n:'llm-d (CNCF)',    d:'K8s-native disaggregated LLM inference',t:'startup',f:true,oss:true},
+        {n:'KServe',          d:'K8s-native model inference platform, serverless serving',t:'major',f:true,oss:true},
+        {n:'Ray Serve',       d:'Scalable model serving built on Ray',t:'major',f:true,oss:true},
+        {n:'FriendliAI',      d:'LLM inference optimization, token generation speed',t:'emerging',f:true},
+        {n:'Modular',         d:'MAX inference engine and compiler stack',t:'emerging',f:true},
+        {n:'TGI (HuggingFace)',d:'Text Generation Inference for HF models',t:'major',oss:true},
+        {n:'SGLang',          d:'Fast LLM inference, structured generation',t:'emerging',oss:true},
+        {n:'Modal',           d:'Serverless GPU, Python-native, fast cold start',t:'emerging',f:true},
+        {n:'Fireworks AI',    d:'Inference platform, compound AI systems',t:'emerging'},
+        {n:'Baseten',         d:'Inference platform for custom ML models',t:'emerging'},
+        {n:'Replicate',       d:'Run OSS models via API',t:'emerging'},
+      ]},
+      { name:'Observability & Evaluation', cos:[
+        {n:'Arize AI',    d:'ML observability, LLM tracing, evals',t:'emerging',f:true},
+        {n:'Datadog',     d:'GPU + LLM monitoring, full-stack observability',t:'major',f:true},
+        {n:'Dynatrace',   d:'Full-stack AI observability, LLM monitoring',t:'major',f:true},
+        {n:'Prometheus',  d:'OSS metrics and alerting, K8s monitoring standard',t:'dominant',f:true,oss:true},
+        {n:'Grafana',     d:'OSS metrics, logs, traces. K8s infra standard',t:'major',oss:true},
+        {n:'DCGM',        d:'NVIDIA Data Center GPU Manager — GPU telemetry and health',t:'major',f:true,oss:true},
+        {n:'Elastic',     d:'Search and observability for AI infra log pipelines',t:'major',f:true},
+        {n:'Fiddler',     d:'ML monitoring and explainability',t:'emerging'},
+        {n:'Evidently AI',d:'OSS ML monitoring, data drift, model health',t:'emerging',oss:true},
+      ]},
+    ]
+  },
+  { id:'storage-net', name:'Storage & Networking', icon:'💾',
+    desc:'Parallel storage, object storage, vector databases, high-speed interconnects',
+    subs:[
+      { name:'AI-Optimized Storage', cos:[
+        {n:'WEKA',       d:'Parallel file system with GPU-Direct Storage',t:'major',f:true},
+        {n:'Vast Data',  d:'Universal disaggregated all-flash, AI-native',t:'major',f:true},
+        {n:'DDN',        d:'AI400X, Lustre-based, deep HPC heritage',t:'major'},
+        {n:'Pure Storage',d:'FlashBlade for AI training',t:'major'},
+        {n:'MinIO',      d:'S3-compatible OSS object storage',t:'emerging',f:true,oss:true},
+        {n:'Ceph',       d:'OSS distributed storage — object, block, and file',t:'major',f:true,oss:true},
+        {n:'Databricks', d:'Lakehouse platform, Unity Catalog, MLflow',t:'major',f:true},
+        {n:'Snowflake',  d:'Data cloud with Cortex AI, vector search',t:'major'},
+      ]},
+      { name:'Vector & Analytical Databases', cos:[
+        {n:'Turbopuffer', d:'Vector search optimized for cold storage at scale',t:'startup',f:true},
+        {n:'LanceDB',     d:'OSS vector DB on Lance columnar format',t:'startup',f:true,oss:true},
+        {n:'ClickHouse',  d:'OLAP DB for ML observability and log analytics',t:'major',f:true,oss:true},
+        {n:'SurrealDB',   d:'Multi-model OSS database, AI backends',t:'startup',oss:true},
+        {n:'PlanetScale', d:'Serverless MySQL, metadata and feature stores',t:'emerging'},
+      ]},
+      { name:'Network Silicon & Switches', cos:[
+        {n:'NVIDIA Mellanox',d:'InfiniBand, ConnectX-7, Quantum-X800. Dominant HPC interconnect',t:'dominant',f:true},
+        {n:'Broadcom',      d:'Tomahawk 6, Jericho3-AI, 1.6Tbps Ethernet AI fabric',t:'dominant',f:true},
+        {n:'Arista Networks',d:'Etherlink AI switches, AI/ML scale-out',t:'major',f:true},
+        {n:'Cisco',         d:'Silicon One, AI-optimized Ethernet fabric',t:'major'},
+        {n:'Akamai',        d:'Edge compute and CDN, AI inference delivery',t:'major',f:true},
+        {n:'Hedgehog',      d:'Open network fabric for AI/ML clusters',t:'startup',f:true,oss:true},
+        {n:'DriveNets',     d:'Disaggregated network OS, cloud-scale routing',t:'emerging',f:true},
+        {n:'Aviz Networks', d:'AI-native network observability and analytics',t:'startup',f:true},
+      ]},
+      { name:'Optical & Emerging Interconnect', cos:[
+        {n:'Coherent',    d:'800G/1.6T optical transceivers',t:'major',f:true},
+        {n:'Lightmatter', d:'Photonic interconnect chips for AI',t:'startup'},
+        {n:'Ayar Labs',   d:'Optical I/O chiplets for in-package photonics',t:'startup'},
+      ]},
+    ]
+  },
+  { id:'dc-metal', name:'Data Center & Bare Metal', icon:'🏢',
+    desc:'Colocation operators, cooling, power, server OEMs, bare metal provisioning',
+    subs:[
+      { name:'Colocation & DC Operators', cos:[
+        {n:'Equinix',         d:'260+ DCs globally, xScale AI campuses',t:'dominant',f:true},
+        {n:'Digital Realty',  d:'300+ DCs, PlatformDIGITAL, hyperscale builds',t:'dominant',f:true},
+        {n:'Vantage',         d:'Hyperscale campuses, Stargate partner',t:'major'},
+        {n:'QTS (Blackstone)',d:'Mega-campus builds, 1GW+ pipeline',t:'major'},
+      ]},
+      { name:'Cooling & Power', cos:[
+        {n:'Vertiv',            d:'Liquid cooling, thermal mgmt, power infra for AI racks',t:'major',f:true},
+        {n:'Schneider Electric',d:'DC power distribution, cooling, DCIM',t:'major'},
+        {n:'CoolIT Systems',    d:'Direct liquid cooling for AI racks',t:'emerging'},
+        {n:'Crusoe Energy',     d:'Stranded/flared gas converted to AI compute power',t:'emerging',f:true},
+        {n:'Bloom Energy',      d:'Solid oxide fuel cells for clean DC power',t:'emerging'},
+      ]},
+      { name:'Server OEMs', cos:[
+        {n:'NVIDIA DGX', d:'DGX B200/H100, SuperPOD, turnkey AI factory systems',t:'dominant',f:true},
+        {n:'HPE',        d:'ProLiant Gen12, Cray EX, AI-optimized servers',t:'major',f:true},
+        {n:'Dell',       d:'PowerEdge AI Factory, liquid-cooled GPU servers',t:'major',f:true},
+        {n:'Supermicro', d:'GPU servers, rack-scale, fast SKU cycles',t:'major'},
+      ]},
+      { name:'Bare Metal Provisioning', cos:[
+        {n:'vMetal',                d:'Bare metal provisioning & lifecycle (Metal3/Ironic, PXE)',t:'emerging',f:true,vcl:true},
+        {n:'NVIDIA Infra Controller',d:'Bare-metal provisioning for multi-tenant GPU infra',t:'emerging',oss:true},
+        {n:'Canonical MAAS',        d:'Metal as a Service — automated server provisioning',t:'emerging'},
+        {n:'Ironic (OpenStack)',     d:'OSS bare metal provisioning service',t:'emerging',oss:true},
+        {n:'Netris',                d:'Network automation for tenant cluster environments',t:'emerging',f:true},
+      ]},
+    ]
+  },
+];
 
-/* ─────────────────────────────────────────────
-   INIT COUNTS
-───────────────────────────────────────────── */
-let totalCos = 0, totalOSS = 0;
-LAYERS.forEach(l => l.subs.forEach(s => s.cos.forEach(c => {
-  totalCos++;
-  if ((CM[c.n] || {}).oss) totalOSS++;
-})));
-document.getElementById('heroCoCount').textContent = totalCos;
+const SUBLAYER_INTEL = {
+  cloud:{
+    challenge:"GPU availability constraints are easing as new supply comes online, but operational maturity varies dramatically. Many GPU clouds still lack managed Kubernetes, self-service environments, and day-2 ops that enterprise AI teams expect. Pricing pressure from hyperscalers is intensifying, squeezing mid-tier providers on margin.",
+    innovation:"GPU-native clouds are building vertically integrated stacks: compute + storage + orchestration + ML tooling. CoreWeave's K8s-first architecture and Lambda's 1-Click Clusters point toward a future where the cloud and the platform are inseparable. Sovereign AI clouds in Europe are gaining ground as data residency requirements tighten.",
+    capital:"CoreWeave raised $7.5B in 2024 at a ~$19B valuation and IPO'd in 2025. Together AI raised $305M. Nebius listed on Nasdaq. The GPU cloud market is bifurcating: hyperscalers on price and breadth, specialists on performance, developer experience, and compliance."
+  },
+  orchestration:{
+    challenge:"GPU clusters are stateful, multi-tenant environments with no shared-tenancy primitives built in. Kubernetes was designed for stateless workloads — GPU memory, NUMA topology, InfiniBand fabric, and MIG partitioning all require custom operators. Most teams are still duct-taping namespaces together.",
+    innovation:"The shift from namespace-level to control-plane-level tenant isolation is underway. vCluster gives each team a full Kubernetes API server, enabling true self-service without blast radius. NVIDIA's DSX OS (KAI Scheduler, Dynamo, AICR) is converging GPU scheduling with K8s-native primitives into a coherent AI factory stack.",
+    capital:"Run:ai acquired by NVIDIA for ~$700M in 2024. Significant NVIDIA investment in DSX OS and open-source GPU scheduling primitives. Kubernetes-native GPU orchestration is becoming table stakes — value is moving to the platform layer and developer experience."
+  },
+  mlops:{
+    challenge:"LLM inference at scale is architecturally different from traditional ML serving. PagedAttention, speculative decoding, and continuous batching require infra teams to understand model internals. Most MLOps tooling was built for batch training, not interactive inference.",
+    innovation:"Kubernetes-native inference is emerging as a category. llm-d (CNCF) and NVIDIA Dynamo bring distributed LLM serving into the K8s control plane. Disaggregated prefill/decode is the next architectural shift — splitting compute-heavy and memory-heavy inference phases across different hardware.",
+    capital:"Weights & Biases raised $200M at a $1.25B valuation. Hugging Face is valued at $4.5B. Inference infrastructure startups (Modal, Baseten, Fireworks, FriendliAI) raised $500M+ combined in 2024–25. Modular raised $100M to build the MAX inference compiler stack."
+  },
+  'storage-net':{
+    challenge:"AI training workloads require storage throughput that most enterprise infrastructure can't deliver — hundreds of GB/s per node during data-parallel training. Vector database performance and cost at billion-scale is still an unsolved problem for many teams.",
+    innovation:"GPU-Direct Storage (bypassing the CPU for data transfer) is becoming standard on high-performance clusters. New vector database architectures (Turbopuffer's cold storage, LanceDB's columnar format) are attacking the cost problem from a different angle. 800G and 1.6T optical transceivers are enabling next-gen AI fabric.",
+    capital:"WEKA raised $140M in 2024. Vast Data raised $118M at a $9.1B valuation. Turbopuffer and LanceDB are early-stage but gaining significant developer adoption. InfiniBand remains dominant for training; Ethernet is winning for inference-at-scale."
+  },
+  'dc-metal':{
+    challenge:"Server OEMs are supply-constrained on liquid cooling while demand compounds. GPU server configurations change every 12–18 months (H100 → H200 → B200 → GB200), stranding capex in rapidly-depreciating hardware. Power availability is the single biggest constraint on new AI data center capacity globally.",
+    innovation:"Bare metal provisioning is evolving beyond PXE boot — Metal3/Ironic-based lifecycle management, GPU health validation, and automated network isolation are becoming standard requirements. Direct liquid cooling is moving from exception to default in new AI rack designs.",
+    capital:"$4.7B raised by US infrastructure startups in 2026 YTD. Server OEMs (Supermicro, Dell) seeing 2–3x revenue growth. Data center REITs (Equinix, Digital Realty) trading at record multiples as AI demand backlog extends 3–5 years."
+  }
+};
+
+/* ════ STATE ════ */
+let mode='overview', audience='all', region='all', search='', tier='all';
+const expanded = new Set(['orchestration','mlops']);
+
+/* ════ COUNTS ════ */
+const allCos = new Set();
+let totalOSS = 0;
+LAYERS.forEach(l=>l.subs.forEach(s=>s.cos.forEach(c=>{allCos.add(c.n);if(c.oss)totalOSS++})));
+INFRA_SUBLAYERS.forEach(l=>l.subs.forEach(s=>s.cos.forEach(c=>allCos.add(c.n))));
+document.getElementById('heroCoCount').textContent = allCos.size;
 document.getElementById('heroOSSCount').textContent = totalOSS;
-document.getElementById('coCount').textContent = totalCos + ' companies · ' + totalOSS + ' OSS';
+document.getElementById('coCount').textContent = allCos.size+' companies · '+totalOSS+' OSS';
 
-/* ─────────────────────────────────────────────
-   CONTROLS
-───────────────────────────────────────────── */
-function setMode(m) {
-  mode = m;
-  document.getElementById('btn-ov').classList.toggle('active', m === 'overview');
-  document.getElementById('btn-ref').classList.toggle('active', m === 'reference');
-  document.getElementById('legendRow').style.display = m === 'reference' ? '' : 'none';
-  document.getElementById('regionStrip').classList.toggle('visible', m === 'reference');
+/* ════ CONTROLS ════ */
+function setMode(m){
+  mode=m;
+  document.getElementById('btn-ov').classList.toggle('active',m==='overview');
+  document.getElementById('btn-ref').classList.toggle('active',m==='reference');
+  document.getElementById('legendRow').classList.toggle('show',m==='reference');
+  document.getElementById('regionBar').classList.toggle('visible',m==='reference');
   render();
 }
-function setAudience(a) {
-  audience = a;
-  document.querySelectorAll('.filter-btn').forEach(b => b.classList.toggle('active', b.dataset.aud === a));
+function setAudience(a){
+  audience=a;
+  document.querySelectorAll('[data-aud]').forEach(b=>b.classList.toggle('active',b.dataset.aud===a));
   render();
 }
-function setRegion(r) {
-  region = r;
-  document.querySelectorAll('.reg-btn').forEach(b => b.classList.toggle('active', b.dataset.reg === r));
-  if (r !== 'all') LAYERS.forEach(l => expanded.add(l.id));
+function setTier(t){
+  tier=t;
+  document.querySelectorAll('[data-tier]').forEach(b=>b.classList.toggle('active',b.dataset.tier===t));
+  if(t!=='all'){if(mode==='overview')setMode('reference');INFRA_SUBLAYERS.forEach(l=>expanded.add(l.id));}
   render();
 }
-function setSearch(v) {
-  search = v.trim().toLowerCase();
-  if (search) { if (mode === 'overview') setMode('reference'); LAYERS.forEach(l => expanded.add(l.id)); }
+function setRegion(r){
+  region=r;
+  document.querySelectorAll('[data-reg]').forEach(b=>b.classList.toggle('active',b.dataset.reg===r));
+  if(r!=='all') INFRA_SUBLAYERS.forEach(l=>expanded.add(l.id));
   render();
 }
-function expandAll()   { LAYERS.forEach(l => expanded.add(l.id));  render(); }
-function collapseAll() { expanded.clear(); render(); }
-function toggleLayer(id) { expanded.has(id) ? expanded.delete(id) : expanded.add(id); render(); }
-function toggleInsight(id) { document.getElementById(id)?.classList.toggle('open'); }
-function switchTab(e, pid, t) {
-  e.stopPropagation();
-  const p = document.getElementById(pid);
-  if (!p) return;
-  p.querySelectorAll('.ins-tab').forEach(x => x.classList.remove('active'));
-  p.querySelectorAll('.ins-pane').forEach(x => x.classList.remove('active'));
-  e.target.classList.add('active');
-  document.getElementById(pid + '-' + t)?.classList.add('active');
+function setSearch(v){
+  search=v.trim().toLowerCase();
+  if(search){if(mode==='overview')setMode('reference');INFRA_SUBLAYERS.forEach(l=>expanded.add(l.id));}
+  render();
 }
-function goRef(id) { expanded.add(id); setMode('reference'); }
+function expandAll(){INFRA_SUBLAYERS.forEach(l=>expanded.add(l.id));render()}
+function collapseAll(){expanded.clear();render()}
+function toggleLayer(id){expanded.has(id)?expanded.delete(id):expanded.add(id);render()}
+function goRef(id){expanded.add(id);setMode('reference')}
 
-function coVisible(c) {
-  const meta = CM[c.n] || {};
-  if (region !== 'all' && (meta.r || 'us') !== region) return false;
-  if (search && !c.n.toLowerCase().includes(search) && !c.d.toLowerCase().includes(search)) return false;
+const TIER_GROUPS = {
+  leaders: ['dominant','major'],
+  emerging: ['emerging','startup'],
+};
+
+function coVisible(c){
+  if(tier!=='all'){
+    const allowed=TIER_GROUPS[tier];
+    if(allowed&&!allowed.includes(c.t))return false;
+  }
+  if(region!=='all'){
+    const r=REGIONS[c.n]||'us';
+    if(region==='global'){if(!c.oss)return false}
+    else if(r!==region)return false;
+  }
+  if(search&&!c.n.toLowerCase().includes(search)&&!c.d.toLowerCase().includes(search))return false;
   return true;
 }
 
-/* ─────────────────────────────────────────────
-   RENDER
-───────────────────────────────────────────── */
-function render() {
-  const ct = document.getElementById('map');
-  ct.innerHTML = '';
-  const vis = AUDIENCE_LAYERS[audience] || AUDIENCE_LAYERS['all'];
-  LAYERS.forEach(l => {
-    if (!vis.includes(l.id)) return;
-    mode === 'overview' ? renderOverview(ct, l) : renderReference(ct, l);
+/* ════ RENDER ════ */
+function render(){
+  const ct=document.getElementById('map');
+  ct.innerHTML='';
+  renderDeepDive(ct);
+}
+
+function renderDeepDive(ct){
+  // Top context bars
+  ['application','models'].forEach(id=>{
+    const l=LAYERS.find(x=>x.id===id);
+    if(!l)return;
+    const pills=l.subs.flatMap(s=>s.cos.filter(c=>c.f)).slice(0,6)
+      .map(c=>`<span class="ctx-pill">${c.n}</span>`).join('');
+    const bar=document.createElement('div');
+    bar.className='ctx-bar';
+    bar.innerHTML=`<div class="ctx-stripe" style="background:${l.color}"></div>
+      <span class="ctx-name" style="color:${l.color}">${l.name}</span>
+      <div class="ctx-pills">${pills}<span class="ctx-pill more">+ more</span></div>`;
+    ct.appendChild(bar);
+  });
+
+  // Infra header
+  const hdr=document.createElement('div');
+  hdr.className='infra-hdr';
+  hdr.innerHTML=`<div class="infra-hdr-icon">🏗️</div>
+    <div>
+      <div class="infra-hdr-title">Infrastructure</div>
+      <div class="infra-hdr-desc">The layer where AI workloads actually run — expanded across Cloud & Compute, Cluster Orchestration, MLOps & Inference, Storage & Networking, and Data Center & Bare Metal.</div>
+    </div>`;
+  ct.appendChild(hdr);
+
+  // Sublayers
+  const visSL=AUDIENCE_SUBLAYERS[audience]||null;
+  INFRA_SUBLAYERS.forEach(sl=>{
+    if(visSL&&!visSL.includes(sl.id))return;
+    mode==='overview'?renderSlOv(ct,sl):renderSlRef(ct,sl);
+  });
+
+  // Bottom context bars
+  ['chips','energy'].forEach(id=>{
+    const l=LAYERS.find(x=>x.id===id);
+    if(!l)return;
+    const pills=l.subs.flatMap(s=>s.cos.filter(c=>c.f)).slice(0,6)
+      .map(c=>`<span class="ctx-pill">${c.n}</span>`).join('');
+    const bar=document.createElement('div');
+    bar.className='ctx-bar';
+    bar.innerHTML=`<div class="ctx-stripe" style="background:${l.color}"></div>
+      <span class="ctx-name" style="color:${l.color}">${l.name}</span>
+      <div class="ctx-pills">${pills}<span class="ctx-pill more">+ more</span></div>`;
+    ct.appendChild(bar);
   });
 }
 
-function renderOverview(ct, layer) {
-  const flagships = layer.subs.flatMap(s => s.cos.filter(c => c.f || c.self));
-  const rest = layer.subs.flatMap(s => s.cos.filter(c => !c.f && !c.self));
-  const d = document.createElement('div');
-  d.className = 'layer ov-layer' + (layer.vcl ? ' vcl' : '');
-  if (!layer.vcl) d.style.borderColor = layer.color + '25';
-
-  const pills = flagships.map(c => {
-    const meta = CM[c.n] || {};
-    const tc = TIERS[c.t];
-    const ossBit = meta.oss ? '<span class="pill-oss">OSS</span>' : '';
-    return `<span class="pill${c.self ? ' self-pill' : ''}" title="${c.d}">
-      <span class="pill-dot" style="border-color:${c.self ? 'var(--accent)' : tc.pip}"></span>
-      ${c.n}${ossBit}
-    </span>`;
+function renderSlOv(ct,sl){
+  const fps=sl.subs.flatMap(s=>s.cos.filter(c=>c.f&&coVisible(c)));
+  const rest=sl.subs.flatMap(s=>s.cos.filter(c=>!c.f));
+  if(!fps.length)return;
+  const d=document.createElement('div');
+  d.className='sublayer';
+  const pills=fps.map(c=>{
+    const vclCls=c.vcl?' vcl':'';
+    const ossBit=c.oss?'<span class="pill-oss">OSS</span>':'';
+    const pip=TIERS[c.t]?.cls||'tag-maj';
+    const color=pip==='tag-dom'?'#9A6E00':pip==='tag-em'?'#BC4C00':pip==='tag-st'?'#AAA':'#666';
+    return `<span class="pill${vclCls}" title="${c.d}"><span class="pill-dot" style="background:${c.vcl?'var(--accent)':color}"></span>${c.n}${ossBit}</span>`;
   }).join('');
-
-  const moreBit = rest.length > 0
-    ? `<button class="more-pill" onclick="goRef('${layer.id}')">+${rest.length} more</button>`
-    : '';
-
-  d.innerHTML = `
-    <div class="layer-hdr">
-      <div class="layer-left">
-        <div class="layer-bar" style="background:${layer.color}"></div>
-        <div>
-          <div style="display:flex;align-items:center;gap:8px">
-            <span class="layer-name" style="color:${layer.color}">${layer.name}</span>
-            ${layer.vcl ? '<span class="vcl-badge">vCluster Labs</span>' : ''}
-          </div>
-          <div class="layer-desc">${layer.desc}</div>
-        </div>
+  const moreBit=rest.length?`<button class="more-pill" onclick="goRef('${sl.id}')">+${rest.length} more</button>`:'';
+  d.innerHTML=`
+    <div class="sublayer-hdr" onclick="goRef('${sl.id}')">
+      <div class="sublayer-icon">${sl.icon}</div>
+      <div>
+        <div class="sublayer-title">${sl.name}</div>
+        <div class="sublayer-desc">${sl.desc}</div>
       </div>
     </div>
-    <div class="pills-row">${pills}${moreBit}</div>`;
+    <div class="pill-row">${pills}${moreBit}</div>`;
   ct.appendChild(d);
 }
 
-function renderReference(ct, layer) {
-  const isFiltered = region !== 'all' || search !== '';
-  const totalVis = layer.subs.reduce((s, sub) => s + sub.cos.filter(coVisible).length, 0);
-  if (isFiltered && totalVis === 0) return;
-  const totalAll = layer.subs.reduce((s, sub) => s + sub.cos.length, 0);
-  const isExp = expanded.has(layer.id);
-
-  const d = document.createElement('div');
-  d.className = 'layer' + (layer.vcl ? ' vcl' : '');
-  if (!layer.vcl) d.style.borderColor = layer.color + '25';
-
-  const countLabel = isFiltered ? `${totalVis} / ${totalAll}` : `${totalAll} companies`;
-  const ins = LAYER_INSIGHTS[layer.id];
-  const pid = 'ins-' + layer.id;
-
-  let insHtml = '';
-  if (ins) {
-    insHtml = `<div class="insight">
-      <div class="insight-hdr" onclick="toggleInsight('${pid}')">
-        <span class="insight-hdr-icon">◆</span>
-        <span class="insight-hdr-label">Layer Intelligence</span>
-        <span class="insight-toggle">▾ expand</span>
+function renderSlRef(ct,sl){
+  const totalVis=sl.subs.reduce((s,sub)=>s+sub.cos.filter(coVisible).length,0);
+  if(!totalVis)return;
+  const totalAll=sl.subs.reduce((s,sub)=>s+sub.cos.length,0);
+  const isExp=expanded.has(sl.id);
+  const isFiltered=search||region!=='all'||audience!=='all';
+  const d=document.createElement('div');
+  d.className='sublayer';
+  let subsHtml='';
+  sl.subs.forEach(sub=>{
+    const vis=sub.cos.filter(coVisible);
+    if(!vis.length)return;
+    subsHtml+=`<div class="subcat">
+      <div class="subcat-hdr">
+        <span class="subcat-name">${sub.name}</span>
+        <span class="subcat-count">${vis.length}</span>
       </div>
-      <div class="insight-body" id="${pid}">
-        <div class="ins-tabs">
-          <button class="ins-tab active" onclick="switchTab(event,'${pid}','c')">⚠ Challenge</button>
-          <button class="ins-tab" onclick="switchTab(event,'${pid}','i')">↑ Innovation</button>
-          <button class="ins-tab" onclick="switchTab(event,'${pid}','f')">$ Capital</button>
-        </div>
-        <div class="ins-pane active" id="${pid}-c"><p class="ins-text">${ins.challenge}</p></div>
-        <div class="ins-pane" id="${pid}-i"><p class="ins-text">${ins.innovation}</p></div>
-        <div class="ins-pane" id="${pid}-f"><p class="ins-text">${ins.funding}</p></div>
-      </div>
-    </div>`;
-  }
-
-  let subsHtml = '';
-  layer.subs.forEach(sub => {
-    const visCos = sub.cos.filter(coVisible);
-    if (!visCos.length) return;
-    const cardsHtml = visCos.map(c => {
-      const tc = TIERS[c.t];
-      const meta = CM[c.n] || {};
-      const ossBit = meta.oss ? '<span class="oss-pip">OSS</span>' : '';
-      const regBit = region === 'all' ? `<span class="region-pip">${REGION_FLAGS[meta.r || 'us'] || '🇺🇸'}</span>` : '';
-      const selfTag = c.self ? '<span class="vcl-self-tag">vCluster Labs</span>' : '';
-      return `<div class="card${c.self ? ' self' : ''}" style="border-color:${c.self ? 'var(--accent-rule)' : tc.pip + '50'}">
-        ${selfTag}
-        <div class="card-top">
-          <div class="tier-pip" style="border-color:${c.self ? 'var(--accent)' : tc.pip}"></div>
-          <span class="card-name" style="color:${c.self ? 'var(--accent)' : tc.text}">${c.n}</span>
-          ${ossBit}${regBit}
-        </div>
-        <span class="card-desc">${c.d}</span>
-      </div>`;
-    }).join('');
-    subsHtml += `<div class="subcat">
-      <div class="subcat-name" style="color:${layer.color}">${sub.name}</div>
-      <div class="cards">${cardsHtml}</div>
+      <div class="card-grid">${vis.map(c=>mkCard(c)).join('')}</div>
     </div>`;
   });
-
-  d.innerHTML = `
-    <div class="layer-hdr" onclick="toggleLayer('${layer.id}')">
-      <div class="layer-left">
-        <div class="layer-bar" style="background:${layer.color}"></div>
-        <div>
-          <div style="display:flex;align-items:center;gap:8px">
-            <span class="layer-name" style="color:${layer.color}">${layer.name}</span>
-            ${layer.vcl ? '<span class="vcl-badge">vCluster Labs</span>' : ''}
-          </div>
-          <div class="layer-desc">${layer.desc}</div>
-        </div>
+  const intel=mkIntel(sl.id);
+  d.innerHTML=`
+    <div class="sublayer-hdr" onclick="toggleLayer('${sl.id}')">
+      <div class="sublayer-icon">${sl.icon}</div>
+      <div>
+        <div class="sublayer-title">${sl.name}</div>
+        <div class="sublayer-desc">${sl.desc}</div>
       </div>
-      <div class="layer-right">
-        <span class="layer-count">${countLabel}</span>
-        <span class="chevron ${isExp ? 'open' : ''}">▼</span>
+      <div class="sublayer-right">
+        <span class="sublayer-count">${isFiltered?`${totalVis}/${totalAll}`:totalAll+' cos'}</span>
+        <span class="chevron ${isExp?'open':''}">▼</span>
       </div>
     </div>
-    <div class="layer-body ${isExp ? 'open' : ''}">
-      ${insHtml}
-      ${subsHtml}
-    </div>`;
+    <div class="sublayer-body ${isExp?'open':''}">${intel}${subsHtml}</div>`;
   ct.appendChild(d);
 }
 
-/* ─────────────────────────────────────────────
-   SHARE
-───────────────────────────────────────────── */
-function copyLink() {
-  navigator.clipboard.writeText(window.location.href).then(() => {
-    const t = document.getElementById('toast');
+function mkCard(c){
+  const tier=TIERS[c.t]||TIERS.startup;
+  const ossBit=c.oss?`<span class="tag tag-oss">OSS</span>`:'';
+  const tierBit=`<span class="tag ${tier.cls}">${tier.label}</span>`;
+  const rCode=REGIONS[c.n]||'us';
+  const regBit=region==='all'?`<span style="font-size:9px;opacity:.4;margin-left:1px">${FLAGS[rCode]||'🇺🇸'}</span>`:'';
+  const vclCls=c.vcl?' vcl':'';
+  return `<div class="card${vclCls}">
+    ${logoEl(c.n, !!c.vcl)}
+    <div class="card-body">
+      <div class="card-name">${c.n}${regBit}</div>
+      <div class="card-desc">${c.d}</div>
+      <div class="card-tags">${tierBit}${ossBit}</div>
+    </div>
+  </div>`;
+}
+
+function mkIntel(id){
+  const intel=SUBLAYER_INTEL[id];
+  if(!intel)return'';
+  const pid='intel-'+id;
+  return `<div class="intel-wrap">
+    <div class="intel-hdr" onclick="toggleIntel('${pid}')">
+      <span class="intel-hdr-label">◆ Layer Intelligence</span>
+      <span class="intel-toggle" id="${pid}-tog">▾ expand</span>
+    </div>
+    <div class="intel-body" id="${pid}">
+      <div class="intel-tabs">
+        <button class="intel-tab active" onclick="switchIntel(event,'${pid}','c')">⚠ Challenge</button>
+        <button class="intel-tab"        onclick="switchIntel(event,'${pid}','i')">↑ Innovation</button>
+        <button class="intel-tab"        onclick="switchIntel(event,'${pid}','k')">$ Capital</button>
+      </div>
+      <div class="intel-pane active" id="${pid}-c"><p class="intel-text">${intel.challenge}</p></div>
+      <div class="intel-pane"        id="${pid}-i"><p class="intel-text">${intel.innovation}</p></div>
+      <div class="intel-pane"        id="${pid}-k"><p class="intel-text">${intel.capital}</p></div>
+    </div>
+  </div>`;
+}
+function toggleIntel(pid){
+  const b=document.getElementById(pid),t=document.getElementById(pid+'-tog');
+  if(!b)return;
+  const open=b.classList.toggle('open');
+  if(t)t.textContent=open?'▴ collapse':'▾ expand';
+}
+function switchIntel(e,pid,t){
+  e.stopPropagation();
+  const b=document.getElementById(pid);if(!b)return;
+  b.querySelectorAll('.intel-tab').forEach(x=>x.classList.remove('active'));
+  b.querySelectorAll('.intel-pane').forEach(x=>x.classList.remove('active'));
+  e.target.classList.add('active');
+  document.getElementById(pid+'-'+t)?.classList.add('active');
+}
+
+function copyLink(){
+  navigator.clipboard.writeText(window.location.href).then(()=>{
+    const t=document.getElementById('toast');
     t.classList.add('show');
-    setTimeout(() => t.classList.remove('show'), 2200);
+    setTimeout(()=>t.classList.remove('show'),2200);
   });
 }
 
-// Boot
 render();
 </script>
 </body>
