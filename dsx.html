@@ -1,0 +1,571 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>NVIDIA DSX AI Factory — vCluster Labs Integration Map</title>
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@300;400;500;600;700;800&family=Geist+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #F0F2F5;
+  --surface: #FFFFFF;
+  --border: #E2E4E9;
+  --border-2: #CDD0D8;
+  --ink: #0D1117;
+  --ink-2: #24292F;
+  --ink-3: #57606A;
+  --ink-4: #8C959F;
+  --nvidia: #76B900;
+  --nvidia-light: #F0FAE0;
+  --nvidia-mid: #C5E89A;
+  --vcl: #FF5C00;
+  --vcl-light: #FFF0E8;
+  --vcl-mid: #FFD4B8;
+  --infra: #1A56DB;
+  --infra-light: #EBF0FF;
+  --infra-mid: #C7D6FF;
+  --workload: #7C3AED;
+  --workload-light: #F5F0FF;
+  --workload-mid: #DDD6FE;
+  --hw: #B91C1C;
+  --hw-light: #FFF5F5;
+  --hw-mid: #FCA5A5;
+  --green: #1A7F37;
+  --green-light: #DAFBE1;
+  --font: 'Geist', system-ui, sans-serif;
+  --mono: 'Geist Mono', monospace;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{font-size:14px;-webkit-font-smoothing:antialiased}
+body{background:var(--bg);color:var(--ink);font-family:var(--font);padding:32px;min-height:100vh}
+
+/* PAGE HEADER */
+.page-hdr{
+  max-width:1100px;margin:0 auto 28px;
+  display:flex;align-items:flex-start;justify-content:space-between;gap:24px;flex-wrap:wrap;
+}
+.page-title-wrap{}
+.page-eyebrow{
+  font-family:var(--mono);font-size:10px;text-transform:uppercase;
+  letter-spacing:1.5px;color:var(--ink-4);margin-bottom:8px;
+  display:flex;align-items:center;gap:8px;
+}
+.page-eyebrow span{width:20px;height:1px;background:var(--border-2);display:inline-block}
+.page-title{font-size:22px;font-weight:700;letter-spacing:-.5px;color:var(--ink);margin-bottom:6px}
+.page-sub{font-size:13px;color:var(--ink-3);line-height:1.6;max-width:600px}
+.page-legend{display:flex;flex-wrap:wrap;gap:10px;align-items:center}
+.leg{display:flex;align-items:center;gap:5px;font-size:11px;color:var(--ink-3);font-weight:500}
+.leg-dot{width:10px;height:10px;border-radius:3px;flex-shrink:0}
+
+/* DIAGRAM WRAPPER */
+.diagram{max-width:1100px;margin:0 auto;display:flex;flex-direction:column;gap:6px}
+
+/* SECTION LABEL */
+.section-label{
+  font-family:var(--mono);font-size:9px;font-weight:500;text-transform:uppercase;
+  letter-spacing:1.5px;color:var(--ink-4);padding:4px 0 2px;
+  display:flex;align-items:center;gap:10px;
+}
+.section-label::after{content:'';flex:1;height:1px;background:var(--border)}
+
+/* LAYER ROW */
+.layer-row{
+  display:flex;align-items:stretch;gap:6px;
+}
+
+/* BAND — full-width labeled container */
+.band{
+  border:1px solid var(--border);border-radius:12px;
+  overflow:hidden;background:var(--surface);
+}
+.band-hdr{
+  display:flex;align-items:center;gap:10px;
+  padding:10px 16px;border-bottom:1px solid var(--border);
+}
+.band-stripe{width:4px;height:32px;border-radius:2px;flex-shrink:0}
+.band-title{font-size:13px;font-weight:700;letter-spacing:-.2px}
+.band-sub{font-size:11px;color:var(--ink-4);margin-top:1px}
+.band-badge{
+  font-family:var(--mono);font-size:8px;font-weight:600;
+  padding:2px 8px;border-radius:4px;text-transform:uppercase;letter-spacing:.5px;
+  margin-left:auto;flex-shrink:0;
+}
+.band-body{padding:12px 16px}
+.band-grid{display:flex;flex-wrap:wrap;gap:6px}
+
+/* CHIP — individual component */
+.chip{
+  display:inline-flex;align-items:center;gap:6px;
+  padding:5px 10px;border-radius:7px;border:1px solid;
+  font-size:11px;font-weight:600;white-space:nowrap;
+  transition:all .12s;cursor:default;
+  position:relative;
+}
+.chip:hover{box-shadow:0 2px 8px rgba(0,0,0,.08);transform:translateY(-1px)}
+.chip-dot{width:6px;height:6px;border-radius:50%;flex-shrink:0}
+.chip-oss{
+  font-family:var(--mono);font-size:8px;font-weight:500;
+  padding:1px 4px;border-radius:3px;
+  background:var(--green-light);color:var(--green);border:1px solid #A3D9AF;
+  margin-left:2px;
+}
+.chip-new{
+  font-family:var(--mono);font-size:8px;font-weight:500;
+  padding:1px 4px;border-radius:3px;
+  background:#FFF8C5;color:#9A6700;border:1px solid #EED888;
+  margin-left:2px;
+}
+
+/* COLOR VARIANTS */
+.chip-nvidia{background:var(--nvidia-light);border-color:var(--nvidia-mid);color:#2D5F00}
+.chip-vcl  {background:var(--vcl-light);border-color:var(--vcl-mid);color:var(--vcl)}
+.chip-infra{background:var(--infra-light);border-color:var(--infra-mid);color:var(--infra)}
+.chip-work {background:var(--workload-light);border-color:var(--workload-mid);color:var(--workload)}
+.chip-hw   {background:var(--hw-light);border-color:var(--hw-mid);color:var(--hw)}
+.chip-grey {background:var(--bg);border-color:var(--border);color:var(--ink-3)}
+
+/* CONNECTOR */
+.connector{
+  display:flex;align-items:center;justify-content:center;
+  padding:2px 0;color:var(--ink-4);font-size:11px;font-weight:500;
+  font-family:var(--mono);gap:8px;
+}
+.connector::before,.connector::after{
+  content:'';flex:1;height:1px;background:linear-gradient(90deg,transparent,var(--border-2));
+}
+.connector::before{background:linear-gradient(90deg,transparent,var(--border-2))}
+.connector::after{background:linear-gradient(90deg,var(--border-2),transparent)}
+
+/* SPLIT — two columns */
+.split{display:grid;grid-template-columns:1fr 1fr;gap:6px}
+.split-3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:6px}
+
+/* HIGHLIGHT BAND (vCluster) */
+.band.vcl-band{border:1.5px solid var(--vcl-mid);background:var(--vcl-light)}
+
+/* ARROW ROW */
+.arrow-row{
+  display:flex;align-items:center;justify-content:center;
+  gap:6px;padding:4px 0;
+}
+.arrow-down{
+  display:flex;flex-direction:column;align-items:center;gap:2px;
+}
+.arrow-line{width:1px;height:16px;background:var(--border-2)}
+.arrow-head{
+  width:0;height:0;
+  border-left:4px solid transparent;
+  border-right:4px solid transparent;
+  border-top:6px solid var(--border-2);
+}
+.arrow-label{font-family:var(--mono);font-size:8px;color:var(--ink-4);letter-spacing:.5px;text-transform:uppercase}
+
+/* TOOLTIP */
+.chip[data-tip]:hover::after{
+  content:attr(data-tip);
+  position:absolute;bottom:calc(100% + 6px);left:50%;transform:translateX(-50%);
+  background:var(--ink);color:#fff;font-size:10px;font-weight:400;
+  padding:4px 8px;border-radius:5px;white-space:nowrap;z-index:100;
+  font-family:var(--font);pointer-events:none;
+}
+
+/* BACK LINK */
+.back-link{
+  display:inline-flex;align-items:center;gap:5px;
+  font-size:11px;font-weight:500;color:var(--infra);
+  text-decoration:none;margin-bottom:20px;
+  font-family:var(--mono);
+}
+.back-link:hover{text-decoration:underline}
+
+/* FOOTER NOTE */
+.foot-note{
+  max-width:1100px;margin:20px auto 0;
+  font-size:11px;color:var(--ink-4);line-height:1.6;
+  display:flex;align-items:flex-start;gap:8px;
+  padding:12px 16px;background:var(--surface);border:1px solid var(--border);border-radius:8px;
+}
+.foot-note strong{color:var(--ink-3)}
+
+@media(max-width:768px){
+  body{padding:16px}
+  .split,.split-3{grid-template-columns:1fr}
+}
+</style>
+</head>
+<body>
+
+<a class="back-link" href="index.html">← Back to AI Infra Stack</a>
+
+<!-- PAGE HEADER -->
+<div class="page-hdr">
+  <div class="page-title-wrap">
+    <div class="page-eyebrow"><span></span>Relationship Map <span></span></div>
+    <div class="page-title">NVIDIA DSX AI Factory &amp; vCluster Labs</div>
+    <div class="page-sub">How the DSX platform stack connects to the tenant isolation, orchestration, and workload layers — and where vCluster, vNode, and vMetal integrate.</div>
+  </div>
+  <div class="page-legend">
+    <div class="leg"><div class="leg-dot" style="background:#76B900"></div>NVIDIA / DSX</div>
+    <div class="leg"><div class="leg-dot" style="background:#FF5C00"></div>vCluster Labs</div>
+    <div class="leg"><div class="leg-dot" style="background:#1A56DB"></div>Ecosystem / Partners</div>
+    <div class="leg"><div class="leg-dot" style="background:#7C3AED"></div>AI Workloads</div>
+    <div class="leg"><div class="leg-dot" style="background:#B91C1C"></div>Hardware</div>
+  </div>
+</div>
+
+<div class="diagram">
+
+  <!-- ── WORKLOADS (top) ── -->
+  <div class="section-label">AI Workloads — What runs on the factory</div>
+  <div class="band">
+    <div class="band-hdr">
+      <div class="band-stripe" style="background:var(--workload)"></div>
+      <div>
+        <div class="band-title" style="color:var(--workload)">Consumers &amp; Workloads</div>
+        <div class="band-sub">The jobs that AI factory infrastructure exists to serve</div>
+      </div>
+    </div>
+    <div class="band-body">
+      <div class="band-grid">
+        <div class="chip chip-work"><div class="chip-dot" style="background:var(--workload)"></div>Training jobs</div>
+        <div class="chip chip-work"><div class="chip-dot" style="background:var(--workload)"></div>Inference services</div>
+        <div class="chip chip-work"><div class="chip-dot" style="background:var(--workload)"></div>Fine-tuning pipelines</div>
+        <div class="chip chip-work"><div class="chip-dot" style="background:var(--workload)"></div>Notebooks &amp; IDEs</div>
+        <div class="chip chip-work"><div class="chip-dot" style="background:var(--workload)"></div>MLOps pipelines</div>
+        <div class="chip chip-work"><div class="chip-dot" style="background:var(--workload)"></div>Agent frameworks</div>
+        <div class="chip chip-work"><div class="chip-dot" style="background:var(--workload)"></div>External tenants</div>
+        <div class="chip chip-work"><div class="chip-dot" style="background:var(--workload)"></div>AI/ML teams</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="arrow-row">
+    <div class="arrow-down"><div class="arrow-line"></div><div class="arrow-head"></div></div>
+    <div class="arrow-label">runs on</div>
+    <div class="arrow-down"><div class="arrow-line"></div><div class="arrow-head"></div></div>
+  </div>
+
+  <!-- ── MODEL SERVING ── -->
+  <div class="section-label">Model Serving &amp; Inference</div>
+  <div class="band">
+    <div class="band-hdr">
+      <div class="band-stripe" style="background:var(--infra)"></div>
+      <div>
+        <div class="band-title" style="color:var(--infra)">Inference &amp; Serving Layer</div>
+        <div class="band-sub">High-throughput LLM serving, disaggregated inference, and model routing</div>
+      </div>
+    </div>
+    <div class="band-body">
+      <div class="band-grid">
+        <div class="chip chip-nvidia" data-tip="Distributed inference for multi-node LLM (DSX OS)">
+          <div class="chip-dot" style="background:var(--nvidia)"></div>NVIDIA Dynamo<span class="chip-oss">OSS</span>
+        </div>
+        <div class="chip chip-nvidia" data-tip="Multi-framework inference server">
+          <div class="chip-dot" style="background:var(--nvidia)"></div>NVIDIA Triton<span class="chip-oss">OSS</span>
+        </div>
+        <div class="chip chip-infra" data-tip="OSS LLM inference, PagedAttention">
+          <div class="chip-dot" style="background:var(--infra)"></div>vLLM<span class="chip-oss">OSS</span>
+        </div>
+        <div class="chip chip-infra" data-tip="K8s-native disaggregated LLM inference">
+          <div class="chip-dot" style="background:var(--infra)"></div>llm-d (CNCF)<span class="chip-oss">OSS</span>
+        </div>
+        <div class="chip chip-infra" data-tip="K8s-native model serving">
+          <div class="chip-dot" style="background:var(--infra)"></div>KServe<span class="chip-oss">OSS</span>
+        </div>
+        <div class="chip chip-infra" data-tip="Unified API for scaling inference across K8s clusters">
+          <div class="chip-dot" style="background:var(--nvidia)"></div>NVCF<span class="chip-oss">OSS</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="arrow-row">
+    <div class="arrow-down"><div class="arrow-line"></div><div class="arrow-head"></div></div>
+    <div class="arrow-label">scheduled &amp; isolated by</div>
+    <div class="arrow-down"><div class="arrow-line"></div><div class="arrow-head"></div></div>
+  </div>
+
+  <!-- ── TENANT ISOLATION + DSX OS ── -->
+  <div class="section-label">Tenant Isolation &amp; Cluster Orchestration — The integration zone</div>
+  <div class="split">
+
+    <!-- vCluster Labs -->
+    <div class="band vcl-band">
+      <div class="band-hdr">
+        <div class="band-stripe" style="background:var(--vcl)"></div>
+        <div>
+          <div class="band-title" style="color:var(--vcl)">vCluster Labs</div>
+          <div class="band-sub">Tenant isolation, cluster orchestration &amp; bare metal lifecycle</div>
+        </div>
+        <div class="band-badge" style="background:var(--vcl-light);color:var(--vcl);border:1px solid var(--vcl-mid)">NCP ISV</div>
+      </div>
+      <div class="band-body">
+        <div class="band-grid">
+          <div class="chip chip-vcl" data-tip="Full K8s API per team on shared GPU infra">
+            <div class="chip-dot" style="background:var(--vcl)"></div>vCluster<span class="chip-oss">OSS</span>
+          </div>
+          <div class="chip chip-vcl" data-tip="Kernel-native workload sandboxing, no VM overhead">
+            <div class="chip-dot" style="background:var(--vcl)"></div>vNode
+          </div>
+          <div class="chip chip-vcl" data-tip="Bare metal provisioning & lifecycle (Metal3/Ironic)">
+            <div class="chip-dot" style="background:var(--vcl)"></div>vMetal
+          </div>
+          <div class="chip chip-vcl" data-tip="Preconfigured AI stacks: Run:ai, Ray, Jupyter, Slinky">
+            <div class="chip-dot" style="background:var(--vcl)"></div>Certified Stacks
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- DSX OS -->
+    <div class="band">
+      <div class="band-hdr">
+        <div class="band-stripe" style="background:var(--nvidia)"></div>
+        <div>
+          <div class="band-title" style="color:#2D5F00">NVIDIA DSX OS</div>
+          <div class="band-sub">Open-source AI factory operating layer</div>
+        </div>
+        <div class="band-badge" style="background:var(--nvidia-light);color:#2D5F00;border:1px solid var(--nvidia-mid)">DSX Platform</div>
+      </div>
+      <div class="band-body">
+        <div class="band-grid">
+          <div class="chip chip-nvidia" data-tip="Topology-aware K8s GPU scheduler">
+            <div class="chip-dot" style="background:var(--nvidia)"></div>KAI Scheduler<span class="chip-oss">OSS</span>
+          </div>
+          <div class="chip chip-nvidia" data-tip="Bare-metal provisioning for multi-tenant GPU infra">
+            <div class="chip-dot" style="background:var(--nvidia)"></div>NICo (Infra Controller)<span class="chip-oss">OSS</span>
+          </div>
+          <div class="chip chip-nvidia" data-tip="Canonical NVIDIA-accelerated K8s runtime">
+            <div class="chip-dot" style="background:var(--nvidia)"></div>AICR<span class="chip-oss">OSS</span>
+          </div>
+          <div class="chip chip-nvidia" data-tip="K8s-native GPU health monitoring & remediation">
+            <div class="chip-dot" style="background:var(--nvidia)"></div>NVSentinel<span class="chip-oss">OSS</span>
+          </div>
+          <div class="chip chip-nvidia" data-tip="BlueField-accelerated infrastructure services">
+            <div class="chip-dot" style="background:var(--nvidia)"></div>BCM
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- ── K8S CONTROL PLANE ── -->
+  <div class="band" style="border-color:rgba(26,86,219,.25);background:var(--infra-light)">
+    <div class="band-hdr" style="border-color:rgba(26,86,219,.15)">
+      <div class="band-stripe" style="background:var(--infra)"></div>
+      <div>
+        <div class="band-title" style="color:var(--infra)">Kubernetes Control Plane Cluster</div>
+        <div class="band-sub">The production K8s cluster hosting vCluster Platform and DSX OS components</div>
+      </div>
+    </div>
+    <div class="band-body">
+      <div class="band-grid">
+        <div class="chip chip-infra" data-tip="De facto standard, DRA, GPU device plugins">
+          <div class="chip-dot" style="background:var(--infra)"></div>Kubernetes (CNCF)<span class="chip-oss">OSS</span>
+        </div>
+        <div class="chip chip-infra" data-tip="Enterprise K8s, GPU Operator">
+          <div class="chip-dot" style="background:var(--infra)"></div>Red Hat OpenShift
+        </div>
+        <div class="chip chip-grey">Amazon EKS</div>
+        <div class="chip chip-grey">Google GKE</div>
+        <div class="chip chip-grey">Azure AKS</div>
+        <div class="chip chip-grey">Upstream K8s</div>
+        <div class="chip chip-infra" data-tip="Automates GPU driver/plugin lifecycle on K8s">
+          <div class="chip-dot" style="background:var(--nvidia)"></div>GPU Operator<span class="chip-oss">OSS</span>
+        </div>
+        <div class="chip chip-infra" data-tip="Declarative GitOps CD for Kubernetes">
+          <div class="chip-dot" style="background:var(--infra)"></div>Argo CD<span class="chip-oss">OSS</span>
+        </div>
+        <div class="chip chip-infra" data-tip="K8s package manager">
+          <div class="chip-dot" style="background:var(--infra)"></div>Helm<span class="chip-oss">OSS</span>
+        </div>
+        <div class="chip chip-infra" data-tip="Policy engine for K8s">
+          <div class="chip-dot" style="background:var(--infra)"></div>OPA / Kyverno<span class="chip-oss">OSS</span>
+        </div>
+        <div class="chip chip-infra" data-tip="K8s-native GPU scheduling">
+          <div class="chip-dot" style="background:var(--infra)"></div>Kueue<span class="chip-oss">OSS</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── PLATFORM SERVICES ── -->
+  <div class="section-label">Platform Services — Cross-cutting capabilities</div>
+  <div class="split-3">
+
+    <div class="band">
+      <div class="band-hdr" style="padding:8px 14px">
+        <div class="band-stripe" style="background:#0066CC;height:24px"></div>
+        <div>
+          <div class="band-title" style="font-size:12px">Scheduling &amp; Queueing</div>
+        </div>
+      </div>
+      <div class="band-body" style="padding:10px 14px">
+        <div class="band-grid">
+          <div class="chip chip-nvidia" style="font-size:10px">KAI Scheduler<span class="chip-oss">OSS</span></div>
+          <div class="chip chip-grey" style="font-size:10px">Kueue<span class="chip-oss">OSS</span></div>
+          <div class="chip chip-grey" style="font-size:10px">Volcano<span class="chip-oss">OSS</span></div>
+          <div class="chip chip-infra" style="font-size:10px">Run:ai (NVIDIA)</div>
+          <div class="chip chip-grey" style="font-size:10px">Slurm on K8s</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="band">
+      <div class="band-hdr" style="padding:8px 14px">
+        <div class="band-stripe" style="background:#7C3AED;height:24px"></div>
+        <div>
+          <div class="band-title" style="font-size:12px">Observability</div>
+        </div>
+      </div>
+      <div class="band-body" style="padding:10px 14px">
+        <div class="band-grid">
+          <div class="chip chip-nvidia" style="font-size:10px">NVSentinel<span class="chip-oss">OSS</span></div>
+          <div class="chip chip-nvidia" style="font-size:10px">DCGM<span class="chip-oss">OSS</span></div>
+          <div class="chip chip-grey" style="font-size:10px">Prometheus<span class="chip-oss">OSS</span></div>
+          <div class="chip chip-grey" style="font-size:10px">Grafana<span class="chip-oss">OSS</span></div>
+          <div class="chip chip-infra" style="font-size:10px">Datadog</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="band">
+      <div class="band-hdr" style="padding:8px 14px">
+        <div class="band-stripe" style="background:#9A6700;height:24px"></div>
+        <div>
+          <div class="band-title" style="font-size:12px">Security &amp; Identity</div>
+        </div>
+      </div>
+      <div class="band-body" style="padding:10px 14px">
+        <div class="band-grid">
+          <div class="chip chip-grey" style="font-size:10px">OPA / Kyverno<span class="chip-oss">OSS</span></div>
+          <div class="chip chip-grey" style="font-size:10px">Falco<span class="chip-oss">OSS</span></div>
+          <div class="chip chip-grey" style="font-size:10px">Keycloak<span class="chip-oss">OSS</span></div>
+          <div class="chip chip-infra" style="font-size:10px">Okta</div>
+          <div class="chip chip-grey" style="font-size:10px">Trivy<span class="chip-oss">OSS</span></div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- ── DSX FULL PLATFORM ── -->
+  <div class="section-label">NVIDIA DSX Platform — Full stack</div>
+  <div class="band">
+    <div class="band-hdr">
+      <div class="band-stripe" style="background:var(--nvidia)"></div>
+      <div>
+        <div class="band-title" style="color:#2D5F00">NVIDIA DSX</div>
+        <div class="band-sub">Design, simulate, build, and operate AI factories optimized for tokens per watt</div>
+      </div>
+      <div class="band-badge" style="background:var(--nvidia-light);color:#2D5F00;border:1px solid var(--nvidia-mid)">nvidia.com/dsx</div>
+    </div>
+    <div class="band-body">
+      <div class="split" style="gap:10px">
+        <div>
+          <div style="font-family:var(--mono);font-size:9px;text-transform:uppercase;letter-spacing:1px;color:var(--ink-4);margin-bottom:6px">DSX Sim — Design &amp; Digital Twins</div>
+          <div class="band-grid">
+            <div class="chip chip-nvidia" data-tip="High-fidelity logical simulation of hardware & software">
+              <div class="chip-dot" style="background:var(--nvidia)"></div>DSX Sim
+            </div>
+            <div class="chip chip-nvidia" data-tip="End-to-end AI factory digital twin framework">
+              <div class="chip-dot" style="background:var(--nvidia)"></div>Digital Twins
+            </div>
+            <div class="chip chip-nvidia">SimReady Assets</div>
+            <div class="chip chip-nvidia">Validated Integrations</div>
+          </div>
+        </div>
+        <div>
+          <div style="font-family:var(--mono);font-size:9px;text-transform:uppercase;letter-spacing:1px;color:var(--ink-4);margin-bottom:6px">DSX Reference Designs — Validated blueprints</div>
+          <div class="band-grid">
+            <div class="chip chip-nvidia" data-tip="Compute, Networking, Storage reference architectures">
+              <div class="chip-dot" style="background:var(--nvidia)"></div>Hardware Ref Design
+            </div>
+            <div class="chip chip-nvidia" data-tip="Land, Connectivity, Shell, Power">
+              <div class="chip-dot" style="background:var(--nvidia)"></div>Facilities Ref Design
+            </div>
+            <div class="chip chip-nvidia" data-tip="45C inlet, dynamic power allocation">
+              <div class="chip-dot" style="background:var(--nvidia)"></div>DSX MaxLPS
+            </div>
+            <div class="chip chip-nvidia" data-tip="IT/OT communications hub">
+              <div class="chip-dot" style="background:var(--nvidia)"></div>DSX Exchange
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="arrow-row">
+    <div class="arrow-down"><div class="arrow-line"></div><div class="arrow-head"></div></div>
+    <div class="arrow-label">runs on</div>
+    <div class="arrow-down"><div class="arrow-line"></div><div class="arrow-head"></div></div>
+  </div>
+
+  <!-- ── HARDWARE ── -->
+  <div class="section-label">Core Infrastructure — Hardware substrate</div>
+  <div class="split-3">
+
+    <div class="band">
+      <div class="band-hdr" style="padding:8px 14px">
+        <div class="band-stripe" style="background:var(--hw);height:24px"></div>
+        <div><div class="band-title" style="font-size:12px;color:var(--hw)">Compute &amp; Bare Metal</div></div>
+      </div>
+      <div class="band-body" style="padding:10px 14px">
+        <div class="band-grid">
+          <div class="chip chip-hw" style="font-size:10px" data-tip="H100/H200/B200/GB200, CUDA">NVIDIA GPU</div>
+          <div class="chip chip-vcl" style="font-size:10px" data-tip="Bare metal provisioning (Metal3/Ironic)">vMetal<span class="chip-new">NCP</span></div>
+          <div class="chip chip-nvidia" style="font-size:10px">NICo<span class="chip-oss">OSS</span></div>
+          <div class="chip chip-grey" style="font-size:10px">Metal3 / Ironic<span class="chip-oss">OSS</span></div>
+          <div class="chip chip-hw" style="font-size:10px">NVIDIA DGX</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="band">
+      <div class="band-hdr" style="padding:8px 14px">
+        <div class="band-stripe" style="background:#E65100;height:24px"></div>
+        <div><div class="band-title" style="font-size:12px;color:#E65100">Networking Fabric</div></div>
+      </div>
+      <div class="band-body" style="padding:10px 14px">
+        <div class="band-grid">
+          <div class="chip chip-grey" style="font-size:10px">InfiniBand</div>
+          <div class="chip chip-grey" style="font-size:10px">Ethernet / RoCE</div>
+          <div class="chip chip-nvidia" style="font-size:10px">NVIDIA Mellanox</div>
+          <div class="chip chip-grey" style="font-size:10px">Broadcom</div>
+          <div class="chip chip-grey" style="font-size:10px">Arista</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="band">
+      <div class="band-hdr" style="padding:8px 14px">
+        <div class="band-stripe" style="background:#2E7D32;height:24px"></div>
+        <div><div class="band-title" style="font-size:12px;color:#2E7D32">Storage</div></div>
+      </div>
+      <div class="band-body" style="padding:10px 14px">
+        <div class="band-grid">
+          <div class="chip chip-grey" style="font-size:10px">WEKA</div>
+          <div class="chip chip-grey" style="font-size:10px">DDN</div>
+          <div class="chip chip-grey" style="font-size:10px">VAST Data</div>
+          <div class="chip chip-grey" style="font-size:10px">Pure Storage</div>
+          <div class="chip chip-grey" style="font-size:10px">MinIO<span class="chip-oss">OSS</span></div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+</div>
+
+<!-- FOOTER NOTE -->
+<div class="foot-note">
+  <span>💡</span>
+  <div>
+    <strong>Reading this diagram:</strong> vCluster Labs and NVIDIA DSX OS occupy the same orchestration layer — they are complementary, not competing. DSX OS provides GPU scheduling, health monitoring, and provisioning primitives. vCluster adds the tenant isolation layer (one K8s API per team), vNode adds kernel-native workload sandboxing, and vMetal handles bare metal lifecycle. Together they form the complete multi-tenant AI factory operating stack. <strong>NCP</strong> = NVIDIA Cloud Partner.
+  </div>
+</div>
+
+</body>
+</html>
