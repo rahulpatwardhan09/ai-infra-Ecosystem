@@ -384,6 +384,25 @@ footer{
   display:flex;align-items:center;gap:4px;
 }
 .pop-link:hover{text-decoration:underline}
+.pop-meta{
+  display:flex;flex-wrap:wrap;gap:6px;margin-bottom:10px;
+}
+.pop-meta-item{
+  display:flex;align-items:center;gap:4px;
+  font-family:var(--mono);font-size:9px;color:var(--ink-4);
+}
+.pop-meta-item strong{color:var(--ink-3);font-weight:500}
+.pop-detail{
+  margin-bottom:10px;padding:8px 10px;
+  background:var(--surface-2);border:1px solid var(--border);
+  border-radius:var(--r);display:none;
+}
+.pop-detail.show{display:block}
+.pop-detail-label{
+  font-family:var(--mono);font-size:8px;text-transform:uppercase;
+  letter-spacing:1px;color:var(--ink-4);margin-bottom:4px;
+}
+.pop-detail-text{font-size:11px;color:var(--ink-3);line-height:1.6}
 .pop-close{
   font-size:11px;color:var(--ink-4);cursor:pointer;background:none;border:none;
   font-family:var(--font);padding:2px 6px;border-radius:4px;
@@ -600,16 +619,18 @@ footer{
 <div class="popover" id="popover">
   <div class="pop-top">
     <div class="pop-logo" id="popLogo"></div>
-    <div>
+    <div style="flex:1;min-width:0">
       <div class="pop-name" id="popName"></div>
       <div class="pop-tier" id="popTier"></div>
     </div>
   </div>
   <div class="pop-desc" id="popDesc"></div>
+  <div class="pop-meta" id="popMeta"></div>
   <div class="pop-tags" id="popTags"></div>
+  <div class="pop-detail" id="popDetail"></div>
   <div class="pop-footer">
     <a class="pop-link" id="popLink" href="#" target="_blank">Visit website ↗</a>
-    <button class="pop-close" onclick="closePopover()">✕ close</button>
+    <button class="pop-close" onclick="closePopover()">&#x2715; close</button>
   </div>
 </div>
 
@@ -1428,6 +1449,130 @@ function copyLink(){
   });
 }
 
+/* ════ COMPANY DETAIL DATA ════ */
+const COMPANY_DETAIL = {
+  'vCluster': {
+    hq: 'San Francisco, CA', founded: '2019',
+    funding: 'Series B · $24M raised',
+    tagline: 'The open-source standard for tenant cluster orchestration on Kubernetes',
+    note: 'Powers multi-tenant GPU infrastructure at AI clouds and enterprises. vCluster Platform adds management UI, SSO, policies, and enterprise support.',
+  },
+  'vNode': {
+    hq: 'San Francisco, CA', founded: '2023',
+    funding: 'Part of vCluster Labs',
+    tagline: 'Kernel-native workload isolation — no VM overhead, no performance tax',
+    note: 'Uses Linux user namespaces and seccomp to deliver pod-level isolation. Designed for AI workloads where VM-based sandboxing is too slow.',
+  },
+  'vMetal': {
+    hq: 'San Francisco, CA', founded: '2024',
+    funding: 'Part of vCluster Labs',
+    tagline: 'Bare metal provisioning and lifecycle management for AI infrastructure',
+    note: 'Built on Metal3 and Ironic. Handles PXE boot, GPU health validation, network isolation, and server lifecycle across multi-tenant GPU clusters.',
+  },
+  'NVIDIA': {
+    hq: 'Santa Clara, CA', founded: '1993',
+    funding: 'Public (NVDA) · $3.4T market cap',
+    tagline: '~80% of AI training silicon, CUDA ecosystem, and the DSX AI factory stack',
+    note: 'H100/H200/B200/GB200 GPU families. CUDA remains the dominant AI compute platform. Also building DSX OS, KAI Scheduler, Dynamo, and the full AI factory software stack.',
+  },
+  'NVIDIA DSX': {
+    hq: 'Santa Clara, CA', founded: '2024',
+    funding: 'Part of NVIDIA',
+    tagline: 'Unified AI factory software stack: DSX OS, Sim, MaxLPS, Exchange, Reference Designs',
+    note: 'DSX OS bundles KAI Scheduler, NVIDIA Dynamo, AICR, NVSentinel, and NVCF. Reference Designs provide validated blueprints for AI cloud builders and enterprise GPU infrastructure.',
+  },
+  'CoreWeave': {
+    hq: 'Roseland, NJ', founded: '2017',
+    funding: '$7.5B raised · IPO March 2025',
+    tagline: 'The GPU cloud built natively on Kubernetes — NVIDIA Elite Cloud Partner',
+    note: 'First major GPU cloud to bet on K8s-native architecture from day one. H100/H200/GB200 at scale. Strong NVIDIA partnership including early access to new hardware.',
+  },
+  'Kubernetes (CNCF)': {
+    hq: 'Global (CNCF)', founded: '2014',
+    funding: 'OSS · Linux Foundation / CNCF',
+    tagline: 'The de facto standard for container orchestration — and the foundation of AI infrastructure',
+    note: 'Device Resource Allocation (DRA) and GPU device plugins are the K8s integration surface for AI hardware. Nearly every AI cloud and enterprise runs workloads on K8s.',
+  },
+  'vLLM': {
+    hq: 'Berkeley, CA (UC Berkeley)', founded: '2023',
+    funding: 'OSS · Backed by a16z',
+    tagline: 'The community standard for high-throughput LLM inference — PagedAttention pioneer',
+    note: 'Introduced PagedAttention to maximize GPU memory utilization during inference. Now the most widely deployed OSS LLM serving framework. Commercial support via vLLM Inc.',
+  },
+  'Weights & Biases': {
+    hq: 'San Francisco, CA', founded: '2017',
+    funding: '$200M raised · $1.25B valuation',
+    tagline: 'The ML experiment tracking and evaluation platform teams actually use in production',
+    note: 'W&B Weave adds LLM tracing and evaluation. Used across research and enterprise AI teams. MLflow is the main OSS alternative; W&B wins on developer experience.',
+  },
+  'Datadog': {
+    hq: 'New York, NY', founded: '2010',
+    funding: 'Public (DDOG) · $40B+ market cap',
+    tagline: 'Full-stack observability — now with GPU monitoring and LLM tracing built in',
+    note: 'GPU monitoring via DCGM integration. LLM Observability product covers traces, evals, and token costs. Dominant in cloud-native infra monitoring.',
+  },
+  'WEKA': {
+    hq: 'San Jose, CA', founded: '2013',
+    funding: '$140M raised · $1.6B valuation',
+    tagline: 'Parallel file system with GPU-Direct Storage — built for AI training throughput',
+    note: 'GPU-Direct Storage bypasses the CPU entirely for data transfer. Widely used in large-scale training clusters at GPU clouds and enterprises. Competes with DDN and Vast Data.',
+  },
+  'NVIDIA Mellanox': {
+    hq: 'Santa Clara, CA', founded: '1999',
+    funding: 'Part of NVIDIA (acq. $7B, 2020)',
+    tagline: 'InfiniBand and Ethernet interconnects — the networking backbone of GPU clusters',
+    note: 'ConnectX-7 NICs and Quantum-X800 switches dominate HPC and AI training fabric. InfiniBand remains the standard for tightly-coupled distributed training at scale.',
+  },
+  'Run:ai (NVIDIA)': {
+    hq: 'Tel Aviv, Israel', founded: '2018',
+    funding: 'Acquired by NVIDIA ~$700M · 2024',
+    tagline: 'GPU virtualization, fractional GPUs, and workload orchestration for multi-tenant clusters',
+    note: 'Now part of NVIDIA DSX. Provides quota management, GPU time-slicing, and self-service GPU access. Strong in enterprise and research institutions.',
+  },
+  'Together AI': {
+    hq: 'San Francisco, CA', founded: '2022',
+    funding: '$305M raised · $3.3B valuation',
+    tagline: 'GPU cloud plus inference platform — strong OSS model support and developer experience',
+    note: 'Runs most major open-weight models (Llama, Mistral, DBRX) via API. Also offers training and fine-tuning. Positioned between pure GPU rental and managed inference.',
+  },
+  'Modal': {
+    hq: 'New York, NY', founded: '2021',
+    funding: '$110M raised',
+    tagline: 'Serverless GPU infrastructure — run any Python function on GPUs with zero cold-start friction',
+    note: 'Extremely developer-friendly API. Fast cold starts, pay-per-second billing, and a sandboxed execution environment. Popular for AI inference, fine-tuning, and batch workloads.',
+  },
+  'Databricks': {
+    hq: 'San Francisco, CA', founded: '2013',
+    funding: '$4B raised · $62B valuation',
+    tagline: 'Lakehouse platform — the data and ML infrastructure layer for enterprise AI',
+    note: 'Unity Catalog for governance, MLflow for experiment tracking, Delta Lake for storage. Acquired MosaicML for LLM training. Competes directly with Snowflake on the data platform layer.',
+  },
+  'Argo CD': {
+    hq: 'Global (CNCF)', founded: '2018',
+    funding: 'OSS · CNCF Graduated',
+    tagline: 'Declarative GitOps continuous delivery for Kubernetes — the deployment standard',
+    note: 'Syncs K8s cluster state to Git. Dominant in enterprise K8s deployments alongside Flux. Critical for managing tenant workloads, platform addons, and day-2 operations at scale.',
+  },
+  'llm-d (CNCF)': {
+    hq: 'Global (CNCF)', founded: '2025',
+    funding: 'OSS · CNCF Sandbox',
+    tagline: 'Kubernetes-native disaggregated LLM inference — prefill and decode on separate nodes',
+    note: 'Splits the compute-heavy prefill phase and memory-heavy decode phase across different hardware. Emerging as the K8s-native inference architecture for large-scale LLM serving.',
+  },
+  'KAI Scheduler': {
+    hq: 'Santa Clara, CA (NVIDIA)', founded: '2024',
+    funding: 'OSS · Part of NVIDIA DSX',
+    tagline: 'Topology-aware GPU scheduling for Kubernetes — gang scheduling, quotas, fair-share',
+    note: 'Understands GPU topology, InfiniBand fabric, and NUMA to place distributed training jobs optimally. OSS component of NVIDIA DSX OS. Competes with Volcano and Kueue.',
+  },
+  'Prometheus': {
+    hq: 'Global (CNCF)', founded: '2012',
+    funding: 'OSS · CNCF Graduated',
+    tagline: 'The metrics and alerting standard for cloud-native and AI infrastructure',
+    note: 'Pull-based metrics collection. PromQL is the query language every infra engineer knows. Pairs with Grafana for visualization. DCGM Exporter feeds GPU metrics into Prometheus.',
+  },
+};
+
 /* ════ POPOVER ════ */
 const COMPANY_URLS = {
   'AWS':'https://aws.amazon.com','Microsoft Azure':'https://azure.microsoft.com',
@@ -1484,6 +1629,29 @@ function showPopover(e, company) {
   const url = COMPANY_URLS[company.n] || (DOMAINS[company.n] ? 'https://'+DOMAINS[company.n] : null);
   const linkEl = document.getElementById('popLink');
   if (url) { linkEl.href = url; linkEl.style.display = 'flex'; } else { linkEl.style.display = 'none'; }
+
+  // meta + detail from COMPANY_DETAIL
+  const detail = COMPANY_DETAIL[company.n];
+  const metaDiv = document.getElementById('popMeta');
+  const detailDiv = document.getElementById('popDetail');
+  if (detail) {
+    metaDiv.innerHTML = [
+      detail.hq     ? `<span class="pop-meta-item">📍 <strong>${detail.hq}</strong></span>` : '',
+      detail.founded? `<span class="pop-meta-item">Est. <strong>${detail.founded}</strong></span>` : '',
+      detail.funding? `<span class="pop-meta-item">💰 <strong>${detail.funding}</strong></span>` : '',
+    ].filter(Boolean).join('');
+    metaDiv.style.display = 'flex';
+    if (detail.note) {
+      detailDiv.innerHTML = `<div class="pop-detail-label">Context</div><div class="pop-detail-text">${detail.note}</div>`;
+      detailDiv.classList.add('show');
+    } else {
+      detailDiv.classList.remove('show');
+    }
+  } else {
+    metaDiv.innerHTML = '';
+    metaDiv.style.display = 'none';
+    detailDiv.classList.remove('show');
+  }
   const x=e.clientX, y=e.clientY, pw=300, vw=window.innerWidth, vh=window.innerHeight;
   let left=x+12, top=y-20;
   if (left+pw > vw-16) left=x-pw-12;
