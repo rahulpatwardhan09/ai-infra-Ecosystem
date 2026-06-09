@@ -350,28 +350,25 @@ body{background:#FFFFFF;color:var(--ink);font-family:var(--font);padding:32px;mi
 
   </div>
 
-  <!-- ── K8S CONTROL PLANE ── -->
-  <div class="band" style="border-color:rgba(26,86,219,.25);background:var(--infra-light)">
-    <div class="band-hdr" style="border-color:rgba(26,86,219,.15)">
-      <div class="band-stripe" style="background:var(--infra)"></div>
+  <div class="section-label">vCluster Standalone — Control Plane Cluster</div>
+  <!-- ── VCLUSTER STANDALONE CONTROL PLANE ── -->
+  <div class="band" style="border:1.5px solid var(--vcl-mid);background:var(--vcl-light)">
+    <div class="band-hdr" style="border-color:rgba(255,92,0,.2)">
+      <div class="band-stripe" style="background:var(--vcl)"></div>
       <div>
-        <div class="band-title" style="color:var(--infra)">Kubernetes Control Plane Cluster</div>
-        <div class="band-sub">The production K8s cluster hosting vCluster Platform and DSX OS components</div>
+        <div class="band-title" style="color:var(--vcl)">vCluster Standalone (HA) — Control Plane Cluster</div>
+        <div class="band-sub">Hosts vCluster Platform and DSX OS components. Runs on any K8s — or directly as a standalone binary on bare metal.</div>
       </div>
     </div>
     <div class="band-body">
       <div class="band-grid">
-        <div class="chip chip-infra" data-tip="De facto standard, DRA, GPU device plugins">
-          <div class="chip-dot" style="background:var(--infra)"></div>Kubernetes (CNCF)<span class="chip-oss">OSS</span>
+        <div class="chip chip-vcl" data-tip="vCluster Standalone HA — the recommended control plane for AI clouds">
+          <div class="chip-dot" style="background:var(--vcl)"></div>vCluster Standalone<span class="chip-oss">OSS</span>
         </div>
-        <div class="chip chip-infra" data-tip="Enterprise K8s, GPU Operator">
-          <div class="chip-dot" style="background:var(--infra)"></div>Red Hat OpenShift
+        <div class="chip chip-vcl" data-tip="vCluster Platform — management UI, SSO, policies, fleet ops">
+          <div class="chip-dot" style="background:var(--vcl)"></div>vCluster Platform
         </div>
-        <div class="chip chip-grey">Amazon EKS</div>
-        <div class="chip chip-grey">Google GKE</div>
-        <div class="chip chip-grey">Azure AKS</div>
-        <div class="chip chip-grey">Upstream K8s</div>
-        <div class="chip chip-infra" data-tip="Automates GPU driver/plugin lifecycle on K8s">
+        <div class="chip chip-nvidia" data-tip="Automates GPU driver/plugin lifecycle on K8s">
           <div class="chip-dot" style="background:var(--nvidia)"></div>GPU Operator<span class="chip-oss">OSS</span>
         </div>
         <div class="chip chip-infra" data-tip="Declarative GitOps CD for Kubernetes">
@@ -385,6 +382,9 @@ body{background:#FFFFFF;color:var(--ink);font-family:var(--font);padding:32px;mi
         </div>
         <div class="chip chip-infra" data-tip="K8s-native GPU scheduling">
           <div class="chip-dot" style="background:var(--infra)"></div>Kueue<span class="chip-oss">OSS</span>
+        </div>
+        <div class="chip chip-grey" data-tip="Network automation for tenant isolation">
+          Netris
         </div>
       </div>
     </div>
