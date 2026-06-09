@@ -356,7 +356,91 @@ footer{
 .footer-l{font-size:11px;color:var(--ink-4)}
 .footer-r{font-family:var(--mono);font-size:10px;color:var(--ink-4);letter-spacing:.3px}
 
-/* ── RESPONSIVE ── */
+/* ── CARD POPOVER ── */
+.popover{
+  position:fixed;z-index:500;
+  background:var(--surface);border:1px solid var(--border-2);
+  border-radius:var(--r-xl);box-shadow:0 8px 32px rgba(0,0,0,.14);
+  width:300px;padding:16px;
+  opacity:0;pointer-events:none;transform:translateY(4px);
+  transition:opacity .15s,transform .15s;
+}
+.popover.show{opacity:1;pointer-events:all;transform:translateY(0)}
+.pop-top{display:flex;align-items:center;gap:10px;margin-bottom:10px}
+.pop-logo{
+  width:32px;height:32px;border-radius:7px;flex-shrink:0;
+  display:flex;align-items:center;justify-content:center;
+  font-size:11px;font-weight:700;color:#fff;overflow:hidden;
+  border:1px solid rgba(0,0,0,.06);
+}
+.pop-logo img{width:100%;height:100%;object-fit:contain;border-radius:6px}
+.pop-name{font-size:13px;font-weight:700;color:var(--ink)}
+.pop-tier{font-family:var(--mono);font-size:9px;color:var(--ink-4);margin-top:1px}
+.pop-desc{font-size:12px;color:var(--ink-3);line-height:1.6;margin-bottom:10px}
+.pop-tags{display:flex;flex-wrap:wrap;gap:4px;margin-bottom:12px}
+.pop-footer{display:flex;align-items:center;justify-content:space-between}
+.pop-link{
+  font-size:11px;font-weight:600;color:var(--infra);text-decoration:none;
+  display:flex;align-items:center;gap:4px;
+}
+.pop-link:hover{text-decoration:underline}
+.pop-close{
+  font-size:11px;color:var(--ink-4);cursor:pointer;background:none;border:none;
+  font-family:var(--font);padding:2px 6px;border-radius:4px;
+}
+.pop-close:hover{background:var(--surface-3)}
+
+/* ── VOICES SECTIONS ── */
+.voices-wrap{
+  max-width:1280px;margin:0 auto;padding:0 32px 80px;
+  display:grid;grid-template-columns:1fr 1fr;gap:20px;
+}
+.voices-panel{
+  background:var(--surface);border:1px solid var(--border);
+  border-radius:var(--r-xl);overflow:hidden;
+}
+.voices-hdr{
+  padding:20px 24px 16px;border-bottom:1px solid var(--border);
+}
+.voices-eyebrow{
+  font-family:var(--mono);font-size:9px;text-transform:uppercase;
+  letter-spacing:1.5px;color:var(--ink-4);margin-bottom:6px;
+  display:flex;align-items:center;gap:6px;
+}
+.voices-eyebrow-dot{width:5px;height:5px;border-radius:50%;flex-shrink:0}
+.voices-title{font-size:16px;font-weight:700;color:var(--ink);letter-spacing:-.3px;margin-bottom:4px}
+.voices-sub{font-size:12px;color:var(--ink-3);line-height:1.5}
+.voices-grid{
+  padding:16px 24px 20px;
+  display:grid;grid-template-columns:repeat(auto-fill,minmax(120px,1fr));gap:8px;
+}
+.voice-card{
+  display:flex;flex-direction:column;align-items:center;gap:6px;
+  padding:10px 8px;border-radius:var(--r-lg);border:1px solid var(--border);
+  background:var(--surface-2);text-decoration:none;
+  transition:all .15s;cursor:pointer;
+}
+.voice-card:hover{border-color:var(--border-2);box-shadow:0 2px 8px rgba(0,0,0,.06);transform:translateY(-1px);background:var(--surface)}
+.voice-avatar{
+  width:48px;height:48px;border-radius:12px;overflow:hidden;
+  background:var(--surface-3);border:1px solid var(--border);flex-shrink:0;
+  display:flex;align-items:center;justify-content:center;
+  font-size:16px;font-weight:700;color:var(--ink-3);
+}
+.voice-avatar img{width:100%;height:100%;object-fit:cover}
+.voice-name{font-size:10px;font-weight:600;color:var(--ink);text-align:center;line-height:1.3}
+.voice-role{font-size:9px;color:var(--ink-4);text-align:center;line-height:1.3;margin-top:1px}
+.voice-tag{
+  font-family:var(--mono);font-size:8px;font-weight:500;
+  padding:2px 6px;border-radius:3px;
+  background:var(--infra-light);color:var(--infra);border:1px solid var(--infra-mid);
+  white-space:nowrap;
+}
+.voice-tag.inv{background:var(--gold-light);color:var(--gold);border-color:#EED888}
+
+@media(max-width:768px){
+  .voices-wrap{grid-template-columns:1fr;padding:0 16px 60px}
+}
 @media(max-width:768px){
   .topbar,.hero-inner,.controls,.main,footer{padding-left:16px;padding-right:16px}
   .jensen-bar,.region-bar,.legend-bar{padding-left:16px;padding-right:16px}
@@ -478,8 +562,56 @@ footer{
       <p class="cta-sub">This map is a living reference. If you're building in AI infrastructure — or know a company that should be listed — we want to hear from you.</p>
     </div>
     <a href="mailto:ecosystem@vcluster.com?subject=Suggest a company for the AI Infra Map" class="cta-btn">Suggest a company →</a>
-  </div>
+  </div><!-- end cta -->
 </main>
+
+<!-- VOICES SECTIONS -->
+<div class="voices-wrap">
+
+  <!-- PRACTITIONERS & BUILDERS -->
+  <div class="voices-panel">
+    <div class="voices-hdr">
+      <div class="voices-eyebrow">
+        <span class="voices-eyebrow-dot" style="background:var(--infra)"></span>
+        Practitioners & Builders
+      </div>
+      <div class="voices-title">Voices shaping AI infrastructure</div>
+      <div class="voices-sub">Founders, engineers, and operators building in this stack. Talks, podcasts, and essays worth following.</div>
+    </div>
+    <div class="voices-grid" id="practitionersGrid"></div>
+  </div>
+
+  <!-- INVESTORS & ANALYSTS -->
+  <div class="voices-panel">
+    <div class="voices-hdr">
+      <div class="voices-eyebrow">
+        <span class="voices-eyebrow-dot" style="background:var(--gold)"></span>
+        Investors & Analysts
+      </div>
+      <div class="voices-title">Capital & market intelligence</div>
+      <div class="voices-sub">Investors and analysts with the sharpest takes on where AI infrastructure is heading.</div>
+    </div>
+    <div class="voices-grid" id="investorsGrid"></div>
+  </div>
+
+</div>
+
+<!-- POPOVER -->
+<div class="popover" id="popover">
+  <div class="pop-top">
+    <div class="pop-logo" id="popLogo"></div>
+    <div>
+      <div class="pop-name" id="popName"></div>
+      <div class="pop-tier" id="popTier"></div>
+    </div>
+  </div>
+  <div class="pop-desc" id="popDesc"></div>
+  <div class="pop-tags" id="popTags"></div>
+  <div class="pop-footer">
+    <a class="pop-link" id="popLink" href="#" target="_blank">Visit website ↗</a>
+    <button class="pop-close" onclick="closePopover()">✕ close</button>
+  </div>
+</div>
 
 <footer>
   <span class="footer-l">Last updated: June 2026 · Community maintained</span>
@@ -540,10 +672,21 @@ const LOGO_COLORS = {
   'SK Hynix':'#003087','Samsung':'#1428A0','Micron':'#CC0000',
 };
 
+/* Custom logos for vCluster Labs products — styled initials with orange, no favicon fetch */
+const VCL_LOGOS = {
+  'vCluster': {init:'vC', color:'#FF5C00'},
+  'vNode':    {init:'vN', color:'#FF5C00'},
+  'vMetal':   {init:'vM', color:'#FF5C00'},
+};
+
 function logoEl(name, isVcl) {
-  const color = isVcl ? '#FF5C00' : (LOGO_COLORS[name] || '#57606A');
+  // vCluster Labs: always use styled badge, never try favicon
+  if (VCL_LOGOS[name]) {
+    const v = VCL_LOGOS[name];
+    return `<div class="card-logo" style="background:${v.color};font-size:9px;font-weight:700;letter-spacing:-0.5px">${v.init}</div>`;
+  }
+  const color = LOGO_COLORS[name] || '#57606A';
   const initials = name.replace(/[^A-Za-z0-9 ]/g,'').split(/\s+/).map(w=>w[0]||'').join('').slice(0,2).toUpperCase() || name.slice(0,2).toUpperCase();
-  // Try favicon
   const domain = DOMAINS[name];
   if (domain) {
     return `<div class="card-logo"><img src="https://www.google.com/s2/favicons?domain=${domain}&sz=32" loading="lazy" onerror="this.style.display='none';this.parentNode.style.background='${color}';this.parentNode.textContent='${initials}'"></div>`;
@@ -558,7 +701,6 @@ const DOMAINS = {
   'RunPod':'runpod.io','Scaleway':'scaleway.com','OVHcloud':'ovhcloud.com',
   'DigitalOcean':'digitalocean.com','Fluidstack':'fluidstack.io','Nscale':'nscale.ai',
   'Kubernetes (CNCF)':'kubernetes.io','Red Hat OpenShift':'redhat.com','Rancher (SUSE)':'rancher.com',
-  'vCluster':'vcluster.com','vNode':'vnode.com','vMetal':'vmetal.ai',
   'NVIDIA DSX':'nvidia.com','KAI Scheduler':'github.com','Run:ai (NVIDIA)':'run.ai',
   'NVIDIA GPU Operator':'nvidia.com','Kueue':'kueue.sigs.k8s.io','Volcano (CNCF)':'volcano.sh',
   'Karpenter':'karpenter.sh','k0rdent':'k0rdent.io','Kamaji':'kamaji.clastix.io',
@@ -1231,7 +1373,8 @@ function mkCard(c){
   const rCode=REGIONS[c.n]||'us';
   const regBit=region==='all'?`<span style="font-size:9px;opacity:.4;margin-left:1px">${FLAGS[rCode]||'🇺🇸'}</span>`:'';
   const vclCls=c.vcl?' vcl':'';
-  return `<div class="card${vclCls}">
+  const popData = encodeURIComponent(JSON.stringify({n:c.n,d:c.d,t:c.t,oss:!!c.oss,vcl:!!c.vcl}));
+  return `<div class="card${vclCls}" style="cursor:pointer" onclick="showPopover(event,JSON.parse(decodeURIComponent(this.dataset.co)))" data-co="${popData}">
     ${logoEl(c.n, !!c.vcl)}
     <div class="card-body">
       <div class="card-name">${c.n}${regBit}</div>
@@ -1285,7 +1428,133 @@ function copyLink(){
   });
 }
 
+/* ════ POPOVER ════ */
+const COMPANY_URLS = {
+  'AWS':'https://aws.amazon.com','Microsoft Azure':'https://azure.microsoft.com',
+  'Google Cloud':'https://cloud.google.com','CoreWeave':'https://coreweave.com',
+  'Lambda':'https://lambdalabs.com','Together AI':'https://together.ai',
+  'Nebius':'https://nebius.com','vCluster':'https://vcluster.com',
+  'vNode':'https://vnode.com','vMetal':'https://vmetal.ai',
+  'NVIDIA DSX':'https://docs.nvidia.com/dsx','KAI Scheduler':'https://github.com/NVIDIA/KAI-Scheduler',
+  'Kubernetes (CNCF)':'https://kubernetes.io','Red Hat OpenShift':'https://redhat.com/openshift',
+  'Weights & Biases':'https://wandb.ai','vLLM':'https://vllm.ai',
+  'NVIDIA Triton':'https://developer.nvidia.com/triton-inference-server',
+  'NVIDIA Dynamo':'https://github.com/ai-dynamo/dynamo',
+  'llm-d (CNCF)':'https://github.com/llm-d/llm-d',
+  'Modal':'https://modal.com','Datadog':'https://datadoghq.com',
+  'WEKA':'https://weka.io','Vast Data':'https://vastdata.com',
+  'Databricks':'https://databricks.com','NVIDIA Mellanox':'https://nvidia.com/mellanox',
+  'Broadcom':'https://broadcom.com','Arista Networks':'https://arista.com',
+  'Argo CD':'https://argo-cd.readthedocs.io','Flux':'https://fluxcd.io',
+  'Helm':'https://helm.sh','Crossplane':'https://crossplane.io',
+  'Prometheus':'https://prometheus.io','Grafana':'https://grafana.com',
+  'Run:ai (NVIDIA)':'https://run.ai','Temporal':'https://temporal.io',
+  'Equinix':'https://equinix.com','Vertiv':'https://vertiv.com',
+  'NVIDIA':'https://nvidia.com','AMD':'https://amd.com',
+  'Cerebras':'https://cerebras.ai','Groq':'https://groq.com',
+};
+
+let popTarget = null;
+function showPopover(e, company) {
+  e.stopPropagation();
+  const pop = document.getElementById('popover');
+  document.getElementById('popName').textContent = company.n;
+  document.getElementById('popDesc').textContent = company.d;
+  const tier = TIERS[company.t] || TIERS.startup;
+  document.getElementById('popTier').textContent = tier.label + (company.oss ? ' · Open Source' : '');
+  const logoDiv = document.getElementById('popLogo');
+  const color = company.vcl ? '#FF5C00' : (LOGO_COLORS[company.n] || '#57606A');
+  const inits = company.n.replace(/[^A-Za-z0-9 ]/g,'').split(/\s+/).map(w=>w[0]||'').join('').slice(0,2).toUpperCase();
+  const dom = DOMAINS[company.n];
+  if (VCL_LOGOS[company.n]) {
+    const v = VCL_LOGOS[company.n];
+    logoDiv.style.background = v.color; logoDiv.style.fontSize='10px'; logoDiv.style.fontWeight='700';
+    logoDiv.innerHTML = v.init;
+  } else if (dom) {
+    logoDiv.innerHTML = `<img src="https://www.google.com/s2/favicons?domain=${dom}&sz=32" onerror="this.style.display='none';this.parentNode.style.background='${color}';this.parentNode.textContent='${inits}'">`;
+    logoDiv.style.background = 'transparent';
+  } else {
+    logoDiv.style.background = color; logoDiv.textContent = inits;
+  }
+  const tagsDiv = document.getElementById('popTags');
+  tagsDiv.innerHTML = `<span class="tag ${tier.cls}">${tier.label}</span>`;
+  if (company.oss) tagsDiv.innerHTML += `<span class="tag tag-oss">OSS</span>`;
+  const reg = REGIONS[company.n]||'us';
+  tagsDiv.innerHTML += `<span class="tag tag-maj">${FLAGS[reg]||'🇺🇸'} ${reg.toUpperCase()}</span>`;
+  const url = COMPANY_URLS[company.n] || (DOMAINS[company.n] ? 'https://'+DOMAINS[company.n] : null);
+  const linkEl = document.getElementById('popLink');
+  if (url) { linkEl.href = url; linkEl.style.display = 'flex'; } else { linkEl.style.display = 'none'; }
+  const x=e.clientX, y=e.clientY, pw=300, vw=window.innerWidth, vh=window.innerHeight;
+  let left=x+12, top=y-20;
+  if (left+pw > vw-16) left=x-pw-12;
+  if (top+220 > vh-16) top=vh-240;
+  if (top < 60) top=60;
+  pop.style.left=left+'px'; pop.style.top=top+'px';
+  pop.classList.add('show');
+  popTarget = e.target;
+}
+function closePopover() {
+  document.getElementById('popover').classList.remove('show');
+  popTarget = null;
+}
+document.addEventListener('click', (e) => {
+  if (!document.getElementById('popover').contains(e.target)) closePopover();
+});
+
+/* ════ VOICES DATA ════ */
+const PRACTITIONERS = [
+  { name:'Tuhin Srivastava', role:'Co-founder, Baseten',    tag:'No Priors Ep.', color:'#0F1117', url:'https://open.spotify.com/episode/no-priors-baseten',    img:'https://www.google.com/s2/favicons?domain=baseten.co&sz=64' },
+  { name:'Swyx',             role:'Latent Space Podcast',   tag:'Podcast',       color:'#6366F1', url:'https://www.latent.space',                              img:'' },
+  { name:'Dylan Patel',      role:'SemiAnalysis',           tag:'Research',      color:'#1A1A2E', url:'https://semianalysis.com',                              img:'https://www.google.com/s2/favicons?domain=semianalysis.com&sz=64' },
+  { name:'Robert Nishihara', role:'Co-founder, Anyscale',   tag:'No Priors Ep.', color:'#0056A0', url:'https://www.anyscale.com',                              img:'https://www.google.com/s2/favicons?domain=anyscale.com&sz=64' },
+  { name:'Vicki Cheung',     role:'Co-founder, Modal',      tag:'No Priors Ep.', color:'#7928CA', url:'https://modal.com',                                     img:'https://www.google.com/s2/favicons?domain=modal.com&sz=64' },
+  { name:'Clem Delangue',    role:'CEO, Hugging Face',      tag:'Talk',          color:'#FF9D00', url:'https://huggingface.co',                                img:'https://www.google.com/s2/favicons?domain=huggingface.co&sz=64' },
+  { name:'Solomon Hykes',    role:'Founder, Dagger',        tag:'Talk',          color:'#0EA5E9', url:'https://dagger.io',                                     img:'https://www.google.com/s2/favicons?domain=dagger.io&sz=64' },
+  { name:'George Hotz',      role:'Founder, Tiny Corp',     tag:'Podcast',       color:'#0D0D0D', url:'https://tinygrad.org',                                  img:'' },
+  { name:'Luca Antiga',      role:'CTO, Lightning AI',      tag:'Talk',          color:'#792EE5', url:'https://lightning.ai',                                  img:'https://www.google.com/s2/favicons?domain=lightning.ai&sz=64' },
+  { name:'Tim Shi',          role:'Co-founder, Cresta',     tag:'No Priors Ep.', color:'#7C3AED', url:'https://no-priors.com',                                 img:'' },
+  { name:'Ali Ghodsi',       role:'CEO, Databricks',        tag:'Talk',          color:'#FF3621', url:'https://databricks.com',                                img:'https://www.google.com/s2/favicons?domain=databricks.com&sz=64' },
+  { name:'Jensen Huang',     role:'CEO, NVIDIA',            tag:'Keynote',       color:'#76B900', url:'https://blogs.nvidia.com/blog/ai-5-layer-cake',         img:'https://www.google.com/s2/favicons?domain=nvidia.com&sz=64' },
+];
+
+const INVESTORS = [
+  { name:'Sarah Guo',         role:'Conviction · No Priors', tag:'Pod Host',     color:'#1A1A2E', url:'https://no-priors.com',                               img:'' },
+  { name:'Martin Casado',     role:'a16z',                   tag:'AI Infra',     color:'#1652F0', url:'https://a16z.com/ai',                                 img:'https://www.google.com/s2/favicons?domain=a16z.com&sz=64' },
+  { name:'Elad Gil',          role:'Investor',               tag:'Essay',        color:'#0F172A', url:'https://eladgil.com',                                 img:'' },
+  { name:'Pat Grady',         role:'Sequoia',                tag:'AI Stack',     color:'#B91C1C', url:'https://sequoiacap.com',                              img:'https://www.google.com/s2/favicons?domain=sequoiacap.com&sz=64' },
+  { name:'Nat Friedman',      role:'Investor',               tag:'AI Thesis',    color:'#0D0D0D', url:'https://nat.org',                                     img:'' },
+  { name:'Zach DeWitt',       role:'Wing VC',                tag:'Essay',        color:'#0F766E', url:'https://medium.com/@zachdewitt',                      img:'' },
+  { name:'Derrick Harris',    role:'Amplify Partners',       tag:'Essay',        color:'#0F766E', url:'https://amplifypartners.com',                         img:'' },
+  { name:'Konstantine Buhler',role:'Sequoia',                tag:'Talk',         color:'#B91C1C', url:'https://sequoiacap.com',                              img:'' },
+  { name:'Jake Saper',        role:'Emergence Capital',      tag:'Talk',         color:'#0F172A', url:'https://emcap.com',                                   img:'' },
+  { name:'Anna Khan',         role:'CRV',                    tag:'AI Infra',     color:'#1652F0', url:'https://crv.com',                                     img:'' },
+  { name:'Bogomil Balkansky', role:'Sequoia',                tag:'Essay',        color:'#B91C1C', url:'https://sequoiacap.com',                              img:'' },
+  { name:'Zack Urlocker',     role:'Investor',               tag:'OSS GTM',      color:'#1A56DB', url:'https://medium.com/@zurlocker',                      img:'' },
+];
+
+function voiceInitials(name){ return name.split(' ').map(w=>w[0]).join('').slice(0,2).toUpperCase(); }
+
+function renderVoices(data, containerId, tagCls) {
+  const grid = document.getElementById(containerId);
+  if (!grid) return;
+  grid.innerHTML = data.map(v => {
+    const init = voiceInitials(v.name);
+    const avatarStyle = `background:${v.color};color:#fff;font-size:15px;font-weight:700;display:flex;align-items:center;justify-content:center;width:100%;height:100%;border-radius:11px`;
+    const avatarContent = v.img
+      ? `<img src="${v.img}" loading="lazy" onerror="this.style.display='none';this.parentNode.style.background='${v.color}';this.parentNode.style.color='#fff';this.parentNode.textContent='${init}'">`
+      : `<span style="${avatarStyle}">${init}</span>`;
+    return `<a class="voice-card" href="${v.url}" target="_blank" rel="noopener">
+      <div class="voice-avatar">${avatarContent}</div>
+      <div class="voice-name">${v.name}</div>
+      <div class="voice-role">${v.role}</div>
+      <span class="voice-tag ${tagCls}">${v.tag}</span>
+    </a>`;
+  }).join('');
+}
+
+renderVoices(PRACTITIONERS, 'practitionersGrid', '');
+renderVoices(INVESTORS, 'investorsGrid', 'inv');
+
 render();
-</script>
 </body>
 </html>
