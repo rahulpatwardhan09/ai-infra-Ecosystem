@@ -44,7 +44,7 @@
 }
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 html{font-size:14px;-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale}
-body{background:var(--bg);color:var(--ink);font-family:var(--font);line-height:1.5}
+body{background:#ffffff;color:var(--ink);font-family:var(--font);line-height:1.5}
 
 /* ── TOPBAR ── */
 .topbar{
@@ -148,6 +148,23 @@ body{background:var(--bg);color:var(--ink);font-family:var(--font);line-height:1
 .search-ico{position:absolute;left:9px;top:50%;transform:translateY(-50%);color:var(--ink-4);font-size:11px;pointer-events:none}
 .xbtn{padding:4px 10px;background:var(--surface);border:1px solid var(--border);border-radius:var(--r);font-family:var(--font);font-size:11px;color:var(--ink-3);cursor:pointer;font-weight:500}
 .xbtn:hover{background:var(--surface-3)}
+
+/* ── RELATIONSHIP MAPS BAR ── */
+.relmap-bar{
+  background:#fff;border-bottom:1px solid var(--border);
+  padding:7px 32px;display:flex;align-items:center;gap:8px;flex-wrap:wrap;
+}
+.relmap-label{font-family:var(--mono);font-size:9px;color:var(--ink-4);text-transform:uppercase;letter-spacing:1px;margin-right:2px;flex-shrink:0}
+.relmap-link{
+  display:inline-flex;align-items:center;gap:6px;
+  padding:4px 12px;border-radius:20px;
+  border:1px solid var(--border);background:var(--surface-2);
+  font-size:11px;font-weight:500;color:var(--ink-2);
+  text-decoration:none;transition:all .12s;white-space:nowrap;
+}
+.relmap-link:hover{border-color:var(--infra);color:var(--infra);background:var(--infra-light)}
+.relmap-link-dot{width:6px;height:6px;border-radius:50%;background:#76B900;flex-shrink:0}
+.relmap-link-arrow{font-size:10px;opacity:.5;margin-left:1px}
 
 /* ── REGION BAR ── */
 .region-bar{
@@ -280,6 +297,10 @@ body{background:var(--bg);color:var(--ink);font-family:var(--font);line-height:1
 .card.vcl:hover{border-color:var(--accent);box-shadow:0 2px 10px rgba(255,92,0,.12)}
 .card.vcl .card-name{color:var(--accent)}
 .card.vcl .card-logo{background:var(--accent)}
+.card.nv{background:#F4FBE6;border-color:#C5E89A}
+.card.nv:hover{border-color:#76B900;box-shadow:0 2px 10px rgba(118,185,0,.12)}
+.card.nv .card-name{color:#3A6B00}
+.card.nv .card-logo{background:#76B900}
 
 /* ── OVERVIEW PILLS ── */
 .pill-row{display:flex;flex-wrap:wrap;gap:4px;padding:0 16px 12px}
@@ -292,6 +313,7 @@ body{background:var(--bg);color:var(--ink);font-family:var(--font);line-height:1
 }
 .pill:hover{box-shadow:0 2px 6px rgba(0,0,0,.07);transform:translateY(-1px);background:var(--surface)}
 .pill.vcl{background:var(--accent-light);border-color:var(--accent-mid);color:var(--accent)}
+.pill.nv{background:#F4FBE6;border-color:#C5E89A;color:#3A6B00}
 .pill-dot{width:5px;height:5px;border-radius:50%;flex-shrink:0}
 .pill-oss{font-family:var(--mono);font-size:8px;color:var(--green);background:var(--green-light);border:1px solid var(--green-mid);padding:1px 3px;border-radius:3px}
 .more-pill{
@@ -485,7 +507,7 @@ footer{
     <span class="topbar-name">AI Infra Stack</span>
   </a>
   <div class="topbar-sep"></div>
-  <span class="topbar-tag">Community Edition · June 2026</span>
+  <span class="topbar-tag">June 2026</span>
   <div class="topbar-right">
     <span id="coCount" style="font-family:var(--mono);font-size:10px;color:var(--ink-4)"></span>
     <button class="share-btn" onclick="copyLink()">
@@ -498,9 +520,9 @@ footer{
 <div class="hero">
   <div class="hero-inner">
     <div>
-      <div class="hero-eyebrow"><span class="hero-eyebrow-dot"></span>Living reference · Community maintained</div>
+      <div class="hero-eyebrow"><span class="hero-eyebrow-dot"></span>Living reference · June 2026</div>
       <h1 class="hero-title">The AI Infrastructure Stack</h1>
-      <p class="hero-sub">Every meaningful company building the infrastructure layer of AI — mapped across <a href="https://blogs.nvidia.com/blog/ai-5-layer-cake" target="_blank">Jensen Huang's five-layer cake</a>. Infrastructure expanded in full detail, with Applications, Models, Chips, and Energy shown as context.</p>
+      <p class="hero-sub">Every meaningful company building the infrastructure layer of AI — organized across Jensen Huang's five-layer cake: Application → Model → Infrastructure → Chips → Energy. Infrastructure expanded in full detail, with the other four layers shown as context.</p>
     </div>
     <div class="hero-stats">
       <div class="hstat"><div class="hstat-n" id="heroCoCount">—</div><div class="hstat-l">Companies</div></div>
@@ -510,14 +532,7 @@ footer{
   </div>
 </div>
 
-<div class="jensen-bar">
-  <div class="jensen-inner">
-    <span class="jensen-badge">Framework</span>
-    Jensen Huang's five-layer cake — introduced at Davos 2026, expanded in
-    <a href="https://blogs.nvidia.com/blog/ai-5-layer-cake" target="_blank">"AI Is a 5-Layer Cake"</a> (March 2026).
-    Application → Model → Infrastructure → Chips → Energy.
-  </div>
-</div>
+
 
 <!-- LEGEND -->
 <div class="legend-bar" id="legendRow">
@@ -543,6 +558,16 @@ footer{
   <button class="pill-btn" data-reg="eu"            onclick="setRegion('eu')">🇪🇺 Europe</button>
   <button class="pill-btn" data-reg="apac"          onclick="setRegion('apac')">🌏 APAC</button>
   <button class="pill-btn" data-reg="global"        onclick="setRegion('global')">🌐 Global / OSS</button>
+</div>
+
+<!-- RELATIONSHIP MAPS BAR -->
+<div class="relmap-bar">
+  <span class="relmap-label">Relationship Maps</span>
+  <a class="relmap-link" href="dsx.html">
+    <span class="relmap-link-dot"></span>
+    NVIDIA DSX + vCluster
+    <span class="relmap-link-arrow">↗</span>
+  </a>
 </div>
 
 <!-- CONTROLS -->
@@ -635,7 +660,7 @@ footer{
 </div>
 
 <footer>
-  <span class="footer-l">Last updated: June 2026 · Community maintained</span>
+  <span class="footer-l">Last updated: June 2026</span>
   <span class="footer-r">Built with ♥ for the AI infra community</span>
 </footer>
 <div class="toast" id="toast">Link copied to clipboard</div>
@@ -648,7 +673,7 @@ const LOGO_COLORS = {
   'Crusoe':'#2A9D5C','RunPod':'#7928CA','Scaleway':'#7B35C1','OVHcloud':'#123F6D',
   'Vultr':'#007BFC','DigitalOcean':'#0080FF','Fluidstack':'#1A1A2E','Nscale':'#0A1628',
   'Kubernetes (CNCF)':'#326CE5','Red Hat OpenShift':'#EE0000','Rancher (SUSE)':'#30BA78',
-  'vCluster':'#FF5C00','vNode':'#FF5C00','vMetal':'#FF5C00',
+  'vCluster':'#FF5C00','vCluster Standalone':'#FF5C00','vNode':'#FF5C00','vMetal':'#FF5C00',
   'NVIDIA DSX':'#76B900','KAI Scheduler':'#76B900','NVIDIA AICR':'#76B900','NVSentinel':'#76B900','NVIDIA Infra Controller':'#76B900',
   'Run:ai (NVIDIA)':'#76B900','NVIDIA GPU Operator':'#76B900',
   'Kueue':'#326CE5','Volcano (CNCF)':'#326CE5','Karpenter':'#FF9900','k0rdent':'#6B3FA0','Kamaji':'#0066FF',
@@ -695,9 +720,10 @@ const LOGO_COLORS = {
 
 /* Custom logos for vCluster Labs products — styled initials with orange, no favicon fetch */
 const VCL_LOGOS = {
-  'vCluster': {init:'vC', color:'#FF5C00'},
-  'vNode':    {init:'vN', color:'#FF5C00'},
-  'vMetal':   {init:'vM', color:'#FF5C00'},
+  'vCluster':           {init:'vC', color:'#FF5C00'},
+  'vCluster Standalone':{init:'vC', color:'#FF5C00'},
+  'vNode':              {init:'vN', color:'#FF5C00'},
+  'vMetal':             {init:'vM', color:'#FF5C00'},
 };
 
 function logoEl(name, isVcl) {
@@ -785,7 +811,7 @@ const REGIONS = {
   'AWS':'us','Microsoft Azure':'us','Google Cloud':'us','Oracle Cloud':'us',
   'CoreWeave':'us','Lambda':'us','Together AI':'us','Crusoe':'us','Vultr':'us','RunPod':'us',
   'Nebius':'eu','Scaleway':'eu','OVHcloud':'eu',
-  'Kubernetes (CNCF)':'global','vCluster':'us','vNode':'us',
+  'Kubernetes (CNCF)':'global','vCluster':'us','vCluster Standalone':'us','vNode':'us',
   'Red Hat OpenShift':'us','Rancher (SUSE)':'eu','k0rdent':'global','Kamaji':'eu',
   'NVIDIA DSX':'us','KAI Scheduler':'us','NVIDIA AICR':'us','NVSentinel':'us',
   'Run:ai (NVIDIA)':'us','NVIDIA GPU Operator':'us','Kueue':'global','Volcano (CNCF)':'global',
@@ -1027,8 +1053,9 @@ const INFRA_SUBLAYERS = [
         {n:'Crossplane',       d:'OSS control plane framework, provision infra from K8s',t:'emerging',f:true,oss:true},
       ]},
       { name:'Tenant Cluster Orchestration', cos:[
-        {n:'vCluster',d:'Full K8s API server per team on shared infra. OSS, GPU-native',t:'major',f:true,oss:true,vcl:true},
-        {n:'vNode',   d:'Kernel-native workload sandboxing, Linux user namespaces, no VM overhead',t:'emerging',f:true,vcl:true},
+        {n:'vCluster',          d:'Full K8s API server per team on shared infra. OSS, GPU-native',t:'major',f:true,oss:true,vcl:true},
+        {n:'vCluster Standalone',d:'Deploy the control plane directly on bare metal — no existing K8s required',t:'major',f:true,vcl:true},
+        {n:'vNode',             d:'Kernel-native workload sandboxing, Linux user namespaces, no VM overhead',t:'emerging',f:true,vcl:true},
       ]},
       { name:'AI Factory Platforms', cos:[
         {n:'NVIDIA DSX',           d:'Unified AI factory: DSX OS, Sim, MaxLPS, Reference Designs',t:'major',f:true},
@@ -1331,11 +1358,12 @@ function renderSlOv(ct,sl){
   const d=document.createElement('div');
   d.className='sublayer';
   const pills=fps.map(c=>{
-    const vclCls=c.vcl?' vcl':'';
+    const isNv = NVIDIA_COS.has(c.n);
+    const pillCls = c.vcl ? ' vcl' : isNv ? ' nv' : '';
     const ossBit=c.oss?'<span class="pill-oss">OSS</span>':'';
     const pip=TIERS[c.t]?.cls||'tag-maj';
-    const color=pip==='tag-dom'?'#9A6E00':pip==='tag-em'?'#BC4C00':pip==='tag-st'?'#AAA':'#666';
-    return `<span class="pill${vclCls}" title="${c.d}"><span class="pill-dot" style="background:${c.vcl?'var(--accent)':color}"></span>${c.n}${ossBit}</span>`;
+    const color=c.vcl?'var(--accent)':isNv?'#76B900':pip==='tag-dom'?'#9A6E00':pip==='tag-em'?'#BC4C00':pip==='tag-st'?'#AAA':'#666';
+    return `<span class="pill${pillCls}" title="${c.d}"><span class="pill-dot" style="background:${color}"></span>${c.n}${ossBit}</span>`;
   }).join('');
   const moreBit=rest.length?`<button class="more-pill" onclick="goRef('${sl.id}')">+${rest.length} more</button>`:'';
   d.innerHTML=`
@@ -1393,9 +1421,10 @@ function mkCard(c){
   const tierBit=`<span class="tag ${tier.cls}">${tier.label}</span>`;
   const rCode=REGIONS[c.n]||'us';
   const regBit=region==='all'?`<span style="font-size:9px;opacity:.4;margin-left:1px">${FLAGS[rCode]||'🇺🇸'}</span>`:'';
-  const vclCls=c.vcl?' vcl':'';
+  const isNv = NVIDIA_COS.has(c.n);
+  const cardCls = c.vcl ? ' vcl' : isNv ? ' nv' : '';
   const popData = encodeURIComponent(JSON.stringify({n:c.n,d:c.d,t:c.t,oss:!!c.oss,vcl:!!c.vcl}));
-  return `<div class="card${vclCls}" style="cursor:pointer" onclick="showPopover(event,JSON.parse(decodeURIComponent(this.dataset.co)))" data-co="${popData}">
+  return `<div class="card${cardCls}" style="cursor:pointer" onclick="showPopover(event,JSON.parse(decodeURIComponent(this.dataset.co)))" data-co="${popData}">
     ${logoEl(c.n, !!c.vcl)}
     <div class="card-body">
       <div class="card-name">${c.n}${regBit}</div>
@@ -1573,7 +1602,13 @@ const COMPANY_DETAIL = {
   },
 };
 
-/* ════ POPOVER ════ */
+/* ── NVIDIA-branded companies ── */
+const NVIDIA_COS = new Set([
+  'NVIDIA','NVIDIA DSX','NVIDIA Dynamo','NVIDIA Triton','NVIDIA Mellanox',
+  'NVIDIA GPU Operator','NVIDIA AICR','NVSentinel','NVIDIA Infra Controller',
+  'KAI Scheduler','Run:ai (NVIDIA)','NVIDIA DGX','NVIDIA NGC','GTC (NVIDIA)',
+  'DCGM','NVCF',
+]);
 const COMPANY_URLS = {
   'AWS':'https://aws.amazon.com','Microsoft Azure':'https://azure.microsoft.com',
   'Google Cloud':'https://cloud.google.com','CoreWeave':'https://coreweave.com',
