@@ -619,7 +619,7 @@ footer{
     <div>
       <div class="hero-eyebrow"><span class="hero-eyebrow-dot"></span>Living reference · June 2026</div>
       <h1 class="hero-title">The AI Infrastructure Stack</h1>
-      <p class="hero-sub">Every meaningful company building the infrastructure layer of AI — organized across Jensen Huang's five-layer cake: Application → Model → Infrastructure → Chips → Energy. Infrastructure expanded in full detail, with the other four layers shown as context.</p>
+      <p class="hero-sub">Every meaningful company building the infrastructure layer of AI — organized across <a href="https://blogs.nvidia.com/blog/ai-5-layer-cake" target="_blank" style="color:var(--infra);border-bottom:1px solid var(--infra-mid);text-decoration:none">Jensen Huang's five-layer cake</a>: Application → Model → Infrastructure → Chips → Energy. Infrastructure expanded in full detail, with the other four layers shown as context.</p>
     </div>
     <div class="hero-stats">
       <div class="hstat"><div class="hstat-n" id="heroCoCount">—</div><div class="hstat-l">Companies</div></div>
@@ -684,9 +684,18 @@ footer{
 <div class="page-body">
 
 <main class="main">
+  <div style="font-family:var(--mono);font-size:9px;color:var(--ink-4);letter-spacing:.5px;margin-bottom:6px;padding-top:4px">AI Infra Ecosystem in the 5-Layer Cake Framework</div>
   <div class="rail"><span class="rail-label">Application ▾</span><div class="rail-line"></div></div>
   <div id="map"></div>
   <div class="rail bottom"><span class="rail-label">▴ Energy</span><div class="rail-line"></div></div>
+
+  <div style="margin-top:24px;background:var(--surface-2);border:1px solid var(--border);border-radius:var(--r-xl);padding:20px 24px;display:flex;align-items:center;justify-content:space-between;gap:20px;flex-wrap:wrap">
+    <div>
+      <div style="font-size:13px;font-weight:700;color:var(--ink);margin-bottom:4px">Know a company that belongs here?</div>
+      <p style="font-size:12px;color:var(--ink-3);line-height:1.6">Suggestions are welcome — drop a note and we'll review.</p>
+    </div>
+    <button disabled style="display:inline-flex;align-items:center;gap:6px;padding:9px 18px;background:var(--surface-3);color:var(--ink-4);border-radius:var(--r);font-family:var(--font);font-size:12px;font-weight:600;border:1px solid var(--border);cursor:not-allowed;opacity:.6">Suggest a company — coming soon</button>
+  </div>
 </main>
 
 <!-- SIDEBAR -->
@@ -694,8 +703,9 @@ footer{
 
   <!-- Relationship Maps -->
   <div class="sidebar-section">
-    <div class="sidebar-section-hdr">
-      <span class="sidebar-section-label">Relationship Maps</span>
+    <div style="padding-bottom:10px;margin-bottom:10px;border-bottom:1px solid var(--border)">
+      <div style="font-size:13px;font-weight:700;color:var(--infra);letter-spacing:-.2px">Relationship Maps</div>
+      <div style="font-size:10px;color:var(--ink-4);margin-top:2px">Architecture diagrams showing how the stack connects</div>
     </div>
     <a class="sidebar-relmap-link" href="dsx.html">
       <span class="sidebar-relmap-dot" style="background:#76B900"></span>
@@ -707,28 +717,28 @@ footer{
     </a>
   </div>
 
-  <!-- Practitioners -->
+  <!-- Voices -->
   <div class="sidebar-section">
-    <div class="sidebar-section-hdr">
-      <span class="sidebar-section-label" style="color:var(--infra)">Practitioners &amp; Builders</span>
+    <div style="padding-bottom:10px;margin-bottom:10px;border-bottom:1px solid var(--border)">
+      <div style="font-size:13px;font-weight:700;color:var(--infra);letter-spacing:-.2px">Voices</div>
+      <div style="font-size:10px;color:var(--ink-4);margin-top:2px">Practitioners, builders, investors and analysts shaping AI infrastructure</div>
     </div>
-    <div class="sidebar-voices-grid" id="practitionersGrid"></div>
+
+    <!-- Practitioners -->
+    <div style="margin-bottom:12px">
+      <div style="font-family:var(--mono);font-size:9px;text-transform:uppercase;letter-spacing:1px;color:var(--ink-4);margin-bottom:7px">Practitioners &amp; Builders</div>
+      <div class="sidebar-voices-grid" id="practitionersGrid"></div>
+      <button id="practitionersMore" onclick="expandVoices('practitioners')" style="margin-top:6px;width:100%;padding:5px;border:1px dashed var(--border);border-radius:var(--r);background:none;font-size:10px;color:var(--ink-4);cursor:pointer;font-family:var(--font)">+ show more</button>
+    </div>
+
+    <!-- Investors -->
+    <div>
+      <div style="font-family:var(--mono);font-size:9px;text-transform:uppercase;letter-spacing:1px;color:var(--ink-4);margin-bottom:7px">Investors &amp; Analysts</div>
+      <div class="sidebar-voices-grid" id="investorsGrid"></div>
+      <button id="investorsMore" onclick="expandVoices('investors')" style="margin-top:6px;width:100%;padding:5px;border:1px dashed var(--border);border-radius:var(--r);background:none;font-size:10px;color:var(--ink-4);cursor:pointer;font-family:var(--font)">+ show more</button>
+    </div>
   </div>
 
-  <!-- Investors -->
-  <div class="sidebar-section">
-    <div class="sidebar-section-hdr">
-      <span class="sidebar-section-label" style="color:var(--gold)">Investors &amp; Analysts</span>
-    </div>
-    <div class="sidebar-voices-grid" id="investorsGrid"></div>
-  </div>
-
-  <!-- Suggest CTA -->
-  <div class="sidebar-cta">
-    <div class="sidebar-cta-title">Know a company that belongs here?</div>
-    <p class="sidebar-cta-sub">This map is a living reference. Suggestions and contributions welcome.</p>
-    <a href="mailto:ecosystem@vcluster.com?subject=Suggest a company for the AI Infra Map" class="sidebar-cta-btn">Suggest a company →</a>
-  </div>
 
 </aside>
 
@@ -1856,9 +1866,24 @@ const INVESTORS = [
 
 function voiceInitials(name){ return name.split(' ').map(w=>w[0]).join('').slice(0,2).toUpperCase(); }
 
+const VOICES_DATA = {};
 function renderVoices(data, containerId, tagCls) {
+  VOICES_DATA[containerId] = {data, tagCls};
   const grid = document.getElementById(containerId);
   if (!grid) return;
+  renderVoiceCards(data.slice(0, 3), grid, tagCls);
+}
+function expandVoices(prefix) {
+  const containerId = prefix + 'Grid';
+  const btnId = prefix + 'More';
+  const {data, tagCls} = VOICES_DATA[containerId] || {};
+  const grid = document.getElementById(containerId);
+  const btn = document.getElementById(btnId);
+  if (!grid || !data) return;
+  renderVoiceCards(data, grid, tagCls);
+  if (btn) btn.style.display = 'none';
+}
+function renderVoiceCards(data, grid, tagCls) {
   grid.innerHTML = data.map(v => {
     const init = voiceInitials(v.name);
     const avatarStyle = `background:${v.color};color:#fff;font-size:12px;font-weight:700;display:flex;align-items:center;justify-content:center;width:100%;height:100%;border-radius:8px`;
