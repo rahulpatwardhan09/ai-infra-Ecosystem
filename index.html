@@ -594,6 +594,50 @@ footer{
 .sublayer:nth-child(1){animation-delay:.03s}.sublayer:nth-child(2){animation-delay:.06s}
 .sublayer:nth-child(3){animation-delay:.09s}.sublayer:nth-child(4){animation-delay:.12s}
 .sublayer:nth-child(5){animation-delay:.15s}.sublayer:nth-child(6){animation-delay:.18s}
+
+/* ── AI CLOUD INDEX ── */
+.cloud-index-hdr{padding:16px 0 20px;border-bottom:1px solid var(--border);margin-bottom:20px}
+.cloud-index-eyebrow{font-family:var(--mono);font-size:9px;text-transform:uppercase;letter-spacing:1.5px;color:var(--infra);margin-bottom:8px}
+.cloud-index-title{font-size:18px;font-weight:700;letter-spacing:-.3px;margin-bottom:6px}
+.cloud-index-sub{font-size:12px;color:var(--ink-3);line-height:1.65;max-width:640px;margin-bottom:12px}
+.cloud-meta-row{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.cloud-methodology{display:inline-flex;align-items:center;gap:4px;font-family:var(--mono);font-size:9px;color:var(--ink-4);background:var(--surface-2);border:1px solid var(--border);border-radius:20px;padding:3px 10px}
+.cloud-methodology a{color:var(--gold);text-decoration:none}
+.cloud-methodology a:hover{text-decoration:underline}
+.cloud-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(520px,1fr));gap:12px}
+.cloud-card{background:var(--surface);border:1px solid var(--border);border-left:3px solid var(--infra);border-radius:var(--r-xl);overflow:hidden;transition:box-shadow .15s;scroll-margin-top:110px}
+.cloud-card:hover{box-shadow:0 4px 16px rgba(0,0,0,.07)}
+.cloud-card.vcl{border-left-color:var(--accent)}
+.cloud-card-hdr{display:flex;align-items:flex-start;gap:12px;padding:14px 16px 12px;border-bottom:1px solid var(--border);background:var(--surface-2)}
+.cloud-card-logo{width:30px;height:30px;border-radius:7px;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:700;color:#fff;background:var(--infra);overflow:hidden;border:1px solid rgba(0,0,0,.06)}
+.cloud-card-logo img{width:100%;height:100%;object-fit:contain;border-radius:6px}
+.cloud-card-logo.vcl-logo{background:var(--accent)}
+.cloud-card-title-wrap{flex:1;min-width:0}
+.cloud-card-name{font-size:14px;font-weight:700;color:var(--ink);letter-spacing:-.2px}
+.cloud-card.vcl .cloud-card-name{color:var(--accent)}
+.cloud-card-pos{font-size:11px;color:var(--ink-3);margin-top:2px;line-height:1.45}
+.cloud-card-badges{display:flex;align-items:center;gap:4px;flex-wrap:wrap;margin-top:7px}
+.cc-badge{display:inline-flex;align-items:center;gap:3px;font-family:var(--mono);font-size:8px;font-weight:500;padding:2px 6px;border-radius:4px;white-space:nowrap}
+.cc-badge-cm{background:var(--gold-light);color:var(--gold);border:1px solid #EED888;text-decoration:none}
+.cc-badge-cm:hover{text-decoration:underline}
+.cc-badge-verified{background:var(--green-light);color:var(--green);border:1px solid var(--green-mid)}
+.cc-badge-unverified{background:var(--surface-3);color:var(--ink-4);border:1px solid var(--border)}
+.cc-badge-vcl{background:var(--accent-light);color:var(--accent);border:1px solid var(--accent-mid)}
+.cloud-card-permalink{flex-shrink:0;font-family:var(--mono);font-size:10px;color:var(--ink-4);text-decoration:none;padding:3px 7px;border-radius:4px;margin-left:auto;line-height:1;transition:all .1s}
+.cloud-card-permalink:hover{background:var(--surface-3);color:var(--ink)}
+.cloud-card-body{padding:14px 16px;display:grid;grid-template-columns:1fr 1fr;gap:0 20px}
+@media(max-width:640px){.cloud-card-body{grid-template-columns:1fr}.cloud-grid{grid-template-columns:1fr}}
+.cloud-section{padding-bottom:4px}
+.cloud-section+.cloud-section{margin-top:12px}
+.cloud-section-title{font-family:var(--mono);font-size:8px;font-weight:600;text-transform:uppercase;letter-spacing:1.2px;color:var(--infra);margin-bottom:7px;padding-bottom:5px;border-bottom:1px solid var(--border)}
+.cloud-card.vcl .cloud-section-title{color:var(--accent)}
+.cc-field{display:flex;align-items:flex-start;gap:6px;margin-bottom:4px}
+.cc-label{font-family:var(--mono);font-size:9px;color:var(--ink-4);white-space:nowrap;flex-shrink:0;width:88px;padding-top:1px;letter-spacing:.2px}
+.cc-value{font-size:11px;color:var(--ink-2);line-height:1.4;flex:1}
+.cc-value.ud{color:var(--ink-4);font-style:italic}
+.gpu-chips{display:flex;flex-wrap:wrap;gap:3px}
+.gpu-chip{font-family:var(--mono);font-size:8px;font-weight:500;background:#F4FBE6;color:#3A6B00;border:1px solid #C5E89A;padding:2px 6px;border-radius:4px;white-space:nowrap}
+
 </style>
 </head>
 <body>
@@ -606,7 +650,7 @@ footer{
   <div class="topbar-sep"></div>
   <span class="topbar-tag">June 2026</span>
   <div class="topbar-right">
-    <span id="coCount" style="font-family:var(--mono);font-size:10px;color:var(--ink-4)"></span>
+    <span id="coCount" style="font-family:var(--mono);font-size:10px;color:var(--ink-4)">170 companies · 57 OSS</span>
     <button class="share-btn" onclick="copyLink()">
       <svg viewBox="0 0 16 16"><path d="M13.5 1a1.5 1.5 0 1 0 0 3 1.5 1.5 0 0 0 0-3zM11 2.5a2.5 2.5 0 1 1 .603 1.628l-6.718 3.12a2.499 2.499 0 0 1 0 1.504l6.718 3.12a2.5 2.5 0 1 1-.488.876l-6.718-3.12a2.5 2.5 0 1 1 0-3.256l6.718-3.12A2.5 2.5 0 0 1 11 2.5z"/></svg>
       Share
@@ -622,9 +666,9 @@ footer{
       <p class="hero-sub">Every meaningful company building the infrastructure layer of AI — organized across <a href="https://blogs.nvidia.com/blog/ai-5-layer-cake" target="_blank" style="color:var(--infra);border-bottom:1px solid var(--infra-mid);text-decoration:none">Jensen Huang's five-layer cake</a>: Application → Model → Infrastructure → Chips → Energy. Infrastructure expanded in full detail, with the other four layers shown as context.</p>
     </div>
     <div class="hero-stats">
-      <div class="hstat"><div class="hstat-n" id="heroCoCount">—</div><div class="hstat-l">Companies</div></div>
+      <div class="hstat"><div class="hstat-n" id="heroCoCount">170</div><div class="hstat-l">Companies</div></div>
       <div class="hstat"><div class="hstat-n">5</div><div class="hstat-l">Layers</div></div>
-      <div class="hstat"><div class="hstat-n" id="heroOSSCount">—</div><div class="hstat-l">OSS</div></div>
+      <div class="hstat"><div class="hstat-n" id="heroOSSCount">57</div><div class="hstat-l">OSS</div></div>
     </div>
   </div>
 </div>
@@ -663,6 +707,7 @@ footer{
   <div class="seg">
     <button class="seg-btn active" id="btn-ov"  onclick="setMode('overview')">Overview</button>
     <button class="seg-btn"        id="btn-ref" onclick="setMode('reference')">Full Reference</button>
+    <button class="seg-btn"       id="btn-cloud" onclick="setMode('cloud')">AI Cloud Index</button>
   </div>
   <div class="ctrl-sep"></div>
   <span class="ctrl-label">Lens</span>
@@ -1328,6 +1373,7 @@ function setMode(m){
   mode=m;
   document.getElementById('btn-ov').classList.toggle('active',m==='overview');
   document.getElementById('btn-ref').classList.toggle('active',m==='reference');
+  document.getElementById('btn-cloud').classList.toggle('active',m==='cloud');
   document.getElementById('legendRow').classList.toggle('show',m==='reference');
   document.getElementById('regionBar').classList.toggle('visible',m==='reference');
   render();
@@ -1382,7 +1428,7 @@ function coVisible(c){
 function render(){
   const ct=document.getElementById('map');
   ct.innerHTML='';
-  renderDeepDive(ct);
+  if(mode==='cloud'){ renderAICloudIndex(ct); } else { renderDeepDive(ct); }
 }
 
 function renderDeepDive(ct){
@@ -1885,6 +1931,232 @@ function renderVoiceCards(data, grid, tagCls) {
 
 renderVoices(PRACTITIONERS, 'practitionersGrid', '');
 renderVoices(INVESTORS, 'investorsGrid', 'inv');
+
+/* ════ AI CLOUD INDEX ════ */
+const AI_CLOUDS = [
+  {
+    id:'coreweave', name:'CoreWeave', wave:1, vcl:true,
+    positioning:'The GPU cloud built natively on Kubernetes — NVIDIA Elite Cloud Partner',
+    clustermax:null, verified:false, lastVerified:null,
+    hq:'Roseland, NJ', founded:'2017',
+    status:'Public (CRWV · Nasdaq)',
+    funding:'$7.5B raised · IPO March 2025',
+    footprint:'32 locations · US-primary · EU expanding',
+    gpus:['H100','H200','GB200 NVL72'],
+    interconnect:'InfiniBand NDR + RoCE Ethernet',
+    bareMetal:true,
+    managedK8s:'Yes — CoreWeave Kubernetes Service (CKS)',
+    orchestration:'Kubernetes + Slurm',
+    tenantIsolation:'Tenant clusters (vCluster)',
+    selfService:'Yes',
+    networkingAutomation:'Netris',
+    storage:'Vast Data · WEKA',
+    customers:'OpenAI · Microsoft · Cohere · Mistral AI',
+  },
+  {
+    id:'nebius', name:'Nebius', wave:1, vcl:true,
+    positioning:'Full-stack EU AI cloud — Kubernetes, Slurm, storage and managed services in one platform',
+    clustermax:null, verified:false, lastVerified:null,
+    hq:'Amsterdam, Netherlands', founded:'2024',
+    status:'Public (NBIS · Nasdaq)',
+    funding:'Nasdaq listed · spun out of Yandex N.V.',
+    footprint:'Finland · France · Netherlands · US (expanding)',
+    gpus:['H100','H200'],
+    interconnect:'InfiniBand',
+    bareMetal:true,
+    managedK8s:'Yes — Nebius Managed Kubernetes',
+    orchestration:'Kubernetes + Slurm',
+    tenantIsolation:'Tenant clusters (vCluster)',
+    selfService:'Yes',
+    networkingAutomation:'In-house',
+    storage:'Nebius Object Storage · Nebius Managed Disks',
+    customers:null,
+  },
+  {
+    id:'boost-run', name:'Boost Run', wave:1, vcl:true,
+    positioning:'GPU-native managed K8s cloud — from zero to first paying customer in under 45 days',
+    clustermax:null, verified:false, lastVerified:null,
+    hq:'San Francisco, CA', founded:'2024',
+    status:'Startup',
+    funding:null,
+    footprint:'US',
+    gpus:['H100'],
+    interconnect:null,
+    bareMetal:null,
+    managedK8s:'Yes (powered by vCluster)',
+    orchestration:'Kubernetes',
+    tenantIsolation:'Tenant clusters (vCluster)',
+    selfService:'Yes',
+    networkingAutomation:null,
+    storage:null,
+    customers:null,
+  },
+  {
+    id:'nscale', name:'Nscale', wave:1, vcl:true,
+    positioning:'European AI cloud built for sovereign data residency and GPU-dense workloads',
+    clustermax:null, verified:false, lastVerified:null,
+    hq:'London, UK', founded:'2022',
+    status:'Private',
+    funding:'$3.7B raised',
+    footprint:'UK · Norway',
+    gpus:['H100','H200'],
+    interconnect:'InfiniBand',
+    bareMetal:true,
+    managedK8s:null,
+    orchestration:null,
+    tenantIsolation:null,
+    selfService:null,
+    networkingAutomation:null,
+    storage:null,
+    customers:null,
+  },
+  {
+    id:'corvex', name:'Corvex', wave:1, vcl:true,
+    positioning:'AI cloud provider',
+    clustermax:null, verified:false, lastVerified:null,
+    hq:null, founded:null,
+    status:'Startup',
+    funding:null,
+    footprint:'US',
+    gpus:[],
+    interconnect:null,
+    bareMetal:null,
+    managedK8s:null,
+    orchestration:null,
+    tenantIsolation:null,
+    selfService:null,
+    networkingAutomation:null,
+    storage:null,
+    customers:null,
+  },
+  {
+    id:'qumulusai', name:'QumulusAI', wave:1, vcl:true,
+    positioning:'AI infrastructure platform',
+    clustermax:null, verified:false, lastVerified:null,
+    hq:null, founded:null,
+    status:'Startup',
+    funding:null,
+    footprint:'US',
+    gpus:[],
+    interconnect:null,
+    bareMetal:null,
+    managedK8s:null,
+    orchestration:null,
+    tenantIsolation:null,
+    selfService:null,
+    networkingAutomation:null,
+    storage:null,
+    customers:null,
+  },
+];
+
+function val(v){ return v ? `<span class="cc-value">${v}</span>` : '<span class="cc-value ud">—</span>'; }
+function boolVal(v){ if(v===true)return'<span class="cc-value">Yes</span>'; if(v===false)return'<span class="cc-value">No</span>'; return'<span class="cc-value ud">—</span>'; }
+
+function renderAICloudIndex(ct){
+  // Header
+  const hdr=document.createElement('div');
+  hdr.className='cloud-index-hdr';
+  hdr.innerHTML=`
+    <div class="cloud-index-eyebrow">AI Cloud Index · Wave 1 of 3 · June 2026</div>
+    <div class="cloud-index-title">The AI Cloud Landscape</div>
+    <p class="cloud-index-sub">Provider profile cards across the GPU-native cloud ecosystem — hardware generations, platform stack, tenant isolation approach, and verification status in one place. Fields marked — are the outreach hook: providers can claim and update their card by emailing <a href="mailto:ecosystem@vcluster.com" style="color:var(--infra)">ecosystem@vcluster.com</a>.</p>
+    <div class="cloud-meta-row">
+      <span class="cloud-methodology">ClusterMAX ratings by <a href="https://clustermax.ai" target="_blank">clustermax.ai</a> · <a href="https://semianalysis.com" target="_blank">SemiAnalysis</a></span>
+      <span class="cloud-methodology">${AI_CLOUDS.length} providers · Wave 1 (vCluster Labs customers)</span>
+      <span class="cloud-methodology">Waves 2–3 coming July 2026</span>
+    </div>`;
+  ct.appendChild(hdr);
+
+  const grid=document.createElement('div');
+  grid.className='cloud-grid';
+  AI_CLOUDS.forEach(co=>grid.appendChild(mkCloudCard(co)));
+  ct.appendChild(grid);
+}
+
+function mkCloudCard(co){
+  const d=document.createElement('div');
+  d.id='cloud-'+co.id;
+  d.className='cloud-card'+(co.vcl?' vcl':'');
+
+  // Logo
+  const logoColor=LOGO_COLORS[co.name]||(co.vcl?'#FF5C00':'#57606A');
+  const inits=co.name.replace(/[^A-Za-z0-9 ]/g,'').split(/\s+/).map(w=>w[0]||'').join('').slice(0,2).toUpperCase();
+  const dom=DOMAINS[co.name];
+  let logoHtml;
+  if(VCL_LOGOS[co.name]){
+    const v=VCL_LOGOS[co.name];
+    logoHtml=`<div class="cloud-card-logo vcl-logo" style="font-size:9px;letter-spacing:-.5px">${v.init}</div>`;
+  } else if(dom){
+    logoHtml=`<div class="cloud-card-logo"><img src="https://www.google.com/s2/favicons?domain=${dom}&sz=32" loading="lazy" onerror="this.style.display='none';this.parentNode.style.background='${logoColor}';this.parentNode.textContent='${inits}'"></div>`;
+  } else {
+    logoHtml=`<div class="cloud-card-logo" style="background:${logoColor}">${inits}</div>`;
+  }
+
+  const cmBit=co.clustermax
+    ?`<a class="cc-badge cc-badge-cm" href="https://clustermax.ai" target="_blank">ClusterMAX ${co.clustermax}</a>`:'';
+  const verBit=co.verified
+    ?`<span class="cc-badge cc-badge-verified">✓ Verified · ${co.lastVerified}</span>`
+    :`<span class="cc-badge cc-badge-unverified">Unverified</span>`;
+  const vclBit=co.vcl?`<span class="cc-badge cc-badge-vcl">vCluster customer</span>`:'';
+
+  const gpuChips=co.gpus&&co.gpus.length
+    ?`<div class="gpu-chips">${co.gpus.map(g=>`<span class="gpu-chip">${g}</span>`).join('')}</div>`
+    :'<span class="cc-value ud">—</span>';
+
+  d.innerHTML=`
+    <div class="cloud-card-hdr">
+      ${logoHtml}
+      <div class="cloud-card-title-wrap">
+        <div style="display:flex;align-items:center;gap:8px">
+          <span class="cloud-card-name">${co.name}</span>
+          <a class="cloud-card-permalink" href="#cloud-${co.id}" onclick="copyAnchor('cloud-${co.id}');return false;" title="Copy permalink"># link</a>
+        </div>
+        <div class="cloud-card-pos">${co.positioning}</div>
+        <div class="cloud-card-badges">${cmBit}${verBit}${vclBit}</div>
+      </div>
+    </div>
+    <div class="cloud-card-body">
+      <div>
+        <div class="cloud-section">
+          <div class="cloud-section-title">Company</div>
+          <div class="cc-field"><span class="cc-label">HQ</span>${val(co.hq)}</div>
+          <div class="cc-field"><span class="cc-label">Founded</span>${val(co.founded)}</div>
+          <div class="cc-field"><span class="cc-label">Status</span>${val(co.status)}</div>
+          <div class="cc-field"><span class="cc-label">Funding</span>${val(co.funding)}</div>
+          <div class="cc-field"><span class="cc-label">Footprint</span>${val(co.footprint)}</div>
+        </div>
+        <div class="cloud-section">
+          <div class="cloud-section-title">Hardware</div>
+          <div class="cc-field"><span class="cc-label">GPU Gens</span>${gpuChips}</div>
+          <div class="cc-field"><span class="cc-label">Interconnect</span>${val(co.interconnect)}</div>
+          <div class="cc-field"><span class="cc-label">Bare metal</span>${boolVal(co.bareMetal)}</div>
+        </div>
+      </div>
+      <div class="cloud-section">
+        <div class="cloud-section-title">Platform Stack</div>
+        <div class="cc-field"><span class="cc-label">Managed K8s</span>${val(co.managedK8s)}</div>
+        <div class="cc-field"><span class="cc-label">Orchestration</span>${val(co.orchestration)}</div>
+        <div class="cc-field"><span class="cc-label">Tenant isolation</span>${val(co.tenantIsolation)}</div>
+        <div class="cc-field"><span class="cc-label">Self-service</span>${val(co.selfService)}</div>
+        <div class="cc-field"><span class="cc-label">Networking</span>${val(co.networkingAutomation)}</div>
+        <div class="cc-field"><span class="cc-label">Storage</span>${val(co.storage)}</div>
+        <div class="cc-field"><span class="cc-label">Customers</span>${val(co.customers)}</div>
+      </div>
+    </div>`;
+  return d;
+}
+
+function copyAnchor(id){
+  const url=window.location.href.split('#')[0]+'#'+id;
+  navigator.clipboard.writeText(url).catch(()=>{});
+  const t=document.getElementById('toast');
+  const orig=t.textContent;
+  t.textContent='Profile link copied';
+  t.classList.add('show');
+  setTimeout(()=>{t.classList.remove('show');setTimeout(()=>{t.textContent=orig;},300);},2200);
+}
+
 
 render();
 </script>
