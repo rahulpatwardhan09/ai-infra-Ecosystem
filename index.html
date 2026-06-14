@@ -14,11 +14,11 @@
 <style>
 :root {
   --bg:          #F2F3F5;
-  --surface:     #FFFFFF;
-  --surface-2:   #F7F8FA;
-  --surface-3:   #ECEEF2;
-  --border:      #E2E4E9;
-  --border-2:    #CDD0D8;
+  --surface:     #FAFAF8;
+  --surface-2:   #F3F3F0;
+  --surface-3:   #EBEBE8;
+  --border:      rgba(0,0,0,0.08);
+  --border-2:    rgba(0,0,0,0.14);
   --ink:         #0D1117;
   --ink-2:       #24292F;
   --ink-3:       #57606A;
@@ -44,11 +44,12 @@
 }
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 html{font-size:14px;-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale}
-body{background:#ffffff;color:var(--ink);font-family:var(--font);line-height:1.5}
+body{background:var(--surface);color:var(--ink);font-family:var(--font);line-height:1.6;-webkit-font-smoothing:antialiased}
 
 /* ── TOPBAR ── */
 .topbar{
-  background:var(--surface);border-bottom:1px solid var(--border);
+  background:rgba(250,250,248,0.82);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);
+  border-bottom:1px solid rgba(0,0,0,0.06);
   height:48px;display:flex;align-items:center;padding:0 32px;gap:20px;
   position:sticky;top:0;z-index:200;
 }
@@ -79,7 +80,10 @@ body{background:#ffffff;color:var(--ink);font-family:var(--font);line-height:1.5
 
 /* ── HERO ── */
 .hero{
-  background:var(--surface);border-bottom:1px solid var(--border);
+  background:var(--surface);
+  background-image:radial-gradient(circle,rgba(0,0,0,0.07) 1px,transparent 1px);
+  background-size:22px 22px;
+  border-bottom:1px solid var(--border);
   padding:32px 32px 28px;
 }
 .hero-inner{max-width:1280px;margin:0 auto;display:grid;grid-template-columns:1fr auto;gap:40px;align-items:center}
@@ -91,15 +95,15 @@ body{background:#ffffff;color:var(--ink);font-family:var(--font);line-height:1.5
 .hero-eyebrow-dot{width:5px;height:5px;border-radius:50%;background:var(--accent);flex-shrink:0;animation:blink 2s infinite}
 @keyframes blink{0%,100%{opacity:1}50%{opacity:.3}}
 .hero-title{
-  font-size:28px;font-weight:700;letter-spacing:-0.8px;line-height:1.2;
-  color:var(--ink);margin-bottom:10px;
+  font-size:28px;font-weight:800;letter-spacing:-0.04em;
+  color:var(--ink);line-height:1.15;
 }
 .hero-sub{font-size:13px;color:var(--ink-3);line-height:1.65;max-width:560px}
 .hero-sub a{color:var(--infra);text-decoration:none;border-bottom:1px solid var(--infra-mid)}
 .hero-sub a:hover{border-bottom-color:var(--infra)}
 .hero-stats{display:flex;gap:24px;flex-shrink:0}
 .hstat{text-align:center}
-.hstat-n{font-size:28px;font-weight:700;letter-spacing:-1px;color:var(--ink);line-height:1}
+.hstat-n{font-size:26px;font-weight:800;letter-spacing:-0.04em;color:var(--ink);line-height:1}
 .hstat-l{font-family:var(--mono);font-size:9px;color:var(--ink-4);text-transform:uppercase;letter-spacing:.8px;margin-top:3px}
 
 /* ── JENSEN BAR ── */
@@ -118,19 +122,20 @@ body{background:#ffffff;color:var(--ink);font-family:var(--font);line-height:1.5
 
 /* ── CONTROLS ── */
 .controls{
-  background:var(--surface);border-bottom:1px solid var(--border);
+  background:rgba(250,250,248,0.82);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);
+  border-bottom:1px solid rgba(0,0,0,0.06);
   padding:0 32px;display:flex;align-items:center;gap:8px;flex-wrap:wrap;
   min-height:44px;position:sticky;top:48px;z-index:190;
 }
 .ctrl-label{font-family:var(--mono);font-size:9px;text-transform:uppercase;letter-spacing:1px;color:var(--ink-4);flex-shrink:0}
 .ctrl-sep{width:1px;height:16px;background:var(--border);margin:0 4px;flex-shrink:0}
-.seg{display:flex;background:var(--surface-3);border:1px solid var(--border);border-radius:var(--r);padding:2px;gap:2px;flex-shrink:0}
+.seg{display:flex;background:rgba(0,0,0,0.04);border:1px solid rgba(0,0,0,0.08);border-radius:var(--r);padding:2px;gap:1px;flex-shrink:0}
 .seg-btn{
   padding:4px 11px;border-radius:4px;border:none;background:transparent;
   font-family:var(--font);font-size:11px;font-weight:500;color:var(--ink-3);
   cursor:pointer;transition:all .1s;white-space:nowrap;
 }
-.seg-btn.active{background:var(--surface);color:var(--ink);font-weight:600;box-shadow:0 1px 3px rgba(0,0,0,.08)}
+.seg-btn.active{background:#fff;color:var(--ink);font-weight:600;box-shadow:0 1px 4px rgba(0,0,0,.10),0 0 0 0.5px rgba(0,0,0,.06)}
 .pill-btn{
   padding:4px 11px;border-radius:20px;border:1px solid var(--border);
   background:var(--surface);font-family:var(--font);font-size:11px;
@@ -200,9 +205,9 @@ body{background:#ffffff;color:var(--ink);font-family:var(--font);line-height:1.5
   background:transparent;border:1px solid var(--border);
   border-left-width:2px;border-radius:var(--r);
   padding:7px 14px;margin-bottom:6px;
-  opacity:0.38;transition:opacity .2s;
+  opacity:0.65;transition:opacity .2s;
 }
-.ctx-bar:hover{opacity:0.65}
+.ctx-bar:hover{opacity:0.88}
 .ctx-stripe{width:2px;height:14px;border-radius:2px;flex-shrink:0}
 .ctx-name{font-size:11px;font-weight:600;white-space:nowrap;letter-spacing:-.1px}
 .ctx-desc{font-size:10px;color:var(--ink-4);margin-top:0;line-height:1.3;display:none}
@@ -217,7 +222,7 @@ body{background:#ffffff;color:var(--ink);font-family:var(--font);line-height:1.5
 
 /* ── INFRA WRAPPER (indented sublayers) ── */
 .infra-sublayers-wrap{
-  border:1px solid rgba(26,86,219,.18);
+  border:1px solid rgba(26,86,219,.12);
   border-left:3px solid #1A56DB;
   border-radius:var(--r-xl);
   background:rgba(26,86,219,.018);
@@ -251,13 +256,13 @@ body{background:#ffffff;color:var(--ink);font-family:var(--font);line-height:1.5
   cursor:pointer;user-select:none;gap:10px;
   border-left:3px solid rgba(26,86,219,.3);
 }
-.sublayer-hdr:hover{background:var(--surface-2)}
+.sublayer-hdr:hover{background:rgba(26,86,219,.03)}
 .sublayer-icon{
   width:28px;height:28px;border-radius:6px;background:var(--infra-light);
   display:flex;align-items:center;justify-content:center;font-size:13px;flex-shrink:0;
 }
-.sublayer-title{font-size:13px;font-weight:600;color:var(--infra)}
-.sublayer-desc{font-size:11px;color:var(--ink-4);margin-top:1px;max-width:480px}
+.sublayer-title{font-size:13px;font-weight:700;color:var(--infra);letter-spacing:-.2px}
+.sublayer-desc{font-size:10.5px;color:var(--ink-4);margin-top:2px;max-width:480px;font-weight:400}
 .sublayer-right{display:flex;align-items:center;gap:8px;margin-left:auto;flex-shrink:0}
 .sublayer-count{font-family:var(--mono);font-size:10px;color:var(--ink-4)}
 .chevron{font-size:9px;color:var(--ink-4);transition:transform .2s}
@@ -270,9 +275,9 @@ body{background:#ffffff;color:var(--ink);font-family:var(--font);line-height:1.5
 .subcat-hdr{
   display:flex;align-items:center;gap:8px;
   padding:6px 0 7px;margin-bottom:8px;
-  border-bottom:1px solid var(--border);
+  border-bottom:1px solid rgba(0,0,0,0.05);
 }
-.subcat-name{font-family:var(--mono);font-size:9px;font-weight:500;text-transform:uppercase;letter-spacing:1.2px;color:var(--ink-3)}
+.subcat-name{font-family:var(--mono);font-size:8px;font-weight:600;text-transform:uppercase;letter-spacing:1.8px;color:var(--ink-4)}
 .subcat-count{font-family:var(--mono);font-size:9px;color:var(--ink-4);margin-left:auto}
 
 /* ── CARD GRID ── */
@@ -281,12 +286,13 @@ body{background:#ffffff;color:var(--ink);font-family:var(--font);line-height:1.5
 /* ── COMPANY CARD ── */
 .card{
   display:flex;align-items:flex-start;gap:8px;
-  padding:9px 11px;border-radius:var(--r);
-  border:1px solid var(--border);background:var(--surface);
+  padding:10px 13px;border-radius:var(--r);
+  border:1px solid rgba(0,0,0,0.07);background:var(--surface);
   min-width:170px;max-width:230px;flex:1 1 170px;
   transition:all .12s;position:relative;
+  box-shadow:0 1px 3px rgba(0,0,0,.04);
 }
-.card:hover{border-color:var(--border-2);box-shadow:0 2px 8px rgba(0,0,0,.07);transform:translateY(-1px)}
+.card:hover{border-color:rgba(0,0,0,.15);box-shadow:0 3px 12px rgba(0,0,0,.08);transform:translateY(-1px)}
 .card-logo{
   width:24px;height:24px;border-radius:5px;flex-shrink:0;
   display:flex;align-items:center;justify-content:center;
@@ -296,18 +302,18 @@ body{background:#ffffff;color:var(--ink);font-family:var(--font);line-height:1.5
 }
 .card-logo img{width:100%;height:100%;object-fit:contain;border-radius:4px}
 .card-body{min-width:0;flex:1}
-.card-name{font-size:11px;font-weight:600;color:var(--ink);line-height:1.3;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.card-name{font-size:11px;font-weight:600;color:var(--ink);line-height:1.3;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;letter-spacing:-.01em}
 .card-desc{font-size:10px;color:var(--ink-4);line-height:1.4;margin-top:2px}
 .card-tags{display:flex;flex-wrap:wrap;gap:3px;margin-top:5px}
 .tag{
   font-family:var(--mono);font-size:8px;font-weight:500;
-  padding:1px 5px;border-radius:3px;white-space:nowrap;
+  padding:1px 6px;border-radius:2px;white-space:nowrap;
 }
-.tag-oss{background:var(--green-light);color:var(--green);border:1px solid var(--green-mid)}
-.tag-dom{background:var(--gold-light);color:var(--gold);border:1px solid #EED888}
-.tag-maj{background:var(--surface-3);color:var(--ink-3);border:1px solid var(--border)}
-.tag-em {background:#FFF4E0;color:#974A00;border:1px solid #FFCB7A}
-.tag-st {background:var(--surface-3);color:var(--ink-4);border:1px solid var(--border)}
+.tag-oss{background:transparent;color:var(--green);border:1px solid var(--green-mid)}
+.tag-dom{background:transparent;color:var(--gold);border:1px solid rgba(180,148,0,.3)}
+.tag-maj{background:transparent;color:var(--ink-3);border:1px solid rgba(0,0,0,.12)}
+.tag-em {background:transparent;color:#974A00;border:1px solid rgba(151,74,0,.25)}
+.tag-st {background:transparent;color:var(--ink-4);border:1px solid rgba(0,0,0,.08)}
 
 /* vCluster Labs card */
 .card.vcl{background:var(--accent-light);border-color:var(--accent-mid)}
@@ -351,9 +357,9 @@ body{background:#ffffff;color:var(--ink);font-family:var(--font);line-height:1.5
 .intel-toggle{font-family:var(--mono);font-size:9px;color:var(--infra);opacity:.6}
 .intel-body{display:none;background:var(--surface)}
 .intel-body.open{display:block}
-.intel-tabs{display:flex;gap:4px;padding:10px 12px 6px;border-bottom:1px solid var(--border)}
+.intel-tabs{display:flex;gap:3px;padding:10px 12px 6px;border-bottom:1px solid rgba(0,0,0,0.06)}
 .intel-tab{
-  padding:3px 10px;border-radius:12px;border:1px solid var(--border);
+  padding:3px 10px;border-radius:4px;border:1px solid rgba(0,0,0,0.08);
   font-size:11px;font-weight:500;color:var(--ink-3);cursor:pointer;
   background:transparent;font-family:var(--font);transition:all .1s;
 }
@@ -399,7 +405,7 @@ footer{
 .popover{
   position:fixed;z-index:500;
   background:var(--surface);border:1px solid var(--border-2);
-  border-radius:var(--r-xl);box-shadow:0 8px 32px rgba(0,0,0,.14);
+  border-radius:var(--r-xl);box-shadow:0 4px 6px rgba(0,0,0,.04),0 12px 32px rgba(0,0,0,.12);
   width:300px;padding:16px;
   opacity:0;pointer-events:none;transform:translateY(4px);
   transition:opacity .15s,transform .15s;
@@ -1115,7 +1121,7 @@ const LAYERS = [
       { name:'Cooling & Power', cos:[
         {n:'Vertiv',            d:'Liquid cooling, power infra for AI racks',t:'major',f:true},
         {n:'Schneider Electric',d:'DC power distribution, cooling',t:'major'},
-        {n:'Crusoe Energy',     d:'Stranded gas to AI compute power',t:'emerging',f:true},
+        {n:'Crusoe Energy',     d:'Stranded gas to AI compute power',t:'major',f:true},
         {n:'Bloom Energy',      d:'Solid oxide fuel cells for DC power',t:'emerging'},
         {n:'IREN',              d:'Digital infrastructure + clean power — Canadian AI/HPC compute campus',t:'emerging',f:true},
       ]},
@@ -1138,7 +1144,7 @@ const INFRA_SUBLAYERS = [
         {n:'Lambda',     d:'1-Click Clusters, H100/H200, NVIDIA NCP',t:'major',f:true},
         {n:'Together AI',d:'GPU cloud + inference, strong OSS model support',t:'major',f:true},
         {n:'Nebius',     d:'Full-stack AI cloud, K8s + Slurm, EU-HQ',t:'major',f:true},
-        {n:'Crusoe',     d:'Clean energy GPU cloud',t:'emerging',f:true},
+        {n:'Crusoe',     d:'Clean energy GPU cloud',t:'major',f:true},
         {n:'Vultr',      d:'32-region GPU cloud, bare metal',t:'major'},
         {n:'RunPod',     d:'Serverless GPU, community cloud',t:'emerging',f:true},
         {n:'Fluidstack', d:'Distributed GPU cloud, multi-region',t:'startup'},
@@ -1330,7 +1336,7 @@ const INFRA_SUBLAYERS = [
         {n:'Vertiv',            d:'Liquid cooling, thermal mgmt, power infra for AI racks',t:'major',f:true},
         {n:'Schneider Electric',d:'DC power distribution, cooling, DCIM',t:'major'},
         {n:'CoolIT Systems',    d:'Direct liquid cooling for AI racks',t:'emerging'},
-        {n:'Crusoe Energy',     d:'Stranded/flared gas converted to AI compute power',t:'emerging',f:true},
+        {n:'Crusoe Energy',     d:'Stranded/flared gas converted to AI compute power',t:'major',f:true},
         {n:'Bloom Energy',      d:'Solid oxide fuel cells for clean DC power',t:'emerging'},
       ]},
       { name:'Server OEMs', cos:[
