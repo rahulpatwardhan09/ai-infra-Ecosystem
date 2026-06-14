@@ -499,11 +499,12 @@ footer{
 /* ── PAGE LAYOUT (2-column) ── */
 .page-body{
   max-width:1480px;margin:0 auto;
-  display:block;
+  display:grid;grid-template-columns:1fr 300px;
+  gap:0;align-items:start;
 }
 .page-body .main{
   max-width:none;padding:20px 24px 80px 32px;
-  min-width:0;
+  border-right:1px solid var(--border);min-width:0;
 }
 
 /* ── SIDEBAR ── */
@@ -741,29 +742,25 @@ footer{
     <a href="https://forms.gle/UizJjZ2TH11J4mCe7" target="_blank" rel="noopener" style="display:inline-flex;align-items:center;gap:6px;padding:9px 18px;background:#fff;color:var(--ink);border-radius:var(--r);font-family:var(--font);font-size:12px;font-weight:600;border:none;cursor:pointer;text-decoration:none;white-space:nowrap;flex-shrink:0;transition:opacity .15s" onmouseover="this.style.opacity='.85'" onmouseout="this.style.opacity='1'">Suggest a company →</a>
   </div>
 
-  <!-- Voices (below CTA) -->
-  <div style="margin-top:20px;padding:20px 0 0">
-    <div style="display:flex;align-items:baseline;gap:12px;padding-bottom:10px;margin-bottom:14px;border-bottom:1px solid var(--border)">
-      <div style="font-size:13px;font-weight:700;color:var(--infra);letter-spacing:-.2px">Voices</div>
-      <div style="font-size:10px;color:var(--ink-4)">Practitioners, builders, investors and analysts shaping AI infrastructure</div>
-    </div>
-    <div style="display:grid;grid-template-columns:1fr 1fr;gap:20px">
-      <div>
-        <div style="font-family:var(--mono);font-size:9px;text-transform:uppercase;letter-spacing:1px;color:var(--ink-4);margin-bottom:7px">Practitioners &amp; Builders</div>
-        <div class="sidebar-voices-grid" id="practitionersGrid"></div>
-        <button id="practitionersMore" onclick="expandVoices('practitioners')" style="margin-top:6px;width:100%;padding:5px;border:1px dashed var(--border);border-radius:var(--r);background:none;font-size:10px;color:var(--ink-4);cursor:pointer;font-family:var(--font)">+ show more</button>
-      </div>
-      <div>
-        <div style="font-family:var(--mono);font-size:9px;text-transform:uppercase;letter-spacing:1px;color:var(--ink-4);margin-bottom:7px">Investors &amp; Analysts</div>
-        <div class="sidebar-voices-grid" id="investorsGrid"></div>
-        <button id="investorsMore" onclick="expandVoices('investors')" style="margin-top:6px;width:100%;padding:5px;border:1px dashed var(--border);border-radius:var(--r);background:none;font-size:10px;color:var(--ink-4);cursor:pointer;font-family:var(--font)">+ show more</button>
-      </div>
-    </div>
-  </div>
-
 </main>
 
-
+<!-- SIDEBAR -->
+<aside class="sidebar">
+  <div class="sidebar-section">
+    <div style="padding-bottom:10px;margin-bottom:10px;border-bottom:1px solid var(--border)">
+      <div style="font-size:13px;font-weight:700;color:var(--infra);letter-spacing:-.2px">Voices</div>
+      <div style="font-size:10px;color:var(--ink-4);margin-top:2px">Practitioners, builders, investors and analysts shaping AI infrastructure</div>
+    </div>
+    <div style="margin-bottom:12px">
+      <div style="font-family:var(--mono);font-size:9px;text-transform:uppercase;letter-spacing:1px;color:var(--ink-4);margin-bottom:7px">Practitioners &amp; Builders</div>
+      <div class="sidebar-voices-grid" id="practitionersGrid"></div>
+    </div>
+    <div>
+      <div style="font-family:var(--mono);font-size:9px;text-transform:uppercase;letter-spacing:1px;color:var(--ink-4);margin-bottom:7px">Investors &amp; Analysts</div>
+      <div class="sidebar-voices-grid" id="investorsGrid"></div>
+    </div>
+  </div>
+</aside>
 
 </div><!-- end page-body -->
 
