@@ -618,11 +618,10 @@ footer{
 .cloud-card-pos{font-size:11px;color:var(--ink-3);margin-top:2px;line-height:1.45}
 .cloud-card-badges{display:flex;align-items:center;gap:4px;flex-wrap:wrap;margin-top:7px}
 .cc-badge{display:inline-flex;align-items:center;gap:3px;font-family:var(--mono);font-size:8px;font-weight:500;padding:2px 6px;border-radius:4px;white-space:nowrap}
-.cc-badge-cm{background:var(--gold-light);color:var(--gold);border:1px solid #EED888;text-decoration:none}
-.cc-badge-cm:hover{text-decoration:underline}
+
 .cc-badge-verified{background:var(--green-light);color:var(--green);border:1px solid var(--green-mid)}
 .cc-badge-unverified{background:var(--surface-3);color:var(--ink-4);border:1px solid var(--border)}
-.cc-badge-vcl{background:var(--accent-light);color:var(--accent);border:1px solid var(--accent-mid)}
+
 .cloud-card-permalink{flex-shrink:0;font-family:var(--mono);font-size:10px;color:var(--ink-4);text-decoration:none;padding:3px 7px;border-radius:4px;margin-left:auto;line-height:1;transition:all .1s}
 .cloud-card-permalink:hover{background:var(--surface-3);color:var(--ink)}
 .cloud-card-body{padding:14px 16px;display:grid;grid-template-columns:1fr 1fr;gap:0 20px}
@@ -650,7 +649,7 @@ footer{
   <div class="topbar-sep"></div>
   <span class="topbar-tag">June 2026</span>
   <div class="topbar-right">
-    <span id="coCount" style="font-family:var(--mono);font-size:10px;color:var(--ink-4)">170 companies · 57 OSS</span>
+    <span id="coCount" style="font-family:var(--mono);font-size:10px;color:var(--ink-4)">198 companies · 57 OSS</span>
     <button class="share-btn" onclick="copyLink()">
       <svg viewBox="0 0 16 16"><path d="M13.5 1a1.5 1.5 0 1 0 0 3 1.5 1.5 0 0 0 0-3zM11 2.5a2.5 2.5 0 1 1 .603 1.628l-6.718 3.12a2.499 2.499 0 0 1 0 1.504l6.718 3.12a2.5 2.5 0 1 1-.488.876l-6.718-3.12a2.5 2.5 0 1 1 0-3.256l6.718-3.12A2.5 2.5 0 0 1 11 2.5z"/></svg>
       Share
@@ -666,7 +665,7 @@ footer{
       <p class="hero-sub">Every meaningful company building the infrastructure layer of AI — organized across <a href="https://blogs.nvidia.com/blog/ai-5-layer-cake" target="_blank" style="color:var(--infra);border-bottom:1px solid var(--infra-mid);text-decoration:none">Jensen Huang's five-layer cake</a>: Application → Model → Infrastructure → Chips → Energy. Infrastructure expanded in full detail, with the other four layers shown as context.</p>
     </div>
     <div class="hero-stats">
-      <div class="hstat"><div class="hstat-n" id="heroCoCount">170</div><div class="hstat-l">Companies</div></div>
+      <div class="hstat"><div class="hstat-n" id="heroCoCount">198</div><div class="hstat-l">Companies</div></div>
       <div class="hstat"><div class="hstat-n">5</div><div class="hstat-l">Layers</div></div>
       <div class="hstat"><div class="hstat-n" id="heroOSSCount">57</div><div class="hstat-l">OSS</div></div>
     </div>
@@ -712,7 +711,6 @@ footer{
   <div class="ctrl-sep"></div>
   <span class="ctrl-label">Lens</span>
   <button class="pill-btn active" data-aud="all"          onclick="setAudience('all')">All</button>
-  <button class="pill-btn"        data-aud="ai-developer" onclick="setAudience('ai-developer')">AI Developer</button>
   <button class="pill-btn"        data-aud="ai-builder"   onclick="setAudience('ai-builder')">AI Builder</button>
   <button class="pill-btn"        data-aud="investor"     onclick="setAudience('investor')">Investor / Analyst</button>
   <div class="ctrl-sep"></div>
@@ -979,10 +977,8 @@ const REGIONS = {
 };
 
 const AUDIENCE_SUBLAYERS = {
-  // AI Developer: building apps/agents on top of models — cloud + orchestration + MLOps
-  'ai-developer': ['cloud','orchestration','mlops'],
   // AI Builder: building AI infrastructure itself — all infra sublayers
-  'ai-builder':   ['cloud','orchestration','mlops','storage-net','dc-metal'],
+  'ai-builder':   ['cloud','inference','orchestration','mlops','storage-net','dc-metal'],
   // Investor/Analyst: full stack, nothing hidden
   'investor':     null,
   'all':          null,
@@ -998,6 +994,7 @@ const LAYERS = [
         {n:'Windsurf',      d:'AI-native IDE by Codeium, agentic coding',t:'emerging'},
         {n:'Cognition',     d:'Devin — AI software engineering agent',t:'emerging',f:true},
         {n:'Replit',        d:'AI-powered cloud IDE',t:'major'},
+        {n:'JetBrains',     d:'IntelliJ, AI Assistant — developer IDE platform',t:'major',f:true},
       ]},
       { name:'Agent & LLM Frameworks', cos:[
         {n:'LangChain',  d:'LLM orchestration, LangGraph agents',t:'major',f:true,oss:true},
@@ -1010,6 +1007,11 @@ const LAYERS = [
         {n:'Sierra',        d:'AI customer service agents',t:'emerging',f:true},
         {n:'Perplexity AI', d:'AI answer engine',t:'major',f:true},
         {n:'Abridge',       d:'AI clinical documentation',t:'emerging'},
+        {n:'ElevenLabs',    d:'Voice AI — text-to-speech, voice cloning, real-time audio',t:'emerging',f:true},
+        {n:'H Company',     d:'Enterprise AI agents, Paris — $220M seed, frontier agent research',t:'emerging',f:true},
+        {n:'Lovable',       d:'AI app builder — design to production in minutes',t:'emerging',f:true},
+        {n:'Factory',       d:'AI software engineering platform — automated code and PRs',t:'emerging',f:true},
+        {n:'Glean',         d:'Enterprise AI search and knowledge platform',t:'emerging',f:true},
       ]},
       { name:'Analyst, Media & Community', cos:[
         {n:'SemiAnalysis',  d:'Deep-dive GPU/AI infra research',t:'major',f:true},
@@ -1092,6 +1094,8 @@ const LAYERS = [
         {n:'Cerebras',   d:'Wafer-scale engine',t:'emerging',f:true},
         {n:'Groq',       d:'LPU, ultra-low latency inference',t:'emerging',f:true},
         {n:'Google TPU', d:'TPU v6e/v8, JAX/Pathways',t:'major',f:true},
+        {n:'FuriosaAI',  d:'Korean AI NPU, RNGD chip — transformer-optimized inference silicon',t:'emerging',f:true},
+        {n:'Rebellions', d:'Korean AI chip startup, ATOM/REBEL NPU — pre-IPO',t:'startup'},
       ]},
       { name:'HBM & Memory', cos:[
         {n:'SK Hynix',d:'HBM3E leader, ~95% GPU memory share',t:'dominant',f:true},
@@ -1120,6 +1124,7 @@ const LAYERS = [
         {n:'Schneider Electric',d:'DC power distribution, cooling',t:'major'},
         {n:'Crusoe Energy',     d:'Stranded gas to AI compute power',t:'emerging',f:true},
         {n:'Bloom Energy',      d:'Solid oxide fuel cells for DC power',t:'emerging'},
+        {n:'IREN',              d:'Digital infrastructure + clean power — Canadian AI/HPC compute campus',t:'emerging',f:true},
       ]},
     ]
   },
@@ -1147,12 +1152,34 @@ const INFRA_SUBLAYERS = [
         {n:'Shadeform',  d:'GPU aggregator across 15+ providers',t:'startup'},
         {n:'Paper Compute',d:'GPU cloud, simple API and developer experience',t:'startup'},
         {n:'Runlayer',   d:'GPU cloud infrastructure for AI workloads',t:'startup'},
+        {n:'HydraHost',  d:'GPU infrastructure platform, AI factory builder — EU-focused',t:'startup'},
+        {n:'TensorWave', d:'AMD MI300X-based GPU cloud, alternative to NVIDIA stack',t:'emerging',f:true},
+        {n:'Cirrascale', d:'Dedicated GPU clusters, deep-learning focused data center',t:'emerging'},
+        {n:'Armada',     d:'Distributed GPU computing platform — cross-cluster workload scheduling',t:'startup'},
+        {n:'FlexAI',     d:'AI compute orchestration — GPU cluster management, any cloud',t:'startup'},
       ]},
       { name:'Sovereign & Regional', cos:[
         {n:'Scaleway',     d:'EU sovereign AI cloud, GPU instances, K8s',t:'emerging',f:true},
         {n:'OVHcloud',     d:'European cloud, data sovereignty',t:'major',f:true},
         {n:'Nscale',       d:'European AI cloud, GPU infrastructure',t:'emerging'},
         {n:'DigitalOcean', d:'Developer-focused cloud, GPU droplets',t:'major'},
+        {n:'Hyperstack',   d:'GPU cloud, UK-based — EU-sovereign AI infrastructure',t:'emerging',f:true},
+      ]},
+    ]
+  },
+  { id:'inference', name:'Inference & Model APIs', icon:'⚡',
+    desc:'Managed inference providers, serverless model APIs, and inference-as-a-service platforms',
+    subs:[
+      { name:'Inference API Providers', cos:[
+        {n:'Together AI',  d:'GPU cloud + inference API, strong OSS model support',t:'major',f:true},
+        {n:'Fireworks AI', d:'Inference platform, compound AI systems, fast token generation',t:'emerging',f:true},
+        {n:'Baseten',      d:'Inference platform for custom ML models',t:'emerging',f:true},
+        {n:'Modal',        d:'Serverless GPU, Python-native, fast cold start — inference and batch workloads',t:'emerging',f:true},
+        {n:'Replicate',    d:'Run OSS models via API, developer-friendly',t:'emerging',f:true},
+        {n:'FriendliAI',   d:'LLM inference optimization, high-throughput token generation',t:'emerging',f:true},
+        {n:'SambaNova',    d:'Cloud inference platform on custom RDU chips — ultra-fast token gen',t:'emerging',f:true},
+        {n:'openrouter',   d:'LLM API aggregator — single API to 200+ models, smart routing',t:'startup',f:true},
+        {n:'Featherless',  d:'Serverless LLM inference, instant deployment, no cold start',t:'startup'},
       ]},
     ]
   },
@@ -1177,6 +1204,7 @@ const INFRA_SUBLAYERS = [
         {n:'Flux',             d:'CNCF GitOps toolkit for Kubernetes',t:'major',f:true,oss:true},
         {n:'Helm',             d:'Kubernetes package manager, chart standard',t:'dominant',f:true,oss:true},
         {n:'Crossplane',       d:'OSS control plane framework, provision infra from K8s',t:'emerging',f:true,oss:true},
+        {n:'Harness',       d:'AI-native CI/CD and platform engineering, pipeline automation',t:'emerging',f:true},
       ]},
       { name:'Tenant Cluster Orchestration', cos:[
         {n:'vCluster',          d:'Full K8s API server per team on shared infra. OSS, GPU-native',t:'major',f:true,oss:true,vcl:true},
@@ -1218,8 +1246,8 @@ const INFRA_SUBLAYERS = [
       ]},
     ]
   },
-  { id:'mlops', name:'MLOps, Training & Inference', icon:'⚙️',
-    desc:'Experiment tracking, distributed training, inference serving, observability',
+  { id:'mlops', name:'MLOps & Training', icon:'⚙️',
+    desc:'Experiment tracking, distributed training, inference engines and observability tooling',
     subs:[
       { name:'Training & Experiment Tracking', cos:[
         {n:'Weights & Biases',d:'Experiment tracking, evals, registry. MLOps standard',t:'major',f:true},
@@ -1227,22 +1255,18 @@ const INFRA_SUBLAYERS = [
         {n:'Comet',           d:'ML experiment tracking and model monitoring',t:'emerging',f:true},
         {n:'Snorkel',         d:'Programmatic data labeling and training data creation',t:'emerging',f:true},
         {n:'Determined AI',   d:'Distributed training platform (HPE)',t:'emerging'},
+        {n:'Braintrust',    d:'AI eval, logging and prompt management — LLM observability platform',t:'emerging',f:true},
       ]},
-      { name:'Inference & Model Serving', cos:[
-        {n:'NVIDIA Triton',   d:'Multi-framework inference server, TensorRT-LLM',t:'major',f:true,oss:true},
-        {n:'vLLM',            d:'OSS LLM inference, PagedAttention',t:'major',f:true,oss:true},
-        {n:'NVIDIA Dynamo',   d:'Distributed inference for multi-node LLM (DSX OS)',t:'emerging',f:true,oss:true},
-        {n:'llm-d (CNCF)',    d:'K8s-native disaggregated LLM inference',t:'startup',f:true,oss:true},
-        {n:'KServe',          d:'K8s-native model inference platform, serverless serving',t:'major',f:true,oss:true},
-        {n:'Ray Serve',       d:'Scalable model serving built on Ray',t:'major',f:true,oss:true},
-        {n:'FriendliAI',      d:'LLM inference optimization, token generation speed',t:'emerging',f:true},
-        {n:'Modular',         d:'MAX inference engine and compiler stack',t:'emerging',f:true},
+      { name:'Inference Engines & Serving Frameworks', cos:[
+        {n:'NVIDIA Triton',    d:'Multi-framework inference server, TensorRT-LLM',t:'major',f:true,oss:true},
+        {n:'vLLM',             d:'OSS LLM inference, PagedAttention',t:'major',f:true,oss:true},
+        {n:'NVIDIA Dynamo',    d:'Distributed inference for multi-node LLM (DSX OS)',t:'emerging',f:true,oss:true},
+        {n:'llm-d (CNCF)',     d:'K8s-native disaggregated LLM inference',t:'startup',f:true,oss:true},
+        {n:'KServe',           d:'K8s-native model inference platform, serverless serving',t:'major',f:true,oss:true},
+        {n:'Ray Serve',        d:'Scalable model serving built on Ray',t:'major',f:true,oss:true},
+        {n:'Modular',          d:'MAX inference engine and compiler stack',t:'emerging',f:true},
         {n:'TGI (HuggingFace)',d:'Text Generation Inference for HF models',t:'major',oss:true},
-        {n:'SGLang',          d:'Fast LLM inference, structured generation',t:'emerging',oss:true},
-        {n:'Modal',           d:'Serverless GPU, Python-native, fast cold start',t:'emerging',f:true},
-        {n:'Fireworks AI',    d:'Inference platform, compound AI systems',t:'emerging'},
-        {n:'Baseten',         d:'Inference platform for custom ML models',t:'emerging'},
-        {n:'Replicate',       d:'Run OSS models via API',t:'emerging'},
+        {n:'SGLang',           d:'Fast LLM inference, structured generation',t:'emerging',oss:true},
       ]},
       { name:'Observability & Evaluation', cos:[
         {n:'Arize AI',    d:'ML observability, LLM tracing, evals',t:'emerging',f:true},
@@ -1269,6 +1293,9 @@ const INFRA_SUBLAYERS = [
         {n:'Ceph',       d:'OSS distributed storage — object, block, and file',t:'major',f:true,oss:true},
         {n:'Databricks', d:'Lakehouse platform, Unity Catalog, MLflow',t:'major',f:true},
         {n:'Snowflake',  d:'Data cloud with Cortex AI, vector search',t:'major'},
+        {n:'Hammerspace', d:'AI data platform — global namespace, NVIDIA reference design storage',t:'emerging',f:true},
+        {n:'NetApp',      d:'Enterprise storage, ONTAP AI, GPU-Direct NFS for training pipelines',t:'major',f:true},
+        {n:'Scality',     d:'OSS S3-compatible object storage (RING) for AI data lakes',t:'emerging',oss:true},
       ]},
       { name:'Vector & Analytical Databases', cos:[
         {n:'Turbopuffer', d:'Vector search optimized for cold storage at scale',t:'startup',f:true},
@@ -1291,6 +1318,8 @@ const INFRA_SUBLAYERS = [
         {n:'Coherent',    d:'800G/1.6T optical transceivers',t:'major',f:true},
         {n:'Lightmatter', d:'Photonic interconnect chips for AI',t:'startup'},
         {n:'Ayar Labs',   d:'Optical I/O chiplets for in-package photonics',t:'startup'},
+        {n:'Credo',       d:'Active electrical cable (AEC) and SerDes silicon for AI cluster interconnect',t:'startup'},
+        {n:'WhiteFiber',  d:'Open fiber and networking infrastructure for AI data centers',t:'startup'},
       ]},
     ]
   },
@@ -1302,6 +1331,7 @@ const INFRA_SUBLAYERS = [
         {n:'Digital Realty',  d:'300+ DCs, PlatformDIGITAL, hyperscale builds',t:'dominant',f:true},
         {n:'Vantage',         d:'Hyperscale campuses, Stargate partner',t:'major'},
         {n:'QTS (Blackstone)',d:'Mega-campus builds, 1GW+ pipeline',t:'major'},
+        {n:'Telehouse',        d:'European colocation operator — London + Paris AI hubs',t:'emerging',f:true},
       ]},
       { name:'Cooling & Power', cos:[
         {n:'Vertiv',            d:'Liquid cooling, thermal mgmt, power infra for AI racks',t:'major',f:true},
@@ -1315,6 +1345,8 @@ const INFRA_SUBLAYERS = [
         {n:'HPE',        d:'ProLiant Gen12, Cray EX, AI-optimized servers',t:'major',f:true},
         {n:'Dell',       d:'PowerEdge AI Factory, liquid-cooled GPU servers',t:'major',f:true},
         {n:'Supermicro', d:'GPU servers, rack-scale, fast SKU cycles',t:'major'},
+        {n:'Lenovo',      d:'ThinkSystem AI servers, high-density GPU platforms, global OEM',t:'major',f:true},
+        {n:'Celestica',   d:'Electronics manufacturing services — AI server hardware, DCS group',t:'emerging'},
       ]},
       { name:'Bare Metal Provisioning', cos:[
         {n:'vMetal',                d:'Bare metal provisioning & lifecycle (Metal3/Ironic, PXE)',t:'emerging',f:true,vcl:true},
@@ -1328,6 +1360,11 @@ const INFRA_SUBLAYERS = [
 ];
 
 const SUBLAYER_INTEL = {
+  inference:{
+    challenge:"The inference API market is commoditizing fast — frontier labs now sell direct API access at prices independent providers struggle to match. Cold start latency, GPU memory fragmentation across concurrent requests, and cost-per-token are the three axes every provider is competing on simultaneously.",
+    innovation:"Disaggregated prefill/decode — splitting the compute-heavy prompt processing phase from the memory-heavy token generation phase across different hardware — is the next architectural leap. Speculative decoding and continuous batching are now table stakes. Purpose-built inference silicon (Groq LPU, Cerebras WSE) is showing 10x latency improvements for specific model sizes.",
+    capital:"Together AI raised $305M at a $3.3B valuation. Modal raised $110M. Fireworks AI raised $52M Series B. Inference spend across the industry now exceeds training spend — analysts estimate the inference API market will reach $100B by 2027, making it a larger category than the GPU training cloud market."
+  },
   cloud:{
     challenge:"GPU availability constraints are easing as new supply comes online, but operational maturity varies dramatically. Many GPU clouds still lack managed Kubernetes, self-service environments, and day-2 ops that enterprise AI teams expect. Pricing pressure from hyperscalers is intensifying, squeezing mid-tier providers on margin.",
     innovation:"GPU-native clouds are building vertically integrated stacks: compute + storage + orchestration + ML tooling. CoreWeave's K8s-first architecture and Lambda's 1-Click Clusters point toward a future where the cloud and the platform are inseparable. Sovereign AI clouds in Europe are gaining ground as data residency requirements tighten.",
@@ -1457,10 +1494,6 @@ function renderDeepDive(ct){
         <div class="ctx-name" style="color:${l.color}">${l.name}</div>
         <div class="ctx-desc">${l.desc}</div>
         <div class="ctx-pills" style="margin-left:0;margin-top:7px">${pills}<span class="ctx-pill more">+ more</span></div>
-      </div>
-      <div style="flex-shrink:0;text-align:right">
-        <div style="font-size:18px;font-weight:700;letter-spacing:-1px;color:var(--ink);line-height:1">${l.subs.reduce((s,sub)=>s+sub.cos.length,0)}</div>
-        <div style="font-family:var(--mono);font-size:8px;color:var(--ink-4);text-transform:uppercase;letter-spacing:.8px;margin-top:2px">companies</div>
       </div>`;
     ct.appendChild(bar);
   });
@@ -1502,10 +1535,6 @@ function renderDeepDive(ct){
         <div class="ctx-name" style="color:${l.color}">${l.name}</div>
         <div class="ctx-desc">${l.desc}</div>
         <div class="ctx-pills" style="margin-left:0;margin-top:7px">${pills}<span class="ctx-pill more">+ more</span></div>
-      </div>
-      <div style="flex-shrink:0;text-align:right">
-        <div style="font-size:18px;font-weight:700;letter-spacing:-1px;color:var(--ink);line-height:1">${l.subs.reduce((s,sub)=>s+sub.cos.length,0)}</div>
-        <div style="font-family:var(--mono);font-size:8px;color:var(--ink-4);text-transform:uppercase;letter-spacing:.8px;margin-top:2px">companies</div>
       </div>`;
     ct.appendChild(bar);
   });
@@ -1936,8 +1965,7 @@ renderVoices(INVESTORS, 'investorsGrid', 'inv');
 const AI_CLOUDS = [
   {
     id:'coreweave', name:'CoreWeave', wave:1, vcl:true,
-    positioning:'The GPU cloud built natively on Kubernetes — NVIDIA Elite Cloud Partner',
-    clustermax:null, verified:false, lastVerified:null,
+    positioning:'The GPU cloud built natively on Kubernetes — NVIDIA Elite Cloud Partner', verified:false, lastVerified:null,
     hq:'Roseland, NJ', founded:'2017',
     status:'Public (CRWV · Nasdaq)',
     funding:'$7.5B raised · IPO March 2025',
@@ -1955,8 +1983,7 @@ const AI_CLOUDS = [
   },
   {
     id:'nebius', name:'Nebius', wave:1, vcl:true,
-    positioning:'Full-stack EU AI cloud — Kubernetes, Slurm, storage and managed services in one platform',
-    clustermax:null, verified:false, lastVerified:null,
+    positioning:'Full-stack EU AI cloud — Kubernetes, Slurm, storage and managed services in one platform', verified:false, lastVerified:null,
     hq:'Amsterdam, Netherlands', founded:'2024',
     status:'Public (NBIS · Nasdaq)',
     funding:'Nasdaq listed · spun out of Yandex N.V.',
@@ -1974,8 +2001,7 @@ const AI_CLOUDS = [
   },
   {
     id:'boost-run', name:'Boost Run', wave:1, vcl:true,
-    positioning:'GPU-native managed K8s cloud — from zero to first paying customer in under 45 days',
-    clustermax:null, verified:false, lastVerified:null,
+    positioning:'GPU-native managed K8s cloud — from zero to first paying customer in under 45 days', verified:false, lastVerified:null,
     hq:'San Francisco, CA', founded:'2024',
     status:'Startup',
     funding:null,
@@ -1993,8 +2019,7 @@ const AI_CLOUDS = [
   },
   {
     id:'nscale', name:'Nscale', wave:1, vcl:true,
-    positioning:'European AI cloud built for sovereign data residency and GPU-dense workloads',
-    clustermax:null, verified:false, lastVerified:null,
+    positioning:'European AI cloud built for sovereign data residency and GPU-dense workloads', verified:false, lastVerified:null,
     hq:'London, UK', founded:'2022',
     status:'Private',
     funding:'$3.7B raised',
@@ -2012,8 +2037,7 @@ const AI_CLOUDS = [
   },
   {
     id:'corvex', name:'Corvex', wave:1, vcl:true,
-    positioning:'AI cloud provider',
-    clustermax:null, verified:false, lastVerified:null,
+    positioning:'AI cloud provider', verified:false, lastVerified:null,
     hq:null, founded:null,
     status:'Startup',
     funding:null,
@@ -2031,8 +2055,7 @@ const AI_CLOUDS = [
   },
   {
     id:'qumulusai', name:'QumulusAI', wave:1, vcl:true,
-    positioning:'AI infrastructure platform',
-    clustermax:null, verified:false, lastVerified:null,
+    positioning:'AI infrastructure platform', verified:false, lastVerified:null,
     hq:null, founded:null,
     status:'Startup',
     funding:null,
@@ -2058,13 +2081,12 @@ function renderAICloudIndex(ct){
   const hdr=document.createElement('div');
   hdr.className='cloud-index-hdr';
   hdr.innerHTML=`
-    <div class="cloud-index-eyebrow">AI Cloud Index · Wave 1 of 3 · June 2026</div>
-    <div class="cloud-index-title">The AI Cloud Landscape</div>
-    <p class="cloud-index-sub">Provider profile cards across the GPU-native cloud ecosystem — hardware generations, platform stack, tenant isolation approach, and verification status in one place. Fields marked — are the outreach hook: providers can claim and update their card by emailing <a href="mailto:ecosystem@vcluster.com" style="color:var(--infra)">ecosystem@vcluster.com</a>.</p>
+    <div class="cloud-index-eyebrow">Compute &amp; Inference Provider Index · June 2026</div>
+    <div class="cloud-index-title">Compute &amp; Inference Provider Index</div>
+    <p class="cloud-index-sub">Technical profiles of GPU cloud and inference API providers — hardware generations, platform stack, orchestration approach, tenant isolation, and storage in one place. Fields marked — can be updated by providers directly: email <a href="mailto:ecosystem@vcluster.com" style="color:var(--infra)">ecosystem@vcluster.com</a>.</p>
     <div class="cloud-meta-row">
-      <span class="cloud-methodology">ClusterMAX ratings by <a href="https://clustermax.ai" target="_blank">clustermax.ai</a> · <a href="https://semianalysis.com" target="_blank">SemiAnalysis</a></span>
-      <span class="cloud-methodology">${AI_CLOUDS.length} providers · Wave 1 (vCluster Labs customers)</span>
-      <span class="cloud-methodology">Waves 2–3 coming July 2026</span>
+      <span class="cloud-methodology">${AI_CLOUDS.length} providers</span>
+      <span class="cloud-methodology">Last updated June 2026</span>
     </div>`;
   ct.appendChild(hdr);
 
@@ -2093,12 +2115,11 @@ function mkCloudCard(co){
     logoHtml=`<div class="cloud-card-logo" style="background:${logoColor}">${inits}</div>`;
   }
 
-  const cmBit=co.clustermax
-    ?`<a class="cc-badge cc-badge-cm" href="https://clustermax.ai" target="_blank">ClusterMAX ${co.clustermax}</a>`:'';
+  const cmBit='';
   const verBit=co.verified
     ?`<span class="cc-badge cc-badge-verified">✓ Verified · ${co.lastVerified}</span>`
     :`<span class="cc-badge cc-badge-unverified">Unverified</span>`;
-  const vclBit=co.vcl?`<span class="cc-badge cc-badge-vcl">vCluster customer</span>`:'';
+  const vclBit='';
 
   const gpuChips=co.gpus&&co.gpus.length
     ?`<div class="gpu-chips">${co.gpus.map(g=>`<span class="gpu-chip">${g}</span>`).join('')}</div>`
@@ -2113,7 +2134,7 @@ function mkCloudCard(co){
           <a class="cloud-card-permalink" href="#cloud-${co.id}" onclick="copyAnchor('cloud-${co.id}');return false;" title="Copy permalink"># link</a>
         </div>
         <div class="cloud-card-pos">${co.positioning}</div>
-        <div class="cloud-card-badges">${cmBit}${verBit}${vclBit}</div>
+        <div class="cloud-card-badges">${verBit}</div>
       </div>
     </div>
     <div class="cloud-card-body">
