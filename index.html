@@ -175,7 +175,7 @@ body{background:var(--paper);color:var(--ink);font-family:var(--font);line-heigh
 .controls{
   background:rgba(250,250,248,0.82);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);
   border-bottom:1px solid rgba(0,0,0,0.06);
-  padding:0 32px;display:flex;align-items:center;gap:8px;flex-wrap:wrap;
+  padding:14px 32px 13px;display:flex;align-items:center;gap:8px;flex-wrap:wrap;
   min-height:44px;position:sticky;top:48px;z-index:190;
 }
 .ctrl-label{font-family:var(--mono);font-size:9px;text-transform:uppercase;letter-spacing:1px;color:var(--ink-4);flex-shrink:0}
@@ -250,21 +250,23 @@ body{background:var(--paper);color:var(--ink);font-family:var(--font);line-heigh
 .rail-label{font-family:var(--mono);font-size:9px;text-transform:uppercase;letter-spacing:2px;color:var(--ink-4);white-space:nowrap}
 .rail-line{flex:1;height:1px;background:linear-gradient(90deg,var(--border),transparent)}
 
-/* ── CONTEXT LAYER (thin bar for App/Models/Chips/Energy) ── */
+/* ── CONTEXT LAYER (strata bar for App/Models/Chips/Energy) ── */
 .ctx-bar{
-  display:flex;align-items:center;gap:10px;
-  background:transparent;border:1px solid var(--border);
-  border-left-width:2px;border-radius:var(--r);
-  padding:7px 14px;margin-bottom:6px;
-  opacity:0.65;transition:opacity .2s;
+  display:flex;align-items:center;gap:12px;
+  background:color-mix(in srgb, var(--ctx-accent,#888) 5%, var(--surface));
+  border:1px solid var(--border);border-radius:var(--r-lg);
+  padding:9px 15px 9px 17px;margin-bottom:6px;
+  position:relative;overflow:hidden;
+  transition:box-shadow .15s,transform .12s,border-color .15s;
 }
-.ctx-bar:hover{opacity:0.88}
-.ctx-stripe{width:2px;height:14px;border-radius:2px;flex-shrink:0}
-.ctx-name{font-size:11px;font-weight:600;white-space:nowrap;letter-spacing:-.1px}
+.ctx-bar::before{content:'';position:absolute;left:0;top:0;bottom:0;width:3px;background:var(--ctx-accent,#888)}
+.ctx-bar:hover{border-color:color-mix(in srgb, var(--ctx-accent) 32%, var(--border));box-shadow:0 2px 12px rgba(0,0,0,.05);transform:translateY(-1px)}
+.ctx-stripe{display:none}
+.ctx-name{font-family:var(--display);font-size:12px;font-weight:600;white-space:nowrap;letter-spacing:-.01em}
 .ctx-desc{font-size:10px;color:var(--ink-4);margin-top:0;line-height:1.3;display:none}
 .ctx-pills{display:flex;flex-wrap:nowrap;gap:3px;margin-left:4px;overflow:hidden}
 .ctx-pill{
-  font-size:9px;color:var(--ink-4);background:transparent;
+  font-family:var(--mono);font-size:9px;color:var(--ink-4);background:transparent;
   border:none;padding:0 4px;border-radius:0;white-space:nowrap;
 }
 .ctx-pill::after{content:'·';margin-left:4px;opacity:.4}
@@ -273,27 +275,29 @@ body{background:var(--paper);color:var(--ink);font-family:var(--font);line-heigh
 
 /* ── INFRA WRAPPER (indented sublayers) ── */
 .infra-sublayers-wrap{
-  border:1px solid rgba(37,99,235,.14);
-  border-left:3px solid var(--electric-blue);
-  box-shadow:0 0 0 0px transparent,0 4px 24px rgba(37,99,235,.06);
+  border:1px solid color-mix(in srgb, var(--L-infra) 28%, var(--border));
+  border-left:4px solid var(--L-infra);
+  box-shadow:0 12px 36px -12px rgba(52,97,240,.24),0 1px 0 rgba(52,97,240,.05);
   border-radius:var(--r-xl);
-  background:rgba(26,86,219,.018);
-  padding:10px 10px 8px 10px;
+  background:linear-gradient(180deg, color-mix(in srgb, var(--L-infra) 6%, var(--surface)), var(--surface) 130px);
+  padding:12px 12px 10px 12px;
   margin-bottom:12px;
   display:flex;flex-direction:column;gap:8px;
 }
 
-/* ── INFRA HEADER ── */
+/* ── INFRA HEADER (mirrors the magnified hero layer) ── */
 .infra-hdr{
   display:flex;align-items:center;gap:12px;
-  padding:10px 0 10px;margin-bottom:0;
-  border-bottom:1px solid rgba(26,86,219,.12);
+  padding:11px 4px 12px;margin-bottom:0;
+  border-bottom:1px solid color-mix(in srgb, var(--L-infra) 18%, var(--border));
 }
 .infra-hdr-icon{
-  width:32px;height:32px;border-radius:8px;background:var(--infra);
+  width:34px;height:34px;border-radius:9px;
+  background:linear-gradient(135deg,#2348E0,#3461F0);
+  box-shadow:0 4px 14px -2px rgba(52,97,240,.45);
   display:flex;align-items:center;justify-content:center;font-size:15px;flex-shrink:0;
 }
-.infra-hdr-title{font-family:var(--display);font-size:16px;font-weight:600;letter-spacing:-.02em;color:var(--infra)}
+.infra-hdr-title{font-family:var(--display);font-size:17px;font-weight:600;letter-spacing:-.02em;color:var(--L-infra)}
 .infra-hdr-desc{font-size:11px;color:var(--ink-3);margin-top:2px;line-height:1.5}
 
 /* ── SUBLAYER BLOCK ── */
@@ -445,25 +449,19 @@ body{background:var(--paper);color:var(--ink);font-family:var(--font);line-heigh
   transition:opacity .2s,transform .2s;pointer-events:none;z-index:999;
 }
 .toast.show{opacity:1;transform:translateY(0)}
-/* dark footer — bookends the page as the Energy layer (bottom of the stack) */
+/* dark footer — bookends the page (dark band, matches the hero) */
 footer{
   position:relative;
   background:var(--hero-ground);
   background-image:radial-gradient(circle at 1px 1px, rgba(255,255,255,.05) 1px, transparent 0);
   background-size:24px 24px;
-  border-top:1px solid var(--L-energy);
+  border-top:1px solid #1E2630;
   padding:26px 32px 28px;
 }
 .footer-inner{
   max-width:1280px;margin:0 auto;
   display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px;
 }
-.footer-eyebrow{
-  display:flex;align-items:center;gap:7px;width:100%;
-  font-family:var(--mono);font-size:9px;text-transform:uppercase;letter-spacing:1.4px;
-  color:#7E8A9C;margin-bottom:14px;
-}
-.footer-eyebrow::before{content:'';width:9px;height:9px;border-radius:2px;background:var(--L-energy);box-shadow:inset 0 0 0 1px rgba(255,255,255,.15)}
 .footer-l{font-size:11px;color:#A4ADBC}
 .footer-r{font-family:var(--mono);font-size:10px;color:#7E8A9C;letter-spacing:.3px}
 
@@ -889,7 +887,6 @@ footer{
 
 <footer>
   <div class="footer-inner">
-    <div class="footer-eyebrow">▾ Energy · the bottom of the stack</div>
     <span class="footer-l">Last updated: June 2026</span>
     <span class="footer-r">Built with ♥ for the AI infra community</span>
   </div>
@@ -1578,6 +1575,8 @@ function renderDeepDive(ct){
     const b=parseInt(color.slice(5,7),16);
     return `rgba(${r},${g},${b},0.04)`;
   }
+  // strata accents — align context layers with the hero cross-section
+  const STRATA={application:'#8A8FA3',models:'#A6779C',chips:'#C25A45',energy:'#B7773A'};
 
   // Top context bars: Applications, Models
   ['application','models'].forEach(id=>{
@@ -1586,13 +1585,12 @@ function renderDeepDive(ct){
     const pills=l.subs.flatMap(s=>s.cos.filter(c=>c.f)).slice(0,6)
       .map(c=>`<span class="ctx-pill">${c.n}</span>`).join('');
     const bar=document.createElement('div');
+    const col=STRATA[id]||l.color;
     bar.className='ctx-bar';bar.dataset.layer=id;
-    bar.style.borderLeftColor=l.color;
-    bar.style.background=layerTint(l.color);
+    bar.style.setProperty('--ctx-accent',col);
     bar.innerHTML=`
-      <div class="ctx-stripe" style="background:${l.color}"></div>
       <div style="flex:1;min-width:0">
-        <div class="ctx-name" style="color:${l.color}">${l.name}</div>
+        <div class="ctx-name" style="color:${col}">${l.name}</div>
         <div class="ctx-desc">${l.desc}</div>
         <div class="ctx-pills" style="margin-left:0;margin-top:7px">${pills}<span class="ctx-pill more">+ more</span></div>
       </div>`;
@@ -1627,13 +1625,12 @@ function renderDeepDive(ct){
     const pills=l.subs.flatMap(s=>s.cos.filter(c=>c.f)).slice(0,6)
       .map(c=>`<span class="ctx-pill">${c.n}</span>`).join('');
     const bar=document.createElement('div');
+    const col=STRATA[id]||l.color;
     bar.className='ctx-bar';bar.dataset.layer=id;
-    bar.style.borderLeftColor=l.color;
-    bar.style.background=layerTint(l.color);
+    bar.style.setProperty('--ctx-accent',col);
     bar.innerHTML=`
-      <div class="ctx-stripe" style="background:${l.color}"></div>
       <div style="flex:1;min-width:0">
-        <div class="ctx-name" style="color:${l.color}">${l.name}</div>
+        <div class="ctx-name" style="color:${col}">${l.name}</div>
         <div class="ctx-desc">${l.desc}</div>
         <div class="ctx-pills" style="margin-left:0;margin-top:7px">${pills}<span class="ctx-pill more">+ more</span></div>
       </div>`;
