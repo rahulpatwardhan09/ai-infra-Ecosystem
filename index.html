@@ -196,21 +196,24 @@ body{background:#ffffff;color:var(--ink);font-family:var(--font);line-height:1.5
 
 /* ── CONTEXT LAYER (thin bar for App/Models/Chips/Energy) ── */
 .ctx-bar{
-  display:flex;align-items:center;gap:14px;
-  background:var(--surface);border:1px solid var(--border);
-  border-left-width:3px;border-radius:var(--r-lg);
-  padding:18px 20px;margin-bottom:12px;
-  min-height:72px;
+  display:flex;align-items:center;gap:10px;
+  background:transparent;border:1px solid var(--border);
+  border-left-width:2px;border-radius:var(--r);
+  padding:7px 14px;margin-bottom:6px;
+  opacity:0.38;transition:opacity .2s;
 }
-.ctx-stripe{width:3px;height:28px;border-radius:2px;flex-shrink:0}
-.ctx-name{font-size:14px;font-weight:700;white-space:nowrap;letter-spacing:-.2px}
-.ctx-desc{font-size:11px;color:var(--ink-4);margin-top:3px;line-height:1.4}
-.ctx-pills{display:flex;flex-wrap:wrap;gap:4px;margin-left:8px}
+.ctx-bar:hover{opacity:0.65}
+.ctx-stripe{width:2px;height:14px;border-radius:2px;flex-shrink:0}
+.ctx-name{font-size:11px;font-weight:600;white-space:nowrap;letter-spacing:-.1px}
+.ctx-desc{font-size:10px;color:var(--ink-4);margin-top:0;line-height:1.3;display:none}
+.ctx-pills{display:flex;flex-wrap:nowrap;gap:3px;margin-left:4px;overflow:hidden}
 .ctx-pill{
-  font-size:10px;color:var(--ink-3);background:var(--surface-3);
-  border:1px solid var(--border);padding:2px 8px;border-radius:10px;white-space:nowrap;
+  font-size:9px;color:var(--ink-4);background:transparent;
+  border:none;padding:0 4px;border-radius:0;white-space:nowrap;
 }
-.ctx-pill.more{border-style:dashed;color:var(--ink-4)}
+.ctx-pill::after{content:'·';margin-left:4px;opacity:.4}
+.ctx-pill:last-child::after{content:''}
+.ctx-pill.more{display:none}
 
 /* ── INFRA WRAPPER (indented sublayers) ── */
 .infra-sublayers-wrap{
@@ -496,12 +499,11 @@ footer{
 /* ── PAGE LAYOUT (2-column) ── */
 .page-body{
   max-width:1480px;margin:0 auto;
-  display:grid;grid-template-columns:1fr 340px;
-  gap:0;align-items:start;
+  display:block;
 }
 .page-body .main{
   max-width:none;padding:20px 24px 80px 32px;
-  border-right:1px solid var(--border);min-width:0;
+  min-width:0;
 }
 
 /* ── SIDEBAR ── */
@@ -536,7 +538,7 @@ footer{
 .sidebar-relmap-sub{font-size:10px;color:var(--ink-4);margin-top:1px}
 .sidebar-relmap-arrow{font-size:11px;color:var(--ink-4);flex-shrink:0}
 /* sidebar voices */
-.sidebar-voices-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:5px}
+.sidebar-voices-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(90px,1fr));gap:5px}
 .sidebar-voice-card{
   display:flex;flex-direction:column;align-items:center;gap:4px;
   padding:8px 4px;border-radius:var(--r-lg);border:1px solid var(--border);
@@ -706,7 +708,7 @@ footer{
   <div class="seg">
     <button class="seg-btn active" id="btn-ov"  onclick="setMode('overview')">Overview</button>
     <button class="seg-btn"        id="btn-ref" onclick="setMode('reference')">Full Reference</button>
-    <button class="seg-btn"       id="btn-cloud" onclick="setMode('cloud')">AI Cloud Index</button>
+    <button class="seg-btn"       id="btn-cloud" onclick="setMode('cloud')">Compute & Inference Index</button>
   </div>
   <div class="ctrl-sep"></div>
   <span class="ctrl-label">Lens</span>
@@ -739,35 +741,30 @@ footer{
     </div>
     <button disabled style="display:inline-flex;align-items:center;gap:6px;padding:9px 18px;background:var(--surface-3);color:var(--ink-4);border-radius:var(--r);font-family:var(--font);font-size:12px;font-weight:600;border:1px solid var(--border);cursor:not-allowed;opacity:.6">Suggest a company — coming soon</button>
   </div>
-</main>
 
-<!-- SIDEBAR -->
-<aside class="sidebar">
-
-  <!-- Voices -->
-  <div class="sidebar-section">
-    <div style="padding-bottom:10px;margin-bottom:10px;border-bottom:1px solid var(--border)">
+  <!-- Voices (below CTA) -->
+  <div style="margin-top:20px;padding:20px 0 0">
+    <div style="display:flex;align-items:baseline;gap:12px;padding-bottom:10px;margin-bottom:14px;border-bottom:1px solid var(--border)">
       <div style="font-size:13px;font-weight:700;color:var(--infra);letter-spacing:-.2px">Voices</div>
-      <div style="font-size:10px;color:var(--ink-4);margin-top:2px">Practitioners, builders, investors and analysts shaping AI infrastructure</div>
+      <div style="font-size:10px;color:var(--ink-4)">Practitioners, builders, investors and analysts shaping AI infrastructure</div>
     </div>
-
-    <!-- Practitioners -->
-    <div style="margin-bottom:12px">
-      <div style="font-family:var(--mono);font-size:9px;text-transform:uppercase;letter-spacing:1px;color:var(--ink-4);margin-bottom:7px">Practitioners &amp; Builders</div>
-      <div class="sidebar-voices-grid" id="practitionersGrid"></div>
-      <button id="practitionersMore" onclick="expandVoices('practitioners')" style="margin-top:6px;width:100%;padding:5px;border:1px dashed var(--border);border-radius:var(--r);background:none;font-size:10px;color:var(--ink-4);cursor:pointer;font-family:var(--font)">+ show more</button>
-    </div>
-
-    <!-- Investors -->
-    <div>
-      <div style="font-family:var(--mono);font-size:9px;text-transform:uppercase;letter-spacing:1px;color:var(--ink-4);margin-bottom:7px">Investors &amp; Analysts</div>
-      <div class="sidebar-voices-grid" id="investorsGrid"></div>
-      <button id="investorsMore" onclick="expandVoices('investors')" style="margin-top:6px;width:100%;padding:5px;border:1px dashed var(--border);border-radius:var(--r);background:none;font-size:10px;color:var(--ink-4);cursor:pointer;font-family:var(--font)">+ show more</button>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:20px">
+      <div>
+        <div style="font-family:var(--mono);font-size:9px;text-transform:uppercase;letter-spacing:1px;color:var(--ink-4);margin-bottom:7px">Practitioners &amp; Builders</div>
+        <div class="sidebar-voices-grid" id="practitionersGrid"></div>
+        <button id="practitionersMore" onclick="expandVoices('practitioners')" style="margin-top:6px;width:100%;padding:5px;border:1px dashed var(--border);border-radius:var(--r);background:none;font-size:10px;color:var(--ink-4);cursor:pointer;font-family:var(--font)">+ show more</button>
+      </div>
+      <div>
+        <div style="font-family:var(--mono);font-size:9px;text-transform:uppercase;letter-spacing:1px;color:var(--ink-4);margin-bottom:7px">Investors &amp; Analysts</div>
+        <div class="sidebar-voices-grid" id="investorsGrid"></div>
+        <button id="investorsMore" onclick="expandVoices('investors')" style="margin-top:6px;width:100%;padding:5px;border:1px dashed var(--border);border-radius:var(--r);background:none;font-size:10px;color:var(--ink-4);cursor:pointer;font-family:var(--font)">+ show more</button>
+      </div>
     </div>
   </div>
 
+</main>
 
-</aside>
+
 
 </div><!-- end page-body -->
 
@@ -1894,33 +1891,12 @@ document.addEventListener('click', (e) => {
 
 /* ════ VOICES DATA ════ */
 const PRACTITIONERS = [
-  { name:'Tuhin Srivastava', role:'Co-founder, Baseten',    tag:'No Priors Ep.', color:'#0F1117', url:'https://open.spotify.com/episode/no-priors-baseten',    img:'https://www.google.com/s2/favicons?domain=baseten.co&sz=64' },
-  { name:'Swyx',             role:'Latent Space Podcast',   tag:'Podcast',       color:'#6366F1', url:'https://www.latent.space',                              img:'' },
-  { name:'Dylan Patel',      role:'SemiAnalysis',           tag:'Research',      color:'#1A1A2E', url:'https://semianalysis.com',                              img:'https://www.google.com/s2/favicons?domain=semianalysis.com&sz=64' },
-  { name:'Robert Nishihara', role:'Co-founder, Anyscale',   tag:'No Priors Ep.', color:'#0056A0', url:'https://www.anyscale.com',                              img:'https://www.google.com/s2/favicons?domain=anyscale.com&sz=64' },
-  { name:'Vicki Cheung',     role:'Co-founder, Modal',      tag:'No Priors Ep.', color:'#7928CA', url:'https://modal.com',                                     img:'https://www.google.com/s2/favicons?domain=modal.com&sz=64' },
-  { name:'Clem Delangue',    role:'CEO, Hugging Face',      tag:'Talk',          color:'#FF9D00', url:'https://huggingface.co',                                img:'https://www.google.com/s2/favicons?domain=huggingface.co&sz=64' },
-  { name:'Solomon Hykes',    role:'Founder, Dagger',        tag:'Talk',          color:'#0EA5E9', url:'https://dagger.io',                                     img:'https://www.google.com/s2/favicons?domain=dagger.io&sz=64' },
-  { name:'George Hotz',      role:'Founder, Tiny Corp',     tag:'Podcast',       color:'#0D0D0D', url:'https://tinygrad.org',                                  img:'' },
-  { name:'Luca Antiga',      role:'CTO, Lightning AI',      tag:'Talk',          color:'#792EE5', url:'https://lightning.ai',                                  img:'https://www.google.com/s2/favicons?domain=lightning.ai&sz=64' },
-  { name:'Tim Shi',          role:'Co-founder, Cresta',     tag:'No Priors Ep.', color:'#7C3AED', url:'https://no-priors.com',                                 img:'' },
-  { name:'Ali Ghodsi',       role:'CEO, Databricks',        tag:'Talk',          color:'#FF3621', url:'https://databricks.com',                                img:'https://www.google.com/s2/favicons?domain=databricks.com&sz=64' },
-  { name:'Jensen Huang',     role:'CEO, NVIDIA',            tag:'Keynote',       color:'#76B900', url:'https://blogs.nvidia.com/blog/ai-5-layer-cake',         img:'https://www.google.com/s2/favicons?domain=nvidia.com&sz=64' },
+  { name:'Tuhin Srivastava', role:'Co-founder, Baseten',  tag:'Interview', color:'#0F1117', url:'https://www.youtube.com/watch?v=XAbKflCncDo', img:'https://www.google.com/s2/favicons?domain=baseten.co&sz=64' },
+  { name:'Roman Chernin',    role:'CEO, Nebius',           tag:'20VC',      color:'#1A56DB', url:'https://www.youtube.com/watch?v=aXAH3bdJ2cg', img:'https://www.google.com/s2/favicons?domain=nebius.com&sz=64' },
 ];
 
 const INVESTORS = [
-  { name:'Sarah Guo',         role:'Conviction · No Priors', tag:'Pod Host',     color:'#1A1A2E', url:'https://no-priors.com',                               img:'' },
-  { name:'Martin Casado',     role:'a16z',                   tag:'AI Infra',     color:'#1652F0', url:'https://a16z.com/ai',                                 img:'https://www.google.com/s2/favicons?domain=a16z.com&sz=64' },
-  { name:'Elad Gil',          role:'Investor',               tag:'Essay',        color:'#0F172A', url:'https://eladgil.com',                                 img:'' },
-  { name:'Pat Grady',         role:'Sequoia',                tag:'AI Stack',     color:'#B91C1C', url:'https://sequoiacap.com',                              img:'https://www.google.com/s2/favicons?domain=sequoiacap.com&sz=64' },
-  { name:'Nat Friedman',      role:'Investor',               tag:'AI Thesis',    color:'#0D0D0D', url:'https://nat.org',                                     img:'' },
-  { name:'Zach DeWitt',       role:'Wing VC',                tag:'Essay',        color:'#0F766E', url:'https://medium.com/@zachdewitt',                      img:'' },
-  { name:'Derrick Harris',    role:'Amplify Partners',       tag:'Essay',        color:'#0F766E', url:'https://amplifypartners.com',                         img:'' },
-  { name:'Konstantine Buhler',role:'Sequoia',                tag:'Talk',         color:'#B91C1C', url:'https://sequoiacap.com',                              img:'' },
-  { name:'Jake Saper',        role:'Emergence Capital',      tag:'Talk',         color:'#0F172A', url:'https://emcap.com',                                   img:'' },
-  { name:'Anna Khan',         role:'CRV',                    tag:'AI Infra',     color:'#1652F0', url:'https://crv.com',                                     img:'' },
-  { name:'Bogomil Balkansky', role:'Sequoia',                tag:'Essay',        color:'#B91C1C', url:'https://sequoiacap.com',                              img:'' },
-  { name:'Zack Urlocker',     role:'Investor',               tag:'OSS GTM',      color:'#1A56DB', url:'https://medium.com/@zurlocker',                      img:'' },
+  { name:'Sarah Guo', role:'Conviction', tag:'Investor', color:'#1A1A2E', url:'https://www.conviction.com/', img:'https://www.google.com/s2/favicons?domain=conviction.com&sz=64' },
 ];
 
 function voiceInitials(name){ return name.split(' ').map(w=>w[0]).join('').slice(0,2).toUpperCase(); }
@@ -1930,7 +1906,7 @@ function renderVoices(data, containerId, tagCls) {
   VOICES_DATA[containerId] = {data, tagCls};
   const grid = document.getElementById(containerId);
   if (!grid) return;
-  renderVoiceCards(data.slice(0, 3), grid, tagCls);
+  renderVoiceCards(data, grid, tagCls);
 }
 function expandVoices(prefix) {
   const containerId = prefix + 'Grid';
@@ -2179,7 +2155,25 @@ function copyAnchor(id){
 }
 
 
+
+// ── Hash-based deep links ──────────────────────────────────────────────────
+// If URL contains #cloud-{id}, switch to cloud mode then scroll to the card.
+function handleHash(){
+  const h = window.location.hash;
+  if(!h) return;
+  if(h.startsWith('#cloud-')){
+    if(mode !== 'cloud') setMode('cloud');
+    // Wait one tick for render() to populate DOM
+    requestAnimationFrame(()=>{
+      const el = document.getElementById(h.slice(1));
+      if(el) el.scrollIntoView({behavior:'smooth', block:'start'});
+    });
+  }
+}
+window.addEventListener('hashchange', handleHash);
+
 render();
+handleHash();
 </script>
 </body>
 </html>
