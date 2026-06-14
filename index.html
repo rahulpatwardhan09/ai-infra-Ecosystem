@@ -623,9 +623,9 @@ footer{
 .cloud-methodology a{color:var(--gold);text-decoration:none}
 .cloud-methodology a:hover{text-decoration:underline}
 .cloud-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(520px,1fr));gap:12px}
-.cloud-card{background:var(--surface);border:1px solid var(--border);border-left:3px solid var(--infra);border-radius:var(--r-xl);overflow:hidden;transition:box-shadow .15s;scroll-margin-top:110px}
+.cloud-card{background:var(--surface);border:1px solid var(--border);border-left:4px solid var(--infra);border-radius:var(--r-xl);overflow:hidden;transition:box-shadow .15s;scroll-margin-top:110px}
 .cloud-card:hover{box-shadow:0 4px 16px rgba(0,0,0,.07)}
-.cloud-card.vcl{border-left-color:var(--accent)}
+/* brand colors set per-card via JS */
 .cloud-card-hdr{display:flex;align-items:flex-start;gap:12px;padding:14px 16px 12px;border-bottom:1px solid var(--border);background:var(--surface-2)}
 .cloud-card-logo{width:30px;height:30px;border-radius:7px;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:700;color:#fff;background:var(--infra);overflow:hidden;border:1px solid rgba(0,0,0,.06)}
 .cloud-card-logo img{width:100%;height:100%;object-fit:contain;border-radius:6px}
@@ -810,7 +810,7 @@ const LOGO_COLORS = {
   'AWS':'#FF9900','Microsoft Azure':'#0078D4','Google Cloud':'#4285F4','Oracle Cloud':'#C74634',
   'CoreWeave':'#6B3FA0','Lambda':'#00A67E','Together AI':'#0066FF','Nebius':'#4A90D9',
   'Crusoe':'#2A9D5C','RunPod':'#7928CA','Scaleway':'#7B35C1','OVHcloud':'#123F6D',
-  'Vultr':'#007BFC','DigitalOcean':'#0080FF','Fluidstack':'#1A1A2E','Nscale':'#0A1628',
+  'Vultr':'#007BFC','DigitalOcean':'#0080FF','Fluidstack':'#1A1A2E','Nscale':'#2563EB',
   'Kubernetes (CNCF)':'#326CE5','Red Hat OpenShift':'#EE0000','Rancher (SUSE)':'#30BA78',
   'vCluster':'#FF5C00','vCluster Standalone':'#FF5C00','vNode':'#FF5C00','vMetal':'#FF5C00',
   'NVIDIA DSX':'#76B900','KAI Scheduler':'#76B900','NVIDIA AICR':'#76B900','NVSentinel':'#76B900','NVIDIA Infra Controller':'#76B900',
@@ -829,7 +829,7 @@ const LOGO_COLORS = {
   'Weights & Biases':'#FFBE00','MLflow':'#0194E2','Comet':'#262834','Snorkel':'#5856D6','Determined AI':'#DC1C2E',
   'NVIDIA Triton':'#76B900','vLLM':'#5B7FFF','NVIDIA Dynamo':'#76B900',
   'llm-d (CNCF)':'#326CE5','TGI (HuggingFace)':'#FF9D00','SGLang':'#FF4F00',
-  'Modal':'#7928CA','Fireworks AI':'#FF4B00','Baseten':'#0F1117','Replicate':'#0A0A0A',
+  'Modal':'#7928CA','Fireworks AI':'#FF4B00','Baseten':'#0D9488','Replicate':'#0A0A0A',
   'FriendliAI':'#5B5BD6','Modular':'#0D0D0D',
   'Arize AI':'#7C3AED','Datadog':'#632CA6','Dynatrace':'#1496FF','Grafana':'#F46800',
   'Elastic':'#FEC514','Fiddler':'#2563EB','Evidently AI':'#FF6B35',
@@ -842,7 +842,7 @@ const LOGO_COLORS = {
   'Vertiv':'#CC0000','Schneider Electric':'#3DCD58','CoolIT Systems':'#0066CC','Crusoe Energy':'#2A9D5C','Bloom Energy':'#1E88E5',
   'NVIDIA DGX':'#76B900','HPE':'#01A982','Dell':'#007DB8','Supermicro':'#CE1126',
   'Canonical MAAS':'#E95420','Ironic (OpenStack)':'#D90036','Netris':'#5B5BD6',
-  'Paper Compute':'#0F172A','Runlayer':'#1A1A2E',
+  'Paper Compute':'#0F172A','Runlayer':'#1A1A2E','Boost Run':'#F97316','Corvex':'#059669','QumulusAI':'#7C3AED',
   'OpenAI':'#10A37F','Anthropic':'#CC785C','Google DeepMind':'#4285F4','Meta AI':'#0866FF',
   'DeepSeek':'#4D6BFE','Mistral AI':'#FF7000','xAI':'#1A1A1A','Cohere':'#39594D',
   'Hugging Face':'#FF9D00','NVIDIA NGC':'#76B900','Ollama':'#0F172A',
@@ -1035,14 +1035,14 @@ const LAYERS = [
     desc:'Foundation models, open-weight releases, model hubs',
     subs:[
       { name:'Frontier Model Labs', cos:[
-        {n:'OpenAI',         d:'GPT-4o, o1/o3, Sora',t:'dominant',f:true},
-        {n:'Anthropic',      d:'Claude 4 family',t:'dominant',f:true},
-        {n:'Google DeepMind',d:'Gemini 2.5, AlphaFold',t:'dominant',f:true},
-        {n:'Meta AI',        d:'Llama 4 open-weight',t:'dominant',f:true,oss:true},
-        {n:'DeepSeek',       d:'R1/V3 — open-weight reasoning',t:'major',f:true,oss:true},
+        {n:'OpenAI',         d:'GPT-5.x, o-series reasoning, Sora',t:'dominant',f:true},
+        {n:'Anthropic',      d:'Claude Opus 4.x, Sonnet 4.6',t:'dominant',f:true},
+        {n:'Google DeepMind',d:'Gemini 3.x, AlphaFold',t:'dominant',f:true},
+        {n:'Meta AI',        d:'Llama 4 open-weight, Muse Spark',t:'dominant',f:true,oss:true},
+        {n:'DeepSeek',       d:'V4 / R-series — open-weight reasoning',t:'major',f:true,oss:true},
         {n:'Mistral AI',     d:'European frontier lab, open-weight',t:'major',oss:true},
-        {n:'xAI',            d:'Grok, Colossus 200k GPU cluster',t:'major'},
-        {n:'Cohere',         d:'Enterprise LLMs, RAG-optimized',t:'major'},
+        {n:'xAI',            d:'Grok 4, Colossus 2 (~555k GPU cluster)',t:'major'},
+        {n:'Cohere',         d:'Command A, enterprise RAG-optimized',t:'major'},
       ]},
       { name:'Model Hubs & Local Inference', cos:[
         {n:'Hugging Face',d:'Model hub, Transformers, datasets',t:'dominant',f:true,oss:true},
@@ -1371,32 +1371,32 @@ const SUBLAYER_INTEL = {
   inference:{
     challenge:"The inference API market is commoditizing fast — frontier labs now sell direct API access at prices independent providers struggle to match. Cold start latency, GPU memory fragmentation across concurrent requests, and cost-per-token are the three axes every provider is competing on simultaneously.",
     innovation:"Disaggregated prefill/decode — splitting the compute-heavy prompt processing phase from the memory-heavy token generation phase across different hardware — is the next architectural leap. Speculative decoding and continuous batching are now table stakes. Purpose-built inference silicon (Groq LPU, Cerebras WSE) is showing 10x latency improvements for specific model sizes.",
-    capital:"Together AI raised $305M at a $3.3B valuation. Modal raised $110M. Fireworks AI raised $52M Series B. Inference spend across the industry now exceeds training spend — analysts estimate the inference API market will reach $100B by 2027, making it a larger category than the GPU training cloud market."
+    capital:"Inference is now the hottest funding category in infra. Fireworks AI raised a $250M Series C at a $4B valuation (Oct 2025), with reports of a ~$15B round in 2026. Baseten raised a $300M Series E at a $5B valuation (Jan 2026). Modal closed an $87M Series B at ~$1.1B. Together AI raised a $305M Series B at $3.3B and is reportedly raising ~$1B at a $7.5B valuation. Inference spend now exceeds training spend industry-wide."
   },
   cloud:{
     challenge:"GPU availability constraints are easing as new supply comes online, but operational maturity varies dramatically. Many GPU clouds still lack managed Kubernetes, self-service environments, and day-2 ops that enterprise AI teams expect. Pricing pressure from hyperscalers is intensifying, squeezing mid-tier providers on margin.",
     innovation:"GPU-native clouds are building vertically integrated stacks: compute + storage + orchestration + ML tooling. CoreWeave's K8s-first architecture and Lambda's 1-Click Clusters point toward a future where the cloud and the platform are inseparable. Sovereign AI clouds in Europe are gaining ground as data residency requirements tighten.",
-    capital:"CoreWeave raised $7.5B in 2024 at a ~$19B valuation and IPO'd in 2025. Together AI raised $305M. Nebius listed on Nasdaq. The GPU cloud market is bifurcating: hyperscalers on price and breadth, specialists on performance, developer experience, and compliance."
+    capital:"CoreWeave IPO'd in March 2025 and trades around a ~$55B market cap. Nebius (NASDAQ: NBIS) sits near ~$58B and is set to join the Nasdaq-100. Europe is scaling fast: Nscale raised a $2B Series C at a $14.6B valuation (Mar 2026) and Crusoe a $1.38B Series E at >$10B. The GPU cloud market is bifurcating: hyperscalers on price and breadth, specialists on performance, developer experience, and compliance."
   },
   orchestration:{
     challenge:"GPU clusters are stateful, multi-tenant environments with no shared-tenancy primitives built in. Kubernetes was designed for stateless workloads — GPU memory, NUMA topology, InfiniBand fabric, and MIG partitioning all require custom operators. Most teams are still duct-taping namespaces together.",
     innovation:"The shift from namespace-level to control-plane-level tenant isolation is underway. vCluster gives each team a full Kubernetes API server, enabling true self-service without blast radius. NVIDIA's DSX OS (KAI Scheduler, Dynamo, AICR) is converging GPU scheduling with K8s-native primitives into a coherent AI factory stack.",
-    capital:"Run:ai acquired by NVIDIA for ~$700M in 2024. Significant NVIDIA investment in DSX OS and open-source GPU scheduling primitives. Kubernetes-native GPU orchestration is becoming table stakes — value is moving to the platform layer and developer experience."
+    capital:"Run:ai was acquired by NVIDIA for ~$700M (closed Dec 2024) and its scheduler open-sourced as KAI. NVIDIA — now a ~$5T company — keeps investing heavily in DSX OS and open-source GPU scheduling primitives. Kubernetes-native GPU orchestration is becoming table stakes; value is moving to the platform layer and developer experience."
   },
   mlops:{
     challenge:"LLM inference at scale is architecturally different from traditional ML serving. PagedAttention, speculative decoding, and continuous batching require infra teams to understand model internals. Most MLOps tooling was built for batch training, not interactive inference.",
     innovation:"Kubernetes-native inference is emerging as a category. llm-d (CNCF) and NVIDIA Dynamo bring distributed LLM serving into the K8s control plane. Disaggregated prefill/decode is the next architectural shift — splitting compute-heavy and memory-heavy inference phases across different hardware.",
-    capital:"Weights & Biases raised $200M at a $1.25B valuation. Hugging Face is valued at $4.5B. Inference infrastructure startups (Modal, Baseten, Fireworks, FriendliAI) raised $500M+ combined in 2024–25. Modular raised $100M to build the MAX inference compiler stack."
+    capital:"Weights & Biases was acquired by CoreWeave for ~$1.7B (closed May 2025), folding MLOps into a GPU cloud. Hugging Face raised ~$2B in Sept 2025 at a ~$13.5B valuation. Inference platforms kept compounding — Baseten ($5B, Jan 2026), Fireworks AI ($4B, Oct 2025), and Modal (~$1.1B) all raised at steep step-ups. Modular continues building the MAX inference compiler stack."
   },
   'storage-net':{
     challenge:"AI training workloads require storage throughput that most enterprise infrastructure can't deliver — hundreds of GB/s per node during data-parallel training. Vector database performance and cost at billion-scale is still an unsolved problem for many teams.",
     innovation:"GPU-Direct Storage (bypassing the CPU for data transfer) is becoming standard on high-performance clusters. New vector database architectures (Turbopuffer's cold storage, LanceDB's columnar format) are attacking the cost problem from a different angle. 800G and 1.6T optical transceivers are enabling next-gen AI fabric.",
-    capital:"WEKA raised $140M in 2024. Vast Data raised $118M at a $9.1B valuation. Turbopuffer and LanceDB are early-stage but gaining significant developer adoption. InfiniBand remains dominant for training; Ethernet is winning for inference-at-scale."
+    capital:"Vast Data closed a Series F at a $30B valuation (Apr 2026) — up from $9.1B in 2023 — and signed a ~$1.17B data-platform deal with CoreWeave. WEKA is a unicorn at a $1.6B valuation ($140M Series E). Turbopuffer and LanceDB remain early-stage but are gaining significant developer adoption. InfiniBand remains dominant for training; Ethernet is winning for inference-at-scale."
   },
   'dc-metal':{
     challenge:"Server OEMs are supply-constrained on liquid cooling while demand compounds. GPU server configurations change every 12–18 months (H100 → H200 → B200 → GB200), stranding capex in rapidly-depreciating hardware. Power availability is the single biggest constraint on new AI data center capacity globally.",
     innovation:"Bare metal provisioning is evolving beyond PXE boot — Metal3/Ironic-based lifecycle management, GPU health validation, and automated network isolation are becoming standard requirements. Direct liquid cooling is moving from exception to default in new AI rack designs.",
-    capital:"$4.7B raised by US infrastructure startups in 2026 YTD. Server OEMs (Supermicro, Dell) seeing 2–3x revenue growth. Data center REITs (Equinix, Digital Realty) trading at record multiples as AI demand backlog extends 3–5 years."
+    capital:"AI data-center capex is running into the hundreds of billions, with power availability now the single biggest gating constraint on new capacity. Server OEMs (Supermicro, Dell, Lenovo) are seeing outsized revenue growth, and data center REITs (Equinix, Digital Realty) trade at record multiples as the AI demand backlog extends 3–5 years."
   }
 };
 
@@ -1696,7 +1696,7 @@ const COMPANY_DETAIL = {
   },
   'NVIDIA': {
     hq: 'Santa Clara, CA', founded: '1993',
-    funding: 'Public (NVDA) · $3.4T market cap',
+    funding: 'Public (NVDA) · ~$5T market cap',
     tagline: '~80% of AI training silicon, CUDA ecosystem, and the DSX AI factory stack',
     note: 'H100/H200/B200/GB200 GPU families. CUDA remains the dominant AI compute platform. Also building DSX OS, KAI Scheduler, Dynamo, and the full AI factory software stack.',
   },
@@ -1708,7 +1708,7 @@ const COMPANY_DETAIL = {
   },
   'CoreWeave': {
     hq: 'Roseland, NJ', founded: '2017',
-    funding: '$7.5B raised · IPO March 2025',
+    funding: 'Public (CRWV) · ~$55B mkt cap · IPO Mar 2025',
     tagline: 'The GPU cloud built natively on Kubernetes — NVIDIA Elite Cloud Partner',
     note: 'First major GPU cloud to bet on K8s-native architecture from day one. H100/H200/GB200 at scale. Strong NVIDIA partnership including early access to new hardware.',
   },
@@ -1726,13 +1726,13 @@ const COMPANY_DETAIL = {
   },
   'Weights & Biases': {
     hq: 'San Francisco, CA', founded: '2017',
-    funding: '$200M raised · $1.25B valuation',
+    funding: 'Acquired by CoreWeave · ~$1.7B (2025)',
     tagline: 'The ML experiment tracking and evaluation platform teams actually use in production',
     note: 'W&B Weave adds LLM tracing and evaluation. Used across research and enterprise AI teams. MLflow is the main OSS alternative; W&B wins on developer experience.',
   },
   'Datadog': {
     hq: 'New York, NY', founded: '2010',
-    funding: 'Public (DDOG) · $40B+ market cap',
+    funding: 'Public (DDOG) · ~$80B market cap',
     tagline: 'Full-stack observability — now with GPU monitoring and LLM tracing built in',
     note: 'GPU monitoring via DCGM integration. LLM Observability product covers traces, evals, and token costs. Dominant in cloud-native infra monitoring.',
   },
@@ -1754,21 +1754,33 @@ const COMPANY_DETAIL = {
     tagline: 'GPU virtualization, fractional GPUs, and workload orchestration for multi-tenant clusters',
     note: 'Now part of NVIDIA DSX. Provides quota management, GPU time-slicing, and self-service GPU access. Strong in enterprise and research institutions.',
   },
+  'Baseten': {
+    hq: 'San Francisco, CA', founded: '2019',
+    funding: '$300M Series E · $5B valuation (2026)',
+    tagline: 'Inference infrastructure for AI teams — Truss packaging and low-latency custom endpoints',
+    note: 'Built around Truss, an open-source model packaging framework. Serves production inference for teams needing custom models with low cold-start. Strong in media, fintech, and LLM application builders.',
+  },
+  'Fireworks AI': {
+    hq: 'Redwood City, CA', founded: '2022',
+    funding: '$250M Series C · $4B valuation (2025)',
+    tagline: 'The fastest inference platform for production AI apps — FireAttention engine and compound AI',
+    note: 'Founded by ex-Google Brain engineers. FireAttention outperforms vLLM on throughput benchmarks. Supports compound AI systems where multiple models chain together. Strong developer adoption.',
+  },
   'Together AI': {
     hq: 'San Francisco, CA', founded: '2022',
-    funding: '$305M raised · $3.3B valuation',
+    funding: '$305M Series B · $3.3B (raising at ~$7.5B)',
     tagline: 'GPU cloud plus inference platform — strong OSS model support and developer experience',
     note: 'Runs most major open-weight models (Llama, Mistral, DBRX) via API. Also offers training and fine-tuning. Positioned between pure GPU rental and managed inference.',
   },
   'Modal': {
     hq: 'New York, NY', founded: '2021',
-    funding: '$110M raised',
+    funding: '$87M Series B · $1.1B valuation (2025)',
     tagline: 'Serverless GPU infrastructure — run any Python function on GPUs with zero cold-start friction',
     note: 'Extremely developer-friendly API. Fast cold starts, pay-per-second billing, and a sandboxed execution environment. Popular for AI inference, fine-tuning, and batch workloads.',
   },
   'Databricks': {
     hq: 'San Francisco, CA', founded: '2013',
-    funding: '$4B raised · $62B valuation',
+    funding: 'Series L · $134B valuation (2025)',
     tagline: 'Lakehouse platform — the data and ML infrastructure layer for enterprise AI',
     note: 'Unity Catalog for governance, MLflow for experiment tracking, Delta Lake for storage. Acquired MosaicML for LLM training. Competes directly with Snowflake on the data platform layer.',
   },
@@ -1955,7 +1967,7 @@ const AI_CLOUDS = [
     positioning:'The GPU cloud built natively on Kubernetes — NVIDIA Elite Cloud Partner', verified:false, lastVerified:null,
     hq:'Roseland, NJ', founded:'2017',
     status:'Public (CRWV · Nasdaq)',
-    funding:'$7.5B raised · IPO March 2025',
+    funding:'Public (CRWV) · ~$55B mkt cap · IPO Mar 2025',
     footprint:'32 locations · US-primary · EU expanding',
     gpus:['H100','H200','GB200 NVL72'],
     interconnect:'InfiniBand NDR + RoCE Ethernet',
@@ -1973,7 +1985,7 @@ const AI_CLOUDS = [
     positioning:'Full-stack EU AI cloud — Kubernetes, Slurm, storage and managed services in one platform', verified:false, lastVerified:null,
     hq:'Amsterdam, Netherlands', founded:'2024',
     status:'Public (NBIS · Nasdaq)',
-    funding:'Nasdaq listed · spun out of Yandex N.V.',
+    funding:'NASDAQ: NBIS · ~$58B mkt cap (ex-Yandex)',
     footprint:'Finland · France · Netherlands · US (expanding)',
     gpus:['H100','H200'],
     interconnect:'InfiniBand',
@@ -2009,7 +2021,7 @@ const AI_CLOUDS = [
     positioning:'European AI cloud built for sovereign data residency and GPU-dense workloads', verified:false, lastVerified:null,
     hq:'London, UK', founded:'2022',
     status:'Private',
-    funding:'$3.7B raised',
+    funding:'$2B Series C · $14.6B valuation (2026)',
     footprint:'UK · Norway',
     gpus:['H100','H200'],
     interconnect:'InfiniBand',
@@ -2058,6 +2070,60 @@ const AI_CLOUDS = [
     storage:null,
     customers:null,
   },
+  {
+    id:'together-ai', name:'Together AI', wave:2, vcl:false,
+    positioning:'The inference platform for open-source AI — serverless + dedicated endpoints, fine-tuning, and embeddings', verified:false, lastVerified:null,
+    hq:'San Francisco, CA', founded:'2022',
+    status:'Private',
+    funding:'$305M Series B · $3.3B (raising at ~$7.5B)',
+    footprint:'US',
+    gpus:['H100','A100','L40S'],
+    interconnect:null,
+    bareMetal:false,
+    managedK8s:null,
+    orchestration:'Proprietary inference engine (FlashAttention-based)',
+    tenantIsolation:'API-level isolation · dedicated instance options',
+    selfService:'Yes',
+    networkingAutomation:null,
+    storage:null,
+    customers:'Notion · Perplexity · Quora · Bloomberg',
+  },
+  {
+    id:'baseten', name:'Baseten', wave:2, vcl:false,
+    positioning:'Inference infrastructure for AI teams — model serving, Truss packaging framework, and custom low-latency endpoints', verified:false, lastVerified:null,
+    hq:'San Francisco, CA', founded:'2019',
+    status:'Private',
+    funding:'$300M Series E · $5B valuation (2026)',
+    footprint:'US',
+    gpus:['H100','A100'],
+    interconnect:null,
+    bareMetal:false,
+    managedK8s:null,
+    orchestration:'Truss (OSS model packaging) · custom inference stack',
+    tenantIsolation:'Dedicated deployments per model',
+    selfService:'Yes',
+    networkingAutomation:null,
+    storage:null,
+    customers:'Typeface · Ramp · Scale AI · ElevenLabs',
+  },
+  {
+    id:'fireworks-ai', name:'Fireworks AI', wave:2, vcl:false,
+    positioning:'Production inference platform for open-source models — FireAttention engine, compound AI systems, and fine-tuned endpoints', verified:false, lastVerified:null,
+    hq:'Redwood City, CA', founded:'2022',
+    status:'Private',
+    funding:'$250M Series C · $4B valuation (2025)',
+    footprint:'US',
+    gpus:['H100','A100'],
+    interconnect:null,
+    bareMetal:false,
+    managedK8s:null,
+    orchestration:'FireAttention (proprietary · ex-Google Brain team)',
+    tenantIsolation:'API-level isolation · dedicated deployments',
+    selfService:'Yes',
+    networkingAutomation:null,
+    storage:null,
+    customers:'LinkedIn · Canva · DoorDash · Adobe',
+  },
 ];
 
 function val(v){ return v ? `<span class="cc-value">${v}</span>` : '<span class="cc-value ud">—</span>'; }
@@ -2090,9 +2156,9 @@ function mkCloudCard(co){
 
   // Logo
   const logoColor=LOGO_COLORS[co.name]||(co.vcl?'#FF5C00':'#57606A');
-  if(!co.vcl){
-    d.style.setProperty('border-left-color', LOGO_COLORS[co.name]||'#2563EB');
-  }
+  const _bc = LOGO_COLORS[co.name] || '#2563EB';
+  d.style.setProperty('border-left-color', _bc);
+  d.setAttribute('data-brand-color', _bc);
   const inits=co.name.replace(/[^A-Za-z0-9 ]/g,'').split(/\s+/).map(w=>w[0]||'').join('').slice(0,2).toUpperCase();
   const dom=DOMAINS[co.name];
   let logoHtml;
