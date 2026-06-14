@@ -10,7 +10,7 @@
 <meta property="og:type" content="website">
 <meta name="twitter:card" content="summary_large_image">
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Geist:wght@300;400;500;600;700;800&family=Geist+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Geist:wght@300;400;500;600;700;800&family=Geist+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
 :root {
   --bg:          #F2F3F5;
@@ -44,12 +44,23 @@
   /* Electric palette */
   --electric-blue:  #2563EB;
   --electric-cyan:  #06B6D4;
-  --electric-lime:  #C8FF00;
   --electric-grad:  linear-gradient(135deg,#2563EB 0%,#0EA5E9 55%,#06B6D4 100%);
+  /* v3 cross-section design system */
+  --display:     'Space Grotesk', 'Geist', system-ui, sans-serif;
+  --hero-ground: #0B0E14;
+  --hero-ground-2: #141A24;
+  --paper:       #FBFAF7;
+  --strata:      #6B7A99;
+  /* per-layer strata accents (App→Energy, abstract→physical) */
+  --L-app:    #8A8FA3;
+  --L-models: #A6779C;
+  --L-infra:  #3461F0;
+  --L-chips:  #C25A45;
+  --L-energy: #B7773A;
 }
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 html{font-size:14px;-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale}
-body{background:var(--surface);color:var(--ink);font-family:var(--font);line-height:1.6;-webkit-font-smoothing:antialiased}
+body{background:var(--paper);color:var(--ink);font-family:var(--font);line-height:1.6;-webkit-font-smoothing:antialiased}
 
 /* ── TOPBAR ── */
 .topbar{
@@ -83,36 +94,68 @@ body{background:var(--surface);color:var(--ink);font-family:var(--font);line-hei
 .share-btn:hover{opacity:.85}
 .share-btn svg{width:11px;height:11px;fill:currentColor;flex-shrink:0}
 
-/* ── HERO ── */
+/* ── HERO (v3 cross-section) ── */
 .hero{
-  background:var(--surface);
-  background-image:radial-gradient(circle,rgba(0,0,0,0.07) 1px,transparent 1px);
-  background-size:22px 22px;
-  border-bottom:1px solid var(--border);
-  padding:32px 32px 28px;
+  background:var(--hero-ground);
+  background-image:radial-gradient(circle at 1px 1px, rgba(255,255,255,.05) 1px, transparent 0);
+  background-size:24px 24px;
+  border-bottom:1px solid #1E2630;
+  padding:42px 32px 46px;color:#fff;overflow:hidden;
 }
-.hero-inner{max-width:1280px;margin:0 auto;display:grid;grid-template-columns:1fr auto;gap:40px;align-items:center}
+.hero-inner{max-width:1280px;margin:0 auto;display:grid;grid-template-columns:1fr 1.05fr;gap:52px;align-items:center}
 .hero-eyebrow{
-  display:inline-flex;align-items:center;gap:6px;
-  font-family:var(--mono);font-size:10px;color:var(--ink-4);
-  text-transform:uppercase;letter-spacing:1px;margin-bottom:12px;
+  display:inline-flex;align-items:center;gap:7px;
+  font-family:var(--mono);font-size:10px;color:#8A93A3;
+  text-transform:uppercase;letter-spacing:1.5px;margin-bottom:18px;
 }
 .hero-eyebrow-dot{width:5px;height:5px;border-radius:50%;background:var(--accent);flex-shrink:0;animation:blink 2s infinite}
 @keyframes blink{0%,100%{opacity:1}50%{opacity:.3}}
-.hero-title{
-  font-size:28px;font-weight:800;letter-spacing:-0.04em;
-  line-height:1.15;
-  background:var(--electric-grad);
-  -webkit-background-clip:text;-webkit-text-fill-color:transparent;
-  background-clip:text;
+.hero-title{font-family:var(--display);font-size:38px;font-weight:600;letter-spacing:-0.02em;line-height:1.06;color:#fff;margin-bottom:15px}
+.hero-title .accent{color:#6E90FF}
+.hero-sub{font-size:13px;color:#A4ADBC;line-height:1.7;max-width:490px}
+.hero-sub a{color:#8FA8FF;text-decoration:none;border-bottom:1px solid rgba(143,168,255,.35)}
+.hero-sub a:hover{border-bottom-color:#8FA8FF}
+.hero-stats{display:flex;gap:24px;margin-top:24px}
+.hstat{display:flex;align-items:baseline;gap:6px}
+.hstat-n{font-family:var(--display);font-size:19px;font-weight:600;letter-spacing:-0.02em;line-height:1;color:#fff}
+.hstat-l{font-family:var(--mono);font-size:9px;color:#7E8A9C;text-transform:uppercase;letter-spacing:.8px}
+
+/* cross-section visual — the signature */
+.xsection{position:relative;display:flex;flex-direction:column;gap:6px;perspective:1300px}
+.xlayer{position:relative;display:flex;align-items:center;gap:14px;transform-style:preserve-3d}
+.xlayer-label{font-family:var(--mono);font-size:9px;text-transform:uppercase;letter-spacing:1.1px;color:#6B7480;width:72px;text-align:right;flex-shrink:0}
+.xlayer-bar{flex:1;min-width:0;border-radius:7px;border:1px solid rgba(255,255,255,.08);display:flex;align-items:center;padding:0 14px;position:relative;overflow:hidden}
+.xbar-name{font-family:var(--display);font-weight:500;letter-spacing:-.01em;color:#E8ECF3}
+.xbar-tag{margin-left:auto;font-family:var(--mono);font-size:8px;color:rgba(255,255,255,.45);text-transform:uppercase;letter-spacing:.6px;white-space:nowrap}
+.xlayer.ctx .xlayer-bar{height:32px;font-size:11px;background:linear-gradient(180deg,rgba(255,255,255,.045),rgba(255,255,255,.012));opacity:.8}
+.xlayer.ctx.app    .xlayer-bar{box-shadow:inset 3px 0 0 var(--L-app)}
+.xlayer.ctx.models .xlayer-bar{box-shadow:inset 3px 0 0 var(--L-models)}
+.xlayer.ctx.chips  .xlayer-bar{box-shadow:inset 3px 0 0 var(--L-chips);background:linear-gradient(180deg,rgba(194,90,69,.12),rgba(194,90,69,.03))}
+.xlayer.ctx.energy .xlayer-bar{box-shadow:inset 3px 0 0 var(--L-energy);background:linear-gradient(180deg,rgba(183,119,58,.14),rgba(183,119,58,.04))}
+.xlayer.infra{margin:9px 0;z-index:2}
+.xlayer.infra .xlayer-label{color:#9DB0FF;font-weight:500}
+.xlayer.infra .xlayer-bar{
+  min-height:100px;flex-direction:column;align-items:stretch;justify-content:center;gap:11px;padding:15px 17px;
+  background:linear-gradient(135deg,#2348E0 0%,#3461F0 58%,#1E5FC4 100%);
+  border:1px solid rgba(120,150,255,.5);
+  box-shadow:0 20px 44px -12px rgba(36,72,224,.6),0 0 0 1px rgba(120,150,255,.15);
+  transform:translateZ(44px) scale(1.03);
 }
-.hero-sub{font-size:13px;color:var(--ink-3);line-height:1.65;max-width:560px}
-.hero-sub a{color:var(--infra);text-decoration:none;border-bottom:1px solid var(--infra-mid)}
-.hero-sub a:hover{border-bottom-color:var(--infra)}
-.hero-stats{display:flex;gap:24px;flex-shrink:0}
-.hstat{text-align:center}
-.hstat-n{font-size:26px;font-weight:800;letter-spacing:-0.04em;line-height:1;background:var(--electric-grad);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
-.hstat-l{font-family:var(--mono);font-size:9px;color:var(--ink-4);text-transform:uppercase;letter-spacing:.8px;margin-top:3px}
+.xinfra-top{display:flex;align-items:center;gap:10px}
+.xinfra-title{font-family:var(--display);font-size:16px;font-weight:600;letter-spacing:-.02em;color:#fff}
+.xinfra-badge{margin-left:auto;font-family:var(--mono);font-size:8px;letter-spacing:.6px;background:rgba(255,255,255,.16);padding:3px 9px;border-radius:20px;text-transform:uppercase;color:#fff}
+.xinfra-subs{display:flex;flex-wrap:wrap;gap:5px}
+.xinfra-sub{font-family:var(--mono);font-size:9px;color:#fff;background:rgba(255,255,255,.13);border:1px solid rgba(255,255,255,.14);padding:3px 8px;border-radius:5px;letter-spacing:.2px}
+@keyframes xrise{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
+@keyframes xland{from{opacity:0;transform:translateZ(44px) scale(1.13)}to{opacity:1;transform:translateZ(44px) scale(1.03)}}
+.xlayer{animation:xrise .5s ease both}
+.xlayer:nth-child(1){animation-delay:.05s}
+.xlayer:nth-child(2){animation-delay:.12s}
+.xlayer:nth-child(4){animation-delay:.34s}
+.xlayer:nth-child(5){animation-delay:.42s}
+.xlayer.infra{animation:xland .6s cubic-bezier(.2,.7,.2,1) .22s both}
+@media(prefers-reduced-motion:reduce){.xlayer,.xlayer.infra{animation:none}}
+@media(max-width:900px){.hero-inner{grid-template-columns:1fr;gap:34px}.xsection{margin-top:4px}}
 
 /* ── JENSEN BAR ── */
 .jensen-bar{background:var(--surface-2);border-bottom:1px solid var(--border);padding:8px 32px}
@@ -250,7 +293,7 @@ body{background:var(--surface);color:var(--ink);font-family:var(--font);line-hei
   width:32px;height:32px;border-radius:8px;background:var(--infra);
   display:flex;align-items:center;justify-content:center;font-size:15px;flex-shrink:0;
 }
-.infra-hdr-title{font-size:15px;font-weight:700;letter-spacing:-.3px;background:var(--electric-grad);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
+.infra-hdr-title{font-family:var(--display);font-size:16px;font-weight:600;letter-spacing:-.02em;color:var(--infra)}
 .infra-hdr-desc{font-size:11px;color:var(--ink-3);margin-top:2px;line-height:1.5}
 
 /* ── SUBLAYER BLOCK ── */
@@ -270,7 +313,7 @@ body{background:var(--surface);color:var(--ink);font-family:var(--font);line-hei
   width:28px;height:28px;border-radius:6px;background:var(--infra-light);
   display:flex;align-items:center;justify-content:center;font-size:13px;flex-shrink:0;
 }
-.sublayer-title{font-size:13px;font-weight:700;color:var(--infra);letter-spacing:-.2px}
+.sublayer-title{font-family:var(--display);font-size:13px;font-weight:600;color:var(--infra);letter-spacing:-.01em}
 .sublayer-desc{font-size:10.5px;color:var(--ink-4);margin-top:2px;max-width:480px;font-weight:400}
 .sublayer-right{display:flex;align-items:center;gap:8px;margin-left:auto;flex-shrink:0}
 .sublayer-count{font-family:var(--mono);font-size:10px;color:var(--ink-4)}
@@ -402,13 +445,27 @@ body{background:var(--surface);color:var(--ink);font-family:var(--font);line-hei
   transition:opacity .2s,transform .2s;pointer-events:none;z-index:999;
 }
 .toast.show{opacity:1;transform:translateY(0)}
+/* dark footer — bookends the page as the Energy layer (bottom of the stack) */
 footer{
-  border-top:1px solid var(--border);padding:16px 32px;
-  max-width:1280px;margin:0 auto;
-  display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px;
+  position:relative;
+  background:var(--hero-ground);
+  background-image:radial-gradient(circle at 1px 1px, rgba(255,255,255,.05) 1px, transparent 0);
+  background-size:24px 24px;
+  border-top:1px solid var(--L-energy);
+  padding:26px 32px 28px;
 }
-.footer-l{font-size:11px;color:var(--ink-4)}
-.footer-r{font-family:var(--mono);font-size:10px;color:var(--ink-4);letter-spacing:.3px}
+.footer-inner{
+  max-width:1280px;margin:0 auto;
+  display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px;
+}
+.footer-eyebrow{
+  display:flex;align-items:center;gap:7px;width:100%;
+  font-family:var(--mono);font-size:9px;text-transform:uppercase;letter-spacing:1.4px;
+  color:#7E8A9C;margin-bottom:14px;
+}
+.footer-eyebrow::before{content:'';width:9px;height:9px;border-radius:2px;background:var(--L-energy);box-shadow:inset 0 0 0 1px rgba(255,255,255,.15)}
+.footer-l{font-size:11px;color:#A4ADBC}
+.footer-r{font-family:var(--mono);font-size:10px;color:#7E8A9C;letter-spacing:.3px}
 
 /* ── CARD POPOVER ── */
 .popover{
@@ -481,7 +538,7 @@ footer{
   display:flex;align-items:center;gap:6px;
 }
 .voices-eyebrow-dot{width:5px;height:5px;border-radius:50%;flex-shrink:0}
-.voices-title{font-size:16px;font-weight:700;color:var(--ink);letter-spacing:-.3px;margin-bottom:4px}
+.voices-title{font-family:var(--display);font-size:16px;font-weight:600;color:var(--ink);letter-spacing:-.02em;margin-bottom:4px}
 .voices-sub{font-size:12px;color:var(--ink-3);line-height:1.5}
 .voices-grid{
   padding:16px 24px 20px;
@@ -616,7 +673,7 @@ footer{
 /* ── AI CLOUD INDEX ── */
 .cloud-index-hdr{padding:16px 0 20px;border-bottom:1px solid var(--border);margin-bottom:20px}
 .cloud-index-eyebrow{font-family:var(--mono);font-size:9px;text-transform:uppercase;letter-spacing:1.5px;color:var(--infra);margin-bottom:8px}
-.cloud-index-title{font-size:18px;font-weight:700;letter-spacing:-.3px;margin-bottom:6px}
+.cloud-index-title{font-family:var(--display);font-size:18px;font-weight:600;letter-spacing:-.02em;margin-bottom:6px}
 .cloud-index-sub{font-size:12px;color:var(--ink-3);line-height:1.65;max-width:640px;margin-bottom:12px}
 .cloud-meta-row{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
 .cloud-methodology{display:inline-flex;align-items:center;gap:4px;font-family:var(--mono);font-size:9px;color:var(--ink-4);background:var(--surface-2);border:1px solid var(--border);border-radius:20px;padding:3px 10px}
@@ -655,6 +712,20 @@ footer{
 .gpu-chips{display:flex;flex-wrap:wrap;gap:3px}
 .gpu-chip{font-family:var(--mono);font-size:8px;font-weight:500;background:#F4FBE6;color:#3A6B00;border:1px solid #C5E89A;padding:2px 6px;border-radius:4px;white-space:nowrap}
 
+/* ── DEPTH SPINE (signature scroll nav) ── */
+.depth-spine{position:fixed;left:9px;top:50%;transform:translateY(-50%);z-index:150;display:none;flex-direction:column;gap:5px;align-items:stretch}
+@media(min-width:1280px){.depth-spine{display:flex}}
+.ds-seg{position:relative;width:20px;border-radius:4px;border:1px solid var(--border-2);background:var(--surface);cursor:pointer;transition:opacity .2s,box-shadow .2s,border-color .2s;display:flex;align-items:center;justify-content:center}
+.ds-seg.ctx{height:16px;opacity:.5}
+.ds-seg.infra{height:40px;opacity:.7}
+.ds-seg.app{color:var(--L-app)}.ds-seg.models{color:var(--L-models)}.ds-seg.infra{color:var(--L-infra)}.ds-seg.chips{color:var(--L-chips)}.ds-seg.energy{color:var(--L-energy)}
+.ds-tick{width:6px;height:6px;border-radius:50%;background:currentColor;opacity:0;transition:opacity .2s}
+.ds-seg:hover{opacity:1}
+.ds-seg.active{opacity:1;border-color:currentColor;box-shadow:0 0 0 3px color-mix(in srgb,currentColor 18%,transparent)}
+.ds-seg.active .ds-tick{opacity:1}
+.ds-seg::after{content:attr(data-name);position:absolute;left:30px;white-space:nowrap;font-family:var(--mono);font-size:9px;text-transform:uppercase;letter-spacing:.8px;background:var(--ink);color:#fff;padding:3px 7px;border-radius:4px;opacity:0;pointer-events:none;transition:opacity .15s}
+.ds-seg:hover::after{opacity:1}
+
 </style>
 </head>
 <body>
@@ -677,15 +748,25 @@ footer{
 
 <div class="hero">
   <div class="hero-inner">
-    <div>
+    <div class="hero-lead">
       <div class="hero-eyebrow"><span class="hero-eyebrow-dot"></span>Living reference · June 2026</div>
-      <h1 class="hero-title">The AI Infra Ecosystem Map</h1>
-      <p class="hero-sub">Every meaningful company building the infrastructure layer of AI — organized across <a href="https://blogs.nvidia.com/blog/ai-5-layer-cake" target="_blank" style="color:var(--infra);border-bottom:1px solid var(--infra-mid);text-decoration:none">Jensen Huang's five-layer cake</a>: Application → Model → Infrastructure → Chips → Energy. Infrastructure expanded in full detail, with the other four layers shown as context.</p>
+      <h1 class="hero-title">The AI <span class="accent">Infra</span> Ecosystem</h1>
+      <p class="hero-sub">Every meaningful company building the infrastructure layer of AI, mapped across <a href="https://blogs.nvidia.com/blog/ai-5-layer-cake" target="_blank">Jensen Huang's five-layer cake</a>. The middle layer — Infrastructure — is cut open and expanded in full; the other four sit as context above and below.</p>
+      <div class="hero-stats">
+        <div class="hstat"><span class="hstat-n" id="heroCoCount">198</span><span class="hstat-l">Companies</span></div>
+        <div class="hstat"><span class="hstat-n">5</span><span class="hstat-l">Layers</span></div>
+        <div class="hstat"><span class="hstat-n" id="heroOSSCount">57</span><span class="hstat-l">OSS</span></div>
+      </div>
     </div>
-    <div class="hero-stats">
-      <div class="hstat"><div class="hstat-n" id="heroCoCount">198</div><div class="hstat-l">Companies</div></div>
-      <div class="hstat"><div class="hstat-n">5</div><div class="hstat-l">Layers</div></div>
-      <div class="hstat"><div class="hstat-n" id="heroOSSCount">57</div><div class="hstat-l">OSS</div></div>
+    <div class="xsection" aria-hidden="true">
+      <div class="xlayer ctx app"><span class="xlayer-label">Application</span><div class="xlayer-bar"><span class="xbar-name">Apps · agents · dev tools</span><span class="xbar-tag">context</span></div></div>
+      <div class="xlayer ctx models"><span class="xlayer-label">Models</span><div class="xlayer-bar"><span class="xbar-name">Frontier &amp; open-weight labs</span><span class="xbar-tag">context</span></div></div>
+      <div class="xlayer infra"><span class="xlayer-label">Infrastructure</span><div class="xlayer-bar">
+        <div class="xinfra-top"><span class="xinfra-title">Infrastructure</span><span class="xinfra-badge">expanded in full</span></div>
+        <div class="xinfra-subs"><span class="xinfra-sub">Cloud &amp; Compute</span><span class="xinfra-sub">Inference</span><span class="xinfra-sub">Orchestration</span><span class="xinfra-sub">MLOps</span><span class="xinfra-sub">Storage &amp; Net</span><span class="xinfra-sub">Data Center</span></div>
+      </div></div>
+      <div class="xlayer ctx chips"><span class="xlayer-label">Chips</span><div class="xlayer-bar"><span class="xbar-name">GPUs · accelerators · HBM</span><span class="xbar-tag">context</span></div></div>
+      <div class="xlayer ctx energy"><span class="xlayer-label">Energy</span><div class="xlayer-bar"><span class="xbar-name">Power · cooling · data centers</span><span class="xbar-tag">context</span></div></div>
     </div>
   </div>
 </div>
@@ -798,9 +879,20 @@ footer{
   </div>
 </div>
 
+<nav class="depth-spine" id="depthSpine" aria-label="Stack depth navigation">
+  <div class="ds-seg ctx app"    data-seg="application"    data-name="Application"><span class="ds-tick"></span></div>
+  <div class="ds-seg ctx models" data-seg="models"         data-name="Models"><span class="ds-tick"></span></div>
+  <div class="ds-seg infra"      data-seg="infrastructure" data-name="Infrastructure"><span class="ds-tick"></span></div>
+  <div class="ds-seg ctx chips"  data-seg="chips"          data-name="Chips"><span class="ds-tick"></span></div>
+  <div class="ds-seg ctx energy" data-seg="energy"         data-name="Energy"><span class="ds-tick"></span></div>
+</nav>
+
 <footer>
-  <span class="footer-l">Last updated: June 2026</span>
-  <span class="footer-r">Built with ♥ for the AI infra community</span>
+  <div class="footer-inner">
+    <div class="footer-eyebrow">▾ Energy · the bottom of the stack</div>
+    <span class="footer-l">Last updated: June 2026</span>
+    <span class="footer-r">Built with ♥ for the AI infra community</span>
+  </div>
 </footer>
 <div class="toast" id="toast">Link copied to clipboard</div>
 
@@ -1474,6 +1566,7 @@ function render(){
   const ct=document.getElementById('map');
   ct.innerHTML='';
   if(mode==='cloud'){ renderAICloudIndex(ct); } else { renderDeepDive(ct); }
+  if(typeof updateSpine==='function') updateSpine();
 }
 
 function renderDeepDive(ct){
@@ -1493,7 +1586,7 @@ function renderDeepDive(ct){
     const pills=l.subs.flatMap(s=>s.cos.filter(c=>c.f)).slice(0,6)
       .map(c=>`<span class="ctx-pill">${c.n}</span>`).join('');
     const bar=document.createElement('div');
-    bar.className='ctx-bar';
+    bar.className='ctx-bar';bar.dataset.layer=id;
     bar.style.borderLeftColor=l.color;
     bar.style.background=layerTint(l.color);
     bar.innerHTML=`
@@ -1508,7 +1601,7 @@ function renderDeepDive(ct){
 
   // Infra header + sublayers — all wrapped in indented container
   const wrap=document.createElement('div');
-  wrap.className='infra-sublayers-wrap';
+  wrap.className='infra-sublayers-wrap';wrap.dataset.layer='infrastructure';
 
   const hdr=document.createElement('div');
   hdr.className='infra-hdr';
@@ -1534,7 +1627,7 @@ function renderDeepDive(ct){
     const pills=l.subs.flatMap(s=>s.cos.filter(c=>c.f)).slice(0,6)
       .map(c=>`<span class="ctx-pill">${c.n}</span>`).join('');
     const bar=document.createElement('div');
-    bar.className='ctx-bar';
+    bar.className='ctx-bar';bar.dataset.layer=id;
     bar.style.borderLeftColor=l.color;
     bar.style.background=layerTint(l.color);
     bar.innerHTML=`
@@ -2252,8 +2345,37 @@ function handleHash(){
 }
 window.addEventListener('hashchange', handleHash);
 
+// ── Depth spine: highlight the layer nearest viewport focus as you scroll ──
+function updateSpine(){
+  const spine=document.getElementById('depthSpine');
+  if(!spine)return;
+  const segs=spine.querySelectorAll('.ds-seg');
+  const els=[...document.querySelectorAll('[data-layer]')];
+  if(!els.length){segs.forEach(s=>s.classList.remove('active'));return;}
+  const focus=window.innerHeight*0.4;
+  let best=null,bestDist=Infinity;
+  els.forEach(el=>{
+    const r=el.getBoundingClientRect();
+    if(r.bottom<0||r.top>window.innerHeight)return;
+    const d=Math.abs((r.top+r.height/2)-focus);
+    if(d<bestDist){bestDist=d;best=el.dataset.layer;}
+  });
+  segs.forEach(s=>s.classList.toggle('active',s.dataset.seg===best));
+}
+let spineTick=false;
+window.addEventListener('scroll',()=>{
+  if(spineTick)return;spineTick=true;
+  requestAnimationFrame(()=>{updateSpine();spineTick=false;});
+},{passive:true});
+document.getElementById('depthSpine').addEventListener('click',e=>{
+  const seg=e.target.closest('.ds-seg');if(!seg)return;
+  const el=document.querySelector(`[data-layer="${seg.dataset.seg}"]`);
+  if(el)el.scrollIntoView({behavior:'smooth',block:'center'});
+});
+
 render();
 handleHash();
+updateSpine();
 </script>
 </body>
 </html>
