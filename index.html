@@ -713,6 +713,17 @@ footer{
 .ds-seg::after{content:attr(data-name);position:absolute;left:30px;white-space:nowrap;font-family:var(--mono);font-size:9px;text-transform:uppercase;letter-spacing:.8px;background:var(--ink);color:#fff;padding:3px 7px;border-radius:4px;opacity:0;pointer-events:none;transition:opacity .15s}
 .ds-seg:hover::after{opacity:1}
 
+/* deep-link highlight on a provider card (brand-colored glow) */
+.cloud-card.cloud-highlight{animation:cloudPulse 2.2s ease-out both}
+@keyframes cloudPulse{
+  0%{box-shadow:0 0 0 0 transparent}
+  10%{box-shadow:0 0 0 4px color-mix(in srgb, var(--hl,#3461F0) 38%, transparent),0 12px 30px -8px color-mix(in srgb, var(--hl,#3461F0) 50%, transparent)}
+  100%{box-shadow:0 0 0 0 transparent}
+}
+@media(prefers-reduced-motion:reduce){
+  .cloud-card.cloud-highlight{animation:none;box-shadow:0 0 0 3px color-mix(in srgb, var(--hl,#3461F0) 40%, transparent)}
+}
+
 </style>
 </head>
 <body>
@@ -725,7 +736,7 @@ footer{
   <div class="topbar-sep"></div>
   <span class="topbar-tag">June 2026</span>
   <div class="topbar-right">
-    <span id="coCount" style="font-family:var(--mono);font-size:10px;color:var(--ink-4)">198 companies · 57 OSS</span>
+    <span id="coCount" style="font-family:var(--mono);font-size:10px;color:var(--ink-4)">214 companies · 58 OSS</span>
     <button class="share-btn" onclick="copyLink()">
       <svg viewBox="0 0 16 16"><path d="M13.5 1a1.5 1.5 0 1 0 0 3 1.5 1.5 0 0 0 0-3zM11 2.5a2.5 2.5 0 1 1 .603 1.628l-6.718 3.12a2.499 2.499 0 0 1 0 1.504l6.718 3.12a2.5 2.5 0 1 1-.488.876l-6.718-3.12a2.5 2.5 0 1 1 0-3.256l6.718-3.12A2.5 2.5 0 0 1 11 2.5z"/></svg>
       Share
@@ -740,9 +751,9 @@ footer{
       <h1 class="hero-title">The AI <span class="accent">Infra</span> Ecosystem</h1>
       <p class="hero-sub">Every meaningful company building the infrastructure layer of AI, mapped across <a href="https://blogs.nvidia.com/blog/ai-5-layer-cake" target="_blank">Jensen Huang's five-layer cake</a>. The middle layer — Infrastructure — is cut open and expanded in full; the other four sit as context above and below.</p>
       <div class="hero-stats">
-        <div class="hstat"><span class="hstat-n" id="heroCoCount">198</span><span class="hstat-l">Companies</span></div>
+        <div class="hstat"><span class="hstat-n" id="heroCoCount">214</span><span class="hstat-l">Companies</span></div>
         <div class="hstat"><span class="hstat-n">5</span><span class="hstat-l">Layers</span></div>
-        <div class="hstat"><span class="hstat-n" id="heroOSSCount">57</span><span class="hstat-l">OSS</span></div>
+        <div class="hstat"><span class="hstat-n" id="heroOSSCount">58</span><span class="hstat-l">OSS</span></div>
       </div>
     </div>
     <div class="xsection" aria-hidden="true">
@@ -888,6 +899,7 @@ const LOGO_COLORS = {
   'AWS':'#FF9900','Microsoft Azure':'#0078D4','Google Cloud':'#4285F4','Oracle Cloud':'#C74634',
   'CoreWeave':'#6B3FA0','Lambda':'#00A67E','Together AI':'#0066FF','Nebius':'#4A90D9',
   'Crusoe':'#2A9D5C','RunPod':'#7928CA','Scaleway':'#7B35C1','OVHcloud':'#123F6D',
+  'GMI Cloud':'#7C3AED','Fal':'#0F0F0F','Aolani Cloud':'#0EA5E9','NeevCloud':'#FF5A1F',
   'Vultr':'#007BFC','DigitalOcean':'#0080FF','Fluidstack':'#1A1A2E','Nscale':'#2563EB',
   'Kubernetes (CNCF)':'#326CE5','Red Hat OpenShift':'#EE0000','Rancher (SUSE)':'#30BA78',
   'vCluster':'#FF5C00','vCluster Standalone':'#FF5C00','vNode':'#FF5C00','vMetal':'#FF5C00',
@@ -959,10 +971,15 @@ function logoEl(name, isVcl) {
 }
 
 const DOMAINS = {
+   'd-Matrix':'d-matrix.ai','Etched':'etched.com','NextSilicon':'nextsilicon.com','Fractile':'fractile.ai',
+   'Lumentum':'lumentum.com','Bitdeer':'bitdeer.com','Voltage Park':'voltagepark.com','Fal':'fal.ai',
+   'Lightning AI':'lightning.ai','Surge AI':'surgehq.ai','DataRobot':'datarobot.com','Mirantis':'mirantis.com',
+   'Polarise':'polarise.com','2CRSi':'2crsi.com','Radiant':'radiantnuclear.com','Alva Energy':'alvaenergy.com',
   'AWS':'aws.amazon.com','Microsoft Azure':'azure.microsoft.com','Google Cloud':'cloud.google.com',
   'Oracle Cloud':'oracle.com','CoreWeave':'coreweave.com','Lambda':'lambdalabs.com',
   'Together AI':'together.ai','Nebius':'nebius.com','Crusoe':'crusoe.ai','Vultr':'vultr.com',
   'RunPod':'runpod.io','Scaleway':'scaleway.com','OVHcloud':'ovhcloud.com',
+  'GMI Cloud':'gmicloud.ai','Aolani Cloud':'aolanicloud.com','NeevCloud':'neevcloud.com',
   'DigitalOcean':'digitalocean.com','Fluidstack':'fluidstack.io','Nscale':'nscale.ai',
   'Kubernetes (CNCF)':'kubernetes.io','Red Hat OpenShift':'redhat.com','Rancher (SUSE)':'rancher.com',
   'NVIDIA DSX':'nvidia.com','KAI Scheduler':'github.com','Run:ai (NVIDIA)':'run.ai',
@@ -1017,6 +1034,9 @@ const TIERS = { dominant:{cls:'tag-dom',label:'Leader'}, major:{cls:'tag-maj',la
 const FLAGS  = { us:'🇺🇸', eu:'🇪🇺', apac:'🌏', global:'🌐' };
 
 const REGIONS = {
+  'd-Matrix':'us','NextSilicon':'us','Fractile':'eu','Lumentum':'us','Bitdeer':'apac','Voltage Park':'us',
+  'Fal':'us','Lightning AI':'us','Surge AI':'us','DataRobot':'us','Mirantis':'us',
+  'Polarise':'eu','2CRSi':'eu','Radiant':'us','Alva Energy':'us',
   'GitHub Copilot':'us','Cursor':'us','Windsurf':'us','Cognition':'us','Replit':'us',
   'LangChain':'us','LlamaIndex':'us','CrewAI':'us','AutoGen':'us',
   'Harvey':'us','Sierra':'us','Perplexity AI':'us','Abridge':'us',
@@ -1182,6 +1202,10 @@ const LAYERS = [
         {n:'Google TPU', d:'TPU v6e/v8, JAX/Pathways',t:'major',f:true},
         {n:'FuriosaAI',  d:'Korean AI NPU, RNGD chip — transformer-optimized inference silicon',t:'emerging',f:true},
         {n:'Rebellions', d:'Korean AI chip startup, ATOM/REBEL NPU — pre-IPO',t:'startup'},
+        {n:'d-Matrix',   d:'Corsair inference accelerator — digital in-memory compute for fast, efficient LLM serving',t:'startup',f:true},
+        {n:'Etched',     d:'Sohu — transformer-only ASIC betting on a single architecture for extreme throughput',t:'startup',f:true},
+        {n:'NextSilicon',d:'Maverick intelligent compute accelerator for HPC and AI workloads',t:'startup'},
+        {n:'Fractile',   d:'In-memory compute inference hardware — UK startup targeting radical inference speedups',t:'startup'},
       ]},
       { name:'HBM & Memory', cos:[
         {n:'SK Hynix',d:'HBM3E leader, ~95% GPU memory share',t:'dominant',f:true},
@@ -1243,6 +1267,8 @@ const INFRA_SUBLAYERS = [
         {n:'Cirrascale', d:'Dedicated GPU clusters, deep-learning focused data center',t:'emerging'},
         {n:'Armada',     d:'Distributed GPU computing platform — cross-cluster workload scheduling',t:'startup'},
         {n:'FlexAI',     d:'AI compute orchestration — GPU cluster management, any cloud',t:'startup'},
+        {n:'Bitdeer',    d:'GPU cloud and AI datacenter capacity — Nasdaq-listed, ex-mining infrastructure',t:'emerging',f:true},
+        {n:'Voltage Park',d:'On-demand and reserved H100 GPU clusters',t:'emerging'},
       ]},
       { name:'Sovereign & Regional', cos:[
         {n:'Scaleway',     d:'EU sovereign AI cloud, GPU instances, K8s',t:'emerging',f:true},
@@ -1266,6 +1292,7 @@ const INFRA_SUBLAYERS = [
         {n:'SambaNova',    d:'Cloud inference platform on custom RDU chips — ultra-fast token gen',t:'emerging',f:true},
         {n:'openrouter',   d:'LLM API aggregator — single API to 200+ models, smart routing',t:'startup',f:true},
         {n:'Featherless',  d:'Serverless LLM inference, instant deployment, no cold start',t:'startup'},
+        {n:'Fal',          d:'Generative-media inference platform — fast image, video and audio model APIs',t:'emerging',f:true},
       ]},
     ]
   },
@@ -1284,6 +1311,7 @@ const INFRA_SUBLAYERS = [
         {n:'k0rdent',          d:'Cluster lifecycle management, GitOps',t:'startup',oss:true},
         {n:'Rafay',            d:'K8s operations platform, enterprise',t:'emerging'},
         {n:'Kubeadm',          d:'Bootstrap tool for K8s clusters, OSS standard',t:'major',oss:true},
+        {n:'Mirantis',         d:'Enterprise Kubernetes (k0rdent, Lens) for GPU cluster management',t:'emerging'},
       ]},
       { name:'GitOps & Delivery', cos:[
         {n:'Argo CD',          d:'Declarative GitOps continuous delivery for Kubernetes',t:'major',f:true,oss:true},
@@ -1342,6 +1370,9 @@ const INFRA_SUBLAYERS = [
         {n:'Snorkel',         d:'Programmatic data labeling and training data creation',t:'emerging',f:true},
         {n:'Determined AI',   d:'Distributed training platform (HPE)',t:'emerging'},
         {n:'Braintrust',    d:'AI eval, logging and prompt management — LLM observability platform',t:'emerging',f:true},
+        {n:'Lightning AI',  d:'PyTorch Lightning — training, fine-tuning and deployment platform',t:'emerging',f:true},
+        {n:'Surge AI',      d:'RLHF data labeling and human feedback for frontier model training',t:'emerging'},
+        {n:'DataRobot',     d:'End-to-end ML and generative AI lifecycle platform',t:'major',f:true},
       ]},
       { name:'Inference Engines & Serving Frameworks', cos:[
         {n:'NVIDIA Triton',    d:'Multi-framework inference server, TensorRT-LLM',t:'major',f:true,oss:true},
@@ -1406,6 +1437,7 @@ const INFRA_SUBLAYERS = [
         {n:'Ayar Labs',   d:'Optical I/O chiplets for in-package photonics',t:'startup'},
         {n:'Credo',       d:'Active electrical cable (AEC) and SerDes silicon for AI cluster interconnect',t:'startup'},
         {n:'WhiteFiber',  d:'Open fiber and networking infrastructure for AI data centers',t:'startup'},
+        {n:'Lumentum',    d:'Optical transceivers and photonics for AI datacenter interconnect',t:'major',f:true},
       ]},
     ]
   },
@@ -1418,6 +1450,7 @@ const INFRA_SUBLAYERS = [
         {n:'Vantage',         d:'Hyperscale campuses, Stargate partner',t:'major'},
         {n:'QTS (Blackstone)',d:'Mega-campus builds, 1GW+ pipeline',t:'major'},
         {n:'Telehouse',        d:'European colocation operator — London + Paris AI hubs',t:'emerging',f:true},
+        {n:'Polarise',         d:'European AI datacenter operator — sovereign GPU campuses',t:'startup'},
       ]},
       { name:'Cooling & Power', cos:[
         {n:'Vertiv',            d:'Liquid cooling, thermal mgmt, power infra for AI racks',t:'major',f:true},
@@ -1425,6 +1458,8 @@ const INFRA_SUBLAYERS = [
         {n:'CoolIT Systems',    d:'Direct liquid cooling for AI racks',t:'emerging'},
         {n:'Crusoe Energy',     d:'Stranded/flared gas converted to AI compute power',t:'major',f:true},
         {n:'Bloom Energy',      d:'Solid oxide fuel cells for clean DC power',t:'emerging'},
+        {n:'Radiant',          d:'Portable nuclear microreactors (Kaleidos) for datacenter power',t:'startup'},
+        {n:'Alva Energy',      d:'Power infrastructure and energy supply for AI datacenters',t:'startup'},
       ]},
       { name:'Server OEMs', cos:[
         {n:'NVIDIA DGX', d:'DGX B200/H100, SuperPOD, turnkey AI factory systems',t:'dominant',f:true},
@@ -1433,6 +1468,7 @@ const INFRA_SUBLAYERS = [
         {n:'Supermicro', d:'GPU servers, rack-scale, fast SKU cycles',t:'major'},
         {n:'Lenovo',      d:'ThinkSystem AI servers, high-density GPU platforms, global OEM',t:'major',f:true},
         {n:'Celestica',   d:'Electronics manufacturing services — AI server hardware, DCS group',t:'emerging'},
+        {n:'2CRSi',       d:'French OEM — energy-efficient, immersion-cooled GPU servers',t:'emerging'},
       ]},
       { name:'Bare Metal Provisioning', cos:[
         {n:'vMetal',                d:'Bare metal provisioning & lifecycle (Metal3/Ironic, PXE)',t:'emerging',f:true,vcl:true},
@@ -1484,9 +1520,10 @@ const expanded = new Set(['orchestration','mlops']);
 
 /* ════ COUNTS ════ */
 const allCos = new Set();
-let totalOSS = 0;
-LAYERS.forEach(l=>l.subs.forEach(s=>s.cos.forEach(c=>{allCos.add(c.n);if(c.oss)totalOSS++})));
-INFRA_SUBLAYERS.forEach(l=>l.subs.forEach(s=>s.cos.forEach(c=>allCos.add(c.n))));
+const ossCos = new Set();
+LAYERS.forEach(l=>l.subs.forEach(s=>s.cos.forEach(c=>{allCos.add(c.n);if(c.oss)ossCos.add(c.n)})));
+INFRA_SUBLAYERS.forEach(l=>l.subs.forEach(s=>s.cos.forEach(c=>{allCos.add(c.n);if(c.oss)ossCos.add(c.n)})));
+const totalOSS = ossCos.size;
 document.getElementById('heroCoCount').textContent = allCos.size;
 document.getElementById('heroOSSCount').textContent = totalOSS;
 document.getElementById('coCount').textContent = allCos.size+' companies · '+totalOSS+' OSS';
@@ -1994,11 +2031,17 @@ document.addEventListener('click', (e) => {
 /* ════ VOICES DATA ════ */
 const PRACTITIONERS = [
   { name:'Tuhin Srivastava', role:'Co-founder, Baseten',  tag:'Interview', color:'#0F1117', url:'https://www.youtube.com/watch?v=XAbKflCncDo', img:'https://www.google.com/s2/favicons?domain=baseten.co&sz=64' },
-  { name:'Roman Chernin',    role:'CEO, Nebius',           tag:'20VC',      color:'#1A56DB', url:'https://www.youtube.com/watch?v=aXAH3bdJ2cg', img:'https://www.google.com/s2/favicons?domain=nebius.com&sz=64' },
+  { name:'Roman Chernin',    role:'Co-founder & CBO, Nebius', tag:'20VC',    color:'#1A56DB', url:'https://www.youtube.com/watch?v=aXAH3bdJ2cg', img:'https://www.google.com/s2/favicons?domain=nebius.com&sz=64' },
+  { name:'Burkay Gur',       role:'Co-founder, Fal',               tag:'a16z Podcast',    color:'#0F0F0F', url:'https://a16z.com/podcast/speed-performance-and-passion-fals-approach-to-ai-inference/' },
+  { name:'Lin Qiao',         role:'Co-founder & CEO, Fireworks AI', tag:'Training Data',   color:'#FF4B00', url:'https://www.sequoiacap.com/podcast/training-data-lin-qiao/' },
+  { name:'Alex Yeh',         role:'Founder & CEO, GMI Cloud',       tag:'Interview',       color:'#7C3AED', url:'https://www.unite.ai/alex-yeh-founder-ceo-of-gmi-cloud-interview-series/' },
+  { name:'J.J. Kardwell',    role:'CEO, Vultr',                     tag:'Tech Disruptors', color:'#007BFC', url:'https://podcasts.apple.com/us/podcast/vultr-is-scaling-ai-cloud-for-the-next-phase/id1621165150?i=1000751289111' },
 ];
 
 const INVESTORS = [
-  { name:'Sarah Guo', role:'Conviction', tag:'Investor', color:'#1A1A2E', url:'https://www.conviction.com/', img:'https://www.google.com/s2/favicons?domain=conviction.com&sz=64' },
+  { name:'Sarah Guo',     role:'Founder, Conviction',   tag:'AI Eng Talk',   color:'#1A1A2E', url:'https://www.youtube.com/watch?v=3MZS5gNElZM' },
+  { name:'Martin Casado', role:'General Partner, a16z',  tag:'a16z Podcast',  color:'#5B21B6', url:'https://a16z.com/podcast/where-value-will-accrue-in-ai-martin-casado-sarah-wang/' },
+  { name:'Dylan Patel',   role:'Founder, SemiAnalysis',  tag:'Dwarkesh Pod',  color:'#C2410C', url:'https://www.dwarkesh.com/p/dylan-patel' },
 ];
 
 function voiceInitials(name){ return name.split(' ').map(w=>w[0]).join('').slice(0,2).toUpperCase(); }
@@ -2201,6 +2244,114 @@ const AI_CLOUDS = [
     storage:null,
     customers:'LinkedIn · Canva · DoorDash · Adobe',
   },
+  {
+    id:'vultr', name:'Vultr', wave:3, vcl:false,
+    positioning:'Developer-friendly global cloud — NVIDIA and AMD GPUs across 32 regions on six continents', verified:false, lastVerified:null,
+    hq:'West Palm Beach, FL', founded:'2014',
+    status:'Private',
+    funding:'$333M · $3.5B valuation (2024, AMD Ventures + LuminArx)',
+    footprint:'32 regions · 6 continents',
+    gpus:['H100','GH200','MI300X'],
+    interconnect:null,
+    bareMetal:true,
+    managedK8s:'Yes — Vultr Kubernetes Engine (VKE)',
+    orchestration:'Kubernetes (VKE)',
+    tenantIsolation:null,
+    selfService:'Yes',
+    networkingAutomation:null,
+    storage:'Vultr Object Storage · Block Storage',
+    customers:null,
+  },
+  {
+    id:'gmi-cloud', name:'GMI Cloud', wave:3, vcl:false,
+    positioning:'NVIDIA Reference Cloud Partner — priority H200 access, in-house Cluster Engine and Inference Engine', verified:false, lastVerified:null,
+    hq:'San Jose, CA', founded:'2021',
+    status:'Private',
+    funding:'$82M Series A (2024)',
+    footprint:'US · Asia (Taiwan)',
+    gpus:['H100','H200','GB200 NVL72','B300'],
+    interconnect:'InfiniBand',
+    bareMetal:true,
+    managedK8s:'Yes — Cluster Engine (Kubernetes)',
+    orchestration:'Kubernetes (Cluster Engine)',
+    tenantIsolation:null,
+    selfService:'Yes',
+    networkingAutomation:null,
+    storage:null,
+    customers:null,
+  },
+  {
+    id:'fal', name:'Fal', wave:3, vcl:false,
+    positioning:'Inference platform for real-time generative media — 600+ image, video and audio models via API', verified:false, lastVerified:null,
+    hq:'San Francisco, CA', founded:'2021',
+    status:'Private',
+    funding:'$140M Series D · $4.5B valuation (2025)',
+    footprint:'US',
+    gpus:['H100','H200'],
+    interconnect:null,
+    bareMetal:false,
+    managedK8s:null,
+    orchestration:'Proprietary inference runtime (generative media)',
+    tenantIsolation:'API-level isolation',
+    selfService:'Yes',
+    networkingAutomation:null,
+    storage:null,
+    customers:null,
+  },
+  {
+    id:'aolani', name:'Aolani Cloud', wave:3, vcl:false,
+    positioning:'AI-centric, energy-efficient GPU cloud — compute, high-performance networking and storage', verified:false, lastVerified:null,
+    hq:'Singapore', founded:null,
+    status:'Private',
+    funding:'Backed by 500 Global · TA Ventures',
+    footprint:'APAC (Singapore)',
+    gpus:[],
+    interconnect:null,
+    bareMetal:null,
+    managedK8s:null,
+    orchestration:null,
+    tenantIsolation:null,
+    selfService:null,
+    networkingAutomation:null,
+    storage:null,
+    customers:null,
+  },
+  {
+    id:'runpod', name:'RunPod', wave:3, vcl:false,
+    positioning:'Developer-first GPU cloud — per-second serverless GPUs, Instant Clusters, 30+ GPU models', verified:false, lastVerified:null,
+    hq:'United States', founded:'2022',
+    status:'Private',
+    funding:'$20M seed (2024, Intel Capital + Dell Technologies Capital)',
+    footprint:'31 regions · global',
+    gpus:['H100','A100','RTX 4090'],
+    interconnect:null,
+    bareMetal:false,
+    managedK8s:null,
+    orchestration:'Serverless (per-second) · Instant Clusters',
+    tenantIsolation:'Container isolation (Secure / Community Cloud)',
+    selfService:'Yes',
+    networkingAutomation:null,
+    storage:'Network Volumes',
+    customers:null,
+  },
+  {
+    id:'neevcloud', name:'NeevCloud', wave:3, vcl:false,
+    positioning:"India's AI Supercloud — full-stack GPU superclusters (8×H100 / H200)", verified:false, lastVerified:null,
+    hq:'India', founded:null,
+    status:'Private',
+    funding:null,
+    footprint:'India',
+    gpus:['H200','H100','A100','RTX 5090'],
+    interconnect:null,
+    bareMetal:null,
+    managedK8s:null,
+    orchestration:'GPU clusters / superclusters',
+    tenantIsolation:null,
+    selfService:'Yes',
+    networkingAutomation:null,
+    storage:null,
+    customers:null,
+  },
 ];
 
 function val(v){ return v ? `<span class="cc-value">${v}</span>` : '<span class="cc-value ud">—</span>'; }
@@ -2222,7 +2373,10 @@ function renderAICloudIndex(ct){
 
   const grid=document.createElement('div');
   grid.className='cloud-grid';
-  AI_CLOUDS.forEach(co=>grid.appendChild(mkCloudCard(co)));
+  // Order by data completeness: fullest profiles first, sparsest (most "—") last.
+  const _cf=['hq','founded','status','funding','footprint','interconnect','managedK8s','orchestration','tenantIsolation','selfService','networkingAutomation','storage','customers'];
+  const cloudScore=co=>_cf.reduce((n,f)=>n+(co[f]?1:0),0)+((co.gpus&&co.gpus.length)?1:0)+(co.bareMetal!=null?1:0);
+  [...AI_CLOUDS].sort((a,b)=>cloudScore(b)-cloudScore(a)).forEach(co=>grid.appendChild(mkCloudCard(co)));
   ct.appendChild(grid);
 }
 
@@ -2309,12 +2463,22 @@ function copyAnchor(id){
   t.textContent='Profile link copied';
   t.classList.add('show');
   setTimeout(()=>{t.classList.remove('show');setTimeout(()=>{t.textContent=orig;},300);},2200);
+  highlightCloud(id);
 }
 
 
 
 // ── Hash-based deep links ──────────────────────────────────────────────────
 // If URL contains #cloud-{id}, switch to cloud mode then scroll to the card.
+function highlightCloud(id){
+  const el = document.getElementById(id);
+  if(!el) return;
+  document.querySelectorAll('.cloud-card.cloud-highlight').forEach(c=>c.classList.remove('cloud-highlight'));
+  el.style.setProperty('--hl', el.getAttribute('data-brand-color') || '#3461F0');
+  void el.offsetWidth; // restart the animation if re-triggered
+  el.classList.add('cloud-highlight');
+  setTimeout(()=>el.classList.remove('cloud-highlight'), 2400);
+}
 function handleHash(){
   const h = window.location.hash;
   if(!h) return;
@@ -2323,7 +2487,7 @@ function handleHash(){
     // Wait one tick for render() to populate DOM
     requestAnimationFrame(()=>{
       const el = document.getElementById(h.slice(1));
-      if(el) el.scrollIntoView({behavior:'smooth', block:'start'});
+      if(el){ el.scrollIntoView({behavior:'smooth', block:'start'}); highlightCloud(h.slice(1)); }
     });
   }
 }
