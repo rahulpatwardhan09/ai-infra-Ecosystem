@@ -4,9 +4,9 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>The AI Infra Ecosystem Map</title>
-<meta name="description" content="A community-maintained map of the AI infrastructure ecosystem across Jensen Huang's five-layer cake, with a deep dive into the infrastructure layer.">
+<meta name="description" content="A living map of the AI infrastructure ecosystem across Jensen Huang's five-layer cake, with a deep dive into the infrastructure layer.">
 <meta property="og:title" content="The AI Infra Ecosystem Map">
-<meta property="og:description" content="214 companies. Infrastructure expanded in full. Community maintained, June 2026.">
+<meta property="og:description" content="214 companies. Infrastructure expanded in full. Updated June 2026.">
 <meta property="og:type" content="website">
 <!-- On publish: set og:url, and make og:image / twitter:image ABSOLUTE URLs (e.g. https://yourdomain.com/og-image.png). Social scrapers require absolute paths. og-image.png ships alongside index.html. -->
 <meta property="og:image" content="og-image.png">
@@ -836,7 +836,7 @@ footer{
 
   <div style="margin-top:24px;border:1px solid var(--border);border-radius:var(--r-xl);background:var(--surface);padding:16px 20px">
     <div style="font-family:var(--mono);font-size:9px;text-transform:uppercase;letter-spacing:1.4px;color:var(--L-infra);margin-bottom:8px;display:flex;align-items:center;gap:7px"><span style="width:7px;height:7px;border-radius:2px;background:var(--L-infra)"></span>Methodology · how companies are chosen</div>
-    <p style="font-size:12px;color:var(--ink-3);line-height:1.65;margin:0;max-width:900px">This map expands the <strong>infrastructure layer</strong> of AI in full; the surrounding four layers (Application, Models, Chips, Energy) appear as context only. A company is listed when it ships a production product in one of the six infrastructure sublayers with meaningful adoption, funding, or open-source traction. Tiers reflect market presence, not endorsement — <strong>Leader</strong> (category-defining), <strong>Major</strong> (established), <strong>Emerging</strong> (scaling), <strong>Startup</strong> (early-stage); <span style="color:var(--green);font-weight:600">OSS</span> marks open-source-core projects. It is community-maintained and deliberately a living draft — additions and corrections are welcome.</p>
+    <p style="font-size:12px;color:var(--ink-3);line-height:1.65;margin:0;max-width:900px">This map expands the <strong>infrastructure layer</strong> of AI in full; the surrounding four layers (Application, Models, Chips, Energy) appear as context only. A company is listed when it ships a production product in one of the six infrastructure sublayers with meaningful adoption, funding, or open-source traction. Tiers reflect market presence, not endorsement — <strong>Leader</strong> (category-defining), <strong>Major</strong> (established), <strong>Emerging</strong> (scaling), <strong>Startup</strong> (early-stage); <span style="color:var(--green);font-weight:600">OSS</span> marks open-source-core projects. It is deliberately a living draft — additions and corrections are welcome.</p>
   </div>
 
   <div style="margin-top:16px;background:var(--ink);border:none;border-radius:var(--r-xl);padding:20px 24px;display:flex;align-items:center;justify-content:space-between;gap:20px;flex-wrap:wrap">
@@ -899,7 +899,7 @@ footer{
 <footer>
   <div class="footer-inner">
     <span class="footer-l">Last updated: June 2026</span>
-    <span class="footer-r">Built with ♥ for the AI infra community</span>
+    <span class="footer-r">Built with ♥ for the AI infra ecosystem</span>
   </div>
 </footer>
 <div class="toast" id="toast">Link copied to clipboard</div>
@@ -1130,11 +1130,11 @@ const LAYERS = [
         {n:'Factory',       d:'AI software engineering platform — automated code and PRs',t:'emerging',f:true},
         {n:'Glean',         d:'Enterprise AI search and knowledge platform',t:'emerging',f:true},
       ]},
-      { name:'Analyst, Media & Community', cos:[
+      { name:'Analyst, Media & Events', cos:[
         {n:'SemiAnalysis',  d:'Deep-dive GPU/AI infra research',t:'major',f:true},
         {n:'The New Stack', d:'Cloud-native, K8s, platform engineering',t:'major',f:true},
         {n:'TLDR AI',       d:'Daily AI newsletter',t:'emerging',f:true},
-        {n:'KubeCon / CNCF',d:'Premier cloud-native conference & community',t:'dominant',f:true,oss:true},
+        {n:'KubeCon / CNCF',d:'Premier cloud-native conference & ecosystem',t:'dominant',f:true,oss:true},
         {n:'AI Engineer',   d:'AI engineering practitioners conference',t:'emerging',f:true},
         {n:'GTC (NVIDIA)',  d:'NVIDIA annual AI & accelerated computing conf.',t:'major',f:true},
       ]},
@@ -1853,7 +1853,7 @@ const COMPANY_DETAIL = {
   'vLLM': {
     hq: 'Berkeley, CA (UC Berkeley)', founded: '2023',
     funding: 'OSS · Backed by a16z',
-    tagline: 'The community standard for high-throughput LLM inference — PagedAttention pioneer',
+    tagline: 'The open standard for high-throughput LLM inference — PagedAttention pioneer',
     note: 'Introduced PagedAttention to maximize GPU memory utilization during inference. Now the most widely deployed OSS LLM serving framework. Commercial support via vLLM Inc.',
   },
   'Weights & Biases': {
