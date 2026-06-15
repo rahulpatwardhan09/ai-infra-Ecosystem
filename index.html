@@ -1540,13 +1540,18 @@ document.getElementById('heroOSSCount').textContent = totalOSS;
 document.getElementById('coCount').textContent = allCos.size+' companies · '+totalOSS+' OSS';
 
 /* ════ CONTROLS ════ */
-function setMode(m){
+function setMode(m, fromHash){
   mode=m;
   document.getElementById('btn-ov').classList.toggle('active',m==='overview');
   document.getElementById('btn-ref').classList.toggle('active',m==='reference');
   document.getElementById('btn-cloud').classList.toggle('active',m==='cloud');
   document.getElementById('legendRow').classList.toggle('show',m==='reference');
   document.getElementById('regionBar').classList.toggle('visible',m==='reference');
+  // Keep the URL shareable: #index opens the Provider Index view directly.
+  if(!fromHash){
+    if(m==='cloud') history.replaceState(null,'','#index');
+    else if(/^#(index|cloud)/.test(location.hash)) history.replaceState(null,'',location.pathname+location.search);
+  }
   render();
 }
 function setAudience(a){
@@ -2494,8 +2499,13 @@ function highlightCloud(id){
 function handleHash(){
   const h = window.location.hash;
   if(!h) return;
+  // #index (or #cloud) opens the Provider Index view directly
+  if(h==='#index' || h==='#cloud'){
+    if(mode !== 'cloud') setMode('cloud', true);
+    return;
+  }
   if(h.startsWith('#cloud-')){
-    if(mode !== 'cloud') setMode('cloud');
+    if(mode !== 'cloud') setMode('cloud', true);
     // Wait one tick for render() to populate DOM
     requestAnimationFrame(()=>{
       const el = document.getElementById(h.slice(1));
