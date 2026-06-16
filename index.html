@@ -707,6 +707,15 @@ footer{
 
 .cc-badge-verified{background:var(--green-light);color:var(--green);border:1px solid var(--green-mid)}
 .cc-badge-unverified{background:var(--surface-3);color:var(--ink-4);border:1px solid var(--border)}
+/* ClusterMAX tier badge — cited as one external data point (SemiAnalysis), never a reproduction of their system */
+.cm-badge{text-decoration:none;border:1px solid;letter-spacing:.2px}
+.cm-badge:hover{filter:brightness(.97)}
+.cm-platinum{background:#EDF1F8;color:#48597C;border-color:#C2CDE0}
+.cm-gold{background:#FBF5E3;color:#866B1C;border-color:#E7D293}
+.cm-silver{background:#F1F3F5;color:#5A626B;border-color:#CDD3D9}
+.cm-bronze{background:#F7EEE2;color:#8A582A;border-color:#DCB78E}
+.cm-underperform{background:#F8ECEC;color:#8C4A4A;border-color:#E2B6B6}
+.cm-unavailable{background:var(--surface-3);color:var(--ink-4);border-color:var(--border)}
 
 .cloud-card-permalink{flex-shrink:0;font-family:var(--mono);font-size:10px;color:var(--ink-4);text-decoration:none;padding:3px 7px;border-radius:4px;margin-left:auto;line-height:1;transition:all .1s}
 .cloud-card-permalink:hover{background:var(--surface-3);color:var(--ink)}
@@ -722,6 +731,22 @@ footer{
 .cc-value.ud{color:var(--ink-4);font-style:italic}
 .gpu-chips{display:flex;flex-wrap:wrap;gap:3px}
 .gpu-chip{font-family:var(--mono);font-size:8px;font-weight:500;background:#F4FBE6;color:#3A6B00;border:1px solid #C5E89A;padding:2px 6px;border-radius:4px;white-space:nowrap}
+
+/* ── CLUSTERMAX TIER BADGE (cited as a single external data point; SemiAnalysis IP) ── */
+.cc-badge-cmax{display:inline-flex;align-items:center;gap:4px;font-family:var(--mono);font-size:8px;font-weight:600;padding:2px 7px;border-radius:4px;white-space:nowrap;background:var(--surface);border:1px solid var(--border-2);color:var(--ink-2);text-decoration:none;transition:background .1s}
+.cc-badge-cmax:hover{background:var(--surface-3)}
+.cc-badge-cmax .cmax-dot{width:6px;height:6px;border-radius:50%;flex-shrink:0;background:var(--ink-4)}
+.cmax-platinum .cmax-dot{background:#8E9BB3}
+.cmax-gold     .cmax-dot{background:#C9A227}
+.cmax-silver   .cmax-dot{background:#9AA0A8}
+.cmax-bronze   .cmax-dot{background:#B07A43}
+.cmax-under    .cmax-dot{background:var(--ink-4)}
+.cloud-attribution{font-family:var(--mono);font-size:9px;color:var(--ink-4);line-height:1.55;margin-top:10px;max-width:680px}
+.cloud-attribution a{color:var(--ink-3);text-decoration:none;border-bottom:1px solid var(--border-2)}
+.cloud-attribution a:hover{color:var(--ink)}
+/* ── ECOSYSTEM / PARTNER CHIPS ── */
+.eco-chips{display:flex;flex-wrap:wrap;gap:3px}
+.eco-chip{font-family:var(--mono);font-size:8px;font-weight:500;background:var(--surface-3);color:var(--ink-3);border:1px solid var(--border);padding:2px 6px;border-radius:4px;white-space:nowrap}
 
 /* ── DEPTH SPINE (signature scroll nav) ── */
 .depth-spine{position:fixed;left:9px;top:50%;transform:translateY(-50%);z-index:150;display:none;flex-direction:column;gap:5px;align-items:stretch}
@@ -826,7 +851,7 @@ footer{
   <div class="seg">
     <button class="seg-btn active" id="btn-ov"  onclick="setMode('overview')">Overview</button>
     <button class="seg-btn"        id="btn-ref" onclick="setMode('reference')">Full Reference</button>
-    <button class="seg-btn"       id="btn-cloud" onclick="setMode('cloud')">Compute & Inference Index</button>
+    <button class="seg-btn"       id="btn-cloud" onclick="setMode('cloud')">The AI Cloud Landscape</button>
   </div>
   <div class="ctrl-sep"></div>
   <span class="ctrl-label">Tier</span>
@@ -2087,9 +2112,14 @@ renderVoices(INVESTORS, 'investorsGrid', 'inv');
 
 /* ════ AI CLOUD INDEX ════ */
 const AI_CLOUDS = [
+  // NOTE: `clustermax` holds ONLY publicly-verifiable tiers (e.g. CoreWeave's Platinum,
+  // which the provider itself cites). Fill others from public ClusterMAX data only — never guess.
+  // Schema for new v2 fields (all nullable): targetSegment, timeToGpu, pricingModel,
+  // notableIntegrations[], nvidiaPartner, vclusterUsage, keyTechPartners[]. null = missing; "undisclosed" = unknown.
   {
     id:'coreweave', name:'CoreWeave', wave:1, vcl:true,
     positioning:'The GPU cloud built natively on Kubernetes — NVIDIA Elite Cloud Partner', verified:false, lastVerified:null,
+    clustermax:{tier:'Platinum', version:'2.0'},
     hq:'Roseland, NJ', founded:'2017',
     status:'Public (CRWV · Nasdaq)',
     funding:'Public (CRWV) · ~$55B mkt cap · IPO Mar 2025',
@@ -2359,7 +2389,16 @@ const AI_CLOUDS = [
   },
 ];
 
-function val(v){ return v ? `<span class="cc-value">${v}</span>` : '<span class="cc-value ud">—</span>'; }
+function val(v){
+  if(v===null||v===undefined||v===''||v==='—') return '<span class="cc-value ud">—</span>';
+  if(v==='undisclosed') return '<span class="cc-value ud">undisclosed</span>';
+  return `<span class="cc-value">${v}</span>`;
+}
+function valList(a){
+  if(Array.isArray(a)&&a.length) return `<span class="cc-value">${a.join(' · ')}</span>`;
+  if(a==='undisclosed') return '<span class="cc-value ud">undisclosed</span>';
+  return '<span class="cc-value ud">—</span>';
+}
 function boolVal(v){ if(v===true)return'<span class="cc-value">Yes</span>'; if(v===false)return'<span class="cc-value">No</span>'; return'<span class="cc-value ud">—</span>'; }
 
 function renderAICloudIndex(ct){
@@ -2367,12 +2406,13 @@ function renderAICloudIndex(ct){
   const hdr=document.createElement('div');
   hdr.className='cloud-index-hdr';
   hdr.innerHTML=`
-    <div class="cloud-index-eyebrow">Compute &amp; Inference Provider Index · June 2026</div>
-    <div class="cloud-index-title">Compute &amp; Inference Provider Index</div>
-    <p class="cloud-index-sub">Technical profiles of GPU cloud and inference API providers — hardware generations, platform stack, orchestration approach, tenant isolation, and storage in one place.</p>
+    <div class="cloud-index-eyebrow">The AI Cloud Landscape · June 2026</div>
+    <div class="cloud-index-title">The AI Cloud Landscape</div>
+    <p class="cloud-index-sub">Technical profiles of GPU cloud and inference providers — hardware, platform stack, ecosystem &amp; partnerships, and an independent ClusterMAX™ tier where published. One identical card per provider; fields fill in as providers verify them.</p>
     <div class="cloud-meta-row">
       <span class="cloud-methodology">${AI_CLOUDS.length} providers</span>
       <span class="cloud-methodology">Last updated June 2026</span>
+      <span class="cloud-methodology">ClusterMAX™ — independent rating by <a href="https://www.clustermax.ai/" target="_blank" rel="noopener">SemiAnalysis</a>, cited with attribution; not affiliated</span>
     </div>`;
   ct.appendChild(hdr);
 
@@ -2407,11 +2447,13 @@ function mkCloudCard(co){
     logoHtml=`<div class="cloud-card-logo" style="background:${logoColor}">${inits}</div>`;
   }
 
-  const cmBit='';
+  const cm=co.clustermax;
+  const cmBit = cm
+    ? `<a class="cc-badge cm-badge cm-${cm.tier.toLowerCase()}" href="https://www.clustermax.ai/" target="_blank" rel="noopener" title="Independent GPU cloud rating by SemiAnalysis — cited with attribution, not affiliated">ClusterMAX™ ${cm.version}: ${cm.tier} ↗</a>`
+    : '';
   const verBit=co.verified
     ?`<span class="cc-badge cc-badge-verified">✓ Verified · ${co.lastVerified}</span>`
     :`<span class="cc-badge cc-badge-unverified">Unverified</span>`;
-  const vclBit='';
 
   const gpuChips=co.gpus&&co.gpus.length
     ?`<div class="gpu-chips">${co.gpus.map(g=>`<span class="gpu-chip">${g}</span>`).join('')}</div>`
@@ -2426,7 +2468,7 @@ function mkCloudCard(co){
           <a class="cloud-card-permalink" href="#cloud-${co.id}" onclick="copyAnchor('cloud-${co.id}');return false;" title="Copy permalink"># link</a>
         </div>
         <div class="cloud-card-pos">${co.positioning}</div>
-        <div class="cloud-card-badges">${verBit}</div>
+        <div class="cloud-card-badges">${cmBit}${verBit}</div>
       </div>
     </div>
     <div class="cloud-card-body">
@@ -2438,12 +2480,14 @@ function mkCloudCard(co){
           <div class="cc-field"><span class="cc-label">Status</span>${val(co.status)}</div>
           <div class="cc-field"><span class="cc-label">Funding</span>${val(co.funding)}</div>
           <div class="cc-field"><span class="cc-label">Footprint</span>${val(co.footprint)}</div>
+          <div class="cc-field"><span class="cc-label">Target segment</span>${val(co.targetSegment)}</div>
         </div>
         <div class="cloud-section">
           <div class="cloud-section-title">Hardware</div>
           <div class="cc-field"><span class="cc-label">GPU Gens</span>${gpuChips}</div>
           <div class="cc-field"><span class="cc-label">Interconnect</span>${val(co.interconnect)}</div>
           <div class="cc-field"><span class="cc-label">Bare metal</span>${boolVal(co.bareMetal)}</div>
+          <div class="cc-field"><span class="cc-label">Time-to-GPU</span>${val(co.timeToGpu)}</div>
         </div>
       </div>
       <div class="cloud-section">
@@ -2454,7 +2498,15 @@ function mkCloudCard(co){
         <div class="cc-field"><span class="cc-label">Self-service</span>${val(co.selfService)}</div>
         <div class="cc-field"><span class="cc-label">Networking</span>${val(co.networkingAutomation)}</div>
         <div class="cc-field"><span class="cc-label">Storage</span>${val(co.storage)}</div>
+        <div class="cc-field"><span class="cc-label">Pricing</span>${val(co.pricingModel)}</div>
+        <div class="cc-field"><span class="cc-label">Integrations</span>${valList(co.notableIntegrations)}</div>
         <div class="cc-field"><span class="cc-label">Customers</span>${val(co.customers)}</div>
+        <div class="cloud-section" style="margin-top:12px">
+          <div class="cloud-section-title">Ecosystem &amp; Partnerships</div>
+          <div class="cc-field"><span class="cc-label">NVIDIA partner</span>${val(co.nvidiaPartner)}</div>
+          <div class="cc-field"><span class="cc-label">vCluster usage</span>${val(co.vclusterUsage)}</div>
+          <div class="cc-field"><span class="cc-label">Key partners</span>${valList(co.keyTechPartners)}</div>
+        </div>
       </div>
     </div>`;
   return d;
