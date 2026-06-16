@@ -851,7 +851,7 @@ footer{
   <div class="seg">
     <button class="seg-btn active" id="btn-ov"  onclick="setMode('overview')">Overview</button>
     <button class="seg-btn"        id="btn-ref" onclick="setMode('reference')">Full Reference</button>
-    <button class="seg-btn"       id="btn-cloud" onclick="setMode('cloud')">The AI Cloud Landscape</button>
+    <button class="seg-btn"       id="btn-cloud" onclick="setMode('cloud')">Compute & Inference Index</button>
   </div>
   <div class="ctrl-sep"></div>
   <span class="ctrl-label">Tier</span>
@@ -2387,6 +2387,139 @@ const AI_CLOUDS = [
     storage:null,
     customers:null,
   },
+
+  // ── Added providers (researched from public sources June 2026; unconfirmed fields left null/"undisclosed") ──
+  {
+    id:'lintasarta', name:'Lintasarta', wave:1, vcl:true,
+    positioning:"Indonesia's sovereign AI cloud (GPU Merdeka / Deka GPU) — the country's exclusive NVIDIA Cloud Partner, fully domestic infrastructure", verified:false, lastVerified:null,
+    hq:'Jakarta, Indonesia', founded:'1988',
+    status:'Subsidiary of Indosat (IOH)', funding:null,
+    footprint:'Indonesia',
+    gpus:['H100','L40S'],
+    interconnect:null, bareMetal:true,
+    managedK8s:null, orchestration:null, tenantIsolation:null, selfService:null,
+    networkingAutomation:null, storage:null, customers:null,
+    pricingModel:'undisclosed',
+    nvidiaPartner:'NCP — NVIDIA Cloud Partner (Indonesia)',
+  },
+  {
+    id:'nebul', name:'nebul', wave:1, vcl:true,
+    positioning:"Dutch sovereign 'NeoCloud' — private, EU-compliant NVIDIA DGX/HGX superclusters in the Benelux, plus a Private Inference API", verified:false, lastVerified:null,
+    hq:'Leiden, Netherlands', founded:'2022',
+    status:'Private', funding:'€20M (Jun 2024)',
+    footprint:'Netherlands · Benelux',
+    gpus:['B200','H200','H100','L40S'],
+    interconnect:null, bareMetal:null,
+    managedK8s:null, orchestration:null, tenantIsolation:null, selfService:null,
+    networkingAutomation:null, storage:'NetApp', customers:null,
+    pricingModel:null,
+    nvidiaPartner:'NVIDIA Elite CSP · DGX Cloud Partner',
+    keyTechPartners:['NetApp','UbiOps','Supermicro'],
+  },
+  {
+    id:'polarise', name:'Polarise', wave:1, vcl:true,
+    positioning:"German sovereign 'AI Factory' operator — owns the full stack (data centers → GPUs → API-first cloud), GDPR/ISO-certified, Blackwell-based", verified:false, lastVerified:null,
+    hq:'Paderborn, Germany', founded:'2024',
+    status:'PE-backed (SWI Group majority, 2026)', funding:'€1B commitment · SWI Group majority stake (Feb 2026)',
+    footprint:'Germany (Frankfurt · Munich) · Norway (Oslo)',
+    gpus:['B200'],
+    interconnect:null, bareMetal:true,
+    managedK8s:'Yes (managed Kubernetes via vCluster)',
+    orchestration:'Kubernetes (via vCluster)',
+    tenantIsolation:'Tenant clusters (vCluster)',
+    selfService:'Yes',
+    networkingAutomation:null, storage:'DDN',
+    customers:'Deutsche Telekom (Industrial AI Cloud)',
+    pricingModel:'on-demand · token-based',
+    nvidiaPartner:'NCP · Preferred NVIDIA Partner',
+    vclusterUsage:'Yes — strategic partner (Mar 2026)',
+    keyTechPartners:['NVIDIA','Deutsche Telekom','DDN','vCluster Labs'],
+  },
+  {
+    id:'crusoe', name:'Crusoe', wave:2, vcl:false,
+    positioning:'Energy-first AI cloud — vertically integrated from power to GPU, sustainable data centers', verified:false, lastVerified:null,
+    clustermax:{tier:'Gold', version:'2.0'},
+    hq:'Denver, CO', founded:'2018',
+    status:'Private', funding:'Series E · ~$1.375B at >$10B valuation (2025)',
+    footprint:'US (Texas · Wyoming) · Iceland',
+    gpus:['GB200 NVL72','B200','H200','H100','MI300X'],
+    interconnect:'InfiniBand (Quantum-2)', bareMetal:null,
+    managedK8s:null, orchestration:null, tenantIsolation:null, selfService:'Yes',
+    networkingAutomation:null, storage:null, customers:'Windsurf',
+    pricingModel:'on-demand · spot · reserved',
+    nvidiaPartner:'NVIDIA partner (full-stack)',
+  },
+  {
+    id:'lambda', name:'Lambda', wave:2, vcl:false,
+    positioning:'GPU cloud built for ML engineers — on-demand instances, 1-Click Clusters, and private InfiniBand superclusters', verified:false, lastVerified:null,
+    hq:'San Francisco, CA', founded:'2012',
+    status:'Private', funding:'$1.5B+ Series E (TWG Global, Nov 2025) · prior $480M at $4B',
+    footprint:'US',
+    gpus:['H100','H200','B200','GH200','GB200'],
+    interconnect:'InfiniBand (Quantum-2)', bareMetal:null,
+    managedK8s:null, orchestration:null, tenantIsolation:null, selfService:'Yes',
+    networkingAutomation:null, storage:null,
+    customers:'Microsoft (multi-year AI infra deal)',
+    pricingModel:'on-demand · reserved',
+    timeToGpu:'Minutes (1-Click Clusters)',
+    nvidiaPartner:'NVIDIA Exemplar Cloud',
+  },
+  {
+    id:'scaleway', name:'Scaleway', wave:2, vcl:false,
+    positioning:'European sovereign cloud (Iliad Group) — H100 clusters, managed Kubernetes (Kapsule), and bare metal with EU data residency', verified:false, lastVerified:null,
+    hq:'Paris, France', founded:'1999',
+    status:'Subsidiary of Iliad Group', funding:null,
+    footprint:'Paris · Amsterdam · Warsaw (EU)',
+    gpus:['H100','L40S','A100'],
+    interconnect:'Spectrum-X Ethernet', bareMetal:true,
+    managedK8s:'Yes — Kapsule',
+    orchestration:'Kubernetes (Kapsule) + Slurm',
+    tenantIsolation:null, selfService:'Yes',
+    networkingAutomation:null, storage:'Scaleway Object · Block Storage',
+    customers:'Mistral · Kyutai · H Company',
+    pricingModel:'on-demand · reserved',
+  },
+  {
+    id:'cirrascale', name:'Cirrascale', wave:2, vcl:false,
+    positioning:'AI Innovation Cloud — dedicated bare-metal NVIDIA HGX clusters plus alternative accelerators (Cerebras, Qualcomm)', verified:false, lastVerified:null,
+    hq:'San Diego, CA', founded:null,
+    status:'Private', funding:null,
+    footprint:'US',
+    gpus:['H100','H200','A100'],
+    interconnect:'InfiniBand (Quantum-2)', bareMetal:true,
+    managedK8s:null, orchestration:null, tenantIsolation:null, selfService:null,
+    networkingAutomation:null, storage:null, customers:null,
+    pricingModel:null,
+  },
+  {
+    id:'hyperstack', name:'Hyperstack', wave:3, vcl:false,
+    positioning:"NexGen Cloud's GPUaaS — API-first, self-serve NVIDIA GPUs on 100% renewable EU/NA infrastructure", verified:false, lastVerified:null,
+    hq:'London, UK', founded:'2023',
+    status:'Private (NexGen Cloud)', funding:null,
+    footprint:'Europe · North America',
+    gpus:['GB200 NVL72','B200','H200','H100','A100'],
+    interconnect:null, bareMetal:null,
+    managedK8s:'Yes — On-Demand Kubernetes',
+    orchestration:'Kubernetes',
+    tenantIsolation:null, selfService:'Yes',
+    networkingAutomation:null, storage:'Object Storage · WEKA (Supercloud)',
+    customers:null,
+    pricingModel:'on-demand · spot · reserved',
+    nvidiaPartner:'NVIDIA Elite Partner (NexGen Cloud)',
+  },
+  {
+    id:'shadeform', name:'Shadeform', wave:3, vcl:false,
+    positioning:'GPU cloud marketplace — one API/console to compare, provision and deploy across 20+ providers (Lambda, Nebius, Crusoe…)', verified:false, lastVerified:null,
+    hq:'Charlotte, NC', founded:'2023',
+    status:'Private · YC S23', funding:'$20M raised',
+    footprint:'Marketplace · 20+ providers',
+    gpus:['H100','H200','A100','L40S','B300'],
+    interconnect:null, bareMetal:null,
+    managedK8s:null, orchestration:null, tenantIsolation:null, selfService:'Yes',
+    networkingAutomation:null, storage:null, customers:null,
+    pricingModel:'on-demand · reserved (zero-fee marketplace)',
+    timeToGpu:'~Minutes (per-minute billing)',
+  },
 ];
 
 function val(v){
@@ -2406,8 +2539,8 @@ function renderAICloudIndex(ct){
   const hdr=document.createElement('div');
   hdr.className='cloud-index-hdr';
   hdr.innerHTML=`
-    <div class="cloud-index-eyebrow">The AI Cloud Landscape · June 2026</div>
-    <div class="cloud-index-title">The AI Cloud Landscape</div>
+    <div class="cloud-index-eyebrow">Compute &amp; Inference Provider Index · June 2026</div>
+    <div class="cloud-index-title">Compute &amp; Inference Provider Index</div>
     <p class="cloud-index-sub">Technical profiles of GPU cloud and inference providers — hardware, platform stack, ecosystem &amp; partnerships, and an independent ClusterMAX™ tier where published. One identical card per provider; fields fill in as providers verify them.</p>
     <div class="cloud-meta-row">
       <span class="cloud-methodology">${AI_CLOUDS.length} providers</span>
