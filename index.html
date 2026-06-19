@@ -408,7 +408,7 @@ body{background:var(--paper);color:var(--ink);font-family:var(--font);line-heigh
 .more-pill:hover{background:var(--surface-3);color:var(--ink-3)}
 
 /* ── INTEL PANEL ── */
-.intel-wrap{margin:8px 0 12px;border:1px solid var(--infra-mid);border-radius:var(--r-lg);overflow:hidden}
+.intel-wrap{margin:8px 0 12px}
 .intel-hdr{
   display:flex;align-items:center;gap:8px;padding:7px 12px;
   cursor:pointer;user-select:none;background:var(--infra-light);transition:background .1s;
@@ -1593,7 +1593,7 @@ function setSearch(v){
   if(search){if(mode==='overview')setMode('reference');INFRA_SUBLAYERS.forEach(l=>expanded.add(l.id));}
   render();
 }
-function expandAll(){INFRA_SUBLAYERS.forEach(l=>expanded.add(l.id));render()}
+function expandAll(){if(mode==='overview')mode='reference';INFRA_SUBLAYERS.forEach(l=>expanded.add(l.id));render()}
 function collapseAll(){expanded.clear();render()}
 function toggleLayer(id){expanded.has(id)?expanded.delete(id):expanded.add(id);render()}
 function goRef(id){expanded.add(id);setMode('reference')}
@@ -1637,24 +1637,11 @@ function renderDeepDive(ct){
   // strata accents — align context layers with the hero cross-section
   const STRATA={application:'#8A8FA3',models:'#A6779C',chips:'#C25A45',energy:'#B7773A'};
 
-  // Top context bars: Applications, Models (reference mode only — overview relies on the hero cross-section)
-  if(mode!=='overview') ['application','models'].forEach(id=>{
-    const l=LAYERS.find(x=>x.id===id);
-    if(!l)return;
-    const pills=l.subs.flatMap(s=>s.cos.filter(c=>c.f)).slice(0,6)
-      .map(c=>`<span class="ctx-pill">${c.n}</span>`).join('');
-    const bar=document.createElement('div');
-    const col=STRATA[id]||l.color;
-    bar.className='ctx-bar';bar.dataset.layer=id;
-    bar.style.setProperty('--ctx-accent',col);
-    bar.innerHTML=`
-      <div style="flex:1;min-width:0">
-        <div class="ctx-name" style="color:${col}">${l.name}</div>
-        <div class="ctx-desc">${l.desc}</div>
-        <div class="ctx-pills" style="margin-left:0;margin-top:7px">${pills}<span class="ctx-pill more">+ more</span></div>
-      </div>`;
-    ct.appendChild(bar);
-  });
+  // Expand / Collapse row — outside the infra box, right-aligned
+  const xrow=document.createElement('div');
+  xrow.style.cssText='display:flex;justify-content:flex-end;gap:6px;margin-bottom:6px';
+  xrow.innerHTML=`<button class="xbtn" onclick="expandAll()">Expand all</button><button class="xbtn" onclick="collapseAll()">Collapse all</button>`;
+  ct.appendChild(xrow);
 
   // Infra header + sublayers — all wrapped in indented container
   const wrap=document.createElement('div');
@@ -1663,13 +1650,9 @@ function renderDeepDive(ct){
   const hdr=document.createElement('div');
   hdr.className='infra-hdr';
   hdr.innerHTML=`<div class="infra-hdr-icon">🏗️</div>
-    <div style="flex:1;min-width:0">
+    <div>
       <div class="infra-hdr-title">Infrastructure</div>
       <div class="infra-hdr-desc">The layer where AI workloads actually run — expanded across Cloud & Compute, Cluster Orchestration, MLOps & Inference, Storage & Networking, and Data Center & Bare Metal.</div>
-    </div>
-    <div style="display:flex;gap:6px;flex-shrink:0;align-self:center">
-      <button class="xbtn" onclick="expandAll()">Expand all</button>
-      <button class="xbtn" onclick="collapseAll()">Collapse all</button>
     </div>`;
   wrap.appendChild(hdr);
 
@@ -1678,25 +1661,6 @@ function renderDeepDive(ct){
   });
 
   ct.appendChild(wrap);
-
-  // Bottom context bars: Chips, Energy (reference mode only)
-  if(mode!=='overview') ['chips','energy'].forEach(id=>{
-    const l=LAYERS.find(x=>x.id===id);
-    if(!l)return;
-    const pills=l.subs.flatMap(s=>s.cos.filter(c=>c.f)).slice(0,6)
-      .map(c=>`<span class="ctx-pill">${c.n}</span>`).join('');
-    const bar=document.createElement('div');
-    const col=STRATA[id]||l.color;
-    bar.className='ctx-bar';bar.dataset.layer=id;
-    bar.style.setProperty('--ctx-accent',col);
-    bar.innerHTML=`
-      <div style="flex:1;min-width:0">
-        <div class="ctx-name" style="color:${col}">${l.name}</div>
-        <div class="ctx-desc">${l.desc}</div>
-        <div class="ctx-pills" style="margin-left:0;margin-top:7px">${pills}<span class="ctx-pill more">+ more</span></div>
-      </div>`;
-    ct.appendChild(bar);
-  });
 }
 
 function renderSlOv(ct,sl){
@@ -1786,11 +1750,7 @@ function mkIntel(id){
   if(!intel)return'';
   const pid='intel-'+id;
   return `<div class="intel-wrap">
-    <div class="intel-hdr" onclick="toggleIntel('${pid}')">
-      <span class="intel-hdr-label">◆ Layer Intelligence</span>
-      <span class="intel-toggle" id="${pid}-tog">▾ expand</span>
-    </div>
-    <div class="intel-body" id="${pid}">
+    <div class="intel-body open" id="${pid}">
       <div class="intel-tabs">
         <button class="intel-tab active" onclick="switchIntel(event,'${pid}','c')">⚠ Challenge</button>
         <button class="intel-tab"        onclick="switchIntel(event,'${pid}','i')">↑ Innovation</button>
@@ -2549,10 +2509,19 @@ function renderAICloudIndex(ct){
 
   const grid=document.createElement('div');
   grid.className='cloud-grid';
+  // Tier lookup: derive tier for a cloud provider from INFRA_SUBLAYERS data
+  function cloudTier(name){
+    for(const sl of INFRA_SUBLAYERS)for(const sub of sl.subs){const co=sub.cos.find(c=>c.n===name);if(co)return co.t;}
+    return 'major';
+  }
   // Order by data completeness: fullest profiles first, sparsest (most "—") last.
   const _cf=['hq','founded','status','funding','footprint','interconnect','managedK8s','orchestration','tenantIsolation','selfService','networkingAutomation','storage','customers'];
   const cloudScore=co=>_cf.reduce((n,f)=>n+(co[f]?1:0),0)+((co.gpus&&co.gpus.length)?1:0)+(co.bareMetal!=null?1:0);
-  [...AI_CLOUDS].sort((a,b)=>cloudScore(b)-cloudScore(a)).forEach(co=>grid.appendChild(mkCloudCard(co)));
+  const allowed=tier!=='all'?TIER_GROUPS[tier]:null;
+  [...AI_CLOUDS]
+    .filter(co=>!allowed||allowed.includes(cloudTier(co.name)))
+    .sort((a,b)=>cloudScore(b)-cloudScore(a))
+    .forEach(co=>grid.appendChild(mkCloudCard(co)));
   ct.appendChild(grid);
 }
 
