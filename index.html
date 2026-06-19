@@ -134,7 +134,10 @@ body{background:var(--paper);color:var(--ink);font-family:var(--font);line-heigh
 .xlayer-bar{flex:1;min-width:0;border-radius:7px;border:1px solid rgba(255,255,255,.08);display:flex;align-items:center;padding:0 14px;position:relative;overflow:hidden}
 .xbar-name{font-family:var(--display);font-weight:500;letter-spacing:-.01em;color:#E8ECF3}
 .xbar-tag{margin-left:auto;font-family:var(--mono);font-size:8px;color:rgba(255,255,255,.45);text-transform:uppercase;letter-spacing:.6px;white-space:nowrap}
-.xlayer.ctx .xlayer-bar{height:32px;font-size:11px;background:linear-gradient(180deg,rgba(255,255,255,.045),rgba(255,255,255,.012));opacity:.8}
+.xlayer.ctx{opacity:.38;pointer-events:none}
+.xlayer.ctx .xlayer-bar{height:28px;font-size:10px;background:linear-gradient(180deg,rgba(255,255,255,.025),rgba(255,255,255,.006))}
+.xlayer.ctx .xbar-name{color:#6B7480}
+.xlayer.ctx .xbar-tag{color:rgba(107,116,128,.6)}
 .xlayer.ctx.app    .xlayer-bar{box-shadow:inset 3px 0 0 var(--L-app)}
 .xlayer.ctx.models .xlayer-bar{box-shadow:inset 3px 0 0 var(--L-models)}
 .xlayer.ctx.chips  .xlayer-bar{box-shadow:inset 3px 0 0 var(--L-chips);background:linear-gradient(180deg,rgba(194,90,69,.12),rgba(194,90,69,.03))}
@@ -200,7 +203,7 @@ body{background:var(--paper);color:var(--ink);font-family:var(--font);line-heigh
   font-weight:500;color:var(--ink-3);cursor:pointer;transition:all .1s;white-space:nowrap;
 }
 .pill-btn:hover{background:var(--surface-3)}
-.pill-btn.active{background:var(--ink);color:#fff;border-color:var(--ink)}
+.pill-btn.active{background:#fff;color:var(--electric-blue);font-weight:700;border-color:rgba(37,99,235,.25);box-shadow:0 1px 4px rgba(0,0,0,.08),0 0 0 1px rgba(37,99,235,.15)}
 .search-wrap{position:relative;margin-left:auto}
 .search-input{
   padding:5px 12px 5px 28px;border:1px solid var(--border);border-radius:20px;
@@ -232,9 +235,8 @@ body{background:var(--paper);color:var(--ink);font-family:var(--font);line-heigh
 /* ── REGION BAR ── */
 .region-bar{
   background:var(--surface-2);border-bottom:1px solid var(--border);
-  padding:6px var(--gutter);display:none;align-items:center;gap:6px;flex-wrap:wrap;
+  padding:6px var(--gutter);display:flex;align-items:center;gap:6px;flex-wrap:wrap;
 }
-.region-bar.visible{display:flex}
 .region-label{font-family:var(--mono);font-size:9px;color:var(--ink-4);text-transform:uppercase;letter-spacing:1px;margin-right:2px;flex-shrink:0}
 
 /* ── LEGEND BAR ── */
@@ -829,10 +831,6 @@ footer{
     <span style="font-family:var(--mono);font-size:8px;color:var(--green);background:var(--green-light);border:1px solid var(--green-mid);padding:1px 5px;border-radius:3px">OSS</span>
     <span class="leg-label" style="margin-left:5px">Open source</span>
   </div>
-  <div class="legend-right">
-    <button class="xbtn" onclick="expandAll()">Expand all</button>
-    <button class="xbtn" onclick="collapseAll()">Collapse all</button>
-  </div>
 </div>
 
 <!-- REGION BAR -->
@@ -847,11 +845,11 @@ footer{
 
 <!-- CONTROLS -->
 <div class="controls">
-  <span class="ctrl-label">View</span>
   <div class="seg">
-    <button class="seg-btn active" id="btn-ov"  onclick="setMode('overview')">Overview</button>
-    <button class="seg-btn"        id="btn-ref" onclick="setMode('reference')">Full Reference</button>
-    <button class="seg-btn"       id="btn-cloud" onclick="setMode('cloud')">Compute & Inference Index</button>
+    <button class="seg-btn active" id="btn-ov"  onclick="setMode('overview')">Infrastructure</button>
+  </div>
+  <div class="seg">
+    <button class="seg-btn" id="btn-cloud" onclick="setMode('cloud')">Compute &amp; Inference Index</button>
   </div>
   <div class="ctrl-sep"></div>
   <span class="ctrl-label">Tier</span>
@@ -867,9 +865,7 @@ footer{
 <div class="page-body">
 
 <main class="main">
-  <div class="rail"><span class="rail-label">Application ▾</span><div class="rail-line"></div></div>
   <div id="map"></div>
-  <div class="rail bottom"><span class="rail-label">▴ Energy</span><div class="rail-line"></div></div>
 
   <div style="margin-top:24px;border:1px solid var(--border);border-radius:var(--r-xl);background:var(--surface);padding:16px 20px">
     <div style="font-family:var(--mono);font-size:9px;text-transform:uppercase;letter-spacing:1.4px;color:var(--L-infra);margin-bottom:8px;display:flex;align-items:center;gap:7px"><span style="width:7px;height:7px;border-radius:2px;background:var(--L-infra)"></span>Methodology · how companies are chosen</div>
@@ -1570,11 +1566,9 @@ document.getElementById('heroOSSCount').textContent = totalOSS;
 /* ════ CONTROLS ════ */
 function setMode(m, fromHash){
   mode=m;
-  document.getElementById('btn-ov').classList.toggle('active',m==='overview');
-  document.getElementById('btn-ref').classList.toggle('active',m==='reference');
+  document.getElementById('btn-ov').classList.toggle('active',m==='overview'||m==='reference');
   document.getElementById('btn-cloud').classList.toggle('active',m==='cloud');
   document.getElementById('legendRow').classList.toggle('show',m==='reference');
-  document.getElementById('regionBar').classList.toggle('visible',m==='reference');
   // Keep the URL shareable: #index opens the Provider Index view directly.
   if(!fromHash){
     if(m==='cloud') history.replaceState(null,'','#index');
@@ -1643,8 +1637,8 @@ function renderDeepDive(ct){
   // strata accents — align context layers with the hero cross-section
   const STRATA={application:'#8A8FA3',models:'#A6779C',chips:'#C25A45',energy:'#B7773A'};
 
-  // Top context bars: Applications, Models
-  ['application','models'].forEach(id=>{
+  // Top context bars: Applications, Models (reference mode only — overview relies on the hero cross-section)
+  if(mode!=='overview') ['application','models'].forEach(id=>{
     const l=LAYERS.find(x=>x.id===id);
     if(!l)return;
     const pills=l.subs.flatMap(s=>s.cos.filter(c=>c.f)).slice(0,6)
@@ -1669,9 +1663,13 @@ function renderDeepDive(ct){
   const hdr=document.createElement('div');
   hdr.className='infra-hdr';
   hdr.innerHTML=`<div class="infra-hdr-icon">🏗️</div>
-    <div>
+    <div style="flex:1;min-width:0">
       <div class="infra-hdr-title">Infrastructure</div>
       <div class="infra-hdr-desc">The layer where AI workloads actually run — expanded across Cloud & Compute, Cluster Orchestration, MLOps & Inference, Storage & Networking, and Data Center & Bare Metal.</div>
+    </div>
+    <div style="display:flex;gap:6px;flex-shrink:0;align-self:center">
+      <button class="xbtn" onclick="expandAll()">Expand all</button>
+      <button class="xbtn" onclick="collapseAll()">Collapse all</button>
     </div>`;
   wrap.appendChild(hdr);
 
@@ -1681,8 +1679,8 @@ function renderDeepDive(ct){
 
   ct.appendChild(wrap);
 
-  // Bottom context bars: Chips, Energy
-  ['chips','energy'].forEach(id=>{
+  // Bottom context bars: Chips, Energy (reference mode only)
+  if(mode!=='overview') ['chips','energy'].forEach(id=>{
     const l=LAYERS.find(x=>x.id===id);
     if(!l)return;
     const pills=l.subs.flatMap(s=>s.cos.filter(c=>c.f)).slice(0,6)
