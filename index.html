@@ -682,6 +682,31 @@ footer{
 .sublayer:nth-child(3){animation-delay:.09s}.sublayer:nth-child(4){animation-delay:.12s}
 .sublayer:nth-child(5){animation-delay:.15s}.sublayer:nth-child(6){animation-delay:.18s}
 
+/* ── INDEX SUB-TABS ── */
+.idx-tabs{display:flex;align-items:center;gap:4px;margin:14px 0 0;border-bottom:2px solid var(--border)}
+.idx-tab{font-family:var(--mono);font-size:11px;font-weight:500;letter-spacing:.3px;padding:7px 16px;border:none;background:none;cursor:pointer;color:var(--ink-4);border-bottom:2px solid transparent;margin-bottom:-2px;transition:color .15s,border-color .15s}
+.idx-tab:hover{color:var(--ink-2)}
+.idx-tab.active{color:var(--electric-blue);border-bottom-color:var(--electric-blue);font-weight:700}
+.idx-tab-count{font-size:9px;padding:1px 5px;border-radius:3px;background:var(--surface-3);color:var(--ink-4);margin-left:4px;font-family:var(--mono)}
+.idx-tab.active .idx-tab-count{background:rgba(37,99,235,.1);color:var(--electric-blue)}
+
+/* ── NET CARD ── */
+.net-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(480px,1fr));gap:12px;margin-top:4px}
+.net-card{background:var(--surface);border:1px solid var(--border);border-left:4px solid #0EA5E9;border-radius:var(--r-xl);overflow:hidden;transition:box-shadow .15s,transform .12s}
+.net-card:hover{box-shadow:0 6px 20px rgba(0,0,0,.07);transform:translateY(-1px)}
+.net-card-hdr{display:flex;align-items:flex-start;gap:12px;padding:14px 16px 12px;border-bottom:1px solid var(--border);background:var(--surface-2)}
+.net-card-logo{width:30px;height:30px;border-radius:7px;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:700;color:#fff;background:#0EA5E9;overflow:hidden;border:1px solid rgba(0,0,0,.06)}
+.net-card-logo img{width:100%;height:100%;object-fit:contain;border-radius:6px}
+.net-card-name{font-family:var(--display);font-size:14px;font-weight:600;color:var(--ink);letter-spacing:-.01em}
+.net-card-cat{font-family:var(--mono);font-size:9px;font-weight:600;text-transform:uppercase;letter-spacing:1.2px;color:#0EA5E9;margin-top:2px}
+.net-card-pos{font-size:11px;color:var(--ink-3);margin-top:4px;line-height:1.45}
+.net-card-body{padding:14px 16px;display:grid;grid-template-columns:1fr 1fr;gap:0 20px}
+@media(max-width:640px){.net-card-body{grid-template-columns:1fr}.net-grid{grid-template-columns:1fr}}
+.net-chip-row{display:flex;flex-wrap:wrap;gap:4px;margin-top:2px}
+.net-chip{font-family:var(--mono);font-size:9px;padding:2px 6px;border-radius:4px;background:rgba(14,165,233,.08);color:#0369A1;border:1px solid rgba(14,165,233,.2)}
+.net-permalink{flex-shrink:0;font-family:var(--mono);font-size:10px;color:var(--ink-4);text-decoration:none;padding:3px 7px;border-radius:4px;margin-left:auto;line-height:1;transition:all .1s}
+.net-permalink:hover{background:var(--surface-3);color:var(--ink)}
+
 /* ── AI CLOUD INDEX ── */
 .cloud-index-hdr{padding:16px 0 20px;border-bottom:1px solid var(--border);margin-bottom:20px}
 .cloud-index-eyebrow{display:inline-flex;align-items:center;gap:7px;font-family:var(--mono);font-size:9px;text-transform:uppercase;letter-spacing:1.5px;color:var(--L-infra);margin-bottom:8px}
@@ -945,6 +970,7 @@ const LOGO_COLORS = {
   'Crusoe':'#2A9D5C','RunPod':'#7928CA','Scaleway':'#7B35C1','OVHcloud':'#123F6D',
   'GMI Cloud':'#7C3AED','Fal':'#0F0F0F','Aolani Cloud':'#0EA5E9','NeevCloud':'#FF5A1F',
   'Vultr':'#007BFC','DigitalOcean':'#0080FF','Fluidstack':'#1A1A2E','Nscale':'#2563EB','Radiant AI':'#FF6B35',
+  'Upscale AI':'#F5A623','Aviz Networks':'#00B4D8',
   'Kubernetes (CNCF)':'#326CE5','Red Hat OpenShift':'#EE0000','Rancher (SUSE)':'#30BA78',
   'vCluster':'#FF5C00','vCluster Standalone':'#FF5C00','vNode':'#FF5C00','vMetal':'#FF5C00',
   'NVIDIA DSX':'#76B900','KAI Scheduler':'#76B900','NVIDIA AICR':'#76B900','NVSentinel':'#76B900','NVIDIA Infra Controller':'#76B900',
@@ -1025,7 +1051,7 @@ const DOMAINS = {
   'RunPod':'runpod.io','Scaleway':'scaleway.com','OVHcloud':'ovhcloud.com',
   'GMI Cloud':'gmicloud.ai','Aolani Cloud':'aolanicloud.com','NeevCloud':'neevcloud.com',
   'DigitalOcean':'digitalocean.com','Fluidstack':'fluidstack.io','Nscale':'nscale.ai',
-  'Radiant AI':'radiant.co',
+  'Radiant AI':'radiant.co','Upscale AI':'upscale.com','Aviz Networks':'aviznetworks.com',
   'IBM Cloud':'ibm.com','Alibaba Cloud':'alibabacloud.com',
   'Gcore':'gcore.com','Firmus':'firmus.ai','GMO GPU Cloud':'gpucloud.gmo.jp',
   'Cudo Compute':'cudocompute.com','Neysa':'neysa.ai','STN':'stn.ai',
@@ -1148,6 +1174,7 @@ const REGIONS = {
   'BytePlus':'apac','RunSun Cloud':'apac','SK Telecom':'apac','VESSL AI':'apac',
   'backend.ai':'apac','NAVER Cloud':'apac','Indosat':'apac',
   'Sakura Internet':'apac','Yotta':'apac','Hyperstack':'eu','GMI Cloud':'us','Radiant AI':'global',
+  'Upscale AI':'us','Aviz Networks':'us',
   'FriendliAI':'us','Modular':'us','Comet':'us','Snorkel':'us',
   'Dynatrace':'eu','Elastic':'us','Fiddler':'us',
   'Turbopuffer':'us','LanceDB':'us','ClickHouse':'us','SurrealDB':'global','PlanetScale':'us',
@@ -1258,6 +1285,8 @@ const LAYERS = [
         {n:'NVIDIA Mellanox',d:'InfiniBand, ConnectX-7, Quantum switches',t:'dominant',f:true},
         {n:'Broadcom',       d:'Tomahawk 6, Jericho3-AI, 1.6Tbps',t:'dominant',f:true},
         {n:'Arista Networks',d:'Etherlink AI, scale-out networking',t:'major',f:true},
+        {n:'Upscale AI',     d:'Purpose-built AI networking — SkyHammer™ ASIC (scale-up) + NVIDIA Spectrum-X Ethernet fabrics (scale-out), open standards',t:'emerging',f:true},
+        {n:'Aviz Networks',  d:'Vendor-agnostic networking software stack — ONES orchestration, Deep Network Observability, Network Copilot™ agentic AI for NetOps',t:'emerging',f:true},
       ]},
     ]
   },
@@ -1644,7 +1673,7 @@ const SUBLAYER_INTEL = {
 };
 
 /* ════ STATE ════ */
-let mode='overview', region='all', search='', tier='all';
+let mode='overview', region='all', search='', tier='all', indexTab='clouds';
 const expanded = new Set(['orchestration','mlops']);
 
 /* ════ COUNTS ════ */
@@ -1664,8 +1693,10 @@ function setMode(m, fromHash){
   document.getElementById('legendRow').classList.toggle('show',m==='reference');
   // Keep the URL shareable: #index opens the Provider Index view directly.
   if(!fromHash){
-    if(m==='cloud') history.replaceState(null,'','#index');
-    else if(/^#(index|cloud)/.test(location.hash)) history.replaceState(null,'',location.pathname+location.search);
+    if(m==='cloud'){
+      const hashes={clouds:'#index-clouds',inference:'#index-inference',networking:'#index-networking'};
+      history.replaceState(null,'',hashes[indexTab]||'#index-clouds');
+    } else if(/^#(index|cloud)/.test(location.hash)) history.replaceState(null,'',location.pathname+location.search);
   }
   render();
 }
@@ -1684,6 +1715,12 @@ function setRegion(r){
 function setSearch(v){
   search=v.trim().toLowerCase();
   if(search){if(mode==='overview')setMode('reference');INFRA_SUBLAYERS.forEach(l=>expanded.add(l.id));}
+  render();
+}
+function setIndexTab(tab){
+  indexTab=tab;
+  const hashes={clouds:'#index-clouds',inference:'#index-inference',networking:'#index-networking'};
+  history.replaceState(null,'',hashes[tab]||'#index-clouds');
   render();
 }
 function expandAll(){if(mode==='overview')mode='reference';INFRA_SUBLAYERS.forEach(l=>expanded.add(l.id));render()}
@@ -2592,6 +2629,190 @@ const AI_CLOUDS = [
   },
 ];
 
+/* ════ NETWORKING VENDORS ════ */
+const NET_VENDORS = [
+  {
+    id:'upscale-ai', name:'Upscale AI',
+    category:'Scale-Up & Scale-Out AI Networking',
+    positioning:'Purpose-built AI networking from the ASIC up — SkyHammer™ delivers deterministic low-latency scale-up interconnect for GPU clusters; Scale-Out adds open Ethernet fabrics on NVIDIA Spectrum-X + SONiC for heterogeneous cluster connectivity.',
+    hq:'Santa Clara, CA', founded:'2024',
+    status:'Private · Series A', funding:'$500M raised (Jun 2026)',
+    products:['SkyHammer™ ASIC (Scale-Up)','Spectrum-X Ethernet Systems (Scale-Out)'],
+    silicon:'Proprietary ASIC (SkyHammer) · NVIDIA Spectrum-X',
+    nos:'SONiC (AI-optimized NOS)',
+    standards:['UltraEthernet Consortium','OCP SAI','OCP ESUN','UALink'],
+    partnerships:['NVIDIA'],
+    deployment:['AI Factory','Data Center'],
+    useCase:['Scale-Up Training Clusters','Scale-Out Inference Fabrics','Heterogeneous GPU Clusters'],
+    customers:null,
+    pricingModel:null,
+  },
+  {
+    id:'aviz-networks', name:'Aviz Networks',
+    category:'Network Software & Observability',
+    positioning:'Vendor-agnostic AI networking software stack — ONES orchestrates and operates SONiC networks across any switch or ASIC; Deep Network Observability provides packet-level visibility; Network Copilot™ brings agentic AI to NetOps. NVIDIA-validated for AI Factory deployments.',
+    hq:'San Jose, CA', founded:'2019',
+    status:'Private', funding:null,
+    products:['ONES (Network Orchestration Suite)','Aviz Packet Broker (Deep Observability)','Network Copilot™ (Agentic AI NetOps)','Fabric Test Automation Suite'],
+    silicon:null,
+    nos:'SONiC (Community + Broadcom Enterprise + Dell Enterprise) · Any-NOS',
+    standards:['SONiC','OCP'],
+    partnerships:['NVIDIA','Broadcom','Cisco','Celestica','Edgecore','Keysight','Wistron'],
+    deployment:['AI Factory','Data Center','Edge'],
+    useCase:['Network Orchestration','Deep Packet Observability','AI-Driven NetOps','SONiC Operations'],
+    customers:null,
+    pricingModel:'Subscription',
+  },
+];
+
+/* ════ INFERENCE VENDORS ════ */
+const INFERENCE_VENDORS = [
+  {
+    id:'groq-inf', name:'Groq',
+    category:'Inference Silicon & API',
+    positioning:'Language Processing Unit (LPU) architecture engineered for maximum token throughput with deterministic latency — GroqCloud delivers the fastest publicly benchmarked LLM inference; GroqRack for on-prem enterprise deployment.',
+    hq:'Mountain View, CA', founded:'2016',
+    status:'Private', funding:'$1.05B raised',
+    products:['LPU Inference Engine','GroqCloud API','GroqRack (on-prem)'],
+    silicon:'Proprietary LPU (Language Processing Unit)',
+    modelSupport:['Llama 4','Llama 3.x','Gemma','Mistral','Qwen','DeepSeek'],
+    latencyClaim:'Sub-100ms TTFT',
+    throughputClaim:'800+ tokens/sec (Llama 3 70B)',
+    deployment:['Cloud API','On-Premise (GroqRack)'],
+    partnerships:['Meta','Samsung (manufacturing)'],
+    customers:null,
+    pricingModel:'API (per token) · GroqRack (hardware purchase)',
+  },
+  {
+    id:'cerebras-inf', name:'Cerebras',
+    category:'Inference Silicon & API',
+    positioning:'Wafer-Scale Engine (WSE-3) — a single silicon die the size of a wafer eliminates inter-chip communication for large model inference. CS-3 systems deliver ultra-high throughput for enterprise LLM serving; Cerebras Inference API provides cloud access.',
+    hq:'Sunnyvale, CA', founded:'2016',
+    status:'Public (CBRS, NASDAQ)', funding:'IPO Oct 2024',
+    products:['CS-3 (Wafer-Scale Engine)','Cerebras Inference API','Cerebras Cloud'],
+    silicon:'WSE-3 (Wafer-Scale Engine, 4 trillion transistors)',
+    modelSupport:['Llama 3.1/3.3 405B','Llama 4 Scout','DeepSeek R1','Qwen 3'],
+    latencyClaim:'Sub-50ms TTFT at scale',
+    throughputClaim:'2,100+ tokens/sec (Llama 3.1 8B)',
+    deployment:['Cloud API','On-Premise (CS-3 system)'],
+    partnerships:['Microsoft','G42','Qualcomm'],
+    customers:'Mayo Clinic · AstraZeneca · Citibank',
+    pricingModel:'API (per token) · CS-3 hardware',
+  },
+  {
+    id:'sambanova-inf', name:'SambaNova',
+    category:'Inference Silicon & API',
+    positioning:'Reconfigurable Dataflow Unit (RDU) architecture purpose-built for full-precision, large-context enterprise LLM inference. SambaNova Cloud delivers highest accuracy on frontier models; on-prem SambaNova Suite for air-gapped enterprise deployments.',
+    hq:'Palo Alto, CA', founded:'2017',
+    status:'Private', funding:'$1.1B raised',
+    products:['RDU (Reconfigurable Dataflow Unit)','SambaNova Cloud API','SambaNova Suite (on-prem)'],
+    silicon:'Proprietary RDU',
+    modelSupport:['Llama 4 Maverick 405B','DeepSeek R1 671B','Meta Llama 3.1 405B','Qwen 3'],
+    latencyClaim:'Industry-leading on 405B+ parameter models',
+    throughputClaim:'1,500+ tokens/sec (Llama 3.1 8B)',
+    deployment:['Cloud API','On-Premise'],
+    partnerships:['Meta','Dell','ServiceNow'],
+    customers:'DoD · US Intelligence Community · Enterprise (financial services, healthcare)',
+    pricingModel:'API (per token) · On-prem enterprise license',
+  },
+  {
+    id:'together-inf', name:'Together AI',
+    category:'Inference Platform & Cloud',
+    positioning:'Open-model inference platform and GPU cloud — one API for 200+ OSS models with dedicated endpoints, fine-tuning, and GPU cluster rental. Leading developer platform for open AI.',
+    hq:'San Francisco, CA', founded:'2022',
+    status:'Private', funding:'$305M raised',
+    products:['Together Inference API','Together GPU Cloud','Together Fine-Tuning'],
+    silicon:null,
+    modelSupport:['Llama 4','DeepSeek R1/V3','Mistral','Qwen','Gemma','FLUX'],
+    latencyClaim:null,
+    throughputClaim:null,
+    deployment:['Cloud API','Dedicated Endpoints','GPU Rental'],
+    partnerships:['NVIDIA','Microsoft'],
+    customers:null,
+    pricingModel:'API (per token) · Dedicated endpoints · GPU on-demand',
+  },
+  {
+    id:'fireworks-inf', name:'Fireworks AI',
+    category:'Inference Platform',
+    positioning:'High-throughput inference API optimized for production workloads — compound AI systems, structured outputs, and fast token generation. Emphasis on reliability and developer ergonomics at scale.',
+    hq:'San Francisco, CA', founded:'2022',
+    status:'Private', funding:'$252M raised',
+    products:['Fireworks Inference API','FireFunction (function calling)','FireOptimizer'],
+    silicon:null,
+    modelSupport:['Llama 4','DeepSeek R1/V3','Qwen','Gemma','Mixtral','Phi'],
+    latencyClaim:'3× faster than OpenAI on equivalent models',
+    throughputClaim:null,
+    deployment:['Cloud API','Dedicated Deployments'],
+    partnerships:['NVIDIA'],
+    customers:null,
+    pricingModel:'API (per token) · Dedicated (reserved)',
+  },
+  {
+    id:'baseten-inf', name:'Baseten',
+    category:'Inference Deployment Platform',
+    positioning:'Inference infrastructure for ML teams — deploy any model (open or custom) as a production endpoint with auto-scaling, GPU orchestration, and A/B testing. Emphasis on custom model serving beyond generic APIs.',
+    hq:'San Francisco, CA', founded:'2019',
+    status:'Private', funding:'$75M raised',
+    products:['Truss (model packaging)','Inference Endpoints','Dedicated Deployments'],
+    silicon:null,
+    modelSupport:['Any HuggingFace model','Llama','Mistral','Stable Diffusion','Custom models'],
+    latencyClaim:null,
+    throughputClaim:null,
+    deployment:['Cloud (multi-GPU)','Dedicated'],
+    partnerships:['NVIDIA'],
+    customers:'Scale AI · ElevenLabs · Notion',
+    pricingModel:'Compute (per GPU-hour) · Pay-per-request',
+  },
+  {
+    id:'modal-inf', name:'Modal',
+    category:'Serverless Inference & Compute',
+    positioning:'Python-native serverless GPU platform — define infrastructure in code, sub-second cold starts, autoscaling from zero. Designed for inference, batch workloads, and ML pipelines without managing clusters.',
+    hq:'New York, NY', founded:'2021',
+    status:'Private', funding:'$110M raised',
+    products:['Modal Serverless GPUs','Modal Functions','Modal Web Endpoints'],
+    silicon:null,
+    modelSupport:['Any Python-deployable model'],
+    latencyClaim:'Sub-second cold start',
+    throughputClaim:null,
+    deployment:['Serverless Cloud'],
+    partnerships:['NVIDIA'],
+    customers:null,
+    pricingModel:'Per-second compute (pay-as-you-go)',
+  },
+  {
+    id:'friendliai-inf', name:'FriendliAI',
+    category:'Inference Optimization Engine',
+    positioning:'LLM inference optimization middleware — PaginatedKV, continuous batching, and speculative decoding deliver 10× throughput improvements on existing GPU infrastructure. Friendli Dedicated and Serverless endpoints for managed inference.',
+    hq:'San Francisco, CA (Seoul HQ)', founded:'2022',
+    status:'Private', funding:'$44M raised',
+    products:['Friendli Engine (inference optimizer)','Friendli Dedicated','Friendli Serverless'],
+    silicon:null,
+    modelSupport:['Llama','Mistral','GPT-2','EXAONE','Custom models'],
+    latencyClaim:'Up to 10× throughput improvement',
+    throughputClaim:null,
+    deployment:['Cloud API','Self-hosted Engine'],
+    partnerships:['NVIDIA','AWS','Azure'],
+    customers:null,
+    pricingModel:'Engine license · API (per token)',
+  },
+  {
+    id:'modular-inf', name:'Modular',
+    category:'Inference Runtime & Compiler',
+    positioning:'MAX inference engine and Mojo programming language — hardware-agnostic inference compiler that extracts near-hardware-limit performance on NVIDIA, AMD, and custom silicon without rewrites. MAX Serving for production deployment.',
+    hq:'Santa Clara, CA', founded:'2022',
+    status:'Private', funding:'$130M raised',
+    products:['MAX Engine (inference runtime)','MAX Serving','Mojo (AI programming language)'],
+    silicon:null,
+    modelSupport:['Llama','Mistral','Stable Diffusion','Any ONNX/HuggingFace model'],
+    latencyClaim:'3× faster than vLLM on equivalent hardware',
+    throughputClaim:null,
+    deployment:['Cloud','On-Premise','Edge'],
+    partnerships:['NVIDIA','AMD','Google Cloud','AWS'],
+    customers:null,
+    pricingModel:'Open-source (MAX) · MAX Serving (enterprise)',
+  },
+];
+
 function val(v){
   if(v===null||v===undefined||v===''||v==='—') return '<span class="cc-value ud">—</span>';
   if(v==='undisclosed') return '<span class="cc-value ud">undisclosed</span>';
@@ -2605,28 +2826,51 @@ function valList(a){
 function boolVal(v){ if(v===true)return'<span class="cc-value">Yes</span>'; if(v===false)return'<span class="cc-value">No</span>'; return'<span class="cc-value ud">—</span>'; }
 
 function renderAICloudIndex(ct){
-  // Header
+  // Shared header (always shown)
   const hdr=document.createElement('div');
   hdr.className='cloud-index-hdr';
+
+  const subtitles={
+    clouds:`Technical profiles of GPU cloud providers — hardware, platform stack, ecosystem & partnerships, and an independent ClusterMAX™ tier where published.`,
+    inference:`Inference platforms, silicon, and runtimes — from API providers to on-prem deployment engines and inference compilers.`,
+    networking:`AI networking hardware and software — scale-up interconnects, scale-out fabrics, and network management platforms purpose-built for AI workloads.`,
+  };
+  const counts={clouds:AI_CLOUDS.length, inference:INFERENCE_VENDORS.length, networking:NET_VENDORS.length};
+
   hdr.innerHTML=`
     <div class="cloud-index-eyebrow">Compute &amp; Inference Provider Index · June 2026</div>
     <div class="cloud-index-title">Compute &amp; Inference Provider Index</div>
-    <p class="cloud-index-sub">Technical profiles of GPU cloud and inference providers — hardware, platform stack, ecosystem &amp; partnerships, and an independent ClusterMAX™ tier where published. One identical card per provider; fields fill in as providers verify them.</p>
-    <div class="cloud-meta-row">
-      <span class="cloud-methodology">${AI_CLOUDS.length} providers</span>
+    <p class="cloud-index-sub" id="idx-subtitle">${subtitles[indexTab]}</p>
+    <div class="cloud-meta-row" id="idx-meta">
+      <span class="cloud-methodology" id="idx-count">${counts[indexTab]} providers</span>
       <span class="cloud-methodology">Last updated June 2026</span>
-      <span class="cloud-methodology">ClusterMAX™ — independent rating by <a href="https://www.clustermax.ai/" target="_blank" rel="noopener">SemiAnalysis</a>, cited with attribution; not affiliated</span>
-    </div>`;
+      ${indexTab==='clouds'?`<span class="cloud-methodology">ClusterMAX™ — independent rating by <a href="https://www.clustermax.ai/" target="_blank" rel="noopener">SemiAnalysis</a>, cited with attribution; not affiliated</span>`:''}
+    </div>
+    <nav class="idx-tabs">
+      <button class="idx-tab${indexTab==='clouds'?' active':''}" onclick="setIndexTab('clouds')">
+        AI Clouds <span class="idx-tab-count">${AI_CLOUDS.length}</span>
+      </button>
+      <button class="idx-tab${indexTab==='inference'?' active':''}" onclick="setIndexTab('inference')">
+        Inference <span class="idx-tab-count">${INFERENCE_VENDORS.length}</span>
+      </button>
+      <button class="idx-tab${indexTab==='networking'?' active':''}" onclick="setIndexTab('networking')">
+        Networking <span class="idx-tab-count">${NET_VENDORS.length}</span>
+      </button>
+    </nav>`;
   ct.appendChild(hdr);
 
+  if(indexTab==='clouds')     _renderCloudTab(ct);
+  else if(indexTab==='inference') renderInferenceIndex(ct);
+  else if(indexTab==='networking') renderNetworkingIndex(ct);
+}
+
+function _renderCloudTab(ct){
   const grid=document.createElement('div');
   grid.className='cloud-grid';
-  // Tier lookup: derive tier for a cloud provider from INFRA_SUBLAYERS data
   function cloudTier(name){
     for(const sl of INFRA_SUBLAYERS)for(const sub of sl.subs){const co=sub.cos.find(c=>c.n===name);if(co)return co.t;}
     return 'major';
   }
-  // Order by data completeness: fullest profiles first, sparsest (most "—") last.
   const _cf=['hq','founded','status','funding','footprint','interconnect','managedK8s','orchestration','tenantIsolation','selfService','networkingAutomation','storage','customers'];
   const cloudScore=co=>_cf.reduce((n,f)=>n+(co[f]?1:0),0)+((co.gpus&&co.gpus.length)?1:0)+(co.bareMetal!=null?1:0);
   const allowed=tier!=='all'?TIER_GROUPS[tier]:null;
@@ -2724,6 +2968,162 @@ function mkCloudCard(co){
   return d;
 }
 
+/* ── NETWORKING INDEX ── */
+function renderNetworkingIndex(ct){
+  const grid=document.createElement('div');
+  grid.className='net-grid';
+  NET_VENDORS.forEach(co=>grid.appendChild(mkNetCard(co)));
+  ct.appendChild(grid);
+}
+
+function mkNetCard(co){
+  const d=document.createElement('div');
+  d.id='net-'+co.id;
+  d.className='net-card';
+  const brandColor=LOGO_COLORS[co.name]||'#0EA5E9';
+  d.style.setProperty('border-left-color',brandColor);
+  const dom=DOMAINS[co.name];
+  const inits=co.name.replace(/[^A-Za-z0-9 ]/g,'').split(/\s+/).map(w=>w[0]||'').join('').slice(0,2).toUpperCase();
+  const logoHtml=dom
+    ?`<div class="net-card-logo" style="background:${brandColor}"><img src="https://www.google.com/s2/favicons?domain=${dom}&sz=32" loading="lazy" onerror="this.style.display='none';this.parentNode.textContent='${inits}'"></div>`
+    :`<div class="net-card-logo" style="background:${brandColor}">${inits}</div>`;
+
+  const chips=arr=>arr&&arr.length?`<div class="net-chip-row">${arr.map(s=>`<span class="net-chip">${s}</span>`).join('')}</div>`:'<span class="cc-value ud">—</span>';
+
+  d.innerHTML=`
+    <div class="net-card-hdr" style="border-bottom:1px solid ${brandColor}33">
+      ${logoHtml}
+      <div class="cloud-card-title-wrap">
+        <div style="display:flex;align-items:center;gap:8px">
+          <span class="net-card-name">${co.name}</span>
+          <a class="net-permalink" href="#net-${co.id}" onclick="copyNetAnchor('net-${co.id}');return false;" title="Copy permalink"># link</a>
+        </div>
+        <div class="net-card-cat">${co.category}</div>
+        <div class="net-card-pos">${co.positioning}</div>
+      </div>
+    </div>
+    <div class="net-card-body">
+      <div>
+        <div class="cloud-section">
+          <div class="cloud-section-title" style="color:#0369A1">Company</div>
+          <div class="cc-field"><span class="cc-label">HQ</span>${val(co.hq)}</div>
+          <div class="cc-field"><span class="cc-label">Founded</span>${val(co.founded)}</div>
+          <div class="cc-field"><span class="cc-label">Status</span>${val(co.status)}</div>
+          <div class="cc-field"><span class="cc-label">Funding</span>${val(co.funding)}</div>
+        </div>
+        <div class="cloud-section">
+          <div class="cloud-section-title" style="color:#0369A1">Products</div>
+          <div class="cc-field" style="flex-direction:column;gap:3px">${chips(co.products)}</div>
+        </div>
+        <div class="cloud-section">
+          <div class="cloud-section-title" style="color:#0369A1">Silicon / NOS</div>
+          <div class="cc-field"><span class="cc-label">Silicon</span>${val(co.silicon)}</div>
+          <div class="cc-field"><span class="cc-label">NOS</span>${val(co.nos)}</div>
+        </div>
+      </div>
+      <div>
+        <div class="cloud-section">
+          <div class="cloud-section-title" style="color:#0369A1">Standards & Ecosystem</div>
+          <div class="cc-field" style="flex-direction:column;gap:3px">${chips(co.standards)}</div>
+        </div>
+        <div class="cloud-section">
+          <div class="cloud-section-title" style="color:#0369A1">Partnerships</div>
+          <div class="cc-field" style="flex-direction:column;gap:3px">${chips(co.partnerships)}</div>
+        </div>
+        <div class="cloud-section">
+          <div class="cloud-section-title" style="color:#0369A1">Deployment & Use Cases</div>
+          <div class="cc-field"><span class="cc-label">Deployment</span>${valList(co.deployment)}</div>
+          <div class="cc-field"><span class="cc-label">Use cases</span>${valList(co.useCase)}</div>
+          <div class="cc-field"><span class="cc-label">Customers</span>${val(co.customers)}</div>
+          <div class="cc-field"><span class="cc-label">Pricing</span>${val(co.pricingModel)}</div>
+        </div>
+      </div>
+    </div>`;
+  return d;
+}
+
+function copyNetAnchor(id){
+  const url=window.location.href.split('#')[0]+'#'+id;
+  navigator.clipboard.writeText(url).catch(()=>{});
+  const t=document.getElementById('toast');
+  t.textContent='Profile link copied';t.classList.add('show');
+  setTimeout(()=>{t.classList.remove('show');},2200);
+}
+
+/* ── INFERENCE INDEX ── */
+function renderInferenceIndex(ct){
+  const grid=document.createElement('div');
+  grid.className='net-grid';
+  INFERENCE_VENDORS.forEach(co=>grid.appendChild(mkInferenceCard(co)));
+  ct.appendChild(grid);
+}
+
+function mkInferenceCard(co){
+  const d=document.createElement('div');
+  d.id='inf-'+co.id;
+  d.className='net-card';
+  const brandColor=LOGO_COLORS[co.name]||'#7C3AED';
+  d.style.setProperty('border-left-color',brandColor);
+  const dom=DOMAINS[co.name];
+  const inits=co.name.replace(/[^A-Za-z0-9 ]/g,'').split(/\s+/).map(w=>w[0]||'').join('').slice(0,2).toUpperCase();
+  const logoHtml=dom
+    ?`<div class="net-card-logo" style="background:${brandColor}"><img src="https://www.google.com/s2/favicons?domain=${dom}&sz=32" loading="lazy" onerror="this.style.display='none';this.parentNode.textContent='${inits}'"></div>`
+    :`<div class="net-card-logo" style="background:${brandColor}">${inits}</div>`;
+
+  const chips=arr=>arr&&arr.length?`<div class="net-chip-row">${arr.map(s=>`<span class="net-chip" style="background:rgba(124,58,237,.08);color:#6D28D9;border-color:rgba(124,58,237,.2)">${s}</span>`).join('')}</div>`:'<span class="cc-value ud">—</span>';
+
+  d.innerHTML=`
+    <div class="net-card-hdr" style="border-bottom:1px solid ${brandColor}33">
+      ${logoHtml}
+      <div class="cloud-card-title-wrap">
+        <div style="display:flex;align-items:center;gap:8px">
+          <span class="net-card-name">${co.name}</span>
+          <a class="net-permalink" href="#inf-${co.id}" onclick="copyNetAnchor('inf-${co.id}');return false;" title="Copy permalink"># link</a>
+        </div>
+        <div class="net-card-cat" style="color:#7C3AED">${co.category}</div>
+        <div class="net-card-pos">${co.positioning}</div>
+      </div>
+    </div>
+    <div class="net-card-body">
+      <div>
+        <div class="cloud-section">
+          <div class="cloud-section-title" style="color:#6D28D9">Company</div>
+          <div class="cc-field"><span class="cc-label">HQ</span>${val(co.hq)}</div>
+          <div class="cc-field"><span class="cc-label">Founded</span>${val(co.founded)}</div>
+          <div class="cc-field"><span class="cc-label">Status</span>${val(co.status)}</div>
+          <div class="cc-field"><span class="cc-label">Funding</span>${val(co.funding)}</div>
+        </div>
+        <div class="cloud-section">
+          <div class="cloud-section-title" style="color:#6D28D9">Products</div>
+          <div class="cc-field" style="flex-direction:column;gap:3px">${chips(co.products)}</div>
+        </div>
+        <div class="cloud-section">
+          <div class="cloud-section-title" style="color:#6D28D9">Silicon</div>
+          <div class="cc-field"><span class="cc-label">Silicon</span>${val(co.silicon)}</div>
+        </div>
+      </div>
+      <div>
+        <div class="cloud-section">
+          <div class="cloud-section-title" style="color:#6D28D9">Performance</div>
+          <div class="cc-field"><span class="cc-label">Latency</span>${val(co.latencyClaim)}</div>
+          <div class="cc-field"><span class="cc-label">Throughput</span>${val(co.throughputClaim)}</div>
+        </div>
+        <div class="cloud-section">
+          <div class="cloud-section-title" style="color:#6D28D9">Models Supported</div>
+          <div class="cc-field" style="flex-direction:column;gap:3px">${chips(co.modelSupport)}</div>
+        </div>
+        <div class="cloud-section">
+          <div class="cloud-section-title" style="color:#6D28D9">Deployment & Ecosystem</div>
+          <div class="cc-field"><span class="cc-label">Deployment</span>${valList(co.deployment)}</div>
+          <div class="cc-field"><span class="cc-label">Partners</span>${valList(co.partnerships)}</div>
+          <div class="cc-field"><span class="cc-label">Customers</span>${val(co.customers)}</div>
+          <div class="cc-field"><span class="cc-label">Pricing</span>${val(co.pricingModel)}</div>
+        </div>
+      </div>
+    </div>`;
+  return d;
+}
+
 function copyAnchor(id){
   const url=window.location.href.split('#')[0]+'#'+id;
   navigator.clipboard.writeText(url).catch(()=>{});
@@ -2752,16 +3152,29 @@ function handleHash(){
   const h = window.location.hash;
   if(!h) return;
   // #index (or #cloud) opens the Provider Index view directly
-  if(h==='#index' || h==='#cloud'){
-    if(mode !== 'cloud') setMode('cloud', true);
-    return;
+  if(h==='#index' || h==='#cloud' || h==='#index-clouds'){
+    indexTab='clouds'; if(mode !== 'cloud') setMode('cloud', true); else render(); return;
+  }
+  if(h==='#index-inference'){
+    indexTab='inference'; if(mode !== 'cloud') setMode('cloud', true); else render(); return;
+  }
+  if(h==='#index-networking'){
+    indexTab='networking'; if(mode !== 'cloud') setMode('cloud', true); else render(); return;
   }
   if(h.startsWith('#cloud-')){
-    if(mode !== 'cloud') setMode('cloud', true);
+    indexTab='clouds'; if(mode !== 'cloud') setMode('cloud', true);
     // Wait one tick for render() to populate DOM
     requestAnimationFrame(()=>{
       const el = document.getElementById(h.slice(1));
       if(el){ el.scrollIntoView({behavior:'smooth', block:'start'}); highlightCloud(h.slice(1)); }
+    });
+  }
+  if(h.startsWith('#net-') || h.startsWith('#inf-')){
+    indexTab = h.startsWith('#net-') ? 'networking' : 'inference';
+    if(mode !== 'cloud') setMode('cloud', true);
+    requestAnimationFrame(()=>{
+      const el = document.getElementById(h.slice(1));
+      if(el) el.scrollIntoView({behavior:'smooth', block:'start'});
     });
   }
 }
