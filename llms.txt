@@ -1,0 +1,23 @@
+# The AI Infra Ecosystem Map
+
+> A living map of 290 companies building the AI infrastructure ecosystem, organized across the five layers of the AI stack (Application, Models, Infrastructure, Chips, Energy). The Infrastructure layer is expanded in full across seven sublayers: AI Cloud & Compute, Inference & Model APIs, Agent Infrastructure, Cluster Orchestration & Tenant Isolation, MLOps & Training, Storage & Networking, and Data Center & Hardware. 66 of the 290 listed companies are open-source-core projects. Curated by Rahul Patwardhan. Last updated July 2, 2026.
+
+Companies are tiered by market presence: Leader (category-defining), Major (established), Emerging (scaling), Startup (early-stage). Tiers reflect market presence, not endorsement.
+
+## Core pages
+
+- [The AI Infra Ecosystem Map](https://yourdomain.com/): Interactive map of all 290 companies with region, tier, and open-source filters, plus a full plain-text company index (#company-index) and FAQ (#faq).
+
+## Infrastructure sublayers covered
+
+- AI Cloud & Compute: Hyperscalers, GPU-native clouds, sovereign clouds, and GPU marketplaces
+- Inference & Model APIs: Managed inference providers, serverless model APIs, and inference-as-a-service platforms
+- Agent Infrastructure: Sandboxes, durable execution, memory, and tool infrastructure for running autonomous agents in production
+- Cluster Orchestration & Tenant Isolation: Kubernetes platforms, tenant cluster orchestration, GPU scheduling, AI factory software
+- MLOps & Training: Experiment tracking, distributed training, inference engines and observability tooling
+- Storage & Networking: Parallel storage, object storage, vector databases, high-speed interconnects
+- Data Center & Bare Metal: Colocation operators, cooling, power, server OEMs, bare metal provisioning
+
+## Selection methodology
+
+A company is listed when it ships a production product in one of the seven infrastructure sublayers with meaningful adoption, funding, or open-source traction. The map is a living draft — suggestions are reviewed via the linked form.
