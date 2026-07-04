@@ -1,0 +1,374 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Compute Ladder: nobody buys GPUs — seven companies, seven units of consumption | AI Infra Ecosystem Map</title>
+<meta name="description" content="Firmus, GMI Cloud, TensorWave, Lightning AI, Runpod, DeepInfra and FriendliAI each sell a different unit of compute — from megawatts to tokens. What each sells, what each buys, and who their natural counterparty is. Verified July 2026.">
+<meta name="author" content="Rahul Patwardhan">
+<meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
+<link rel="canonical" href="https://aiinfraecosystem.netlify.app/compute-ladder.html">
+<meta property="og:title" content="The Compute Ladder: nobody buys GPUs">
+<meta property="og:description" content="Seven AI infrastructure companies — from megawatts to tokens — megawatts to tokens. The two-sided view (what each sells AND buys) that no spec sheet publishes.">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://aiinfraecosystem.netlify.app/compute-ladder.html">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Geist:wght@300;400;500;600;700;800&family=Geist+Mono:wght@400;500&display=swap" rel="stylesheet">
+<script type="application/ld+json">
+{
+ "@context": "https://schema.org",
+ "@graph": [
+  {
+   "@type": "Article",
+   "headline": "The Compute Ladder: nobody buys GPUs — seven companies, seven units of consumption",
+   "description": "A framework for the AI infrastructure market: every provider sells a different unit of consumption, from megawatts to tokens. Deep cards on Firmus, GMI Cloud, TensorWave, Lightning AI, Runpod, DeepInfra and FriendliAI.",
+   "author": {"@type": "Person", "name": "Rahul Patwardhan"},
+   "datePublished": "2026-07-04",
+   "dateModified": "2026-07-04",
+   "url": "https://aiinfraecosystem.netlify.app/compute-ladder.html",
+   "isPartOf": {"@type": "WebSite", "name": "The AI Infra Ecosystem Map", "url": "https://aiinfraecosystem.netlify.app/"}
+  },
+  {
+   "@type": "BreadcrumbList",
+   "itemListElement": [
+    {"@type": "ListItem", "position": 1, "name": "AI Infra Ecosystem Map", "item": "https://aiinfraecosystem.netlify.app/"},
+    {"@type": "ListItem", "position": 2, "name": "The Compute Ladder", "item": "https://aiinfraecosystem.netlify.app/compute-ladder.html"}
+   ]
+  },
+  {
+   "@type": "ItemList",
+   "name": "The Compute Ladder — six rungs",
+   "itemListOrder": "https://schema.org/ItemListOrderDescending",
+   "itemListElement": [
+    {"@type": "ListItem", "position": 1, "name": "FriendliAI — sells tokens from custom models, buys GPU capacity", "url": "https://aiinfraecosystem.netlify.app/companies/friendliai.html"},
+    {"@type": "ListItem", "position": 2, "name": "DeepInfra — sells tokens", "url": "https://aiinfraecosystem.netlify.app/companies/deepinfra.html"},
+    {"@type": "ListItem", "position": 3, "name": "Runpod — sells GPU-seconds", "url": "https://aiinfraecosystem.netlify.app/companies/runpod.html"},
+    {"@type": "ListItem", "position": 4, "name": "Lightning AI — sells the workflow plus multi-cloud GPU-hours", "url": "https://aiinfraecosystem.netlify.app/companies/lightning-ai.html"},
+    {"@type": "ListItem", "position": 5, "name": "TensorWave — sells AMD GPU-hours", "url": "https://aiinfraecosystem.netlify.app/companies/tensorwave.html"},
+    {"@type": "ListItem", "position": 6, "name": "GMI Cloud — sells GPU clusters and sovereign AI factories", "url": "https://aiinfraecosystem.netlify.app/companies/gmi-cloud.html"},
+    {"@type": "ListItem", "position": 7, "name": "Firmus — sells megawatts and whole AI factories", "url": "https://aiinfraecosystem.netlify.app/companies/firmus.html"}
+   ]
+  },
+  {
+   "@type": "FAQPage",
+   "mainEntity": [
+    {
+     "@type": "Question",
+     "name": "What is the compute ladder in AI infrastructure?",
+     "acceptedAnswer": {"@type": "Answer", "text": "The compute ladder is a way of classifying AI infrastructure providers by the unit of consumption they actually sell rather than the hardware they run. From most physical to most abstract: megawatts and AI factories (Firmus), sovereign GPU clusters (GMI Cloud), GPU-hours (TensorWave), workflow plus multi-cloud GPU-hours (Lightning AI), GPU-seconds (Runpod), and tokens (DeepInfra). Comparing providers on different rungs by hourly GPU price is a category error."}
+    },
+    {
+     "@type": "Question",
+     "name": "What is the difference between a GPU cloud and an inference provider?",
+     "acceptedAnswer": {"@type": "Answer", "text": "A GPU cloud sells time on hardware — hours or seconds of GPU access that the buyer must operate. An inference provider sells the output — tokens through an API — and abstracts the hardware entirely. Many companies now span rungs: DeepInfra sells tokens but also dedicated GPU clusters via DeepCluster, and Lightning AI sells a development platform, its own 35,000+ GPU fleet, and third-party capacity through a marketplace."}
+    },
+    {
+     "@type": "Question",
+     "name": "Which AI infrastructure companies also buy capacity?",
+     "acceptedAnswer": {"@type": "Answer", "text": "Several sellers of compute are structurally also buyers. Runpod buys capacity from data-center partners and vetted hosts to feed its serverless platform. DeepInfra buys data centers and hardware outright. Lightning AI routes demand into seven or more third-party clouds through its marketplace while operating its own fleet. This two-sided posture — what a company buys, not just what it sells — determines who its natural deal counterparty is."}
+    },
+    {
+     "@type": "Question",
+     "name": "How were these six companies chosen?",
+     "acceptedAnswer": {"@type": "Answer", "text": "They were chosen because together they span every rung of the ladder — from Firmus selling megawatts to DeepInfra and FriendliAI selling tokens with opposite postures (owning the metal versus buying capacity) — not because they compete head-to-head. Each card documents the unit sold, the unit bought, verifiable scale proof with dates, the company's strategic bet, and its natural counterparty."}
+    }
+   ]
+  }
+ ]
+}
+</script>
+<style>
+:root{
+  --bg:#F2F3F5;--surface:#FAFAF8;--surface-2:#F3F3F0;--surface-3:#EBEBE8;
+  --border:rgba(0,0,0,0.08);--border-2:rgba(0,0,0,0.14);
+  --ink:#0D1117;--ink-2:#24292F;--ink-3:#57606A;--ink-4:#6B7480;
+  --accent:#0EA5E9;--accent-light:#E0F2FE;
+  --font:'Geist',system-ui,sans-serif;--mono:'Geist Mono',monospace;
+  --display:'Space Grotesk','Geist',system-ui,sans-serif;
+  --hero-ground:#0B0E14;--hero-ground-2:#141A24;--paper:#FBFAF7;
+  --r:6px;--r-lg:10px;--r-xl:14px;
+  --c-firmus:#16A34A;--c-gmi:#3461F0;--c-tw:#C25A45;
+  --c-lightning:#9A6700;--c-runpod:#A6779C;--c-deepinfra:#06B6D4;--c-friendli:#0E7490;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{background:var(--paper);color:var(--ink);font-family:var(--font);line-height:1.6;-webkit-font-smoothing:antialiased}
+.wrap{max-width:960px;margin:0 auto;padding:0 24px}
+.topnav{border-bottom:1px solid var(--border);background:var(--paper);position:sticky;top:0;z-index:10}
+.topnav .wrap{display:flex;align-items:center;gap:14px;height:52px}
+.topnav a{font-family:var(--mono);font-size:11px;color:var(--ink-3);text-decoration:none;transition:color .12s}
+.topnav a:hover{color:var(--ink)}
+.topnav .brand{font-family:var(--display);font-weight:600;font-size:13px;color:var(--ink);letter-spacing:-.01em}
+.topnav .sep{color:var(--border-2)}
+
+.hero{background:var(--hero-ground);color:#E8EAF0;padding:64px 0 0;position:relative;overflow:hidden}
+.hero::after{content:"";position:absolute;inset:0;background:radial-gradient(700px 260px at 80% -10%,rgba(14,165,233,.16),transparent 70%);pointer-events:none}
+.hero .kicker{font-family:var(--mono);font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--accent);margin-bottom:16px}
+.hero h1{font-family:var(--display);font-size:clamp(30px,5.4vw,50px);font-weight:700;letter-spacing:-.035em;line-height:1.05;color:#fff;max-width:20ch;text-wrap:balance}
+.hero .sub{margin-top:16px;font-size:16px;color:#9AA3B5;max-width:58ch}
+.hero .stamp{margin-top:20px;font-family:var(--mono);font-size:10px;color:#7A8398}
+.hero .stamp b{color:var(--accent);font-weight:500}
+
+/* The ladder — signature element: a strata column, tokens (abstract) on top, megawatts (physical) at bottom */
+.ladder{margin:44px 0 0;border-top:1px solid rgba(255,255,255,.10);position:relative;z-index:1}
+.rung{display:grid;grid-template-columns:150px 160px 1fr 28px;align-items:center;gap:18px;padding:15px 0;border-bottom:1px solid rgba(255,255,255,.08);text-decoration:none;transition:background .15s,padding-left .15s;position:relative}
+.rung::before{content:"";position:absolute;left:-24px;top:0;bottom:0;width:3px;background:var(--rc)}
+.rung:hover{background:rgba(255,255,255,.03);padding-left:8px}
+.rung .unit{font-family:var(--mono);font-size:11px;letter-spacing:.05em;color:#B9C0CE;text-transform:uppercase}
+.rung .co{font-family:var(--display);font-size:16px;font-weight:600;color:#fff;letter-spacing:-.01em}
+.rung .co i{display:inline-block;width:8px;height:8px;border-radius:2px;background:var(--rc);margin-right:8px;vertical-align:1px}
+.rung .what{font-size:12.5px;color:#8A93A6}
+.rung .go{font-family:var(--mono);color:#5E6779;font-size:13px;text-align:right;transition:color .15s,transform .15s}
+.rung:hover .go{color:var(--accent);transform:translateX(3px)}
+.ladder-caption{font-family:var(--mono);font-size:9.5px;color:#5E6779;letter-spacing:.06em;padding:12px 0 40px;display:flex;justify-content:space-between}
+
+main{padding:48px 0 56px}
+section{margin-bottom:44px}
+.eyebrow{font-family:var(--mono);font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--accent);margin-bottom:8px}
+h2{font-family:var(--display);font-size:21px;font-weight:600;letter-spacing:-.02em;margin-bottom:12px}
+p{color:var(--ink-2);max-width:70ch;margin-bottom:12px}
+p:last-child{margin-bottom:0}
+
+/* Matrix */
+.matrix-wrap{overflow-x:auto;border:1px solid var(--border);border-radius:var(--r-xl);background:var(--surface);box-shadow:0 1px 3px rgba(0,0,0,.04)}
+table{border-collapse:collapse;width:100%;min-width:860px;font-size:12px}
+th,td{padding:10px 12px;text-align:left;border-bottom:1px solid var(--border);vertical-align:top}
+thead th{font-family:var(--mono);font-size:9.5px;letter-spacing:.07em;text-transform:uppercase;color:var(--ink-4);background:var(--surface-2);position:sticky;top:0}
+thead th:first-child{width:132px}
+tbody th{font-family:var(--mono);font-size:10px;letter-spacing:.04em;color:var(--ink-3);font-weight:500;background:var(--surface-2);white-space:nowrap}
+td{color:var(--ink-2)}
+td b{font-weight:600;color:var(--ink)}
+.co-head{font-family:var(--display);font-weight:600;font-size:12.5px;color:var(--ink)!important;text-transform:none!important;letter-spacing:-.01em!important}
+.co-head a{color:inherit;text-decoration:none;border-bottom:1px solid var(--border-2)}
+.co-head a:hover{border-color:var(--ink)}
+.co-head i{display:inline-block;width:7px;height:7px;border-radius:2px;margin-right:6px;vertical-align:0}
+tr.locked{background:var(--hero-ground)}
+tr.locked th{background:var(--hero-ground-2);color:#9AA3B5;border-bottom:1px solid rgba(255,255,255,.08)}
+tr.locked th small{display:block;font-size:8.5px;color:#5E6779;letter-spacing:.03em;margin-top:1px;white-space:normal}
+tr.locked td{border-bottom:1px solid rgba(255,255,255,.08)}
+.redact{font-family:var(--mono);font-size:11px;color:#4A5366;filter:blur(3.5px);user-select:none;letter-spacing:.04em}
+tr.locked-label td{background:var(--hero-ground);border-bottom:1px solid rgba(255,255,255,.10);padding:12px}
+.locked-flag{display:flex;align-items:center;gap:10px;font-family:var(--mono);font-size:10px;letter-spacing:.08em;text-transform:uppercase;color:var(--accent)}
+.locked-flag::before{content:"\25A0";font-size:8px}
+.locked-flag span{color:#7A8398;text-transform:none;letter-spacing:0}
+.matrix-foot{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;padding:14px;background:var(--hero-ground);border-top:1px solid rgba(255,255,255,.10)}
+.matrix-foot p{font-family:var(--mono);font-size:10px;color:#7A8398;margin:0;max-width:none}
+.matrix-foot a{display:inline-block;font-family:var(--mono);font-size:11px;color:var(--hero-ground);background:var(--accent);padding:8px 14px;border-radius:var(--r);text-decoration:none;font-weight:500;transition:transform .12s;white-space:nowrap}
+.matrix-foot a:hover{transform:translateY(-1px)}
+
+/* Card grid to six pages */
+.cards{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+.ccard{background:var(--surface);border:1px solid var(--border);border-radius:var(--r-lg);padding:16px;text-decoration:none;display:flex;flex-direction:column;gap:6px;transition:all .15s;box-shadow:0 1px 3px rgba(0,0,0,.04);border-top:3px solid var(--cc)}
+.ccard:hover{transform:translateY(-2px);box-shadow:0 4px 12px rgba(13,17,23,.08);border-color:var(--border-2);border-top-color:var(--cc)}
+.ccard .unit{font-family:var(--mono);font-size:9px;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-4)}
+.ccard .co{font-family:var(--display);font-size:15px;font-weight:600;color:var(--ink);letter-spacing:-.01em}
+.ccard p{font-size:12px;color:var(--ink-3);margin:0}
+.ccard .go{margin-top:auto;padding-top:8px;font-family:var(--mono);font-size:10px;color:var(--cc)}
+
+/* FAQ — side by side, not accordion */
+.faq{display:grid;grid-template-columns:1fr 1fr;gap:22px 32px}
+.faq h3{font-family:var(--display);font-size:14px;font-weight:600;letter-spacing:-.01em;margin-bottom:6px}
+.faq p{font-size:13px;color:var(--ink-3);margin:0}
+
+.method{background:var(--surface);border:1px solid var(--border);border-left:3px solid var(--accent);border-radius:var(--r-lg);padding:16px 18px}
+.method p{font-size:12.5px;color:var(--ink-3)}
+
+footer{border-top:1px solid var(--border);padding:20px 0 36px}
+footer .wrap{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;font-family:var(--mono);font-size:10px;color:var(--ink-4)}
+footer a{color:var(--ink-3);text-decoration:none}
+footer a:hover{color:var(--ink)}
+a:focus-visible{outline:2px solid var(--accent);outline-offset:2px;border-radius:3px}
+@media(max-width:820px){
+  .rung{grid-template-columns:1fr 24px;gap:4px 12px}
+  .rung .unit{grid-column:1}
+  .rung .what{grid-column:1/-1}
+  .rung .go{grid-row:1;grid-column:2}
+  .cards{grid-template-columns:1fr}
+  .faq{grid-template-columns:1fr}
+}
+@media(prefers-reduced-motion:reduce){*{transition:none!important}html{scroll-behavior:auto}}
+</style>
+</head>
+<body>
+<nav class="topnav"><div class="wrap">
+  <a class="brand" href="index.html">AI Infra Ecosystem Map</a><span class="sep">/</span>
+  <a href="compute-ladder.html" aria-current="page" style="color:var(--ink)">The Compute Ladder</a>
+</div></nav>
+
+<header class="hero">
+  <div class="wrap">
+    <div class="kicker">Analysis · seven deep cards</div>
+    <h1>Nobody buys GPUs.</h1>
+    <p class="sub">Every buyer purchases a <em>unit of consumption</em> matched to their team's level of abstraction — and the AI infrastructure market is a ladder of those units, from megawatts to tokens. These seven companies map the rungs — including one rung contested two opposite ways. Comparing their hourly H100 price is a category error; most of them don't primarily sell hours.</p>
+    <p class="stamp">All public facts verified as of <b>4 July 2026</b> · by Rahul Patwardhan</p>
+
+    <div class="ladder" role="list" aria-label="The compute ladder, most abstract to most physical">
+      <a class="rung" role="listitem" href="companies/friendliai.html" style="--rc:var(--c-friendli)">
+        <span class="unit">Tokens · custom</span><span class="co"><i></i>FriendliAI</span>
+        <span class="what">Continuous-batching inventor · 6&ndash;7&times; revenue growth on ~$26M raised · buys GPU capacity across clouds</span><span class="go">&rarr;</span>
+      </a>
+      <a class="rung" role="listitem" href="companies/deepinfra.html" style="--rc:var(--c-deepinfra)">
+        <span class="unit">Tokens</span><span class="co"><i></i>DeepInfra</span>
+        <span class="what">~5T tokens/week · owns 8 US data centers · ~30% of volume is already agents</span><span class="go">&rarr;</span>
+      </a>
+      <a class="rung" role="listitem" href="companies/runpod.html" style="--rc:var(--c-runpod)">
+        <span class="unit">GPU-seconds</span><span class="co"><i></i>Runpod</span>
+        <span class="what">~$240M ARR, doubled in five months · 500K+ developers · scale-to-zero serverless</span><span class="go">&rarr;</span>
+      </a>
+      <a class="rung" role="listitem" href="companies/lightning-ai.html" style="--rc:var(--c-lightning)">
+        <span class="unit">Workflow + hours</span><span class="co"><i></i>Lightning AI</span>
+        <span class="what">PyTorch-native platform · now 35,000+ own GPUs post&ndash;Voltage Park merger · 7+ clouds in one marketplace</span><span class="go">&rarr;</span>
+      </a>
+      <a class="rung" role="listitem" href="companies/tensorwave.html" style="--rc:var(--c-tw)">
+        <span class="unit">GPU-hours · AMD</span><span class="co"><i></i>TensorWave</span>
+        <span class="what">8,192 MI325X live · $350M Series B co-led by AMD Ventures · Fireworks AI &amp; Luma AI in production</span><span class="go">&rarr;</span>
+      </a>
+      <a class="rung" role="listitem" href="companies/gmi-cloud.html" style="--rc:var(--c-gmi)">
+        <span class="unit">Clusters + sovereignty</span><span class="co"><i></i>GMI Cloud</span>
+        <span class="what">$12B / 1GW sovereign initiative in Japan · ~7,000 GB300s in Taiwan, near-full utilization</span><span class="go">&rarr;</span>
+      </a>
+      <a class="rung" role="listitem" href="companies/firmus.html" style="--rc:var(--c-firmus)">
+        <span class="unit">Megawatts</span><span class="co"><i></i>Firmus</span>
+        <span class="what">$10B Blackstone-led debt facility · 1.6GW target by 2028 · 100% renewable, PUE 1.03&ndash;1.10</span><span class="go">&rarr;</span>
+      </a>
+      <div class="ladder-caption"><span>&uarr; most abstract — buyers never see hardware</span><span>most physical — buyers sign for power &darr;</span></div>
+    </div>
+  </div>
+</header>
+
+<main class="wrap">
+  <section>
+    <div class="eyebrow">The second axis</div>
+    <h2>Every seller here is also a buyer</h2>
+    <p>The thing no spec sheet publishes: what each of these companies <b>buys</b>. Runpod buys capacity from data-center partners and vetted hosts — it deployed three times its previous total fleet in Q1 2026 alone. DeepInfra buys data centers outright. Lightning AI routes demand into seven or more third-party clouds while operating its own fleet. Firmus buys renewable power in hundred-megawatt blocks.</p>
+    <p>Knowing what a company buys tells you who its natural counterparty is — and that's where deals actually happen. The matrix below shows both sides.</p>
+  </section>
+
+  <section>
+    <div class="eyebrow">The comparison</div>
+    <h2>Seven companies, both sides of the sheet</h2>
+    <div class="matrix-wrap">
+    <table>
+      <thead>
+        <tr>
+          <th scope="col">Field</th>
+          <th scope="col" class="co-head"><i style="background:var(--c-firmus)"></i><a href="companies/firmus.html">Firmus</a></th>
+          <th scope="col" class="co-head"><i style="background:var(--c-gmi)"></i><a href="companies/gmi-cloud.html">GMI Cloud</a></th>
+          <th scope="col" class="co-head"><i style="background:var(--c-tw)"></i><a href="companies/tensorwave.html">TensorWave</a></th>
+          <th scope="col" class="co-head"><i style="background:var(--c-lightning)"></i><a href="companies/lightning-ai.html">Lightning AI</a></th>
+          <th scope="col" class="co-head"><i style="background:var(--c-runpod)"></i><a href="companies/runpod.html">Runpod</a></th>
+          <th scope="col" class="co-head"><i style="background:var(--c-deepinfra)"></i><a href="companies/deepinfra.html">DeepInfra</a></th>
+          <th scope="col" class="co-head"><i style="background:var(--c-friendli)"></i><a href="companies/friendliai.html">FriendliAI</a></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><th scope="row">Unit sold</th><td><b>MW / AI factories</b></td><td><b>Clusters + sovereignty</b></td><td><b>AMD GPU-hours</b></td><td><b>Workflow + multi-cloud hours</b></td><td><b>GPU-seconds</b></td><td><b>Tokens</b></td><td><b>Tokens — custom models</b></td></tr>
+        <tr><th scope="row">Unit bought</th><td>Power, land, GB300s</td><td>Power, DCs, hardware</td><td>AMD silicon, 2GW+ capacity</td><td>Demand routed to 7+ clouds</td><td>Partner + host capacity</td><td>Data centers, GPUs</td><td>GPU capacity across clouds</td></tr>
+        <tr><th scope="row">Silicon</th><td>NVIDIA GB300 &rarr; Rubin</td><td>NVIDIA Blackwell &rarr; Rubin</td><td>AMD only, MI300X&rarr;MI355X</td><td>Multi — fleet H100/B200/GB300</td><td>NVIDIA + consumer</td><td>NVIDIA Blackwell, Rubin</td><td>NVIDIA via partners (B300)</td></tr>
+        <tr><th scope="row">Scale signal</th><td>$10B debt + $1.35B equity; 1.6GW target</td><td>$12B Japan; ~7K GB300 Taiwan</td><td>$493M raised; 8,192 MI325X live</td><td>35K+ GPU fleet post-merger</td><td>~$240M ARR; 500K devs</td><td>~5T tokens/week</td><td>6&ndash;7&times; rev growth; 25&ndash;30 enterprise clients</td></tr>
+        <tr><th scope="row">Center of gravity</th><td>Australia / APAC</td><td>Taiwan&ndash;Japan&ndash;US</td><td>North America</td><td>US fleet, global marketplace</td><td>31 global regions</td><td>8 US data centers</td><td>US · Korea / APAC</td></tr>
+        <tr><th scope="row">Contract shape</th><td>Multi-year MW deals</td><td>Reserved + on-demand</td><td>Reserved clusters</td><td>Seats + on-demand + reserved</td><td>Per-second, no commitment</td><td>Per-token · DeepCluster 3&ndash;5yr</td><td>Per-token · dedicated · BYO-cluster</td></tr>
+        <tr><th scope="row">Natural buyer</th><td>Hyperscaler / sovereign</td><td>APAC inference &amp; enterprise</td><td>Memory-bound inference platforms</td><td>Enterprise ML teams</td><td>Long-tail devs &amp; startups</td><td>App builders / agents</td><td>Enterprises with custom models</td></tr>
+        <tr><th scope="row">The bet</th><td>Green tokens earn a premium</td><td>Sovereignty &gt; spot market</td><td>Memory/$ wins inference</td><td>Workflow &gt; any single fleet</td><td>Long tail &gt; whales</td><td>Agentic inference eats compute</td><td>Inference is a software problem</td></tr>
+
+        <tr class="locked-label"><td colspan="8"><span class="locked-flag">Private ledger <span>— five fields tracked but not published. They change weekly and are verified directly with each provider.</span></span></td></tr>
+        <tr class="locked"><th scope="row">Available capacity, next 90 days<small>GPU type · quantity · location · online date</small></th>
+          <td><span class="redact" aria-hidden="true">&#9608;&#9608;&#9619;&#9608;&#9608;&#9608;&#9619;&#9608;</span></td><td><span class="redact" aria-hidden="true">&#9608;&#9619;&#9608;&#9608;&#9608;&#9619;&#9608;&#9608;&#9608;</span></td><td><span class="redact" aria-hidden="true">&#9608;&#9608;&#9608;&#9619;&#9608;&#9608;&#9608;</span></td><td><span class="redact" aria-hidden="true">&#9619;&#9608;&#9608;&#9608;&#9608;&#9619;&#9608;&#9608;</span></td><td><span class="redact" aria-hidden="true">&#9608;&#9608;&#9619;&#9608;&#9608;&#9608;&#9608;&#9619;&#9608;</span></td><td><span class="redact" aria-hidden="true">&#9608;&#9619;&#9608;&#9608;&#9619;&#9608;&#9608;</span></td><td><span class="redact" aria-hidden="true">██▓▓▓███▓</span></td></tr>
+        <tr class="locked"><th scope="row">Effective price floor<small>reserved · per-GPU-hour, at volume</small></th>
+          <td><span class="redact" aria-hidden="true">&#9608;&#9608;&#9619;&#9608;&#9608;</span></td><td><span class="redact" aria-hidden="true">&#9608;&#9619;&#9608;&#9608;&#9608;&#9608;</span></td><td><span class="redact" aria-hidden="true">&#9619;&#9608;&#9608;&#9608;&#9608;</span></td><td><span class="redact" aria-hidden="true">&#9608;&#9608;&#9608;&#9619;&#9608;</span></td><td><span class="redact" aria-hidden="true">&#9608;&#9619;&#9608;&#9608;&#9608;&#9608;</span></td><td><span class="redact" aria-hidden="true">&#9608;&#9608;&#9619;&#9608;&#9608;</span></td><td><span class="redact" aria-hidden="true">▓██████▓█</span></td></tr>
+        <tr class="locked"><th scope="row">Idle-inventory posture<small>current utilization pressure</small></th>
+          <td><span class="redact" aria-hidden="true">&#9608;&#9619;&#9608;&#9608;&#9608;&#9608;&#9619;</span></td><td><span class="redact" aria-hidden="true">&#9608;&#9608;&#9608;&#9619;&#9608;&#9608;</span></td><td><span class="redact" aria-hidden="true">&#9608;&#9608;&#9619;&#9608;&#9608;&#9608;&#9608;</span></td><td><span class="redact" aria-hidden="true">&#9619;&#9608;&#9608;&#9608;&#9608;</span></td><td><span class="redact" aria-hidden="true">&#9608;&#9608;&#9608;&#9608;&#9619;&#9608;</span></td><td><span class="redact" aria-hidden="true">&#9608;&#9619;&#9608;&#9608;&#9608;&#9608;&#9608;</span></td><td><span class="redact" aria-hidden="true">███████</span></td></tr>
+        <tr class="locked"><th scope="row">Preferred deal structure<small>attach terms · co-sell terms</small></th>
+          <td><span class="redact" aria-hidden="true">&#9608;&#9608;&#9619;&#9608;&#9608;&#9608;</span></td><td><span class="redact" aria-hidden="true">&#9619;&#9608;&#9608;&#9608;&#9608;&#9608;&#9608;</span></td><td><span class="redact" aria-hidden="true">&#9608;&#9608;&#9608;&#9619;&#9608;</span></td><td><span class="redact" aria-hidden="true">&#9608;&#9619;&#9608;&#9608;&#9608;&#9608;</span></td><td><span class="redact" aria-hidden="true">&#9608;&#9608;&#9619;&#9608;&#9608;&#9608;&#9608;</span></td><td><span class="redact" aria-hidden="true">&#9619;&#9608;&#9608;&#9608;&#9608;</span></td><td><span class="redact" aria-hidden="true">████▓█▓█</span></td></tr>
+        <tr class="locked"><th scope="row">Capacity-partnerships owner<small>the person who signs</small></th>
+          <td><span class="redact" aria-hidden="true">&#9608;&#9608;&#9608;&#9619;&#9608;&#9608;</span></td><td><span class="redact" aria-hidden="true">&#9608;&#9619;&#9608;&#9608;&#9608;</span></td><td><span class="redact" aria-hidden="true">&#9608;&#9608;&#9619;&#9608;&#9608;&#9608;</span></td><td><span class="redact" aria-hidden="true">&#9619;&#9608;&#9608;&#9608;&#9608;&#9608;</span></td><td><span class="redact" aria-hidden="true">&#9608;&#9608;&#9608;&#9619;&#9608;</span></td><td><span class="redact" aria-hidden="true">&#9608;&#9619;&#9608;&#9608;&#9608;&#9608;</span></td><td><span class="redact" aria-hidden="true">█▓█▓██</span></td></tr>
+      </tbody>
+    </table>
+    <div class="matrix-foot">
+      <p>The public rows earn the map. The private rows are the ledger — shared case-by-case, with each provider's consent.</p>
+      <a href="https://www.linkedin.com/in/rahulpatwardhan/" rel="noopener">Ask about a specific provider &rarr;</a>
+    </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="eyebrow">The six cards</div>
+    <h2>The seven cards</h2>
+    <div class="cards">
+      <a class="ccard" href="companies/firmus.html" style="--cc:var(--c-firmus)">
+        <span class="unit">Rung 1 · Megawatts</span><span class="co">Firmus</span>
+        <p>$10B Blackstone-led debt, 1.6GW Project Southgate, and a bet that green tokens earn a pricing premium.</p>
+        <span class="go">Read the card &rarr;</span>
+      </a>
+      <a class="ccard" href="companies/gmi-cloud.html" style="--cc:var(--c-gmi)">
+        <span class="unit">Rung 2 · Clusters + sovereignty</span><span class="co">GMI Cloud</span>
+        <p>~7,000 GB300s in Taiwan at near-full utilization and a $12B sovereign initiative in Japan.</p>
+        <span class="go">Read the card &rarr;</span>
+      </a>
+      <a class="ccard" href="companies/tensorwave.html" style="--cc:var(--c-tw)">
+        <span class="unit">Rung 3 · GPU-hours, AMD</span><span class="co">TensorWave</span>
+        <p>The all-AMD cloud with Fireworks AI and Luma AI in production — the ROCm objection, answered with evidence.</p>
+        <span class="go">Read the card &rarr;</span>
+      </a>
+      <a class="ccard" href="companies/lightning-ai.html" style="--cc:var(--c-lightning)">
+        <span class="unit">Rung 4 · Workflow + hours</span><span class="co">Lightning AI</span>
+        <p>The PyTorch-native platform that just became supply: 35,000+ GPUs after the Voltage Park merger.</p>
+        <span class="go">Read the card &rarr;</span>
+      </a>
+      <a class="ccard" href="companies/runpod.html" style="--cc:var(--c-runpod)">
+        <span class="unit">Rung 5 · GPU-seconds</span><span class="co">Runpod</span>
+        <p>~$240M ARR on ~$22M raised before its June round — and structurally the biggest capacity <em>buyer</em> of the six.</p>
+        <span class="go">Read the card &rarr;</span>
+      </a>
+      <a class="ccard" href="companies/deepinfra.html" style="--cc:var(--c-deepinfra)">
+        <span class="unit">Rung 6 · Tokens</span><span class="co">DeepInfra</span>
+        <p>~5T tokens a week, ~30% already from agents — the clearest public signal that agentic workloads are infrastructure-scale.</p>
+        <span class="go">Read the card &rarr;</span>
+      </a>
+      <a class="ccard" href="companies/friendliai.html" style="--cc:var(--c-friendli)">
+        <span class="unit">Rung 6 · Tokens — custom models</span><span class="co">FriendliAI</span>
+        <p>The continuous-batching inventor's asset-light answer to DeepInfra — sells tokens from <em>your</em> model, buys GPUs across clouds. Draft, pending verification.</p>
+        <span class="go">Read the card &rarr;</span>
+      </a>
+    </div>
+  </section>
+
+  <section>
+    <div class="eyebrow">Questions this page answers</div>
+    <h2>Frequently asked</h2>
+    <div class="faq">
+      <div>
+        <h3>What is the compute ladder?</h3>
+        <p>A classification of AI infrastructure providers by the unit of consumption they sell, not the hardware they run: megawatts &rarr; AI factories &rarr; GPU clusters &rarr; GPU-hours &rarr; GPU-seconds &rarr; tokens. Buyers should shop the rung that matches their team's abstraction level.</p>
+      </div>
+      <div>
+        <h3>What's the difference between a GPU cloud and an inference provider?</h3>
+        <p>A GPU cloud sells time on hardware the buyer must operate; an inference provider sells the output — tokens through an API — and hides the hardware entirely. Companies increasingly span rungs: DeepInfra sells tokens <em>and</em> dedicated clusters; Lightning sells a platform, its own fleet, and third-party capacity.</p>
+      </div>
+      <div>
+        <h3>Which of these companies also buy capacity?</h3>
+        <p>Runpod (from DC partners and vetted hosts), DeepInfra (data centers outright), and Lightning AI (demand routed to 7+ clouds). The "both-sided" companies are the most active counterparties in the market — they transact in two directions.</p>
+      </div>
+      <div>
+        <h3>Why these seven — and why two token sellers?</h3>
+        <p>Together they span every rung — and the tokens rung is deliberately shown twice, because DeepInfra and FriendliAI sell the same unit with opposite postures: one owns the metal, the other buys capacity. The full market (290 companies) lives on the <a href="index.html">ecosystem map</a>; more cards will follow.</p>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="eyebrow">Methodology</div>
+    <h2>How these cards are built</h2>
+    <div class="method">
+      <p>Every public figure carries a date and traces to a primary source: company newsrooms, funding press releases, filings, and named-customer announcements. Cards are re-verified on update and stamped. The five private-ledger fields are collected directly from providers in conversation and are never published — they're shared case-by-case with the provider's consent. Spot an error or a stale number? <a href="https://forms.gle/UizJjZ2TH11J4mCe7">Tell me</a> — corrections ship within a week.</p>
+    </div>
+  </section>
+</main>
+
+<footer><div class="wrap">
+  <span>The Compute Ladder · part of the <a href="index.html">AI Infra Ecosystem Map</a> (290 companies)</span>
+  <span>Verified 4 July 2026 · by Rahul Patwardhan</span>
+</div></footer>
+</body>
+</html>

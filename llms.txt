@@ -1,23 +1,17 @@
 # The AI Infra Ecosystem Map
+> 290 companies across the five-layer AI stack, with deep analytical cards on selected infrastructure providers. Maintained by Rahul Patwardhan. Public facts verified and dated; corrections shipped within a week.
 
-> A living map of 290 companies building the AI infrastructure ecosystem, organized across the five layers of the AI stack (Application, Models, Infrastructure, Chips, Energy). The Infrastructure layer is expanded in full across seven sublayers: AI Cloud & Compute, Inference & Model APIs, Agent Infrastructure, Cluster Orchestration & Tenant Isolation, MLOps & Training, Storage & Networking, and Data Center & Hardware. 66 of the 290 listed companies are open-source-core projects. Curated by Rahul Patwardhan. Last updated July 2, 2026.
+## Analysis
+- [The Compute Ladder](https://aiinfraecosystem.netlify.app/compute-ladder.html): Framework — every AI infrastructure provider sells a different unit of consumption, from megawatts to tokens. Includes the seven-company comparison matrix (unit sold, unit bought, silicon, scale, natural buyer).
 
-Companies are tiered by market presence: Leader (category-defining), Major (established), Emerging (scaling), Startup (early-stage). Tiers reflect market presence, not endorsement.
+## Company cards (verified July 2026)
+- [Firmus](https://aiinfraecosystem.netlify.app/companies/firmus.html): Sells megawatts and whole AI factories. $10B Blackstone-led debt facility; Project Southgate targets 1.6GW by 2028; 100% renewable.
+- [GMI Cloud](https://aiinfraecosystem.netlify.app/companies/gmi-cloud.html): Sells GPU clusters and sovereign AI factories. ~7,000 GB300s in Taiwan; $12B/1GW sovereign initiative in Japan.
+- [TensorWave](https://aiinfraecosystem.netlify.app/companies/tensorwave.html): Sells AMD Instinct GPU-hours. 8,192 MI325X online; $350M Series B co-led by AMD Ventures; customers include Fireworks AI and Luma AI.
+- [Lightning AI](https://aiinfraecosystem.netlify.app/companies/lightning-ai.html): Sells an AI development platform plus GPU compute — its own 35,000+ GPU fleet (post Voltage Park merger) and 7+ third-party clouds via marketplace.
+- [Runpod](https://aiinfraecosystem.netlify.app/companies/runpod.html): Sells per-second serverless GPU compute. ~$240M ARR (June 2026), 500K+ developers; also a major buyer of capacity from data-center partners.
+- [DeepInfra](https://aiinfraecosystem.netlify.app/companies/deepinfra.html): Sells inference by the token. ~5 trillion tokens/week across eight owned US data centers; ~30% of volume from agents.
+- [FriendliAI](https://aiinfraecosystem.netlify.app/companies/friendliai.html): Sells tokens from custom models (serverless, dedicated endpoints, BYO-cluster container) while buying GPU capacity across clouds. Founded by the inventor of continuous batching; exclusive API provider of LG EXAONE.
 
-## Core pages
-
-- [The AI Infra Ecosystem Map](https://aiinfraecosystem.netlify.app/): Interactive map of all 290 companies with region, tier, and open-source filters, plus a full plain-text company index (#company-index) and FAQ (#faq).
-
-## Infrastructure sublayers covered
-
-- AI Cloud & Compute: Hyperscalers, GPU-native clouds, sovereign clouds, and GPU marketplaces
-- Inference & Model APIs: Managed inference providers, serverless model APIs, and inference-as-a-service platforms
-- Agent Infrastructure: Sandboxes, durable execution, memory, and tool infrastructure for running autonomous agents in production
-- Cluster Orchestration & Tenant Isolation: Kubernetes platforms, tenant cluster orchestration, GPU scheduling, AI factory software
-- MLOps & Training: Experiment tracking, distributed training, inference engines and observability tooling
-- Storage & Networking: Parallel storage, object storage, vector databases, high-speed interconnects
-- Data Center & Bare Metal: Colocation operators, cooling, power, server OEMs, bare metal provisioning
-
-## Selection methodology
-
-A company is listed when it ships a production product in one of the seven infrastructure sublayers with meaningful adoption, funding, or open-source traction. The map is a living draft — suggestions are reviewed via the linked form.
+## Main map
+- [The AI Infra Ecosystem Map](https://aiinfraecosystem.netlify.app/): The full 290-company directory across App, Models, Infrastructure, Chips and Energy layers.
