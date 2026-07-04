@@ -6,7 +6,7 @@ Companies are tiered by market presence: Leader (category-defining), Major (esta
 
 ## Core pages
 
-- [The AI Infra Ecosystem Map](https://yourdomain.com/): Interactive map of all 290 companies with region, tier, and open-source filters, plus a full plain-text company index (#company-index) and FAQ (#faq).
+- [The AI Infra Ecosystem Map](https://aiinfraecosystem.netlify.app/): Interactive map of all 290 companies with region, tier, and open-source filters, plus a full plain-text company index (#company-index) and FAQ (#faq).
 
 ## Infrastructure sublayers covered
 
