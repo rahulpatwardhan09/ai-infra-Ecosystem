@@ -851,6 +851,16 @@ footer{
 .aeo-idx-layer li a{color:var(--infra,#2563EB);text-decoration:none}
 .aeo-idx-layer li a:hover{text-decoration:underline}
 .aeo-idx-layer li em{color:var(--ink-4);font-style:normal;font-size:11px}
+
+/* ── Deep dives (Compute Ladder) ── */
+.tag-dive{background:transparent;color:var(--infra);border:1px solid var(--infra-mid)}
+.dive-strip{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin-top:14px;padding:10px 14px;background:var(--infra-light);border:1px solid var(--infra-mid);border-radius:var(--r-lg)}
+.dive-strip .ds-label{font-family:var(--mono);font-size:9px;letter-spacing:.09em;text-transform:uppercase;color:var(--infra);font-weight:500}
+.dive-strip a{font-size:12.5px;color:var(--ink-2);text-decoration:none;font-weight:500}
+.dive-strip a:hover{color:var(--infra)}
+.dive-strip .ds-note{font-size:11px;color:var(--ink-4)}
+.pop-dive{display:none;align-items:center;gap:5px;font-family:var(--mono);font-size:10px;color:var(--infra);text-decoration:none;padding:4px 8px;border:1px solid var(--infra-mid);border-radius:var(--r);transition:all .12s}
+.pop-dive:hover{background:var(--infra-light)}
 </style>
 </head>
 <body>
@@ -880,6 +890,11 @@ footer{
         <div class="hstat"><span class="hstat-n" id="heroCoCount">290</span><span class="hstat-l">Companies</span></div>
         <div class="hstat"><span class="hstat-n">5</span><span class="hstat-l">Layers</span></div>
         <div class="hstat"><span class="hstat-n" id="heroOSSCount">66</span><span class="hstat-l">OSS</span></div>
+      </div>
+      <div class="dive-strip">
+        <span class="ds-label">New · Deep dives</span>
+        <a href="compute-ladder.html">The Compute Ladder: seven companies, seven units of consumption &rarr;</a>
+        <span class="ds-note">what each sells, what each buys, who their natural counterparty is</span>
       </div>
     </div>
     <div class="xsection" aria-hidden="true">
@@ -993,6 +1008,7 @@ footer{
   <div class="pop-detail" id="popDetail"></div>
   <div class="pop-footer">
     <a class="pop-link" id="popLink" href="#" target="_blank">Visit website ↗</a>
+    <a class="pop-dive" id="popDive" href="#">Deep dive &rarr;</a>
     <button class="pop-close" onclick="closePopover()">&#x2715; close</button>
   </div>
 </div>
@@ -1055,21 +1071,21 @@ footer{
       <li><a href="https://nebius.com" rel="noopener">Nebius</a> — Full-stack AI cloud, K8s + Slurm, EU-HQ <em>(Major)</em></li>
       <li><a href="https://crusoe.ai" rel="noopener">Crusoe</a> — Clean energy GPU cloud <em>(Major)</em></li>
       <li><a href="https://vultr.com" rel="noopener">Vultr</a> — 32-region GPU cloud, bare metal <em>(Major)</em></li>
-      <li><a href="https://runpod.io" rel="noopener">RunPod</a> — Serverless GPU, community cloud <em>(Emerging)</em></li>
+      <li><a href="https://runpod.io" rel="noopener">RunPod</a> — Serverless GPU, community cloud <em>(Emerging)</em> · <a href="companies/runpod.html">deep dive</a></li>
       <li><a href="https://fluidstack.io" rel="noopener">Fluidstack</a> — Distributed GPU cloud, multi-region <em>(Emerging)</em></li>
       <li><strong>Shadeform</strong> — GPU aggregator across 15+ providers <em>(Startup)</em></li>
       <li><a href="https://papercompute.com" rel="noopener">Paper Compute</a> — GPU cloud, simple API and developer experience <em>(Startup)</em></li>
       <li><a href="https://runlayer.com" rel="noopener">Runlayer</a> — GPU cloud infrastructure for AI workloads <em>(Startup)</em></li>
       <li><strong>HydraHost</strong> — GPU infrastructure platform, AI factory builder — EU-focused <em>(Startup)</em></li>
-      <li><strong>TensorWave</strong> — AMD MI300X-based GPU cloud, alternative to NVIDIA stack <em>(Emerging)</em></li>
+      <li><strong>TensorWave</strong> — AMD MI300X-based GPU cloud, alternative to NVIDIA stack <em>(Emerging)</em> · <a href="companies/tensorwave.html">deep dive</a></li>
       <li><strong>Cirrascale</strong> — Dedicated GPU clusters, deep-learning focused data center <em>(Emerging)</em></li>
       <li><strong>Armada</strong> — Distributed GPU computing platform — cross-cluster workload scheduling <em>(Startup)</em></li>
       <li><strong>FlexAI</strong> — AI compute orchestration — GPU cluster management, any cloud <em>(Startup)</em></li>
       <li><a href="https://bitdeer.com" rel="noopener">Bitdeer</a> — GPU cloud and AI datacenter capacity — Nasdaq-listed, ex-mining infrastructure <em>(Emerging)</em></li>
       <li><a href="https://voltagepark.com" rel="noopener">Voltage Park</a> — On-demand and reserved H100 GPU clusters <em>(Emerging)</em></li>
       <li><a href="https://gcore.com" rel="noopener">Gcore</a> — Edge &amp; GPU cloud, 140+ PoPs globally, EU-hosted H100 clusters <em>(Emerging)</em></li>
-      <li><a href="https://firmus.ai" rel="noopener">Firmus</a> — Sustainable AI compute, liquid-cooled UK data centers <em>(Startup)</em></li>
-      <li><a href="https://gmicloud.ai" rel="noopener">GMI Cloud</a> — GPU cloud for AI workloads, Asia-Pacific infrastructure <em>(Startup)</em></li>
+      <li><a href="https://firmus.ai" rel="noopener">Firmus</a> — Sustainable AI compute, liquid-cooled UK data centers <em>(Startup)</em> · <a href="companies/firmus.html">deep dive</a></li>
+      <li><a href="https://gmicloud.ai" rel="noopener">GMI Cloud</a> — GPU cloud for AI workloads, Asia-Pacific infrastructure <em>(Startup)</em> · <a href="companies/gmi-cloud.html">deep dive</a></li>
       <li><a href="https://neysa.ai" rel="noopener">Neysa</a> — Managed GPU clusters and AI infrastructure platform <em>(Startup)</em></li>
       <li><a href="https://stn.ai" rel="noopener">STN</a> — Bare metal GPU cloud provider <em>(Startup)</em></li>
       <li><a href="https://primeintellect.ai" rel="noopener">Prime Intellect</a> — Distributed AI training, open compute network <em>(Startup)</em></li>
@@ -1081,7 +1097,7 @@ footer{
       <li><a href="https://buzzhpc.com" rel="noopener">Buzz HPC</a> — HPC GPU cloud for research and enterprise <em>(Startup)</em></li>
       <li><a href="https://hetzner.com" rel="noopener">Hetzner</a> — German cloud, cost-effective H100 GPU instances <em>(Emerging)</em></li>
       <li><a href="https://hyperbolic.xyz" rel="noopener">Hyperbolic</a> — Open-access GPU cloud and inference API <em>(Startup)</em></li>
-      <li><a href="https://deepinfra.com" rel="noopener">Deepinfra</a> — GPU-backed LLM inference APIs, pay-per-token <em>(Startup)</em></li>
+      <li><a href="https://deepinfra.com" rel="noopener">Deepinfra</a> — GPU-backed LLM inference APIs, pay-per-token <em>(Startup)</em> · <a href="companies/deepinfra.html">deep dive</a></li>
       <li><a href="https://massedcompute.com" rel="noopener">Massed Compute</a> — GPU cloud for AI training workloads, UK-based <em>(Startup)</em></li>
       <li><a href="https://exabits.ai" rel="noopener">Exabits</a> — Fractional GPU compute marketplace <em>(Startup)</em></li>
       <li><a href="https://sesterce.com" rel="noopener">Sesterce</a> — French GPU cloud, bare metal H100 clusters <em>(Startup)</em></li>
@@ -1143,7 +1159,7 @@ footer{
       <li><a href="https://baseten.co" rel="noopener">Baseten</a> — Inference platform for custom ML models <em>(Emerging)</em></li>
       <li><a href="https://modal.com" rel="noopener">Modal</a> — Serverless GPU, Python-native, fast cold start — inference and batch workloads <em>(Emerging)</em></li>
       <li><a href="https://replicate.com" rel="noopener">Replicate</a> — Run OSS models via API, developer-friendly <em>(Emerging)</em></li>
-      <li><a href="https://friendli.ai" rel="noopener">FriendliAI</a> — LLM inference optimization, high-throughput token generation <em>(Emerging)</em></li>
+      <li><a href="https://friendli.ai" rel="noopener">FriendliAI</a> — LLM inference optimization, high-throughput token generation <em>(Emerging)</em> · <a href="companies/friendliai.html">deep dive</a></li>
       <li><strong>SambaNova</strong> — Cloud inference platform on custom RDU chips — ultra-fast token gen <em>(Emerging)</em></li>
       <li><strong>openrouter</strong> — LLM API aggregator — single API to 200+ models, smart routing <em>(Startup)</em></li>
       <li><strong>Featherless</strong> — Serverless LLM inference, instant deployment, no cold start <em>(Startup)</em></li>
@@ -1263,7 +1279,7 @@ footer{
       <li><a href="https://snorkel.ai" rel="noopener">Snorkel</a> — Programmatic data labeling and training data creation <em>(Emerging)</em></li>
       <li><strong>Determined AI</strong> — Distributed training platform (HPE) <em>(Emerging)</em></li>
       <li><strong>Braintrust</strong> — AI eval, logging and prompt management — LLM observability platform <em>(Emerging)</em></li>
-      <li><a href="https://lightning.ai" rel="noopener">Lightning AI</a> — PyTorch Lightning — training, fine-tuning and deployment platform <em>(Emerging)</em></li>
+      <li><a href="https://lightning.ai" rel="noopener">Lightning AI</a> — PyTorch Lightning — training, fine-tuning and deployment platform <em>(Emerging)</em> · <a href="companies/lightning-ai.html">deep dive</a></li>
       <li><a href="https://surgehq.ai" rel="noopener">Surge AI</a> — RLHF data labeling and human feedback for frontier model training <em>(Emerging)</em></li>
       <li><a href="https://datarobot.com" rel="noopener">DataRobot</a> — End-to-end ML and generative AI lifecycle platform <em>(Major)</em></li>
     </ul>
@@ -2442,6 +2458,7 @@ function renderSlRef(ct,sl){
   ct.appendChild(d);
 }
 
+window.DEEP_DIVES={"TensorWave": "companies/tensorwave.html", "GMI Cloud": "companies/gmi-cloud.html", "RunPod": "companies/runpod.html", "Firmus": "companies/firmus.html", "Lightning AI": "companies/lightning-ai.html", "FriendliAI": "companies/friendliai.html", "Deepinfra": "companies/deepinfra.html"};
 function mkCard(c){
   const tier=TIERS[c.t]||TIERS.startup;
   const ossBit=c.oss?`<span class="tag tag-oss">OSS</span>`:'';
@@ -2456,7 +2473,7 @@ function mkCard(c){
     <div class="card-body">
       <div class="card-name">${c.n}${regBit}</div>
       <div class="card-desc">${c.d}</div>
-      <div class="card-tags">${tierBit}${ossBit}</div>
+      <div class="card-tags">${tierBit}${ossBit}${window.DEEP_DIVES[c.n]?`<span class=\"tag tag-dive\">deep dive</span>`:``}</div>
     </div>
   </div>`;
 }
@@ -3161,6 +3178,9 @@ function showPopover(e, company) {
   tagsDiv.innerHTML += `<span class="tag tag-maj">${FLAGS[reg]||'🇺🇸'} ${reg.toUpperCase()}</span>`;
   const url = COMPANY_URLS[company.n] || (DOMAINS[company.n] ? 'https://'+DOMAINS[company.n] : null);
   const linkEl = document.getElementById('popLink');
+  const diveEl = document.getElementById('popDive');
+  const divePath = (window.DEEP_DIVES||{})[company.n];
+  if (diveEl) { if (divePath) { diveEl.href = divePath; diveEl.style.display='flex'; } else { diveEl.style.display='none'; } }
   if (url) { linkEl.href = url; linkEl.style.display = 'flex'; } else { linkEl.style.display = 'none'; }
 
   // meta + detail from COMPANY_DETAIL
