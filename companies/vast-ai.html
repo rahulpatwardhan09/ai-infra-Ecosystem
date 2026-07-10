@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Vast.ai: Sells marketplace GPU-hours — The Compute Ladder | AI Infra Ecosystem Map</title>
+<meta name="description" content="Vast.ai sells GPU-hours through a two-sided marketplace — 17,000+ GPUs from 1,400+ independent providers in 500+ locations, on roughly $4M ever raised. It owns no GPUs and buys no capacity. What it sells, what it buys, and who its natural counterparty is.">
+<meta name="author" content="Rahul Patwardhan">
+<meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
+<link rel="canonical" href="https://aiinfraecosystem.netlify.app/companies/vast-ai.html">
+<meta property="og:title" content="Vast.ai — Sells marketplace GPU-hours, owns no GPUs">
+<meta property="og:description" content="What Vast.ai sells, what it buys, and who its natural counterparty is. Part of The Compute Ladder.">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://aiinfraecosystem.netlify.app/companies/vast-ai.html">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Geist:wght@300;400;500;600;700;800&family=Geist+Mono:wght@400;500&display=swap" rel="stylesheet">
+<script type="application/ld+json">
+{
+ "@context": "https://schema.org",
+ "@graph": [
+  {
+   "@type": "Organization",
+   "name": "Vast.ai",
+   "url": "https://vast.ai",
+   "foundingDate": "2018",
+   "location": {"@type": "Place", "name": "Los Angeles, CA"},
+   "description": "Vast.ai operates a two-sided GPU marketplace — a market operating system connecting distributed GPU providers with AI developers. Independent hosts, from single-workstation hobbyists to data centers, list hardware they own; buyers rent it by the hour with per-second billing across on-demand, interruptible auction and reserved models. Vast.ai owns no GPUs itself."
+  },
+  {
+   "@type": "Article",
+   "headline": "Vast.ai — Sells marketplace GPU-hours | The Compute Ladder",
+   "author": {
+    "@type": "Person",
+    "name": "Rahul Patwardhan"
+   },
+   "datePublished": "2026-07-09",
+   "dateModified": "2026-07-09",
+   "about": {
+    "@type": "Organization",
+    "name": "Vast.ai",
+    "url": "https://vast.ai"
+   },
+   "isPartOf": {
+    "@type": "WebPage",
+    "@id": "https://aiinfraecosystem.netlify.app/compute-ladder.html",
+    "name": "The Compute Ladder"
+   },
+   "url": "https://aiinfraecosystem.netlify.app/companies/vast-ai.html"
+  },
+  {
+   "@type": "BreadcrumbList",
+   "itemListElement": [
+    {
+     "@type": "ListItem",
+     "position": 1,
+     "name": "AI Infra Ecosystem Map",
+     "item": "https://aiinfraecosystem.netlify.app/"
+    },
+    {
+     "@type": "ListItem",
+     "position": 2,
+     "name": "The Compute Ladder",
+     "item": "https://aiinfraecosystem.netlify.app/compute-ladder.html"
+    },
+    {
+     "@type": "ListItem",
+     "position": 3,
+     "name": "Vast.ai",
+     "item": "https://aiinfraecosystem.netlify.app/companies/vast-ai.html"
+    }
+   ]
+  },
+  {
+   "@type": "FAQPage",
+   "mainEntity": [
+    {
+     "@type": "Question",
+     "name": "What does Vast.ai actually sell?",
+     "acceptedAnswer": {
+      "@type": "Answer",
+      "text": "Vast.ai sells GPU-hours through a two-sided marketplace: buyers filter 17,000+ host-owned GPUs — from consumer RTX 4090s to datacenter H100s and H200s — by spec, price, location and reliability score, then run workloads in Docker containers on the host's machine with per-second billing. Three rental models cover different needs: fixed-price on-demand, interruptible spot auctions where buyers bid for idle capacity, and reserved commitments. Vast.ai itself owns none of the hardware."
+     }
+    },
+    {
+     "@type": "Question",
+     "name": "How is Vast.ai different from Runpod or a GPU cloud like TensorWave?",
+     "acceptedAnswer": {
+      "@type": "Answer",
+      "text": "Posture on the supply side. TensorWave owns its all-AMD fleet; Runpod buys capacity from data-center partners and vetted hosts to feed a managed serverless product; Vast.ai owns nothing and buys nothing — over 1,400 independent providers list hardware they already paid for, set their own prices, and compete on rate. That auction dynamic produces the lowest listed prices on the market (H100s from roughly $0.90/hr in early 2026), traded off against consistency: no SLAs, no built-in autoscaling, and a verified-datacenter tier ($1.50–1.87/hr for H100s) for buyers who need predictable uptime."
+     }
+    },
+    {
+     "@type": "Question",
+     "name": "Who owns the hardware on Vast.ai, and is it reliable?",
+     "acceptedAnswer": {
+      "@type": "Answer",
+      "text": "The hardware is owned by independent hosts ranging from individuals with a single consumer GPU to professional data-center operators. Vast.ai layers trust infrastructure on top: reliability scores tracking uptime and connection stability, a verified datacenter certification tier, SOC 2 Type I compliance, fraud protection, and 24/7 support. Third-party reviews in early 2026 put the practical guidance simply: verified datacenter hosts cost more per hour but are usually better value for jobs longer than a few hours, while unverified community hosts suit short experiments and interruptible batch work."
+     }
+    }
+   ]
+  }
+ ]
+}
+</script>
+<style>
+:root{
+  --bg:#F2F3F5;--surface:#FAFAF8;--surface-2:#F3F3F0;--surface-3:#EBEBE8;
+  --border:rgba(0,0,0,0.08);--border-2:rgba(0,0,0,0.14);
+  --ink:#0D1117;--ink-2:#24292F;--ink-3:#57606A;--ink-4:#6B7480;
+  --accent:#0EA5E9;--accent-light:#E0F2FE;
+  --infra:#3461F0;--green:#16A34A;--gold:#9A6700;
+  --font:'Geist',system-ui,sans-serif;--mono:'Geist Mono',monospace;
+  --display:'Space Grotesk','Geist',system-ui,sans-serif;
+  --hero-ground:#0B0E14;--hero-ground-2:#141A24;--paper:#FBFAF7;
+  --r:6px;--r-lg:10px;--r-xl:14px;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{background:var(--paper);color:var(--ink);font-family:var(--font);line-height:1.6;-webkit-font-smoothing:antialiased}
+a{color:inherit}
+.wrap{max-width:880px;margin:0 auto;padding:0 24px}
+.topnav{border-bottom:1px solid var(--border);background:var(--paper);position:sticky;top:0;z-index:10}
+.topnav .wrap{display:flex;align-items:center;gap:14px;height:52px}
+.topnav a{font-family:var(--mono);font-size:11px;color:var(--ink-3);text-decoration:none;transition:color .12s}
+.topnav a:hover{color:var(--ink)}
+.topnav .brand{font-family:var(--display);font-weight:600;font-size:13px;color:var(--ink);letter-spacing:-.01em}
+.topnav .sep{color:var(--border-2)}
+.hero{background:var(--hero-ground);color:#E8EAF0;padding:52px 0 44px;position:relative;overflow:hidden}
+.hero::after{content:"";position:absolute;inset:0;background:radial-gradient(600px 200px at 85% 0%,rgba(219,39,119,.20),transparent 70%);pointer-events:none}
+.rung-chip{display:inline-flex;align-items:center;gap:7px;font-family:var(--mono);font-size:10px;letter-spacing:.06em;color:#B9C0CE;border:1px solid rgba(255,255,255,.16);border-radius:3px;padding:3px 9px;margin-bottom:16px}
+.rung-chip i{width:7px;height:7px;border-radius:2px;background:#DB2777;display:inline-block}
+.hero h1{font-family:var(--display);font-size:clamp(30px,5vw,44px);font-weight:700;letter-spacing:-.03em;line-height:1.08;color:#fff}
+.hero .tagline{margin-top:10px;font-size:16px;color:#9AA3B5;max-width:56ch}
+.hero .stamp{margin-top:22px;font-family:var(--mono);font-size:10px;color:#7A8398}
+.hero .stamp b{color:#F472B6;font-weight:500}
+.factsbar{border-bottom:1px solid var(--border);background:var(--surface)}
+.factsbar .wrap{display:grid;grid-template-columns:repeat(4,1fr);gap:0}
+.fact{padding:14px 18px 14px 0;border-right:1px solid var(--border)}
+.fact:last-child{border-right:0}
+.fact + .fact{padding-left:18px}
+.fact .k{font-family:var(--mono);font-size:9px;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-4)}
+.fact .v{font-size:12.5px;font-weight:500;color:var(--ink-2);margin-top:2px}
+main{padding:40px 0 56px}
+section{margin-bottom:36px}
+.eyebrow{font-family:var(--mono);font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:#DB2777;margin-bottom:8px}
+h2{font-family:var(--display);font-size:19px;font-weight:600;letter-spacing:-.02em;margin-bottom:10px}
+p{color:var(--ink-2);max-width:68ch}
+.duo{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:6px}
+.panel{background:var(--surface);border:1px solid var(--border);border-radius:var(--r-lg);padding:18px;box-shadow:0 1px 3px rgba(0,0,0,.04)}
+.panel .k{font-family:var(--mono);font-size:10px;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-4);margin-bottom:6px}
+.panel.sold{border-top:3px solid #DB2777}
+.panel.bought{border-top:3px solid var(--ink-3)}
+.panel p{font-size:13.5px}
+.proofs{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.proof{background:var(--surface);border:1px solid var(--border);border-radius:var(--r-lg);padding:16px 18px}
+.proof .n{font-family:var(--display);font-size:26px;font-weight:700;letter-spacing:-.02em;color:#DB2777;font-variant-numeric:tabular-nums}
+.proof .d{font-size:12.5px;color:var(--ink-3);margin-top:4px;line-height:1.5}
+.fit{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.fit .panel.yes{border-left:3px solid var(--green)}
+.fit .panel.no{border-left:3px solid var(--ink-4)}
+.ledger{background:var(--hero-ground);border-radius:var(--r-xl);padding:26px;color:#DDE1EA;position:relative;overflow:hidden}
+.ledger::before{content:"";position:absolute;inset:0;background:radial-gradient(500px 180px at 10% 0%,rgba(219,39,119,.16),transparent 70%);pointer-events:none}
+.ledger .eyebrow{color:#F472B6}
+.ledger h2{color:#fff}
+.ledger p{color:#9AA3B5;font-size:13px}
+.ledger-rows{margin-top:16px;border-top:1px solid rgba(255,255,255,.10)}
+.lrow{display:flex;justify-content:space-between;align-items:baseline;gap:16px;padding:10px 0;border-bottom:1px solid rgba(255,255,255,.10)}
+.lrow .lk{font-size:12.5px;color:#C7CCD8}
+.lrow .lk small{display:block;font-family:var(--mono);font-size:9.5px;color:#6E7789;letter-spacing:.03em;margin-top:1px}
+.lrow .lv{font-family:var(--mono);font-size:12px;color:#525B6E;filter:blur(3.5px);user-select:none;letter-spacing:.05em;white-space:nowrap}
+.ledger .cta{margin-top:18px;display:flex;align-items:center;gap:12px;flex-wrap:wrap}
+.ledger .cta a{display:inline-block;font-family:var(--mono);font-size:11px;color:#fff;background:#DB2777;padding:8px 14px;border-radius:var(--r);text-decoration:none;font-weight:500;transition:transform .12s}
+.ledger .cta a:hover{transform:translateY(-1px)}
+.ledger .cta span{font-family:var(--mono);font-size:10px;color:#6E7789}
+.crossnav{display:flex;justify-content:space-between;gap:12px;border-top:1px solid var(--border);padding-top:22px;flex-wrap:wrap}
+.crossnav a{font-family:var(--mono);font-size:11px;color:var(--ink-3);text-decoration:none;border:1px solid var(--border);border-radius:var(--r);padding:9px 13px;transition:all .12s;background:var(--surface)}
+.crossnav a:hover{color:var(--ink);border-color:var(--border-2)}
+footer{border-top:1px solid var(--border);padding:20px 0 36px}
+footer .wrap{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;font-family:var(--mono);font-size:10px;color:var(--ink-4)}
+footer a{color:var(--ink-3);text-decoration:none}
+footer a:hover{color:var(--ink)}
+a:focus-visible,button:focus-visible{outline:2px solid var(--accent);outline-offset:2px;border-radius:3px}
+@media(max-width:720px){
+  .factsbar .wrap{grid-template-columns:1fr 1fr}
+  .fact{border-right:0;padding-left:0!important;border-bottom:1px solid var(--border)}
+  .duo,.proofs,.fit{grid-template-columns:1fr}
+  .lrow .lv{white-space:normal}
+}
+@media(prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}html{scroll-behavior:auto}}
+</style>
+</head>
+<body>
+<nav class="topnav"><div class="wrap">
+  <a class="brand" href="../index.html">AI Infra Ecosystem Map</a><span class="sep">/</span>
+  <a href="../compute-ladder.html">The Compute Ladder</a><span class="sep">/</span>
+  <a href="vast-ai.html" aria-current="page" style="color:var(--ink)">Vast.ai</a>
+</div></nav>
+
+<header class="hero"><div class="wrap">
+  <span class="rung-chip"><i></i>Rung 3 · GPU-hours — marketplace</span>
+  <h1>Vast.ai</h1>
+  <p class="tagline">Sells GPU-hours from 1,400+ providers' hardware — the pure marketplace posture: it owns no GPUs, buys no capacity, and lets an auction set the price.</p>
+  <p class="stamp">Draft, pending provider verification · compiled <b>9 July 2026</b> &nbsp;·&nbsp; official site: <a href="https://vast.ai" style="color:#B9C0CE" rel="noopener">vast.ai</a> &nbsp;·&nbsp; founded <b>2018</b></p>
+</div></header>
+
+<div class="factsbar"><div class="wrap">
+  <div class="fact"><div class="k">HQ</div><div class="v">Los Angeles, CA</div></div>
+  <div class="fact"><div class="k">Center of gravity</div><div class="v">500+ locations — the global long tail</div></div>
+  <div class="fact"><div class="k">Silicon</div><div class="v">Host-owned — RTX 4090 → H200</div></div>
+  <div class="fact"><div class="k">Contract shape</div><div class="v">On-demand · interruptible · reserved, per-second</div></div>
+</div></div>
+
+<main class="wrap">
+  <section>
+    <div class="eyebrow">The two-sided view</div>
+    <h2>What Vast.ai sells — and what it buys</h2>
+    <div class="duo">
+      <div class="panel sold"><div class="k">Atomic unit sold</div><p>GPU-hours through a two-sided marketplace — buyers filter 17,000+ host-owned GPUs by spec, price, location and reliability score, from consumer RTX 4090s (~$0.34/hr in early 2026) to datacenter H100s and H200s, and run workloads in Docker containers with per-second billing. Three rental models: fixed-price on-demand, interruptible spot auctions on idle capacity, and reserved commitments. And a second product, sold to the <em>other</em> side: a business-in-a-box for hosts — hardware sourcing through vetted suppliers, financing qualified on platform earnings, presold enterprise demand, and a verified-datacenter certification tier.</p></div>
+      <div class="panel bought"><div class="k">What they buy</div><p>Nothing — the limit case of this ladder's buy side. Supply is listed, not bought: 1,400+ independent providers, from single-workstation hobbyists to data-center operators, own the hardware, set their own prices, and compete on rate. What Vast.ai builds instead of buying is trust infrastructure — reliability scoring, datacenter verification, SOC 2 Type I compliance, fraud protection, and the 24/7 support layer that hosts cite as the platform's main value.</p></div>
+    </div>
+  </section>
+
+  <section>
+    <div class="eyebrow">Compiled 9 July 2026</div>
+    <h2>Scale proof</h2>
+    <div class="proofs">
+      <div class="proof"><div class="n">17K+</div><div class="d">GPUs listed across 1,400+ providers in 500+ locations — the largest decentralized GPU marketplace (GPUnex third-party review, Feb 2026)</div></div>
+      <div class="proof"><div class="n">~$4M</div><div class="d">total ever raised — DRW Holdings, Nazare and Primavera Venture Partners — against a marketplace of this scale, with ~46 employees (PitchBook, 2026)</div></div>
+      <div class="proof"><div class="n">$0.90/hr</div><div class="d">H100 listed floor, the lowest rate on the market; verified datacenter hosts run $1.50–1.87/hr — the spread is the marketplace's honest price of consistency (GPUnex, Feb 2026)</div></div>
+      <div class="proof"><div class="n">120K+</div><div class="d">active developers searching for compute, per Vast.ai's host-facing materials; hosts report consumer GPUs earning $0.30–0.60/GPU-hr and H100/H200s at $2.15–4.00+ (Vast.ai, May 2026 — company-claimed)</div></div>
+    </div>
+  </section>
+
+  <section>
+    <div class="eyebrow">The strategy</div>
+    <h2>The bet</h2>
+    <p>That liquidity beats ownership. Every owned fleet on this ladder carries capex, depreciation and utilization risk; Vast.ai's wager is that aggregating idle supply from providers who already sank the capex drives the marginal price of a GPU-hour toward electricity plus host margin — structurally below what any fleet owner can sustain. The second act is the Amazon-marketplace play: sell the <em>sellers</em> the operating system — hardware sourcing, financing underwritten by platform earnings history the way Amazon Lending underwrites merchants, capacity presold before it's racked — so supply compounds without Vast buying a single GPU. The known cost of the model is variance: no SLAs, no built-in autoscaling or failover, and effective prices 20–40% above the listed floor on unverified hosts once downtime is counted — which is exactly the gap the verified-datacenter tier exists to price.</p>
+  </section>
+
+  <section>
+    <div class="eyebrow">Deal-making</div>
+    <h2>Natural counterparty</h2>
+    <p>On the demand side: cost-sensitive researchers, batch and experiment workloads, and long-tail developers who can tolerate variance or restrict themselves to verified hosts — the same population Runpod courts, minus the managed layer. On the supply side — where the marketplace's real counterparties live: GPU owners of every scale seeking demand for idle hardware, data-center operators preselling capacity before it comes online, hardware suppliers and financing partners plugged into Vast's sourcing and lending funnel. Vast.ai transacts with almost everyone on this ladder's buy side without ever holding inventory itself.</p>
+  </section>
+
+  <section>
+    <h2>Buyer fit</h2>
+    <div class="fit">
+      <div class="panel yes"><div class="k">Choose Vast.ai when</div><p>You're running short experiments, batch jobs or price-sensitive training where the lowest listed rates anywhere plus per-second exit beat consistency — or you can restrict to verified datacenter hosts for jobs that need predictable uptime at a still-competitive $1.50–1.87/hr for H100s.</p></div>
+      <div class="panel no"><div class="k">Look elsewhere when</div><p>You need multi-day production training or SLA-bound inference — there's no built-in autoscaling, monitoring or uptime guarantee, and third-party guidance is to budget 30–50% above the lowest listed rate for predictable costs. Managed rungs of the ladder exist for exactly this.</p></div>
+    </div>
+  </section>
+
+  <section class="ledger">
+    <div class="eyebrow">Private ledger</div>
+    <h2>Five fields we track but don’t publish</h2>
+    <p>Everything above is public — figures are third-party-sourced or Vast.ai-published as noted, and this card is a draft pending direct provider verification. The fields below change weekly and are verified directly with each provider — they live in a private supply-demand ledger, not on this page.</p>
+    <div class="ledger-rows">
+        <div class="lrow"><div class="lk">Available capacity, next 90 days<small>GPU type · quantity · location · online date</small></div><div class="lv" aria-hidden="true">██▓███▓▓█▓██</div></div>
+        <div class="lrow"><div class="lk">Effective price floor<small>reserved · per-GPU-hour, at volume</small></div><div class="lv" aria-hidden="true">▓██▓███▓████</div></div>
+        <div class="lrow"><div class="lk">Idle-inventory posture<small>current utilization pressure</small></div><div class="lv" aria-hidden="true">███▓████▓▓▓█</div></div>
+        <div class="lrow"><div class="lk">Preferred deal structure<small>attach terms · co-sell terms</small></div><div class="lv" aria-hidden="true">██▓██▓▓████▓██</div></div>
+        <div class="lrow"><div class="lk">Capacity-partnerships owner<small>the person who signs</small></div><div class="lv" aria-hidden="true">█▓██▓██▓█▓██</div></div>
+    </div>
+    <div class="cta">
+      <a href="https://www.linkedin.com/in/rahulpatwardhan/" rel="noopener">Ask about Vast.ai’s current posture →</a>
+      <span>Answered case-by-case, with the provider’s consent.</span>
+    </div>
+  </section>
+
+  <nav class="crossnav" aria-label="Company navigation">
+    <a href="tensorwave.html">← TensorWave · GPU-hours, AMD</a>
+    <a href="../compute-ladder.html">The full ladder</a>
+    <a href="gmi-cloud.html">GMI Cloud · Clusters →</a>
+  </nav>
+</main>
+
+<footer><div class="wrap">
+  <span>The Compute Ladder · part of the <a href="../index.html">AI Infra Ecosystem Map</a></span>
+  <span>Public facts compiled 9 July 2026 · <a href="../compute-ladder.html">methodology</a></span>
+</div></footer>
+</body>
+</html>
