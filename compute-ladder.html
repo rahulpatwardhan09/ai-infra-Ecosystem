@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>The Compute Ladder: GPU clouds vs inference providers — what AI infrastructure companies actually sell | AI Infra Ecosystem Map</title>
-<meta name="description" content="Nobody buys GPUs. AI infrastructure pricing explained as a ladder of units — megawatts, GPU clusters, GPU-hours, GPU-seconds, tokens, AI minutes. What each provider sells, what it buys, and who its natural counterparty is — with deep cards on Firmus, Radiant, GMI Cloud, TensorWave, Lightning AI, Runpod, DeepInfra, FriendliAI, Telnyx, Corvex and more.">
+<meta name="description" content="Nobody buys GPUs. AI infrastructure pricing explained as a ladder of units — megawatts, GPU clusters, GPU-hours, GPU-seconds, tokens, AI minutes. What each provider sells, what it buys, and who its natural counterparty is — with deep cards on Firmus, Radiant, GMI Cloud, TensorWave, Vast.ai, Lightning AI, Runpod, DeepInfra, FriendliAI, Telnyx, Corvex and more.">
 <meta name="author" content="Rahul Patwardhan">
 <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
 <link rel="canonical" href="https://aiinfraecosystem.netlify.app/compute-ladder.html">
@@ -47,10 +47,11 @@
     {"@type": "ListItem", "position": 4, "name": "Runpod — sells GPU-seconds", "url": "https://aiinfraecosystem.netlify.app/companies/runpod.html"},
     {"@type": "ListItem", "position": 5, "name": "Lightning AI — sells the workflow plus multi-cloud GPU-hours", "url": "https://aiinfraecosystem.netlify.app/companies/lightning-ai.html"},
     {"@type": "ListItem", "position": 6, "name": "TensorWave — sells AMD GPU-hours", "url": "https://aiinfraecosystem.netlify.app/companies/tensorwave.html"},
-    {"@type": "ListItem", "position": 7, "name": "GMI Cloud — sells GPU clusters and sovereign AI factories", "url": "https://aiinfraecosystem.netlify.app/companies/gmi-cloud.html"},
-    {"@type": "ListItem", "position": 8, "name": "Corvex — sells confidential GPU clusters, weights encrypted even from the host", "url": "https://aiinfraecosystem.netlify.app/companies/corvex.html"},
-    {"@type": "ListItem", "position": 9, "name": "Firmus — sells megawatts and whole AI factories", "url": "https://aiinfraecosystem.netlify.app/companies/firmus.html"},
-    {"@type": "ListItem", "position": 10, "name": "Radiant — sells AI factories under long-term contracts, plus the Ori Global AI Cloud on-demand", "url": "https://aiinfraecosystem.netlify.app/companies/radiant.html"}
+    {"@type": "ListItem", "position": 7, "name": "Vast.ai — sells marketplace GPU-hours from 1,400+ providers, owns no GPUs", "url": "https://aiinfraecosystem.netlify.app/companies/vast-ai.html"},
+    {"@type": "ListItem", "position": 8, "name": "GMI Cloud — sells GPU clusters and sovereign AI factories", "url": "https://aiinfraecosystem.netlify.app/companies/gmi-cloud.html"},
+    {"@type": "ListItem", "position": 9, "name": "Corvex — sells confidential GPU clusters, weights encrypted even from the host", "url": "https://aiinfraecosystem.netlify.app/companies/corvex.html"},
+    {"@type": "ListItem", "position": 10, "name": "Firmus — sells megawatts and whole AI factories", "url": "https://aiinfraecosystem.netlify.app/companies/firmus.html"},
+    {"@type": "ListItem", "position": 11, "name": "Radiant — sells AI factories under long-term contracts, plus the Ori Global AI Cloud on-demand", "url": "https://aiinfraecosystem.netlify.app/companies/radiant.html"}
    ]
   },
   {
@@ -59,7 +60,7 @@
     {
      "@type": "Question",
      "name": "What is the compute ladder in AI infrastructure?",
-     "acceptedAnswer": {"@type": "Answer", "text": "The compute ladder is a way of classifying AI infrastructure providers by the unit of consumption they actually sell rather than the hardware they run. From most physical to most abstract: megawatts and AI factories (Firmus, Radiant), sovereign GPU clusters (GMI Cloud, Corvex), GPU-hours (TensorWave), workflow plus multi-cloud GPU-hours (Lightning AI), GPU-seconds (Runpod), tokens (DeepInfra), and AI minutes — whole voice conversations — at the top (Telnyx). Comparing providers on different rungs by hourly GPU price is a category error."}
+     "acceptedAnswer": {"@type": "Answer", "text": "The compute ladder is a way of classifying AI infrastructure providers by the unit of consumption they actually sell rather than the hardware they run. From most physical to most abstract: megawatts and AI factories (Firmus, Radiant), sovereign GPU clusters (GMI Cloud, Corvex), GPU-hours (TensorWave, Vast.ai), workflow plus multi-cloud GPU-hours (Lightning AI), GPU-seconds (Runpod), tokens (DeepInfra), and AI minutes — whole voice conversations — at the top (Telnyx). Comparing providers on different rungs by hourly GPU price is a category error."}
     },
     {
      "@type": "Question",
@@ -74,7 +75,7 @@
     {
      "@type": "Question",
      "name": "How are companies chosen for the compute ladder?",
-     "acceptedAnswer": {"@type": "Answer", "text": "Companies are added rung by rung so the ladder always spans every unit of consumption — and so contested rungs show every posture: on the tokens rung, DeepInfra owns the metal, FriendliAI buys capacity, and Telnyx owns the metal and the carrier network, selling minutes above it; around clusters, GMI Cloud sells sovereignty by geography while Corvex sells it by cryptography; on megawatts, Firmus sells a renewable premium while Radiant sells Brookfield-scale capital and powered land. Cards ship as they are verified. Each card documents the unit sold, the unit bought, verifiable scale proof with dates, the company's strategic bet, and its natural counterparty."}
+     "acceptedAnswer": {"@type": "Answer", "text": "Companies are added rung by rung so the ladder always spans every unit of consumption — and so contested rungs show every posture: on the tokens rung, DeepInfra owns the metal, FriendliAI buys capacity, and Telnyx owns the metal and the carrier network, selling minutes above it; around clusters, GMI Cloud sells sovereignty by geography while Corvex sells it by cryptography; on GPU-hours, TensorWave owns an all-AMD fleet while Vast.ai owns no GPUs at all — a 1,400-provider auction; on megawatts, Firmus sells a renewable premium while Radiant sells Brookfield-scale capital and powered land. Cards ship as they are verified. Each card documents the unit sold, the unit bought, verifiable scale proof with dates, the company's strategic bet, and its natural counterparty."}
     }
    ]
   }
@@ -92,7 +93,7 @@
   --hero-ground:#0B0E14;--hero-ground-2:#141A24;--paper:#FBFAF7;
   --r:6px;--r-lg:10px;--r-xl:14px;
   --c-firmus:#16A34A;--c-gmi:#3461F0;--c-tw:#C25A45;
-  --c-lightning:#9A6700;--c-runpod:#A6779C;--c-deepinfra:#06B6D4;--c-friendli:#0E7490;--c-telnyx:#00A57A;--c-corvex:#5B5BD6;--c-radiant:#D97706;
+  --c-lightning:#9A6700;--c-runpod:#A6779C;--c-deepinfra:#06B6D4;--c-friendli:#0E7490;--c-telnyx:#00A57A;--c-corvex:#5B5BD6;--c-radiant:#D97706;--c-vast:#DB2777;
 }
 *{box-sizing:border-box;margin:0;padding:0}
 html{scroll-behavior:smooth}
@@ -236,6 +237,7 @@ a:focus-visible{outline:2px solid var(--accent);outline-offset:2px;border-radius
         <div class="rmeta"><span class="unit">GPU-hours</span><span class="rdef">reserved time on hardware the buyer operates</span></div>
         <div class="rchips">
           <a class="chip" href="companies/tensorwave.html" style="--cc:var(--c-tw)"><i></i><b>TensorWave</b><small>all-AMD</small></a>
+          <a class="chip" href="companies/vast-ai.html" style="--cc:var(--c-vast)"><i></i><b>Vast.ai</b><small>owns nothing — the open marketplace</small></a>
         </div>
       </div>
       <div class="rung" role="listitem" style="--rc:var(--c-gmi)">
@@ -261,7 +263,7 @@ a:focus-visible{outline:2px solid var(--accent);outline-offset:2px;border-radius
   <section>
     <div class="eyebrow">The second axis</div>
     <h2>Every seller here is also a buyer</h2>
-    <p>The thing no spec sheet publishes: what each of these companies <b>buys</b>. Runpod buys capacity from data-center partners and vetted hosts — it deployed three times its previous total fleet in Q1 2026 alone. DeepInfra buys data centers outright. Lightning AI routes demand into seven or more third-party clouds while operating its own fleet. Firmus buys renewable power in hundred-megawatt blocks. Radiant goes one layer deeper still — it buys permit-stabilized land banks and builds behind-the-meter generation, then racks NVIDIA systems on top; it's a power generator, not a power reseller. Telnyx buys GPUs outright and racks them inside its own carrier PoPs — it buys no cloud capacity at all.</p>
+    <p>The thing no spec sheet publishes: what each of these companies <b>buys</b>. Runpod buys capacity from data-center partners and vetted hosts — it deployed three times its previous total fleet in Q1 2026 alone. DeepInfra buys data centers outright. Lightning AI routes demand into seven or more third-party clouds while operating its own fleet. Firmus buys renewable power in hundred-megawatt blocks. Radiant goes one layer deeper still — it buys permit-stabilized land banks and builds behind-the-meter generation, then racks NVIDIA systems on top; it's a power generator, not a power reseller. Vast.ai is the opposite limit case: it owns no GPUs and buys no capacity at all — 1,400+ independent providers list hardware they already paid for, and Vast increasingly sells <b>them</b> the operating system: sourcing, financing against platform earnings, presold enterprise demand. Telnyx buys GPUs outright and racks them inside its own carrier PoPs — it buys no cloud capacity at all.</p>
     <p>Knowing what a company buys tells you who its natural counterparty is — and that's where deals actually happen. The matrix below shows both sides.</p>
   </section>
 
@@ -290,6 +292,7 @@ a:focus-visible{outline:2px solid var(--accent);outline-offset:2px;border-radius
         <tr><th scope="row" class="co-head"><i style="background:var(--c-runpod)"></i><a href="companies/runpod.html">Runpod</a></th><td><b>GPU-seconds</b></td><td>Partner + host capacity</td><td>NVIDIA + consumer</td><td>~$240M ARR; 500K devs</td><td>31 global regions</td><td>Per-second, no commitment</td><td>Long-tail devs &amp; startups</td><td>Long tail &gt; whales</td></tr>
         <tr><th scope="row" class="co-head"><i style="background:var(--c-lightning)"></i><a href="companies/lightning-ai.html">Lightning AI</a></th><td><b>Workflow + multi-cloud hours</b></td><td>Demand routed to 7+ clouds</td><td>Multi — fleet H100/B200/GB300</td><td>35K+ GPU fleet post-merger</td><td>US fleet, global marketplace</td><td>Seats + on-demand + reserved</td><td>Enterprise ML teams</td><td>Workflow &gt; any single fleet</td></tr>
         <tr><th scope="row" class="co-head"><i style="background:var(--c-tw)"></i><a href="companies/tensorwave.html">TensorWave</a></th><td><b>AMD GPU-hours</b></td><td>AMD silicon, 2GW+ capacity</td><td>AMD only, MI300X&rarr;MI355X</td><td>$493M raised; 8,192 MI325X live</td><td>North America</td><td>Reserved clusters</td><td>Memory-bound inference platforms</td><td>Memory/$ wins inference</td></tr>
+        <tr><th scope="row" class="co-head"><i style="background:var(--c-vast)"></i><a href="companies/vast-ai.html">Vast.ai</a></th><td><b>GPU-hours — marketplace</b></td><td>Nothing — supply is listed, not bought</td><td>Host-owned, RTX 4090 &rarr; H200</td><td>17K+ GPUs &middot; 1,400+ providers (Feb 2026); ~$4M ever raised</td><td>500+ locations — the global long tail</td><td>On-demand &middot; interruptible auction &middot; reserved, per-second billing</td><td>Cost-sensitive researchers &amp; batch jobs</td><td>Liquidity beats ownership</td></tr>
         <tr><th scope="row" class="co-head"><i style="background:var(--c-gmi)"></i><a href="companies/gmi-cloud.html">GMI Cloud</a></th><td><b>Clusters + sovereignty</b></td><td>Power, DCs, hardware</td><td>NVIDIA Blackwell &rarr; Rubin</td><td>$12B Japan; ~7K GB300 Taiwan</td><td>Taiwan&ndash;Japan&ndash;US</td><td>Reserved + on-demand</td><td>APAC inference &amp; enterprise</td><td>Sovereignty &gt; spot market</td></tr>
         <tr><th scope="row" class="co-head"><i style="background:var(--c-corvex)"></i><a href="companies/corvex.html">Corvex</a></th><td><b>Clusters — confidential</b></td><td>NVIDIA allocation (NCP), DC capacity &amp; power</td><td>NVIDIA H200/B200/GB200 &rarr; Rubin</td><td>Nasdaq: MOVE (Mar 2026); 1st verified CC on HGX B200</td><td>US Tier III+ DCs · hybrid + on-prem</td><td>Multi-year reserved · hybrid EKS nodes</td><td>Model builders &amp; regulated enterprises</td><td>Sovereignty by cryptography, not geography</td></tr>
         <tr><th scope="row" class="co-head"><i style="background:var(--c-firmus)"></i><a href="companies/firmus.html">Firmus</a></th><td><b>MW / AI factories</b></td><td>Power, land, GB300s</td><td>NVIDIA GB300 &rarr; Rubin</td><td>$10B debt + $1.35B equity; 1.6GW target</td><td>Australia / APAC</td><td>Multi-year MW deals</td><td>Hyperscaler / sovereign</td><td>Green tokens earn a premium</td></tr>
@@ -342,6 +345,11 @@ a:focus-visible{outline:2px solid var(--accent);outline-offset:2px;border-radius
         <p>The all-AMD cloud with Fireworks AI and Luma AI in production — the ROCm objection, answered with evidence.</p>
         <span class="go">Read the card &rarr;</span>
       </a>
+      <a class="ccard" href="companies/vast-ai.html" style="--cc:var(--c-vast)">
+        <span class="unit">Rung 3 · GPU-hours — marketplace</span><span class="co">Vast.ai</span>
+        <p>The pure marketplace: 17K+ GPUs from 1,400+ providers in 500+ locations, on ~$4M ever raised — now selling hosts the OS too: sourcing, financing, presold demand. Draft, pending verification.</p>
+        <span class="go">Read the card &rarr;</span>
+      </a>
       <a class="ccard" href="companies/lightning-ai.html" style="--cc:var(--c-lightning)">
         <span class="unit">Rung 4 · Workflow + hours</span><span class="co">Lightning AI</span>
         <p>The PyTorch-native platform that just became supply: 35,000+ GPUs after the Voltage Park merger.</p>
@@ -388,7 +396,7 @@ a:focus-visible{outline:2px solid var(--accent);outline-offset:2px;border-radius
       </div>
       <div>
         <h3>Why these companies — and why is the top of the ladder crowded?</h3>
-        <p>Companies are added rung by rung so the ladder always spans every unit — and contested rungs show every posture: around tokens, DeepInfra owns the metal, FriendliAI buys capacity, and Telnyx owns the metal <em>and</em> the network, selling minutes above it; around clusters, GMI Cloud sells sovereignty by geography while Corvex sells it by cryptography; on megawatts, Firmus sells a renewable premium while Radiant sells Brookfield-scale capital and powered land. The full market lives on the <a href="index.html">ecosystem map</a>; cards ship as they're verified.</p>
+        <p>Companies are added rung by rung so the ladder always spans every unit — and contested rungs show every posture: around tokens, DeepInfra owns the metal, FriendliAI buys capacity, and Telnyx owns the metal <em>and</em> the network, selling minutes above it; around clusters, GMI Cloud sells sovereignty by geography while Corvex sells it by cryptography; on GPU-hours, TensorWave owns an all-AMD fleet while Vast.ai owns no GPUs at all — a 1,400-provider auction; on megawatts, Firmus sells a renewable premium while Radiant sells Brookfield-scale capital and powered land. The full market lives on the <a href="index.html">ecosystem map</a>; cards ship as they're verified.</p>
       </div>
     </div>
   </section>
