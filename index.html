@@ -95,8 +95,11 @@ body::after{content:'';position:fixed;inset:0;pointer-events:none;z-index:9998;o
 .topbar{
   background:rgba(250,250,248,0.82);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);
   border-bottom:1px solid rgba(0,0,0,0.06);
-  height:48px;display:flex;align-items:center;padding:0 var(--gutter);gap:20px;
   position:sticky;top:0;z-index:200;
+}
+.topbar-inner{
+  height:48px;display:flex;align-items:center;gap:20px;
+  padding:0 52px;position:relative;
 }
 .topbar-logo{
   display:flex;align-items:center;gap:8px;text-decoration:none;flex-shrink:0;
@@ -114,6 +117,7 @@ body::after{content:'';position:fixed;inset:0;pointer-events:none;z-index:9998;o
   letter-spacing:0.3px;
 }
 .topbar-nav{position:absolute;left:50%;transform:translateX(-50%);display:flex;align-items:center;gap:2px}
+.topbar .frame{border-color:var(--border)}
 .topbar-nav a{font-family:var(--mono);font-size:11.5px;font-weight:500;color:var(--ink-3);text-decoration:none;padding:5px 11px;border-radius:var(--r);transition:background .15s,color .15s;white-space:nowrap;text-transform:lowercase;letter-spacing:.2px}
 .topbar-nav a:hover{background:rgba(0,0,0,.05);color:var(--ink)}
 @media(max-width:880px){
@@ -682,7 +686,8 @@ footer{
   .voices-wrap{grid-template-columns:1fr;padding:0 16px 60px}
 }
 @media(max-width:768px){
-  .topbar,.main,footer{padding-left:16px;padding-right:16px}
+  .topbar-inner,.main,footer{padding-left:16px;padding-right:16px}
+  .topbar-inner{border-left:none;border-right:none}
   .jensen-bar,.region-bar,.legend-bar{padding-left:16px;padding-right:16px}
   .hero-stats{flex-direction:row;flex-wrap:wrap}
   .hero-title{font-size:26px}
@@ -703,7 +708,7 @@ footer{
 
 /* ── MOBILE: topbar no longer overflows the Share button ── */
 @media(max-width:560px){
-  .topbar{gap:10px}
+  .topbar-inner{gap:10px}
   .topbar-sep,.topbar-tag{display:none}
   .topbar-name{font-size:12px}
 }
@@ -760,6 +765,7 @@ footer{
 <body>
 
 <header class="topbar">
+  <div class="topbar-inner frame">
   <a class="topbar-logo" href="#">
     <div class="topbar-logo-mark">AI</div>
     <span class="topbar-name">AI Infra Ecosystem Map</span>
@@ -775,6 +781,7 @@ footer{
       <svg viewBox="0 0 16 16"><path d="M8 1.25a.75.75 0 0 1 .75.75v5.25H14a.75.75 0 0 1 0 1.5H8.75V14a.75.75 0 0 1-1.5 0V8.75H2a.75.75 0 0 1 0-1.5h5.25V2A.75.75 0 0 1 8 1.25z"/></svg>
       Suggestions
     </a>
+  </div>
   </div>
 </header>
 
