@@ -87,7 +87,7 @@
      "name": "How is Vast.ai different from Runpod or a GPU cloud like TensorWave?",
      "acceptedAnswer": {
       "@type": "Answer",
-      "text": "Posture on the supply side. TensorWave owns its all-AMD fleet; Runpod buys capacity from data-center partners and vetted hosts to feed a managed serverless product; Vast.ai owns nothing and buys nothing — over 1,400 independent providers list hardware they already paid for, set their own prices, and compete on rate. That auction dynamic produces the lowest listed prices on the market (H100s from roughly $0.90/hr in early 2026), traded off against consistency: no SLAs, no built-in autoscaling, and a verified-datacenter tier ($1.50–1.87/hr for H100s) for buyers who need predictable uptime."
+      "text": "Posture on the supply side. TensorWave owns its all-AMD fleet; Runpod buys capacity from data-center partners and vetted hosts to feed a managed serverless product; Vast.ai owns nothing and buys nothing — over 1,400 independent providers list hardware they already paid for, set their own prices, and compete on rate. That auction dynamic produces the lowest listed prices on the market (H100s from roughly $0.90/hr in early 2026), traded off against consistency: no contractual SLAs on community hosts, with a verified-datacenter tier ($1.50–1.87/hr for H100s) for buyers who need predictable uptime, and a serverless orchestration layer that provides autoscaling for inference workloads."
      }
     },
     {
@@ -201,7 +201,7 @@ a:focus-visible,button:focus-visible{outline:2px solid var(--accent);outline-off
   <span class="rung-chip"><i></i>Rung 3 · GPU-hours — marketplace</span>
   <h1>Vast.ai</h1>
   <p class="tagline">Sells GPU-hours from 1,400+ providers' hardware — the pure marketplace posture: it owns no GPUs, buys no capacity, and lets an auction set the price.</p>
-  <p class="stamp">Draft, pending provider verification · compiled <b>9 July 2026</b> &nbsp;·&nbsp; official site: <a href="https://vast.ai" style="color:#B9C0CE" rel="noopener">vast.ai</a> &nbsp;·&nbsp; founded <b>2018</b></p>
+  <p class="stamp">Provider-reviewed <b>10 July 2026</b> · compiled 9 July 2026 &nbsp;·&nbsp; official site: <a href="https://vast.ai" style="color:#B9C0CE" rel="noopener">vast.ai</a> &nbsp;·&nbsp; founded <b>2018</b></p>
 </div></header>
 
 <div class="factsbar"><div class="wrap">
@@ -216,7 +216,7 @@ a:focus-visible,button:focus-visible{outline:2px solid var(--accent);outline-off
     <div class="eyebrow">The two-sided view</div>
     <h2>What Vast.ai sells — and what it buys</h2>
     <div class="duo">
-      <div class="panel sold"><div class="k">Atomic unit sold</div><p>GPU-hours through a two-sided marketplace — buyers filter 17,000+ host-owned GPUs by spec, price, location and reliability score, from consumer RTX 4090s (~$0.34/hr in early 2026) to datacenter H100s and H200s, and run workloads in Docker containers with per-second billing. Three rental models: fixed-price on-demand, interruptible spot auctions on idle capacity, and reserved commitments. And a second product, sold to the <em>other</em> side: a business-in-a-box for hosts — hardware sourcing through vetted suppliers, financing qualified on platform earnings, presold enterprise demand, and a verified-datacenter certification tier.</p></div>
+      <div class="panel sold"><div class="k">Atomic unit sold</div><p>GPU-hours through a two-sided marketplace — buyers filter 17,000+ host-owned GPUs by spec, price, location and reliability score, from consumer RTX 4090s (~$0.34/hr in early 2026) to datacenter H100s and H200s, and run workloads in Docker containers with per-second billing. Three rental models: fixed-price on-demand, interruptible spot auctions on idle capacity, and reserved commitments — plus a serverless orchestration layer that autoscales inference-style workloads across the marketplace. And a second product, sold to the <em>other</em> side: a business-in-a-box for hosts — hardware sourcing through vetted suppliers, financing qualified on platform earnings, presold enterprise demand, and a verified-datacenter certification tier.</p></div>
       <div class="panel bought"><div class="k">What they buy</div><p>Nothing — the limit case of this ladder's buy side. Supply is listed, not bought: 1,400+ independent providers, from single-workstation hobbyists to data-center operators, own the hardware, set their own prices, and compete on rate. What Vast.ai builds instead of buying is trust infrastructure — reliability scoring, datacenter verification, SOC 2 Type I compliance, fraud protection, and the 24/7 support layer that hosts cite as the platform's main value.</p></div>
     </div>
   </section>
@@ -228,14 +228,14 @@ a:focus-visible,button:focus-visible{outline:2px solid var(--accent);outline-off
       <div class="proof"><div class="n">17K+</div><div class="d">GPUs listed across 1,400+ providers in 500+ locations — the largest decentralized GPU marketplace (GPUnex third-party review, Feb 2026)</div></div>
       <div class="proof"><div class="n">~$4M</div><div class="d">total ever raised — DRW Holdings, Nazare and Primavera Venture Partners — against a marketplace of this scale, with ~46 employees (PitchBook, 2026)</div></div>
       <div class="proof"><div class="n">$0.90/hr</div><div class="d">H100 listed floor, the lowest rate on the market; verified datacenter hosts run $1.50–1.87/hr — the spread is the marketplace's honest price of consistency (GPUnex, Feb 2026)</div></div>
-      <div class="proof"><div class="n">120K+</div><div class="d">active developers searching for compute, per Vast.ai's host-facing materials; hosts report consumer GPUs earning $0.30–0.60/GPU-hr and H100/H200s at $2.15–4.00+ (Vast.ai, May 2026 — company-claimed)</div></div>
+      <div class="proof"><div class="n">98.6%</div><div class="d">B200 fleet utilization, with a median host take-home of $5.11/GPU-hr; H200 SXM runs 85% utilization at a $3.10 median — on-demand often out-earning average reserved rates, a marketplace-liquidity signal (provider-verified, 10 Jul 2026)</div></div>
     </div>
   </section>
 
   <section>
     <div class="eyebrow">The strategy</div>
     <h2>The bet</h2>
-    <p>That liquidity beats ownership. Every owned fleet on this ladder carries capex, depreciation and utilization risk; Vast.ai's wager is that aggregating idle supply from providers who already sank the capex drives the marginal price of a GPU-hour toward electricity plus host margin — structurally below what any fleet owner can sustain. The second act is the Amazon-marketplace play: sell the <em>sellers</em> the operating system — hardware sourcing, financing underwritten by platform earnings history the way Amazon Lending underwrites merchants, capacity presold before it's racked — so supply compounds without Vast buying a single GPU. The known cost of the model is variance: no SLAs, no built-in autoscaling or failover, and effective prices 20–40% above the listed floor on unverified hosts once downtime is counted — which is exactly the gap the verified-datacenter tier exists to price.</p>
+    <p>That liquidity beats ownership. Every owned fleet on this ladder carries capex, depreciation and utilization risk; Vast.ai's wager is that aggregating idle supply from providers who already sank the capex drives the marginal price of a GPU-hour toward electricity plus host margin — structurally below what any fleet owner can sustain. The second act is the Amazon-marketplace play: sell the <em>sellers</em> the operating system — hardware sourcing, financing underwritten by platform earnings history the way Amazon Lending underwrites merchants, capacity presold before it's racked — so supply compounds without Vast buying a single GPU. The utilization numbers argue the flywheel is turning: at 98.6% B200 fleet utilization, hosts' on-demand earnings often beat average reserved rates — spot liquidity out-yielding commitment, which is the thesis in one statistic. The known cost of the model is variance: no contractual SLAs on community hosts, and effective prices 20–40% above the listed floor on unverified hosts once downtime is counted — the gap the verified-datacenter tier and the serverless orchestration layer (which does provide autoscaling) exist to close.</p>
   </section>
 
   <section>
@@ -248,14 +248,14 @@ a:focus-visible,button:focus-visible{outline:2px solid var(--accent);outline-off
     <h2>Buyer fit</h2>
     <div class="fit">
       <div class="panel yes"><div class="k">Choose Vast.ai when</div><p>You're running short experiments, batch jobs or price-sensitive training where the lowest listed rates anywhere plus per-second exit beat consistency — or you can restrict to verified datacenter hosts for jobs that need predictable uptime at a still-competitive $1.50–1.87/hr for H100s.</p></div>
-      <div class="panel no"><div class="k">Look elsewhere when</div><p>You need multi-day production training or SLA-bound inference — there's no built-in autoscaling, monitoring or uptime guarantee, and third-party guidance is to budget 30–50% above the lowest listed rate for predictable costs. Managed rungs of the ladder exist for exactly this.</p></div>
+      <div class="panel no"><div class="k">Look elsewhere when</div><p>You need contractual SLAs and guaranteed uptime for production inference or multi-day training — community hosts carry no uptime guarantee, and third-party guidance is to budget 30–50% above the lowest listed rate for predictable costs. For autoscaled serving, Vast's serverless orchestration covers the basics; teams wanting a fully managed platform layer still sit better on other rungs of the ladder.</p></div>
     </div>
   </section>
 
   <section class="ledger">
     <div class="eyebrow">Private ledger</div>
     <h2>Five fields we track but don’t publish</h2>
-    <p>Everything above is public — figures are third-party-sourced or Vast.ai-published as noted, and this card is a draft pending direct provider verification. The fields below change weekly and are verified directly with each provider — they live in a private supply-demand ledger, not on this page.</p>
+    <p>Everything above is public or provider-verified — third-party figures are sourced as noted, and Vast.ai reviewed this card on 10 July 2026 (autoscaling and host-earnings figures updated per their feedback). The fields below change weekly and are verified directly with each provider — they live in a private supply-demand ledger, not on this page.</p>
     <div class="ledger-rows">
         <div class="lrow"><div class="lk">Available capacity, next 90 days<small>GPU type · quantity · location · online date</small></div><div class="lv" aria-hidden="true">██▓███▓▓█▓██</div></div>
         <div class="lrow"><div class="lk">Effective price floor<small>reserved · per-GPU-hour, at volume</small></div><div class="lv" aria-hidden="true">▓██▓███▓████</div></div>
