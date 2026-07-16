@@ -1,0 +1,607 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Silicon Cut: what chips AI clouds and inference providers actually run | AI Infra Ecosystem Map</title>
+<meta name="description" content="The chips layer of the AI stack, cut open. What silicon every major AI cloud and inference provider actually runs — NVIDIA Hopper/Blackwell, AMD Instinct, Google TPU, AWS Trainium, Groq LPU, Cerebras WSE, SambaNova RDU — mapped on a dataflow spectrum from systolic arrays to register-fed matrix engines, with field notes on why data movement, not compute, was always the bottleneck.">
+<meta name="author" content="Rahul Patwardhan">
+<meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
+<link rel="canonical" href="https://aiinfraecosystem.netlify.app/chips.html">
+<meta property="og:title" content="The Silicon Cut: compute was never the bottleneck">
+<meta property="og:description" content="What chips AI clouds and inference providers actually run — every silicon family placed on a dataflow spectrum, from systolic arrays to register-fed matrix engines. With architecture field notes.">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://aiinfraecosystem.netlify.app/chips.html">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Geist:wght@300;400;500;600;700;800&family=Geist+Mono:wght@400;500&display=swap" rel="stylesheet">
+<script type="application/ld+json">
+{
+ "@context": "https://schema.org",
+ "@graph": [
+  {
+   "@type": "Article",
+   "headline": "The Silicon Cut: what chips AI clouds and inference providers actually run",
+   "description": "The chips layer of the AI stack, expanded: every silicon family placed on a dataflow spectrum — from systolic arrays that move data as little as possible to register-fed matrix engines that make data available as quickly as possible — with a deployment matrix of what silicon each AI cloud and inference provider runs, and contributed field notes on the architecture behind the choices.",
+   "author": {"@type": "Person", "name": "Rahul Patwardhan"},
+   "datePublished": "2026-07-16",
+   "dateModified": "2026-07-16",
+   "url": "https://aiinfraecosystem.netlify.app/chips.html",
+   "isPartOf": {"@type": "WebSite", "name": "The AI Infra Ecosystem Map", "url": "https://aiinfraecosystem.netlify.app/"}
+  },
+  {
+   "@type": "BreadcrumbList",
+   "itemListElement": [
+    {"@type": "ListItem", "position": 1, "name": "AI Infra Ecosystem Map", "item": "https://aiinfraecosystem.netlify.app/"},
+    {"@type": "ListItem", "position": 2, "name": "The Silicon Cut", "item": "https://aiinfraecosystem.netlify.app/chips.html"}
+   ]
+  },
+  {
+   "@type": "ItemList",
+   "name": "The Silicon Cut — eight silicon families",
+   "itemListElement": [
+    {"@type": "ListItem", "position": 1, "name": "Google TPU — classical systolic arrays, the move-data-least pole", "url": "https://aiinfraecosystem.netlify.app/chips.html#tpu"},
+    {"@type": "ListItem", "position": 2, "name": "Cerebras WSE — wafer-scale, weights never leave the die", "url": "https://aiinfraecosystem.netlify.app/chips.html#cerebras"},
+    {"@type": "ListItem", "position": 3, "name": "Groq LPU — deterministic dataflow, compiler-scheduled to the cycle", "url": "https://aiinfraecosystem.netlify.app/chips.html#groq"},
+    {"@type": "ListItem", "position": 4, "name": "SambaNova RDU — reconfigurable dataflow", "url": "https://aiinfraecosystem.netlify.app/chips.html#sambanova"},
+    {"@type": "ListItem", "position": 5, "name": "AWS Trainium — hyperscaler systolic silicon", "url": "https://aiinfraecosystem.netlify.app/chips.html#trainium"},
+    {"@type": "ListItem", "position": 6, "name": "Intel Gaudi — large matrix engines on Ethernet", "url": "https://aiinfraecosystem.netlify.app/chips.html#gaudi"},
+    {"@type": "ListItem", "position": 7, "name": "AMD Instinct — the memory-per-dollar challenger", "url": "https://aiinfraecosystem.netlify.app/chips.html#amd"},
+    {"@type": "ListItem", "position": 8, "name": "NVIDIA — register-fed matrix engines, the flexibility pole", "url": "https://aiinfraecosystem.netlify.app/chips.html#nvidia"}
+   ]
+  },
+  {
+   "@type": "FAQPage",
+   "mainEntity": [
+    {
+     "@type": "Question",
+     "name": "What chips do AI clouds and inference providers actually run?",
+     "acceptedAnswer": {"@type": "Answer", "text": "Overwhelmingly NVIDIA — Hopper (H100/H200) fleets transitioning to Blackwell (B200/GB200/GB300) with Rubin next. But the monoculture has real exceptions: TensorWave runs an all-AMD MI300X-to-MI355X fleet with Fireworks AI and Luma AI in production; Azure and Oracle offer AMD Instinct instances; Google Cloud sells TPUs alongside NVIDIA; AWS pushes Trainium for training and Inferentia for inference; and Groq, Cerebras and SambaNova operate inference clouds on their own custom silicon — LPU, wafer-scale engine, and RDU respectively."}
+    },
+    {
+     "@type": "Question",
+     "name": "Are NVIDIA Tensor Cores systolic arrays?",
+     "acceptedAnswer": {"@type": "Answer", "text": "Not in the classical TPU sense. A classical systolic array is defined by its dataflow: neighbor-to-neighbor communication, operands physically propagating through the array, partial sums flowing through the PE network, massive operand reuse. Tensor Cores are better described as register-fed matrix engines composed of many dot-product units: inputs come from registers and shared memory, computation happens inside the matrix engine, and results are written back to registers. There is no exposed programming model where activations and weights march across a large PE mesh. The distinction matters for energy efficiency, latency, compiler design, and workload suitability — large systolic arrays pay a fill-and-drain latency tax that GPUs, optimized for small GEMMs, dynamic shapes and attention kernels, chose not to pay."}
+    },
+    {
+     "@type": "Question",
+     "name": "What is the difference between the TPU philosophy and the GPU philosophy?",
+     "acceptedAnswer": {"@type": "Answer", "text": "TPU philosophy: move the data as little as possible — large systolic arrays surrounded by SRAM maximize operand reuse and minimize expensive memory movement, which is where the FLOPs-per-watt advantage comes from. GPU philosophy: make the data available as quickly as possible — flexible vector processors with sophisticated scheduling, caches and register files, optimized for low latency, dynamic tensor shapes, small GEMMs and diverse workloads. Because data movement energy dominates compute energy in modern AI workloads, the two philosophies are converging: every new GPU generation becomes more dataflow-oriented (Tensor Cores, large shared SRAM, TMA async copy engines, warp specialization), while systolic architectures add vector capability for the non-GEMM parts of transformers."}
+    },
+    {
+     "@type": "Question",
+     "name": "Why do some inference providers build their own chips?",
+     "acceptedAnswer": {"@type": "Answer", "text": "Because for a fixed, known workload — serving transformer inference at scale — deterministic dataflow silicon can deliver higher throughput per watt and per dollar than general-purpose GPUs, by eliminating the register files, operand routing networks and control logic that exist to support flexibility the workload doesn't need. Groq (LPU), Cerebras (wafer-scale engine) and SambaNova (RDU) all sell tokens and dedicated systems on this bet. The trade-off is flexibility: their compilers and memory orchestration layers must absorb the diversity that GPU hardware handles natively."}
+    }
+   ]
+  }
+ ]
+}
+</script>
+<style>
+:root{
+  --bg:#F2F3F5;--surface:#FAFAF8;--surface-2:#F3F3F0;--surface-3:#EBEBE8;
+  --border:rgba(0,0,0,0.08);--border-2:rgba(0,0,0,0.14);
+  --ink:#0D1117;--ink-2:#24292F;--ink-3:#57606A;--ink-4:#6B7480;
+  --accent:#C25A45;--accent-light:#F9EAE5;         /* --L-chips stratum token from the map */
+  --font:'Geist',system-ui,sans-serif;--mono:'Geist Mono',monospace;
+  --display:'Space Grotesk','Geist',system-ui,sans-serif;
+  --hero-ground:#0B0E14;--hero-ground-2:#141A24;--paper:#FBFAF7;
+  --r:6px;--r-lg:10px;--r-xl:14px;
+  /* silicon family colors */
+  --c-nvidia:#5B9E2D;--c-amd:#C43B3B;--c-tpu:#3461F0;--c-trn:#C97B1D;
+  --c-gaudi:#0E7490;--c-groq:#C2410C;--c-wse:#7C3AED;--c-rdu:#A6779C;
+  --c-hbm:#57606A;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{background:var(--paper);color:var(--ink);font-family:var(--font);line-height:1.6;-webkit-font-smoothing:antialiased}
+.wrap{max-width:960px;margin:0 auto;padding:0 24px}
+.topnav{border-bottom:1px solid var(--border);background:var(--paper);position:sticky;top:0;z-index:10}
+.topnav .wrap{display:flex;align-items:center;gap:14px;height:52px}
+.topnav a{font-family:var(--mono);font-size:11px;color:var(--ink-3);text-decoration:none;transition:color .12s}
+.topnav a:hover{color:var(--ink)}
+.topnav .brand{font-family:var(--display);font-weight:600;font-size:13px;color:var(--ink);letter-spacing:-.01em}
+.topnav .sep{color:var(--border-2)}
+.topnav .xlink{margin-left:auto}
+
+.hero{background:var(--hero-ground);color:#E8EAF0;padding:64px 0 0;position:relative;overflow:hidden}
+.hero::after{content:"";position:absolute;inset:0;background:radial-gradient(700px 260px at 80% -10%,rgba(194,90,69,.20),transparent 70%);pointer-events:none}
+.hero .kicker{font-family:var(--mono);font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--accent);margin-bottom:16px}
+.hero h1{font-family:var(--display);font-size:clamp(30px,5.4vw,50px);font-weight:700;letter-spacing:-.035em;line-height:1.05;color:#fff;max-width:22ch;text-wrap:balance}
+.hero .sub{margin-top:16px;font-size:16px;color:#9AA3B5;max-width:60ch}
+.hero .sub em{font-style:italic;color:#C7CCD8}
+.hero .stamp{margin-top:20px;font-family:var(--mono);font-size:10px;color:#7A8398}
+.hero .stamp b{color:var(--accent);font-weight:500}
+
+/* ── THE SPECTRUM — signature element: every silicon family placed on the dataflow axis ── */
+.spectrum{margin:48px 0 0;position:relative;z-index:1;padding-bottom:44px}
+.spec-axis{display:flex;align-items:center;gap:10px;margin-bottom:22px}
+.spec-axis .line{flex:1;height:1px;background:linear-gradient(90deg,var(--c-tpu),#8A8FA3 50%,var(--c-nvidia))}
+.spec-axis .pole{font-family:var(--mono);font-size:9.5px;letter-spacing:.08em;text-transform:uppercase;white-space:nowrap}
+.spec-axis .pole.l{color:#7FA0F5}
+.spec-axis .pole.r{color:#9BC873}
+.spec-zones{display:grid;grid-template-columns:1.2fr 1fr 1.2fr;gap:14px}
+.zone{border:1px solid rgba(255,255,255,.10);border-radius:var(--r-lg);padding:14px 14px 12px;position:relative}
+.zone.mid{border-color:rgba(194,90,69,.45);background:rgba(194,90,69,.06)}
+.zone .zlabel{font-family:var(--display);font-size:13px;font-weight:600;color:#fff;letter-spacing:-.01em;display:block}
+.zone .zdef{font-size:11px;color:#6E7789;display:block;margin:3px 0 12px;line-height:1.5}
+.zone.mid .zlabel{color:#F0B4A5}
+.zchips{display:flex;flex-wrap:wrap;gap:7px}
+.zchip{display:inline-flex;align-items:center;gap:7px;text-decoration:none;border:1px solid rgba(255,255,255,.14);border-radius:6px;padding:6px 10px;transition:border-color .15s,background .15s,transform .15s}
+.zchip:hover{border-color:var(--cc);background:rgba(255,255,255,.04);transform:translateY(-1px)}
+.zchip i{width:8px;height:8px;border-radius:2px;background:var(--cc)}
+.zchip b{font-family:var(--display);font-size:13px;font-weight:600;color:#fff;letter-spacing:-.01em}
+.zchip small{font-family:var(--mono);font-size:9px;color:#8A93A6}
+.zone .drift{margin-top:12px;font-family:var(--mono);font-size:9px;color:#7A8398;letter-spacing:.04em;display:flex;align-items:center;gap:6px}
+.zone .drift b{color:#F0B4A5;font-weight:500}
+.spec-caption{font-family:var(--mono);font-size:9.5px;color:#5E6779;letter-spacing:.06em;padding-top:14px;display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap}
+
+main{padding:48px 0 56px}
+section{margin-bottom:48px}
+.eyebrow{font-family:var(--mono);font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--accent);margin-bottom:8px}
+h2{font-family:var(--display);font-size:21px;font-weight:600;letter-spacing:-.02em;margin-bottom:12px}
+p{color:var(--ink-2);max-width:70ch;margin-bottom:12px}
+p:last-child{margin-bottom:0}
+p b{font-weight:600;color:var(--ink)}
+.flag{font-family:var(--mono);font-size:9.5px;color:var(--accent);letter-spacing:.04em}
+
+/* ── The two philosophies — paired epigraph ── */
+.duel{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:18px}
+.duel .side{background:var(--surface);border:1px solid var(--border);border-radius:var(--r-lg);padding:16px 18px;border-top:3px solid var(--dc)}
+.duel .side .who{font-family:var(--mono);font-size:9.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-4);display:block;margin-bottom:6px}
+.duel .side .say{font-family:var(--display);font-size:16px;font-weight:600;letter-spacing:-.015em;color:var(--ink);display:block;line-height:1.35}
+.duel .side p{font-size:12px;color:var(--ink-3);margin:8px 0 0}
+
+/* ── Silicon family cards ── */
+.fams{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.fam{background:var(--surface);border:1px solid var(--border);border-radius:var(--r-lg);padding:16px 18px;border-top:3px solid var(--fc);box-shadow:0 1px 3px rgba(0,0,0,.04);display:flex;flex-direction:column;gap:8px;scroll-margin-top:70px}
+.fam .fam-head{display:flex;align-items:baseline;justify-content:space-between;gap:10px;flex-wrap:wrap}
+.fam .fam-name{font-family:var(--display);font-size:16px;font-weight:600;letter-spacing:-.015em;color:var(--ink)}
+.fam .fam-arch{font-family:var(--mono);font-size:9px;letter-spacing:.06em;text-transform:uppercase;color:var(--fc);border:1px solid color-mix(in srgb,var(--fc) 35%,transparent);border-radius:4px;padding:2px 7px;white-space:nowrap}
+.fam .fam-spec{font-family:var(--mono);font-size:10px;color:var(--ink-4);letter-spacing:.02em;line-height:1.7}
+.fam .fam-spec b{color:var(--ink-3);font-weight:500}
+.fam p{font-size:12.5px;color:var(--ink-2);margin:0}
+.fam .runs{margin-top:auto;padding-top:10px;border-top:1px solid var(--border)}
+.fam .runs .rl{font-family:var(--mono);font-size:9px;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-4);display:block;margin-bottom:7px}
+.fam .rchips{display:flex;flex-wrap:wrap;gap:6px}
+.rr{display:inline-flex;align-items:center;gap:6px;font-size:11px;color:var(--ink-2);border:1px solid var(--border);border-radius:5px;padding:3px 9px;text-decoration:none;background:var(--surface-2);transition:border-color .12s}
+a.rr:hover{border-color:var(--fc)}
+.rr i{width:6px;height:6px;border-radius:2px;background:var(--fc)}
+.fam .note-jump{font-family:var(--mono);font-size:9.5px;color:var(--fc);text-decoration:none;letter-spacing:.03em}
+.fam .note-jump:hover{text-decoration:underline}
+
+/* ── HBM band — the memory beneath ── */
+.hbm-band{background:var(--surface);border:1px solid var(--border);border-radius:var(--r-xl);overflow:hidden;box-shadow:0 1px 3px rgba(0,0,0,.04)}
+.hbm-band .hbm-head{background:var(--surface-2);padding:11px 16px;font-family:var(--mono);font-size:10px;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-3);border-bottom:1px solid var(--border)}
+.hbm-rows{display:grid;grid-template-columns:1fr 1fr 1fr}
+.hbm-rows>div{padding:14px 16px}
+.hbm-rows>div+div{border-left:1px solid var(--border)}
+.hbm-rows b{font-family:var(--display);font-size:13.5px;font-weight:600;display:block;letter-spacing:-.01em}
+.hbm-rows span{font-size:11.5px;color:var(--ink-3);display:block;margin-top:3px}
+.hbm-rows small{font-family:var(--mono);font-size:9px;color:var(--ink-4);letter-spacing:.05em;text-transform:uppercase;display:block;margin-top:7px}
+
+/* ── Matrix ── */
+.matrix-wrap{overflow-x:auto;border:1px solid var(--border);border-radius:var(--r-xl);background:var(--surface);box-shadow:0 1px 3px rgba(0,0,0,.04)}
+table{border-collapse:collapse;width:100%;min-width:860px;font-size:12px}
+th,td{padding:10px 12px;text-align:left;border-bottom:1px solid var(--border);vertical-align:top}
+thead th{font-family:var(--mono);font-size:9.5px;letter-spacing:.07em;text-transform:uppercase;color:var(--ink-4);background:var(--surface-2);position:sticky;top:0}
+thead th:first-child{width:130px}
+tbody th{font-family:var(--mono);font-size:10px;letter-spacing:.04em;color:var(--ink-3);font-weight:500;background:var(--surface-2);white-space:nowrap}
+td{color:var(--ink-2)}
+td b{font-weight:600;color:var(--ink)}
+td .flag{display:block;margin-top:3px}
+.co-head{font-family:var(--display);font-weight:600;font-size:12.5px;color:var(--ink)!important;text-transform:none!important;letter-spacing:-.01em!important}
+.co-head a{color:inherit;text-decoration:none;border-bottom:1px solid var(--border-2)}
+.co-head a:hover{border-color:var(--ink)}
+.grp td{background:var(--hero-ground);color:#C7CCD8;font-family:var(--mono);font-size:9.5px;letter-spacing:.09em;text-transform:uppercase;padding:8px 12px}
+.grp td small{color:#6E7789;text-transform:none;letter-spacing:.02em;margin-left:10px}
+.matrix-foot{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;padding:14px;background:var(--hero-ground);border-top:1px solid rgba(255,255,255,.10)}
+.matrix-foot p{font-family:var(--mono);font-size:10px;color:#7A8398;margin:0;max-width:none}
+.matrix-foot a{display:inline-block;font-family:var(--mono);font-size:11px;color:var(--hero-ground);background:var(--accent);padding:8px 14px;border-radius:var(--r);text-decoration:none;font-weight:500;transition:transform .12s;white-space:nowrap}
+.matrix-foot a:hover{transform:translateY(-1px)}
+
+/* ── Field notes — attributed architecture essays on dark ground, visually separate from verified facts ── */
+.fnote{background:var(--hero-ground);border:1px solid rgba(255,255,255,.08);border-radius:var(--r-xl);padding:24px 26px;color:#C7CCD8;margin-bottom:14px;scroll-margin-top:70px}
+.fnote .fn-eyebrow{font-family:var(--mono);font-size:9.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--accent);display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;margin-bottom:12px}
+.fnote .fn-eyebrow span{color:#6E7789}
+.fnote h3{font-family:var(--display);font-size:18px;font-weight:600;letter-spacing:-.02em;color:#fff;margin-bottom:12px;max-width:34ch;text-wrap:balance}
+.fnote p{color:#B9C0CE;font-size:13.5px;max-width:68ch;margin-bottom:12px}
+.fnote p b{color:#fff;font-weight:600}
+.fnote p em{color:#E8EAF0}
+.fnote ul{list-style:none;margin:0 0 14px;max-width:68ch}
+.fnote ul li{font-size:13px;color:#B9C0CE;padding:5px 0 5px 18px;position:relative;border-bottom:1px solid rgba(255,255,255,.06)}
+.fnote ul li::before{content:"";position:absolute;left:0;top:13px;width:8px;height:2px;background:var(--accent)}
+.fnote ul li:last-child{border-bottom:none}
+.fnote .fn-kv{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:14px 0}
+.fnote .fn-kv>div{border:1px solid rgba(255,255,255,.10);border-radius:var(--r-lg);padding:12px 14px}
+.fnote .fn-kv b{font-family:var(--display);font-size:13px;color:#fff;display:block;margin-bottom:4px;letter-spacing:-.01em}
+.fnote .fn-kv span{font-size:12px;color:#8A93A6;line-height:1.55;display:block}
+.fnote .fn-formula{font-family:var(--mono);font-size:12px;color:#F0B4A5;background:rgba(194,90,69,.08);border:1px solid rgba(194,90,69,.3);border-radius:var(--r);padding:10px 14px;display:inline-block;margin:2px 0 14px;letter-spacing:.03em}
+.fnote .fn-attr{margin-top:16px;padding-top:14px;border-top:1px solid rgba(255,255,255,.10);font-family:var(--mono);font-size:10px;color:#6E7789;display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap}
+.fnote .fn-attr b{color:#C7CCD8;font-weight:500}
+.fnote .fn-q{margin-top:14px;font-size:12.5px;color:#8A93A6;font-style:italic}
+
+/* FAQ */
+.faq{display:grid;grid-template-columns:1fr 1fr;gap:22px 32px}
+.faq h3{font-family:var(--display);font-size:14px;font-weight:600;letter-spacing:-.01em;margin-bottom:6px}
+.faq p{font-size:13px;color:var(--ink-3);margin:0}
+
+.method{background:var(--surface);border:1px solid var(--border);border-left:3px solid var(--accent);border-radius:var(--r-lg);padding:16px 18px}
+.method p{font-size:12.5px;color:var(--ink-3)}
+
+footer{border-top:1px solid var(--border);padding:20px 0 36px}
+footer .wrap{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;font-family:var(--mono);font-size:10px;color:var(--ink-4)}
+footer a{color:var(--ink-3);text-decoration:none}
+footer a:hover{color:var(--ink)}
+a:focus-visible{outline:2px solid var(--accent);outline-offset:2px;border-radius:3px}
+@media(max-width:820px){
+  .spec-zones{grid-template-columns:1fr}
+  .fams{grid-template-columns:1fr}
+  .duel{grid-template-columns:1fr}
+  .hbm-rows{grid-template-columns:1fr}
+  .hbm-rows>div+div{border-left:none;border-top:1px solid var(--border)}
+  .faq{grid-template-columns:1fr}
+  .fnote .fn-kv{grid-template-columns:1fr}
+}
+@media(prefers-reduced-motion:reduce){*{transition:none!important}html{scroll-behavior:auto}}
+</style>
+</head>
+<body>
+<nav class="topnav"><div class="wrap">
+  <a class="brand" href="index.html">AI Infra Ecosystem Map</a><span class="sep">/</span>
+  <a href="chips.html" aria-current="page" style="color:var(--ink)">The Silicon Cut</a>
+  <a class="xlink" href="compute-ladder.html">The Compute Ladder &rarr;</a>
+</div></nav>
+
+<header class="hero">
+  <div class="wrap">
+    <div class="kicker">Analysis · the chips layer, cut open</div>
+    <h1>Compute was never the bottleneck.</h1>
+    <p class="sub">Matrix multiplication looked like a compute problem. <em>Data movement</em> was the real limit. Each accelerator below answers one question: how far should an operand travel per FLOP? The answers form a spectrum. Every provider on the <a href="index.html" style="color:#C7CCD8">map</a> has picked a point on it, and the chip designers are converging on the middle.</p>
+    <p class="stamp">Deployment facts drawn from the map &amp; public disclosures as of <b>16 July 2026</b> · field notes contributed, see attribution · by Rahul Patwardhan</p>
+
+    <div class="spectrum" id="spectrum" aria-label="The dataflow spectrum, from systolic arrays to register-fed matrix engines">
+      <div class="spec-axis">
+        <span class="pole l">Move the data as little as possible</span>
+        <span class="line" aria-hidden="true"></span>
+        <span class="pole r">Make the data available as quickly as possible</span>
+      </div>
+      <div class="spec-zones">
+        <div class="zone">
+          <span class="zlabel">Deterministic dataflow</span>
+          <span class="zdef">Operands march through fixed spatial pipelines: systolic arrays and their descendants. The design buys throughput and TOPS/W and pays in fill/drain latency and shape flexibility.</span>
+          <div class="zchips">
+            <a class="zchip" href="#tpu" style="--cc:var(--c-tpu)"><i></i><b>TPU MXU</b><small>the classical systolic array</small></a>
+            <a class="zchip" href="#cerebras" style="--cc:var(--c-wse)"><i></i><b>Cerebras WSE</b><small>the whole wafer is the array</small></a>
+            <a class="zchip" href="#groq" style="--cc:var(--c-groq)"><i></i><b>Groq LPU</b><small>scheduled to the cycle</small></a>
+            <a class="zchip" href="#sambanova" style="--cc:var(--c-rdu)"><i></i><b>SambaNova RDU</b><small>reconfigurable dataflow</small></a>
+          </div>
+        </div>
+        <div class="zone mid">
+          <span class="zlabel">The converging middle</span>
+          <span class="zdef">Local SRAM + matrix engines + vector units + explicit async data movement + compiler-orchestrated scheduling. Each camp's newest designs land here.</span>
+          <div class="zchips">
+            <a class="zchip" href="#trainium" style="--cc:var(--c-trn)"><i></i><b>Trainium</b><small>hyperscaler systolic</small></a>
+            <a class="zchip" href="#gaudi" style="--cc:var(--c-gaudi)"><i></i><b>Gaudi</b><small>big MMEs on Ethernet</small></a>
+          </div>
+          <div class="drift"><b>&larr; GPUs drift this way every generation</b>&nbsp;·&nbsp;<b>dataflow chips add vector units &rarr;</b></div>
+        </div>
+        <div class="zone">
+          <span class="zlabel">Register-fed matrix engines</span>
+          <span class="zdef">D = A&times;B+C from registers and shared memory; no exposed PE mesh. Low latency, dynamic shapes, small GEMMs, attention kernels, everything else.</span>
+          <div class="zchips">
+            <a class="zchip" href="#nvidia" style="--cc:var(--c-nvidia)"><i></i><b>NVIDIA Tensor Cores</b><small>flexibility as the moat</small></a>
+            <a class="zchip" href="#amd" style="--cc:var(--c-amd)"><i></i><b>AMD Matrix Cores</b><small>memory/$ as the wedge</small></a>
+          </div>
+        </div>
+      </div>
+      <div class="spec-caption"><span>&larr; throughput &amp; TOPS/W · the workload must fit the pipe</span><span>latency &amp; flexibility · the pipe adapts to the workload &rarr;</span></div>
+    </div>
+  </div>
+</header>
+
+<main class="wrap">
+  <section id="philosophies">
+    <div class="eyebrow">The two philosophies</div>
+    <h2>Every chip is a position on data movement</h2>
+    <p>Open a pre-tensor-core GPU and count what the transistors do. Each multiply-accumulate sits behind a register file and an operand-selection network; multiply that across thousands of SIMD lanes, three operands per instruction, plus bypass paths and forwarding logic, and <b>routing hardware outnumbers math hardware</b>. A systolic array deletes the routing question. The compiler fixes the path in advance, operands flow from processing element to processing element, and the die area freed from routing turns into compute. The TOPS/W advantage comes out of that trade, not out of cheaper multiplication.</p>
+    <p>A large array charges for this in latency (<b>fill + compute + drain</b>), a bill only big GEMMs amortize. And a transformer is more than GEMMs: softmax, normalization, masking and quant/dequant run between the matrix multiplies and want vector hardware. Both camps have noticed. Each new GPU generation adds dataflow machinery, each dataflow chip adds vector units, and the contest moves up into <b>the compiler stack and the memory orchestration layer</b>. Field notes 01&ndash;03 make the full argument.</p>
+    <div class="duel">
+      <div class="side" style="--dc:var(--c-tpu)">
+        <span class="who">TPU philosophy</span>
+        <span class="say">"Move the data as little as possible."</span>
+        <p>Large systolic arrays surrounded by SRAM. The array fetches an operand once and reuses it as it passes through neighboring PEs, so register-file bandwidth and wire energy collapse.</p>
+      </div>
+      <div class="side" style="--dc:var(--c-nvidia)">
+        <span class="who">GPU philosophy</span>
+        <span class="say">"Make the data available as quickly as possible."</span>
+        <p>Vector processors with deep scheduling, caches and communication fabrics. Any operand to any ALU at any time; whatever shape the workload takes, the hardware absorbs it.</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="families">
+    <div class="eyebrow">The silicon families</div>
+    <h2>Eight architectures, one spectrum</h2>
+    <p>Each card places a family on the spectrum, states what it optimizes for, and lists <b>who on the map runs it</b>. Deployment chips link to Compute Ladder deep cards where they exist.</p>
+    <div class="fams">
+
+      <article class="fam" id="nvidia" style="--fc:var(--c-nvidia)">
+        <div class="fam-head"><span class="fam-name">NVIDIA</span><span class="fam-arch">Register-fed matrix engines</span></div>
+        <div class="fam-spec"><b>Silicon</b> Hopper H100/H200 &rarr; Blackwell B200/GB200/GB300 &rarr; Rubin&nbsp;&nbsp;<b>Memory</b> HBM3E&nbsp;&nbsp;<b>Fabric</b> NVLink + InfiniBand/Spectrum-X&nbsp;&nbsp;<b>Moat</b> CUDA</div>
+        <p>Tensor Cores take operands from registers and shared memory, compute D&nbsp;=&nbsp;A&times;B&nbsp;+&nbsp;C inside a dot-product engine, and write back; field note 01 argues they are register-fed matrix engines rather than systolic arrays, tuned for low latency, dynamic shapes, small GEMMs and attention kernels. Each generation drifts toward the dataflow camp while keeping the unified execution model: bigger shared SRAM, TMA async copy engines, warp specialization, compiler-driven tiling. Around 80% of the accelerator market runs here, so most providers on the map default to this column.</p>
+        <div class="runs"><span class="rl">Runs on the map</span>
+          <div class="rchips">
+            <span class="rr"><i></i>CoreWeave</span><span class="rr"><i></i>Lambda</span><span class="rr"><i></i>Nebius</span><span class="rr"><i></i>Crusoe</span>
+            <a class="rr" href="companies/deepinfra.html"><i></i>DeepInfra</a><a class="rr" href="companies/gmi-cloud.html"><i></i>GMI Cloud</a><a class="rr" href="companies/corvex.html"><i></i>Corvex</a><a class="rr" href="companies/firmus.html"><i></i>Firmus</a><a class="rr" href="companies/radiant.html"><i></i>Radiant</a><span class="rr"><i></i>+ nearly everyone</span>
+          </div>
+        </div>
+        <a class="note-jump" href="#note-01">Field note 01 — are Tensor Cores really systolic arrays? &darr;</a>
+      </article>
+
+      <article class="fam" id="amd" style="--fc:var(--c-amd)">
+        <div class="fam-head"><span class="fam-name">AMD Instinct</span><span class="fam-arch">Register-fed · memory-first</span></div>
+        <div class="fam-spec"><b>Silicon</b> MI300X/MI325X &rarr; MI355X&nbsp;&nbsp;<b>Memory</b> HBM3E, class-leading capacity per GPU&nbsp;&nbsp;<b>Fabric</b> Infinity Fabric + Ethernet&nbsp;&nbsp;<b>Stack</b> ROCm</div>
+        <p>CDNA Matrix Cores sit in the same register-fed camp as NVIDIA. The wedge is memory per dollar: more HBM per GPU fits larger models on one node and cuts nodes per deployment, so memory-bound inference became the beachhead. TensorWave answers the ROCm objection with production customers, Fireworks AI among them, instead of benchmark decks.</p>
+        <div class="runs"><span class="rl">Runs on the map</span>
+          <div class="rchips">
+            <a class="rr" href="companies/tensorwave.html"><i></i>TensorWave — all-AMD fleet</a><span class="rr"><i></i>Fireworks AI (via TensorWave)</span><span class="rr"><i></i>Microsoft Azure</span><span class="rr"><i></i>Oracle Cloud</span>
+          </div>
+        </div>
+      </article>
+
+      <article class="fam" id="tpu" style="--fc:var(--c-tpu)">
+        <div class="fam-head"><span class="fam-name">Google TPU</span><span class="fam-arch">Classical systolic array</span></div>
+        <div class="fam-spec"><b>Silicon</b> TPU v6e &rarr; v8&nbsp;&nbsp;<b>Compute</b> MXU systolic arrays + large local SRAM&nbsp;&nbsp;<b>Fabric</b> ICI optical torus&nbsp;&nbsp;<b>Stack</b> JAX / Pathways / XLA</div>
+        <p>The defining chip of the move-data-least pole. Operands propagate neighbor-to-neighbor through the MXU, partial sums flow through the PE network, and reuse collapses register-file bandwidth and wire energy. The design buys throughput and FLOPs/W on large, well-shaped workloads and leans on the XLA compiler to make everything else fit the pipe. Google sells it only through Google Cloud, at frontier-lab scale.</p>
+        <div class="runs"><span class="rl">Runs on the map</span>
+          <div class="rchips">
+            <span class="rr"><i></i>Google Cloud (exclusive)</span><span class="rr"><i></i>Google DeepMind</span><span class="rr"><i></i>Anthropic — training + serving</span>
+          </div>
+        </div>
+        <a class="note-jump" href="#note-02">Field note 02 — why systolic arrays win on TOPS/W &darr;</a>
+      </article>
+
+      <article class="fam" id="trainium" style="--fc:var(--c-trn)">
+        <div class="fam-head"><span class="fam-name">AWS Trainium / Inferentia</span><span class="fam-arch">Hyperscaler systolic</span></div>
+        <div class="fam-spec"><b>Silicon</b> Trainium2 &rarr; Trainium3&nbsp;&nbsp;<b>Compute</b> NeuronCore tensor engines (systolic) + vector/scalar engines&nbsp;&nbsp;<b>Fabric</b> NeuronLink + EFA&nbsp;&nbsp;<b>Stack</b> Neuron SDK</div>
+        <p>Amazon built its own answer to the TPU thesis and sells it inside AWS as a price-performance lever, never as merchant silicon. The NeuronCore already looks like the converged design: systolic tensor engines for the GEMMs, vector and scalar engines beside them for the rest of the transformer. Anchor customers fund the flywheel; Anthropic's Project Rainier cluster is the visible one.</p>
+        <div class="runs"><span class="rl">Runs on the map</span>
+          <div class="rchips">
+            <span class="rr"><i></i>AWS (exclusive)</span><span class="rr"><i></i>Anthropic — Project Rainier</span>
+          </div>
+        </div>
+      </article>
+
+      <article class="fam" id="gaudi" style="--fc:var(--c-gaudi)">
+        <div class="fam-head"><span class="fam-name">Intel Gaudi</span><span class="fam-arch">Large matrix engines · Ethernet-native</span></div>
+        <div class="fam-spec"><b>Silicon</b> Gaudi 3&nbsp;&nbsp;<b>Compute</b> large MMEs + programmable TPCs&nbsp;&nbsp;<b>Fabric</b> RoCE Ethernet on-chip — no proprietary interconnect&nbsp;&nbsp;<b>Stack</b> SynapseAI</div>
+        <p>Intel's thesis is networking: put standard Ethernet on the die and scale clusters on open fabrics instead of proprietary interconnects. Gaudi 3 competes on cost per token for mainstream inference and fine-tuning. Buyers' main hesitation is roadmap continuity while Intel folds its accelerator line into Falcon Shores. <span class="flag">Deployment list draft, pending verification.</span></p>
+        <div class="runs"><span class="rl">Runs on the map</span>
+          <div class="rchips">
+            <span class="rr"><i></i>IBM Cloud</span><span class="rr"><i></i>Intel Tiber AI Cloud</span>
+          </div>
+        </div>
+      </article>
+
+      <article class="fam" id="groq" style="--fc:var(--c-groq)">
+        <div class="fam-head"><span class="fam-name">Groq LPU</span><span class="fam-arch">Deterministic dataflow · compiler-scheduled</span></div>
+        <div class="fam-spec"><b>Silicon</b> LPU&nbsp;&nbsp;<b>Memory</b> on-chip SRAM only — no HBM&nbsp;&nbsp;<b>Scheduling</b> statically compiled to the cycle, no dynamic arbitration&nbsp;&nbsp;<b>Sold as</b> tokens via GroqCloud</div>
+        <p>No HBM, no caches, no dynamic scheduling. The compiler places every operand movement before the program runs, which fixes latency at compile time and produces the fastest per-user token rates on the market. Serving a model means sharding its weights across many chips of SRAM, so the economics close only at high utilization on a known model set. Groq sells no chips into clouds; the cloud is the product.</p>
+        <div class="runs"><span class="rl">Runs on the map</span>
+          <div class="rchips">
+            <span class="rr"><i></i>GroqCloud (own silicon)</span><span class="rr"><i></i>Humain — Saudi sovereign build <span class="flag">draft</span></span>
+          </div>
+        </div>
+      </article>
+
+      <article class="fam" id="cerebras" style="--fc:var(--c-wse)">
+        <div class="fam-head"><span class="fam-name">Cerebras WSE</span><span class="fam-arch">Wafer-scale dataflow</span></div>
+        <div class="fam-spec"><b>Silicon</b> Wafer-Scale Engine&nbsp;&nbsp;<b>Memory</b> tens of GB of on-wafer SRAM at PE-adjacent distance&nbsp;&nbsp;<b>Thesis</b> the interconnect problem dissolves if the cluster is one die</div>
+        <p>Cerebras pushes move-data-least to its physical limit: keep the whole array on one wafer, and weights and activations never cross a package boundary. The company sells systems and, more and more, tokens; Cerebras Inference competes with GPU providers on tokens per second per user.</p>
+        <div class="runs"><span class="rl">Runs on the map</span>
+          <div class="rchips">
+            <span class="rr"><i></i>Cerebras Cloud (own silicon)</span><span class="rr"><i></i>Core42 / G42 — Condor Galaxy</span>
+          </div>
+        </div>
+      </article>
+
+      <article class="fam" id="sambanova" style="--fc:var(--c-rdu)">
+        <div class="fam-head"><span class="fam-name">SambaNova RDU</span><span class="fam-arch">Reconfigurable dataflow</span></div>
+        <div class="fam-spec"><b>Silicon</b> RDU (Reconfigurable Dataflow Unit)&nbsp;&nbsp;<b>Compute</b> spatially reconfigured per model graph&nbsp;&nbsp;<b>Memory</b> large three-tier (SRAM/HBM/DDR)&nbsp;&nbsp;<b>Sold as</b> tokens + dedicated systems</div>
+        <p>The hedge between the poles. The RDU reconfigures its dataflow spatially per model graph, which keeps dataflow efficiency while tolerating more shapes than a fixed array. Three memory tiers let one system serve many models and long contexts. Like Groq and Cerebras, SambaNova takes the silicon to market as an inference cloud.</p>
+        <div class="runs"><span class="rl">Runs on the map</span>
+          <div class="rchips">
+            <span class="rr"><i></i>SambaNova Cloud (own silicon)</span>
+          </div>
+        </div>
+        <a class="note-jump" href="#note-03">Field note 03 — the convergence &darr;</a>
+      </article>
+
+    </div>
+  </section>
+
+  <section id="memory">
+    <div class="eyebrow">The layer beneath the layer</div>
+    <h2>All roads route through HBM</h2>
+    <p>Register-fed architectures live and die by HBM bandwidth; the SRAM-heavy designs above exist to avoid buying it. Three companies make the part everyone else is waiting on.</p>
+    <div class="hbm-band">
+      <div class="hbm-head">HBM — who makes the memory every GPU is waiting on</div>
+      <div class="hbm-rows">
+        <div><b>SK Hynix</b><span>HBM3E leader with roughly 95% of GPU-attached memory.</span><small>Leader · primary NVIDIA supplier</small></div>
+        <div><b>Samsung</b><span>HBM3E plus CXL memory expansion for capacity beyond the package.</span><small>Major · qualifying across vendors</small></div>
+        <div><b>Micron</b><span>HBM3E and CXL pooling, the third source every buyer wants to exist.</span><small>Major · US-based supply</small></div>
+      </div>
+    </div>
+  </section>
+
+  <section id="matrix">
+    <div class="eyebrow">The deployment matrix</div>
+    <h2>Who runs what</h2>
+    <p>The <a href="compute-ladder.html">Compute Ladder</a> sorts providers by the unit they sell. This matrix sorts them by the silicon underneath, the decision that sets their memory economics, their software surface, and their exposure to one vendor's roadmap. Rows marked <span class="flag">draft</span> await provider verification.</p>
+    <div class="matrix-wrap">
+    <table>
+      <thead>
+        <tr>
+          <th scope="col">Provider</th>
+          <th scope="col">Silicon fleet — today &rarr; next</th>
+          <th scope="col">Silicon posture</th>
+          <th scope="col">The silicon bet</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr class="grp"><td colspan="4">Hyperscalers <small>multi-silicon by design — NVIDIA plus in-house accelerators</small></td></tr>
+        <tr><th scope="row" class="co-head">AWS</th><td><b>NVIDIA H100/H200/Blackwell</b> + Trainium2 &rarr; Trainium3 + Inferentia</td><td>Dual-track — merchant + in-house systolic</td><td>Own the price-performance floor with captive silicon; keep NVIDIA for demand it can't move</td></tr>
+        <tr><th scope="row" class="co-head">Microsoft Azure</th><td><b>NVIDIA H100/H200/GB200</b> + AMD MI300X + Maia in-house <span class="flag">Maia scale — draft</span></td><td>Triple-source</td><td>Never negotiate with one vendor again</td></tr>
+        <tr><th scope="row" class="co-head">Google Cloud</th><td><b>TPU v6e &rarr; v8</b> + NVIDIA A3/A4</td><td>Dual-track — in-house systolic first</td><td>The only hyperscaler whose in-house chip trains frontier models</td></tr>
+        <tr><th scope="row" class="co-head">Oracle Cloud</th><td><b>NVIDIA bare-metal superclusters</b> + AMD MI300X</td><td>Dual-source, NVIDIA-heavy</td><td>RDMA-native bare metal beats virtualized fleets</td></tr>
+
+        <tr class="grp"><td colspan="4">GPU clouds <small>silicon posture is the strategy: single-vendor depth to owning nothing</small></td></tr>
+        <tr><th scope="row" class="co-head">CoreWeave</th><td><b>NVIDIA H100/H200 &rarr; GB200/GB300</b></td><td>NVIDIA-only, first-to-new-silicon</td><td>Be NVIDIA's fastest deployment arm and the allocation follows</td></tr>
+        <tr><th scope="row" class="co-head">Lambda</th><td><b>NVIDIA H100/H200 &rarr; Blackwell</b></td><td>NVIDIA-only</td><td>1-Click Clusters — make NVIDIA silicon self-serve</td></tr>
+        <tr><th scope="row" class="co-head">Nebius</th><td><b>NVIDIA</b> Hopper &rarr; Blackwell</td><td>NVIDIA-only, full-stack</td><td>EU full-stack AI cloud on the default silicon</td></tr>
+        <tr><th scope="row" class="co-head"><a href="companies/tensorwave.html">TensorWave</a></th><td><b>AMD only — MI300X &rarr; MI355X</b>, 8,192 MI325X live</td><td>Single-vendor challenger</td><td>Memory/$ wins inference; be the AMD cloud everyone benchmarks on</td></tr>
+        <tr><th scope="row" class="co-head"><a href="companies/vast-ai.html">Vast.ai</a></th><td><b>Host-owned — RTX 4090 &rarr; H200</b>, 17K+ GPUs listed</td><td>Owns nothing — marketplace</td><td>Liquidity beats ownership; the long tail prices the floor</td></tr>
+        <tr><th scope="row" class="co-head"><a href="companies/runpod.html">Runpod</a></th><td><b>NVIDIA + consumer</b> via partners and vetted hosts</td><td>Buys capacity, silicon-agnostic-ish</td><td>The unit is GPU-seconds; the silicon is whatever serves them cheapest</td></tr>
+        <tr><th scope="row" class="co-head"><a href="companies/lightning-ai.html">Lightning AI</a></th><td><b>Multi — H100/B200/GB300</b>, 35K+ fleet + 7+ clouds routed</td><td>Multi-fleet router</td><td>Workflow &gt; any single fleet — silicon is behind the abstraction</td></tr>
+        <tr><th scope="row" class="co-head"><a href="companies/gmi-cloud.html">GMI Cloud</a></th><td><b>NVIDIA Blackwell &rarr; Rubin</b>, ~7K GB300 Taiwan</td><td>NVIDIA-only, sovereign</td><td>Sovereignty by geography, on reference silicon</td></tr>
+        <tr><th scope="row" class="co-head"><a href="companies/corvex.html">Corvex</a></th><td><b>NVIDIA H200/B200/GB200 &rarr; Rubin</b></td><td>NVIDIA-only, confidential-compute-first</td><td>Sovereignty by cryptography — weights invisible even to the host</td></tr>
+        <tr><th scope="row" class="co-head"><a href="companies/firmus.html">Firmus</a></th><td><b>NVIDIA GB300 &rarr; Rubin</b></td><td>NVIDIA-only, renewable-powered</td><td>Green tokens earn a premium on the same silicon</td></tr>
+        <tr><th scope="row" class="co-head"><a href="companies/radiant.html">Radiant</a></th><td><b>NVIDIA Blackwell &rarr; Rubin</b> (DSX reference design)</td><td>NVIDIA-only, utility model</td><td>Silicon is a pass-through; capital cost of power wins</td></tr>
+
+        <tr class="grp"><td colspan="4">Inference providers <small>the buyer never sees the hardware; the hardware still sets the token price</small></td></tr>
+        <tr><th scope="row" class="co-head"><a href="companies/deepinfra.html">DeepInfra</a></th><td><b>NVIDIA Blackwell &rarr; Rubin</b>, owned in 8 US DCs</td><td>NVIDIA-only, owns the metal</td><td>Own the depreciation curve, win the token price war</td></tr>
+        <tr><th scope="row" class="co-head"><a href="companies/friendliai.html">FriendliAI</a></th><td><b>NVIDIA via partners (B300)</b></td><td>Buys capacity, asset-light</td><td>Inference is a software problem — silicon is rented</td></tr>
+        <tr><th scope="row" class="co-head">Together AI</th><td><b>NVIDIA</b> — owned GPU cloud + inference <span class="flag">draft</span></td><td>NVIDIA-only, vertically integrated</td><td>Research-grade kernels on default silicon</td></tr>
+        <tr><th scope="row" class="co-head">Fireworks AI</th><td><b>NVIDIA + AMD MI300X</b> (production on TensorWave)</td><td>Multi-silicon — rare among inference providers</td><td>Route each model to the silicon where its economics close</td></tr>
+        <tr><th scope="row" class="co-head">Baseten</th><td><b>NVIDIA</b> across multiple clouds <span class="flag">draft</span></td><td>Buys capacity, multi-cloud</td><td>Inference infra as product; silicon abstracted</td></tr>
+        <tr><th scope="row" class="co-head"><a href="companies/telnyx.html">Telnyx</a></th><td><b>Owned fleet — models undisclosed</b>, 4,000+ GPUs in 18 PoPs</td><td>Owns the metal + the network</td><td>The carrier edge beats the cloud edge, whatever the SKU</td></tr>
+
+        <tr class="grp"><td colspan="4">Chip-owned clouds <small>the silicon is the company, sold as tokens</small></td></tr>
+        <tr><th scope="row" class="co-head">Groq</th><td><b>LPU</b> — SRAM-only, deterministic</td><td>Own silicon, own cloud</td><td>Latency you can compute, not measure</td></tr>
+        <tr><th scope="row" class="co-head">Cerebras</th><td><b>WSE</b> — wafer-scale</td><td>Own silicon — systems + tokens</td><td>The cluster is one die; the interconnect problem dissolves</td></tr>
+        <tr><th scope="row" class="co-head">SambaNova</th><td><b>RDU</b> — reconfigurable dataflow</td><td>Own silicon — systems + tokens</td><td>Dataflow efficiency without a fixed pipeline</td></tr>
+      </tbody>
+    </table>
+    <div class="matrix-foot">
+      <p>Rows trace to the map, the Compute Ladder deep cards, and public disclosures. Silicon fleets change quarterly; corrections ship within a week.</p>
+      <a href="https://forms.gle/UizJjZ2TH11J4mCe7" rel="noopener">Correct a row &rarr;</a>
+    </div>
+    </div>
+  </section>
+
+  <section id="notes">
+    <div class="eyebrow">Field notes · contributed analysis</div>
+    <h2>The architecture behind the choices</h2>
+    <p>The sections above state deployment facts. The three notes below argue architecture. A contributor wrote them, and each carries an attribution and date instead of the map's verification stamp.</p>
+
+    <!-- ══ FIELD NOTE 01 ══ -->
+    <article class="fnote" id="note-01">
+      <div class="fn-eyebrow">Field note 01 · NVIDIA Tensor Cores <span>attaches to: <a href="#nvidia" style="color:#8A93A6">NVIDIA</a> · <a href="#tpu" style="color:#8A93A6">Google TPU</a></span></div>
+      <h3>Are NVIDIA Tensor Cores really systolic arrays?</h3>
+      <p>I increasingly think the answer is: <b>not in the classical TPU sense.</b> A more accurate mental model is that Tensor Cores are <em>register-fed matrix engines composed of many dot-product units</em>. The distinction may sound semantic, but it profoundly impacts energy efficiency, latency, compiler design, and workload suitability.</p>
+      <p>A classical systolic array is defined by its dataflow:</p>
+      <ul>
+        <li>Neighbor-to-neighbor communication</li>
+        <li>Operands physically propagating through the array</li>
+        <li>Partial sums flowing through the PE network</li>
+        <li>Massive operand reuse</li>
+      </ul>
+      <p>This dramatically reduces register-file bandwidth and wire energy, because an operand can be fetched once and reused many times as it moves through neighboring PEs. Tensor Cores appear fundamentally different. From the programmer's perspective:</p>
+      <span class="fn-formula">D = A &times; B + C</span>
+      <p>Inputs come from registers and shared memory, computation happens inside the matrix engine, and results are written back to registers. There is <b>no exposed programming model where activations and weights march across a large PE mesh</b>.</p>
+      <p>So why didn't NVIDIA simply build a giant systolic array inside a GPU? Because GPUs optimize for low latency, dynamic tensor shapes, small GEMMs, attention kernels, and diverse workloads — and large systolic arrays pay a hidden tax:</p>
+      <span class="fn-formula">Latency &asymp; fill + compute + drain</span>
+      <p>For very large GEMMs, the fill/drain overhead is amortized. But for many GPU workloads — small matrices, inference, dynamic shapes — the array may spend a significant fraction of its time filling and draining instead of computing.</p>
+      <div class="fn-kv">
+        <div><b>TPU MXU</b><span>Classical systolic array — optimized for throughput and efficiency.</span></div>
+        <div><b>Tensor Cores</b><span>Register-fed matrix engines — optimized for flexibility and low latency.</span></div>
+      </div>
+      <p class="fn-q">Open question: has the term "systolic array" become too loosely applied in our industry?</p>
+      <div class="fn-attr"><span>Contributed by <b>[Contributor name — role]</b></span><span>Compiled 16 July 2026</span></div>
+    </article>
+
+    <!-- ══ FIELD NOTE 02 ══ -->
+    <article class="fnote" id="note-02">
+      <div class="fn-eyebrow">Field note 02 · Systolic arrays <span>attaches to: <a href="#tpu" style="color:#8A93A6">TPU</a> · <a href="#trainium" style="color:#8A93A6">Trainium</a> · <a href="#groq" style="color:#8A93A6">Groq</a></span></div>
+      <h3>Why systolic arrays win: the real bottleneck was never compute</h3>
+      <p>For a long time, matrix multiplication looked like a compute problem. It really wasn't. <b>The limiting factor was always data movement, not arithmetic.</b></p>
+      <p>In pre-tensor-core GPUs, every MAC effectively sits behind a register file and a large operand-selection network. Now scale that across thousands of SIMD lanes, with three operands per instruction, multiported register files, bypass paths, and forwarding logic — the picture changes quickly. The ALU is still doing a simple multiply–accumulate, but most of the chip is now dedicated to getting the right operands to the right place at the right time.</p>
+      <p>At scale, the problem stops being <em>"how do we compute faster"</em> and becomes <em>"how do we route data without collapsing under wiring and control complexity."</em> Most of the silicon is not doing math. It is deciding where data should come from and how it should reach the ALU without conflicts.</p>
+      <p>Systolic arrays change this assumption entirely. Instead of pulling operands from a global structure every cycle, they <b>remove the global structure from the critical path</b>. Data is not selected and routed on demand — it is pushed through a fixed spatial pipeline. Each processing element does one thing: multiply, accumulate, and forward data locally. There is no per-cycle global register file access, no wide multiplexing tree, no complex routing decision for every operand.</p>
+      <p>Once this happens, the structure of the chip changes fundamentally. The hardware that previously existed to manage data movement largely disappears: wire networks shrink, control logic simplifies, and the area that was spent on register files and operand routing becomes available for actual compute units.</p>
+      <p><b>This is where the efficiency comes from.</b> Not because multiplication itself becomes cheaper, but because the system stops spending most of its energy and area on moving data around.</p>
+      <div class="fn-kv">
+        <div><b>Pre-tensor-core designs</b><span>Optimized for flexibility: any operand to any ALU at any time.</span></div>
+        <div><b>Systolic arrays</b><span>Optimized for locality: operands move in predictable patterns and compute happens where they land.</span></div>
+      </div>
+      <p>That shift is what turns matrix multiplication from a routing problem back into a compute problem — and that is why systolic arrays deliver higher TOPS/W.</p>
+      <div class="fn-attr"><span>Contributed by <b>[Contributor name — role]</b></span><span>Compiled 16 July 2026</span></div>
+    </article>
+
+    <!-- ══ FIELD NOTE 03 ══ -->
+    <article class="fnote" id="note-03">
+      <div class="fn-eyebrow">Field note 03 · The convergence <span>attaches to: the whole spectrum</span></div>
+      <h3>GPUs and TPUs are converging on the same middle ground</h3>
+      <p>The AI hardware world is slowly converging toward a fascinating middle ground between GPUs and TPUs. TPUs were designed around a simple idea — <b>move data as little as possible</b>: large systolic arrays surrounded by SRAM achieve incredible FLOPs/W by maximizing data reuse and minimizing expensive memory movement. GPUs evolved differently — flexible vector processors with sophisticated scheduling, caches, and communication fabrics.</p>
+      <p>But modern AI workloads exposed an important reality: <b>data movement energy dominates compute energy.</b> That's why every new GPU generation is becoming more "dataflow-oriented":</p>
+      <ul>
+        <li>Tensor Cores — small matrix engines inside the SM</li>
+        <li>Shared SRAM close to compute</li>
+        <li>TMA / async copy engines</li>
+        <li>Warp specialization</li>
+        <li>Compiler-driven tiling and scheduling</li>
+      </ul>
+      <p>Essentially, GPUs are adopting TPU ideas without sacrificing programmability. At the same time, TPUs face their own challenge: <b>modern models are not just GEMMs.</b> Transformers require softmax, normalization, masking, routing, quant/dequant, activations, sparse ops — creating communication overhead between vector units and matrix engines. GPUs still have an advantage here, because vector ALUs and tensor cores are tightly integrated within a unified execution model.</p>
+      <p>The result? The industry is converging toward hybrid architectures:</p>
+      <ul>
+        <li>Local SRAM</li>
+        <li>Matrix engines</li>
+        <li>Vector units</li>
+        <li>Explicit async data movement</li>
+        <li>Compiler-orchestrated scheduling</li>
+      </ul>
+      <p>Increasingly, the real differentiator is no longer just hardware. <b>It is the compiler stack and the memory orchestration layer.</b> The future belongs to architectures that can minimize data movement without losing flexibility.</p>
+      <div class="fn-attr"><span>Contributed by <b>[Contributor name — role]</b></span><span>Compiled 16 July 2026</span></div>
+    </article>
+  </section>
+
+  <section id="faq">
+    <div class="eyebrow">Questions this page answers</div>
+    <h2>Frequently asked</h2>
+    <div class="faq">
+      <div>
+        <h3>What chips do AI clouds actually run?</h3>
+        <p>NVIDIA, overwhelmingly: Hopper fleets moving to Blackwell, Rubin next. The exceptions that matter: TensorWave's all-AMD fleet (Fireworks AI in production), AMD instances at Azure and Oracle, TPUs at Google Cloud, Trainium at AWS, and Groq, Cerebras and SambaNova serving tokens on their own silicon.</p>
+      </div>
+      <div>
+        <h3>Are Tensor Cores systolic arrays?</h3>
+        <p>Not in the classical sense. They are register-fed matrix engines built from dot-product units, with no exposed PE mesh for operands to march across. The distinction shows up in energy, latency and compiler design; field note 01 makes the full argument.</p>
+      </div>
+      <div>
+        <h3>Why does the silicon choice matter if I'm buying tokens?</h3>
+        <p>Because the silicon sets the provider's memory economics and therefore your token price floor and latency profile. SRAM-only architectures (Groq) buy latency with capacity constraints; high-HBM chips (MI300X-class) serve large models on fewer nodes; NVIDIA buys flexibility and ecosystem at the market-clearing price.</p>
+      </div>
+      <div>
+        <h3>What are field notes, and how are they different from the rest of the page?</h3>
+        <p>The spectrum, family cards and matrix carry deployment facts, sourced and dated like the rest of the map. Field notes carry contributed architecture analysis. Each one names its author and date, sits on dark ground, and states a view the map does not independently verify.</p>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="eyebrow">Methodology</div>
+    <h2>How this page is built</h2>
+    <div class="method">
+      <p>This page keeps two kinds of content separate. <b>Deployment facts</b> (who runs what silicon) trace to the map, the Compute Ladder deep cards, and public disclosures: product pages, filings, named-deployment announcements. A row carries the <span class="flag">draft</span> flag until the provider confirms it. <b>Field notes</b> carry contributed analysis under the author's name and date. Spot a stale fleet or a wrong SKU? <a href="https://forms.gle/UizJjZ2TH11J4mCe7">Tell me</a>; corrections ship within a week.</p>
+    </div>
+  </section>
+</main>
+
+<footer><div class="wrap">
+  <span>The Silicon Cut · part of the <a href="index.html">AI Infra Ecosystem Map</a> · see also <a href="compute-ladder.html">The Compute Ladder</a></span>
+  <span>Compiled 16 July 2026 · by Rahul Patwardhan</span>
+</div></footer>
+</body>
+</html>
