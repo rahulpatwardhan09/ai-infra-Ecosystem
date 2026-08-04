@@ -1,0 +1,648 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>GPU Census: how many GPUs each AI cloud actually has | AI Infra Ecosystem Map</title>
+<meta name="description" content="Nobody publishes a canonical list of GPU fleet sizes. This census assembles one from primary sources: deployed, ordered and planned GPU counts for CoreWeave, Nebius, Crusoe, Fluidstack, Lambda, IREN, Nscale, Lightning AI, TensorWave, Firmus, Yotta, Neysa, Nscale and more — each figure dated and sourced. Verified August 2026.">
+<meta name="author" content="Rahul Patwardhan">
+<meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
+<link rel="canonical" href="https://aiinfraecosystem.netlify.app/gpu-census.html">
+<meta property="og:title" content="GPU Census: everyone claims scale, few disclose it">
+<meta property="og:description" content="Deployed, ordered and planned GPU counts per AI cloud, assembled from filings, newsrooms and government announcements. Each figure dated and sourced.">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://aiinfraecosystem.netlify.app/gpu-census.html">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Geist:wght@300;400;500;600;700;800&family=Geist+Mono:wght@400;500&display=swap" rel="stylesheet">
+<script type="application/ld+json">
+{
+ "@context": "https://schema.org",
+ "@graph": [
+  {
+   "@type": "Article",
+   "headline": "GPU Census: how many GPUs each AI cloud actually has",
+   "description": "A verified registry of GPU fleet sizes across neoclouds and sovereign AI clouds: deployed, ordered and planned counts per provider, each dated and traced to a primary source.",
+   "author": {"@type": "Person", "name": "Rahul Patwardhan"},
+   "datePublished": "2026-08-02",
+   "dateModified": "2026-08-02",
+   "url": "https://aiinfraecosystem.netlify.app/gpu-census.html",
+   "isPartOf": {"@type": "WebSite", "name": "The AI Infra Ecosystem Map", "url": "https://aiinfraecosystem.netlify.app/"}
+  },
+  {
+   "@type": "BreadcrumbList",
+   "itemListElement": [
+    {"@type": "ListItem", "position": 1, "name": "AI Infra Ecosystem Map", "item": "https://aiinfraecosystem.netlify.app/"},
+    {"@type": "ListItem", "position": 2, "name": "GPU Census", "item": "https://aiinfraecosystem.netlify.app/gpu-census.html"}
+   ]
+  },
+  {
+   "@type": "FAQPage",
+   "mainEntity": [
+    {
+     "@type": "Question",
+     "name": "Is there an official list of GPU counts per cloud provider?",
+     "acceptedAnswer": {"@type": "Answer", "text": "No. SemiAnalysis tracks fleet size inside its paid models and scores it under ClusterMAX's availability criterion, but publishes no per-provider table. Public figures are scattered across SEC filings, earnings calls, company newsrooms and government subsidy announcements. This census assembles them in one place, each figure dated and sourced."}
+    },
+    {
+     "@type": "Question",
+     "name": "Which neocloud has the most GPUs?",
+     "acceptedAnswer": {"@type": "Answer", "text": "CoreWeave, by its last disclosed count of 250,000 GPUs at the end of 2024 — a number it has not updated since, and which is certainly larger now given 43 data centers, 850 MW of active power and $31–35 billion of 2026 capex. IREN states a 150,000-GPU fleet once its B300 orders finish deploying in late 2026. Nscale holds the largest signed pipeline among private providers: roughly 200,000 GB300 GPUs contracted to Microsoft, plus 96,000 Rubin GPUs for 2027."}
+    },
+    {
+     "@type": "Question",
+     "name": "Why do Crusoe and Fluidstack show no GPU count?",
+     "acceptedAnswer": {"@type": "Answer", "text": "Because much of what they build is not their silicon. Crusoe's Abilene campus houses Oracle's and OpenAI's GB200 racks; Fluidstack operates clusters that belong to Anthropic and Mistral. They are landlords and operators of other people's fleets, so a single 'fleet size' would misrepresent them. The census counts power and halls for them, and GPUs only where the provider owns the chips."}
+    },
+    {
+     "@type": "Question",
+     "name": "What is the difference between deployed, ordered and planned GPUs?",
+     "acceptedAnswer": {"@type": "Answer", "text": "Deployed means racked and revenue-ready. Ordered or contracted means a signed purchase or lease with a delivery window — real money, but not yet compute. Planned means an announced target with no confirmed hardware behind it. The census marks each figure with its class and its date, because a provider's 2027 plan is not a rival's 2026 capacity."}
+    },
+    {
+     "@type": "Question",
+     "name": "How large is the disclosed neocloud fleet in total?",
+     "acceptedAnswer": {"@type": "Answer", "text": "Summing only company-stated figures, neoclouds disclose roughly half a million deployed GPUs, with another 400,000 or more firmly contracted for delivery through 2027 — before counting Lambda, Nebius, Crusoe, Vultr or RunPod, which are large but undisclosed, and before counting AWS, Azure and Google Cloud, which never disclose. SemiAnalysis tracks 209 providers in this market as of ClusterMAX 2.0."}
+    }
+   ]
+  }
+ ]
+}
+</script>
+<style>
+:root{
+  --bg:#F2F3F5;--surface:#FAFAF8;--surface-2:#F3F3F0;--surface-3:#EBEBE8;
+  --border:rgba(0,0,0,0.08);--border-2:rgba(0,0,0,0.14);
+  --ink:#0D1117;--ink-2:#24292F;--ink-3:#57606A;--ink-4:#6B7480;
+  --accent:#0EA5E9;--accent-light:#E0F2FE;
+  --font:'Geist',system-ui,sans-serif;--mono:'Geist Mono',monospace;
+  --display:'Space Grotesk','Geist',system-ui,sans-serif;
+  --hero-ground:#0B0E14;--hero-ground-2:#141A24;--paper:#FBFAF7;
+  --r:6px;--r-lg:10px;--r-xl:14px;
+  --t-platinum:#7C6FD6;--t-gold:#B7773A;--t-silver:#6B7A99;--t-bronze:#C25A45;--t-none:#8A8FA3;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{background:var(--paper);color:var(--ink);font-family:var(--font);line-height:1.6;-webkit-font-smoothing:antialiased}
+.wrap{max-width:1060px;margin:0 auto;padding:0 24px}
+.topnav{border-bottom:1px solid var(--border);background:var(--paper);position:sticky;top:0;z-index:10}
+.topnav .wrap{display:flex;align-items:center;gap:14px;height:52px}
+.topnav a{font-family:var(--mono);font-size:11px;color:var(--ink-3);text-decoration:none;transition:color .12s}
+.topnav a:hover{color:var(--ink)}
+.topnav .brand{font-family:var(--display);font-weight:600;font-size:13px;color:var(--ink);letter-spacing:-.01em}
+.topnav .sep{color:var(--border-2)}
+.topnav .spacer{flex:1}
+
+.hero{background:var(--hero-ground);color:#E8EAF0;padding:64px 0 0;position:relative;overflow:hidden}
+.hero::after{content:"";position:absolute;inset:0;background:radial-gradient(700px 260px at 80% -10%,rgba(14,165,233,.16),transparent 70%);pointer-events:none}
+.hero .kicker{font-family:var(--mono);font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--accent);margin-bottom:16px}
+.hero h1{font-family:var(--display);font-size:clamp(30px,5.4vw,50px);font-weight:700;letter-spacing:-.035em;line-height:1.05;color:#fff;max-width:22ch;text-wrap:balance}
+.hero .sub{margin-top:16px;font-size:16px;color:#9AA3B5;max-width:62ch}
+.hero .sub em{color:#C7CCD8}
+.hero .stamp{margin-top:20px;font-family:var(--mono);font-size:10px;color:#7A8398}
+.hero .stamp b{color:var(--accent);font-weight:500}
+
+/* Fleet bars: log-scale horizontal bars, deployed solid, contracted hatched */
+.fleetbars{margin:44px 0 0;border-top:1px solid rgba(255,255,255,.10);padding:26px 0 8px;position:relative;z-index:1}
+.fbar{display:grid;grid-template-columns:170px 1fr 92px;align-items:center;gap:14px;padding:7px 0}
+.fbar .fname{font-family:var(--display);font-size:13.5px;font-weight:600;color:#fff;letter-spacing:-.01em;text-align:right}
+.fbar .fname small{display:block;font-family:var(--mono);font-size:9px;font-weight:400;color:#6E7789;letter-spacing:.04em}
+.fbar .track{position:relative;height:18px;background:rgba(255,255,255,.05);border-radius:4px;overflow:hidden}
+.fbar .fill{position:absolute;left:0;top:0;bottom:0;background:linear-gradient(90deg,#2563EB,#06B6D4);border-radius:4px 0 0 4px}
+.fbar .fill.solo{border-radius:4px}
+.fbar .commit{position:absolute;top:0;bottom:0;background:repeating-linear-gradient(45deg,rgba(6,182,212,.45) 0 6px,rgba(6,182,212,.12) 6px 12px);border-radius:0 4px 4px 0}
+.fbar .fnum{font-family:var(--mono);font-size:11px;color:#C7CCD8;white-space:nowrap}
+.fbar .fnum small{color:#6E7789;font-size:9px}
+.fleetbars-caption{font-family:var(--mono);font-size:9.5px;color:#5E6779;letter-spacing:.05em;padding:16px 0 36px;line-height:1.9}
+.fleetbars-caption .lg{display:inline-flex;align-items:center;gap:6px;margin-right:18px;white-space:nowrap}
+.fleetbars-caption .sw{width:14px;height:8px;border-radius:2px;display:inline-block}
+.fleetbars-caption .sw.solid{background:linear-gradient(90deg,#2563EB,#06B6D4)}
+.fleetbars-caption .sw.hatch{background:repeating-linear-gradient(45deg,rgba(6,182,212,.55) 0 3px,rgba(6,182,212,.15) 3px 6px)}
+
+main{padding:48px 0 56px}
+section{margin-bottom:48px}
+.eyebrow{font-family:var(--mono);font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--accent);margin-bottom:8px}
+h2{font-family:var(--display);font-size:21px;font-weight:600;letter-spacing:-.02em;margin-bottom:12px}
+h3{font-family:var(--display);font-size:15px;font-weight:600;letter-spacing:-.01em;margin:20px 0 8px}
+p{color:var(--ink-2);max-width:72ch;margin-bottom:12px}
+p:last-child{margin-bottom:0}
+p .nb{color:var(--ink-4);font-size:13px}
+
+/* Reading rules */
+.rules{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:18px}
+.rule{background:var(--surface);border:1px solid var(--border);border-radius:var(--r-lg);padding:16px;box-shadow:0 1px 3px rgba(0,0,0,.04)}
+.rule .rk{font-family:var(--mono);font-size:9.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--accent);margin-bottom:8px}
+.rule h3{margin:0 0 6px;font-size:13.5px}
+.rule p{font-size:12.5px;color:var(--ink-3)}
+
+/* Tables */
+.table-wrap{overflow-x:auto;border:1px solid var(--border);border-radius:var(--r-xl);background:var(--surface);box-shadow:0 1px 3px rgba(0,0,0,.04);margin-top:16px}
+table{border-collapse:collapse;width:100%;min-width:940px;font-size:12px}
+th,td{padding:11px 13px;text-align:left;border-bottom:1px solid var(--border);vertical-align:top}
+thead th{font-family:var(--mono);font-size:9.5px;letter-spacing:.07em;text-transform:uppercase;color:var(--ink-4);background:var(--surface-2);position:sticky;top:0;white-space:nowrap}
+tbody tr:last-child td{border-bottom:none}
+td{color:var(--ink-2)}
+td .mut{color:var(--ink-4);font-size:11px}
+.co{font-family:var(--display);font-weight:600;font-size:13px;color:var(--ink);white-space:nowrap}
+.co small{display:block;font-family:var(--mono);font-size:9px;font-weight:400;color:var(--ink-4);letter-spacing:.03em}
+.gn{font-family:var(--display);font-weight:700;font-size:13.5px;color:var(--ink);white-space:nowrap}
+.gn small{display:block;font-family:var(--mono);font-size:9px;font-weight:400;color:var(--ink-4);letter-spacing:.02em;white-space:normal}
+.tier{display:inline-block;font-family:var(--mono);font-size:9px;letter-spacing:.07em;text-transform:uppercase;padding:3px 8px;border-radius:20px;border:1px solid;white-space:nowrap}
+.tier.platinum{color:var(--t-platinum);border-color:color-mix(in srgb,var(--t-platinum) 45%,transparent);background:color-mix(in srgb,var(--t-platinum) 8%,transparent)}
+.tier.gold{color:var(--t-gold);border-color:color-mix(in srgb,var(--t-gold) 45%,transparent);background:color-mix(in srgb,var(--t-gold) 8%,transparent)}
+.tier.silver{color:var(--t-silver);border-color:color-mix(in srgb,var(--t-silver) 45%,transparent);background:color-mix(in srgb,var(--t-silver) 8%,transparent)}
+.tier.bronze{color:var(--t-bronze);border-color:color-mix(in srgb,var(--t-bronze) 45%,transparent);background:color-mix(in srgb,var(--t-bronze) 8%,transparent)}
+.tier.none{color:var(--t-none);border-color:var(--border-2);background:transparent}
+.src{font-family:var(--mono);font-size:10px;color:var(--ink-4);white-space:nowrap}
+.src a{color:var(--ink-3);text-decoration:none;border-bottom:1px solid var(--border-2)}
+.src a:hover{color:var(--ink);border-color:var(--ink)}
+.src small{display:block;color:#9AA1AC;font-size:9px}
+
+/* Totals strip */
+.totals{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin:18px 0}
+.total{background:var(--hero-ground);border-radius:var(--r-lg);padding:20px 18px;position:relative;overflow:hidden}
+.total::after{content:"";position:absolute;inset:0;background:radial-gradient(400px 120px at 90% -20%,rgba(14,165,233,.18),transparent 70%);pointer-events:none}
+.total .n{font-family:var(--display);font-size:30px;font-weight:700;color:#fff;letter-spacing:-.03em}
+.total .l{font-family:var(--mono);font-size:9.5px;letter-spacing:.08em;text-transform:uppercase;color:#7A8398;margin-top:6px}
+.total p{font-size:11.5px;color:#9AA3B5;margin-top:8px}
+
+.faq{display:grid;grid-template-columns:1fr 1fr;gap:22px 32px}
+.faq h3{font-family:var(--display);font-size:14px;font-weight:600;letter-spacing:-.01em;margin:0 0 6px}
+.faq p{font-size:13px;color:var(--ink-3);margin:0}
+
+.method{background:var(--surface);border:1px solid var(--border);border-left:3px solid var(--accent);border-radius:var(--r-lg);padding:16px 18px}
+.method p{font-size:12.5px;color:var(--ink-3)}
+.method a{color:var(--ink-2)}
+
+footer{border-top:1px solid var(--border);padding:20px 0 36px}
+footer .wrap{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;font-family:var(--mono);font-size:10px;color:var(--ink-4)}
+footer a{color:var(--ink-3);text-decoration:none}
+footer a:hover{color:var(--ink)}
+a:focus-visible{outline:2px solid var(--accent);outline-offset:2px;border-radius:3px}
+@media(max-width:860px){
+  .fbar{grid-template-columns:110px 1fr 74px;gap:8px}
+  .fbar .fname{font-size:11.5px}
+  .rules,.totals{grid-template-columns:1fr}
+  .faq{grid-template-columns:1fr}
+}
+@media(prefers-reduced-motion:reduce){*{transition:none!important}html{scroll-behavior:auto}}
+</style>
+</head>
+<body>
+<nav class="topnav"><div class="wrap">
+  <a class='brand' href='/'>AI Infra Ecosystem Map</a><span class="sep">/</span>
+  <a aria-current='page' href='/gpu-census' style='color:var(--ink)'>GPU Census</a>
+  <span class="spacer"></span>
+  <a href='/compute-ladder'>compute ladder</a>
+  <a href='/provider-index'>provider index</a>
+</div></nav>
+
+<header class="hero">
+  <div class="wrap">
+    <div class="kicker">Data · verified fleet registry</div>
+    <h1>Everyone claims scale. Few disclose it.</h1>
+    <p class="sub">There is no canonical list of how many GPUs each AI cloud runs. SemiAnalysis scores fleet size behind a paywall; providers disclose only when it suits them. This census assembles the public record — <em>deployed</em>, <em>ordered</em> and <em>planned</em> silicon per provider — from filings, earnings, newsrooms and government announcements. Every figure carries a date and a source.</p>
+    <p class="stamp">All figures verified as of <b>2 August 2026</b> · by Rahul Patwardhan · <a href="https://forms.gle/UizJjZ2TH11J4mCe7" style="color:#7A8398" target="_blank" rel="noopener">send a correction</a></p>
+
+    <div class="fleetbars" role="img" aria-label="Bar chart of verified GPU fleet sizes, log scale: CoreWeave 250,000; Nscale 212,600 including contracted; IREN 150,000 including on-order; Firmus 54,000 by mid-2026; Lightning AI 36,000; Yotta 16,384; TensorWave 10,000; GMI Cloud 7,000; Scaleway about 5,000">
+      <div class="fbar">
+        <div class="fname">CoreWeave<small>platinum · US</small></div>
+        <div class="track"><div class="fill solo" style="width:100%"></div></div>
+        <div class="fnum">250,000+ <small>dec '24</small></div>
+      </div>
+      <div class="fbar">
+        <div class="fname">Nscale<small>uk · microsoft pipe</small></div>
+        <div class="track"><div class="fill" style="width:69.5%"></div><div class="commit" style="left:69.5%;width:29.2%"></div></div>
+        <div class="fnum">212,600 <small>12.6k live</small></div>
+      </div>
+      <div class="fbar">
+        <div class="fname">IREN<small>ca/us · ex-bitcoin</small></div>
+        <div class="track"><div class="fill" style="width:92.6%"></div><div class="commit" style="left:92.6%;width:3.3%"></div></div>
+        <div class="fnum">150,000 <small>by end '26</small></div>
+      </div>
+      <div class="fbar">
+        <div class="fname">Firmus<small>australia</small></div>
+        <div class="track"><div class="fill" style="width:78.8%"></div><div class="commit" style="left:78.8%;width:8.9%"></div></div>
+        <div class="fnum">54,000 <small>by mid '26</small></div>
+      </div>
+      <div class="fbar">
+        <div class="fname">Lightning AI<small>merged voltage park</small></div>
+        <div class="track"><div class="fill solo" style="width:84.4%"></div></div>
+        <div class="fnum">36,000+ <small>mar '26</small></div>
+      </div>
+      <div class="fbar">
+        <div class="fname">Yotta<small>india</small></div>
+        <div class="track"><div class="fill solo" style="width:78.1%"></div></div>
+        <div class="fnum">16,384 <small>h100, live</small></div>
+      </div>
+      <div class="fbar">
+        <div class="fname">TensorWave<small>all-amd, us</small></div>
+        <div class="track"><div class="fill solo" style="width:74.1%"></div></div>
+        <div class="fnum">10,000 <small>jun '26</small></div>
+      </div>
+      <div class="fbar">
+        <div class="fname">GMI Cloud<small>taiwan dc</small></div>
+        <div class="track"><div class="fill solo" style="width:71.2%"></div></div>
+        <div class="fnum">7,000 <small>mar '26</small></div>
+      </div>
+      <div class="fbar">
+        <div class="fname">Scaleway<small>france</small></div>
+        <div class="track"><div class="fill solo" style="width:68.5%"></div></div>
+        <div class="fnum">~5,000 <small>feb '25</small></div>
+      </div>
+      <div class="fleetbars-caption">
+        <span class="lg"><span class="sw solid"></span>deployed &amp; verified</span>
+        <span class="lg"><span class="sw hatch"></span>firmly ordered / contracted</span><br>
+        Log scale. Lambda, Nebius, Crusoe, Vultr, RunPod — and AWS, Azure, Google — don't disclose fleet counts. Their absence from this chart is why this page exists.
+      </div>
+    </div>
+  </div>
+</header>
+
+<main class="wrap">
+
+  <section>
+    <div class="eyebrow">Before the numbers</div>
+    <h2>How to read this census</h2>
+    <p>A GPU count is only meaningful with its class and its date. Providers blend three kinds of numbers in their marketing, and the differences decide real capacity. Equally important is <b>whose</b> GPUs they are: some of the largest "clouds" below operate chips that belong to their customers.</p>
+    <div class="rules">
+      <div class="rule">
+        <div class="rk">Class 1</div>
+        <h3>Deployed</h3>
+        <p>Racked, networked and revenue-ready. The only number a buyer can actually consume this quarter. CoreWeave's 250,000 (Dec 2024) and Yotta's 16,384 H100s are deployed figures.</p>
+      </div>
+      <div class="rule">
+        <div class="rk">Class 2</div>
+        <h3>Ordered / contracted</h3>
+        <p>A signed purchase order or lease with a delivery window — real money, not yet compute. IREN's 50,000+ B300s (delivering H2 2026) and Nscale's ~200,000 GB300s for Microsoft sit here.</p>
+      </div>
+      <div class="rule">
+        <div class="rk">Class 3</div>
+        <h3>Planned</h3>
+        <p>An announced target with no confirmed hardware behind it. Lambda's "1M GPUs and 3 GW" ambition, Neysa's 20,000-GPU plan, TensorWave's 2 GW of secured capacity. Ambition, not capacity.</p>
+      </div>
+    </div>
+    <h3>The ownership trap</h3>
+    <p>Crusoe's Abilene campus runs Oracle's and OpenAI's GB200 racks; Fluidstack operates clusters owned by Anthropic (largely Google TPUs) and is building a 1 GW French site whose anchor customer is Mistral. Counting those chips as "Crusoe's fleet" or "Fluidstack's fleet" double-counts the same silicon. For landlord-operators this census records <b>power and halls</b>, and counts GPUs only where the provider owns the chips. Marketplace listings (Vast.ai's 1,400+ hosts, Shadeform, Akash) are other people's hardware and are never counted as a fleet.</p>
+  </section>
+
+  <section>
+    <div class="eyebrow">The registry · part 1</div>
+    <h2>The big fleets</h2>
+    <p>Providers whose disclosed fleet, signed pipeline or operating footprint clears roughly 10,000 GPUs or 100 MW. ClusterMAX tier shown where rated (v2.0, November 2025).</p>
+    <div class="table-wrap">
+    <table>
+      <thead>
+        <tr>
+          <th scope="col">Provider</th>
+          <th scope="col">ClusterMAX</th>
+          <th scope="col">GPUs (verified)</th>
+          <th scope="col">Silicon</th>
+          <th scope="col">Footprint</th>
+          <th scope="col">Source · as of</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><span class="co">CoreWeave<small>NASDAQ: CRWV</small></span></td>
+          <td><span class="tier platinum">Platinum</span></td>
+          <td><span class="gn">250,000+<small>last disclosed count, Dec 2024 — not updated since; 2026 capex of $31–35B implies far more</small></span></td>
+          <td>H100 → H200 → GB200/GB300 NVL72, RTX PRO 6000</td>
+          <td>43 data centers · 850 MW active · 2.2 GW+ contracted</td>
+          <td class="src"><a href="https://investors.coreweave.com" target="_blank" rel="noopener">S-1 / 10-K</a><small>mar '25 / q4 '25</small></td>
+        </tr>
+        <tr>
+          <td><span class="co">Nscale<small>UK · vertical hyperscaler</small></span></td>
+          <td><span class="tier none">Unrated '25</span></td>
+          <td><span class="gn">12,600 live<small>+ ~200,000 GB300 contracted to Microsoft (Texas 104k, Norway 52k, UK 23k, Portugal 12.6k); + 96,000 Rubin GPUs for 2027</small></span></td>
+          <td>GB300 NVL72 → Vera Rubin NVL72</td>
+          <td>Texas 240 MW → 1.2 GW · Sines PT · Loughton UK 50–90 MW · Narvik &amp; Glomfjord NO</td>
+          <td class="src"><a href="https://www.nscale.com/press-releases/nscale-microsoft-2025" target="_blank" rel="noopener">nscale.com</a><small>oct '25 / may '26</small></td>
+        </tr>
+        <tr>
+          <td><span class="co">IREN<small>NASDAQ: IREN</small></span></td>
+          <td><span class="tier none">Underperf. '25</span></td>
+          <td><span class="gn">150,000<small>company-stated fleet after 50,000+ B300 order finishes deploying H2 2026; $9.7B Microsoft GB300 deal signed earlier</small></span></td>
+          <td>H100, H200, B200 → GB300, B300</td>
+          <td>Childress TX · Mackenzie &amp; Canal Flats BC · Prince George BC — air-cooled, renewable-rich</td>
+          <td class="src"><a href="https://iren.com/resources/news/iren-expands-ai-cloud-capacity-to-150000-gpus" target="_blank" rel="noopener">iren.com / SEC</a><small>mar '26</small></td>
+        </tr>
+        <tr>
+          <td><span class="co">Oracle (OCI)<small>NASDAQ: ORCL</small></span></td>
+          <td><span class="tier gold">Gold</span></td>
+          <td><span class="gn">undisclosed<small>single OCI Superclusters scale to 131,072 Blackwell GPUs; also 50,000 AMD MI355X (Oct 2025)</small></span></td>
+          <td>H100, H200, B200, GB200/B300 + AMD MI355X</td>
+          <td>162 cloud regions built or underway · largest single site 800 MW · gigawatt nuclear site planned</td>
+          <td class="src"><a href="https://www.oracle.com/news/announcement/ocw24-oracle-offers-first-zettascale-cloud-computing-cluster-2024-09-11/" target="_blank" rel="noopener">oracle.com</a><small>sep '24 / oct '25</small></td>
+        </tr>
+        <tr>
+          <td><span class="co">Nebius<small>NASDAQ: NBIS</small></span></td>
+          <td><span class="tier gold">Gold</span></td>
+          <td><span class="gn">undisclosed<small>per-site ceilings: Mäntsälä FI to 60,000 · Kansas City to 35,000 · UK 4,000–9,000 B300</small></span></td>
+          <td>H100, H200, B200, GB200, GB300</td>
+          <td>220 MW connected end-'25 → 1 GW+ secured end-'26 · Finland, Vineland NJ, UK, Iceland, Israel, Paris</td>
+          <td class="src"><a href="https://nebius.com/newsroom/nebius-to-triple-capacity-at-finland-data-center-to-75-mw" target="_blank" rel="noopener">nebius.com</a><small>oct '24 – oct '25</small></td>
+        </tr>
+        <tr>
+          <td><span class="co">Crusoe<small>private</small></span></td>
+          <td><span class="tier gold">Gold</span></td>
+          <td><span class="gn">undisclosed<small>own cloud fleet; buildings designed for 100,000 GPUs on one fabric — Abilene racks belong to Oracle/OpenAI</small></span></td>
+          <td>H100, H200, GB200 NVL72</td>
+          <td>Abilene 200 MW live · 1.2 GW campus · 4.9 GW contracted across 5 campuses</td>
+          <td class="src"><a href="https://www.datacenterdynamics.com/en/news/crusoe-pivots-to-building-data-centers-plans-100mw-facility/" target="_blank" rel="noopener">dcd</a><small>jul '24 / jul '26</small></td>
+        </tr>
+        <tr>
+          <td><span class="co">Fluidstack<small>private · NY</small></span></td>
+          <td><span class="tier gold">Gold</span></td>
+          <td><span class="gn">operates others'<small>deploys &amp; runs Anthropic's fleet (largely Google TPUs, $50B program) and Mistral-anchored French capacity</small></span></td>
+          <td>NVIDIA H100/H200/GB200 + Google TPU</td>
+          <td>~1 GW named sites: River Bend LA 245 MW · Lake Mariner NY 360 MW · Abernathy &amp; Barber Lake TX · France 1 GW</td>
+          <td class="src"><a href="https://www.anthropic.com/news/anthropic-invests-50-billion-in-american-ai-infrastructure" target="_blank" rel="noopener">anthropic.com</a><small>nov '25</small></td>
+        </tr>
+        <tr>
+          <td><span class="co">Lambda<small>private</small></span></td>
+          <td><span class="tier silver">Silver</span></td>
+          <td><span class="gn">tens of thousands<small>undisclosed exact; NVIDIA leases back 18,000 for $1.5B; Microsoft deal for tens of thousands GB300 NVL72; stated goal 1M+ GPUs / 3 GW</small></span></td>
+          <td>H100, H200, GH200, B200, GB300 NVL72</td>
+          <td>15 US data centers · first GB300 NVL72 live Sep '25 (Mountain View)</td>
+          <td class="src"><a href="https://lambda.ai/blog/lambda-announces-multibillion-dollar-agreement-with-microsoft-to-deploy-ai-infrastructure-powered-by-tens-of-thousands-of-nvidia-gpus" target="_blank" rel="noopener">lambda.ai</a><small>nov '25</small></td>
+        </tr>
+        <tr>
+          <td><span class="co">Lightning AI<small>merged Voltage Park, jan '26</small></span></td>
+          <td><span class="tier bronze">Bronze*</span></td>
+          <td><span class="gn">36,000+<small>owned &amp; operated — the largest clean private disclosure after CoreWeave; debt-free fleet; $500M+ ARR</small></span></td>
+          <td>H100, B200, GB300</td>
+          <td>60 MW active · 6 facilities · 4 US states</td>
+          <td class="src"><a href="https://www.voltagepark.com/blog/lightning-ai-voltage-park-merger-to-create-the-first-cloud-built-for-ai" target="_blank" rel="noopener">voltagepark.com</a><small>mar '26</small></td>
+        </tr>
+        <tr>
+          <td><span class="co">Firmus<small>australia · pre-IPO</small></span></td>
+          <td><span class="tier silver">Silver</span></td>
+          <td><span class="gn">18,500 live<small>GB300s ordered &amp; online from Apr '26 at Southgate Melbourne; 54,000 GB300 across Southgate by mid-'26; Tasmania zone to ~36,800</small></span></td>
+          <td>H200, L40S → GB300 NVL72</td>
+          <td>Tasmania 90 MW stage 1 (→ 1.6 GW national plan '28) · Melbourne · Singapore</td>
+          <td class="src"><a href="https://firmus.co/newsroom/southgate-expansion" target="_blank" rel="noopener">firmus.co</a><small>oct '25 / apr '26</small></td>
+        </tr>
+        <tr>
+          <td><span class="co">TensorWave<small>US · all-AMD</small></span></td>
+          <td><span class="tier silver">Silver</span></td>
+          <td><span class="gn">10,000<small>AMD-only fleet; single 8,192 × MI325X liquid-cooled cluster is the core; MI355X ramping; 2 GW capacity secured</small></span></td>
+          <td>MI325X, MI355X (ROCm; CUDA via SCALE)</td>
+          <td>Arizona · Florida · Pennsylvania (+20 MW TecFusions, Jan '26)</td>
+          <td class="src"><a href="https://www.datacenterdynamics.com/en/news/amd-based-ai-cloud-tensorwave-secures-350m-series-b-funding/" target="_blank" rel="noopener">dcd / futuriom</a><small>jun '26</small></td>
+        </tr>
+        <tr>
+          <td><span class="co">Microsoft Azure<small>NASDAQ: MSFT</small></span></td>
+          <td><span class="tier gold">Gold</span></td>
+          <td><span class="gn">undisclosed<small>100,000+ GB300 access leased via neoclouds (Nscale, CoreWeave, Nebius, Lambda, IREN); first 4,608-GPU GB300 NVL72 cluster live Oct '25</small></span></td>
+          <td>Full NVIDIA stack + Maia silicon</td>
+          <td>400+ data centers · Fairwater AI campuses (WI, GA)</td>
+          <td class="src"><a href="https://ukai.co/resource/nscales-landmark-deal-with-microsoft-accelerates-uks-role-in-global-ai-infrastructure-race.html" target="_blank" rel="noopener">press reports</a><small>oct '25</small></td>
+        </tr>
+        <tr>
+          <td><span class="co">AWS<small>NASDAQ: AMZN</small></span></td>
+          <td><span class="tier silver">Silver</span></td>
+          <td><span class="gn">undisclosed<small>never discloses GPU counts; P5e/P6e-B200/GB300 families + Project Rainier (Trainium2) for Anthropic</small></span></td>
+          <td>NVIDIA H100/H200/B200/GB300 + Trainium</td>
+          <td>Global region footprint</td>
+          <td class="src">—<small>no disclosure</small></td>
+        </tr>
+        <tr>
+          <td><span class="co">Google Cloud<small>NASDAQ: GOOGL</small></span></td>
+          <td><span class="tier silver">Silver</span></td>
+          <td><span class="gn">undisclosed<small>never discloses GPU counts; A3/A4/A4X (GB300) + TPU v5p–v7 fleets</small></span></td>
+          <td>NVIDIA H100/H200/B200/GB300 + TPU</td>
+          <td>Global region footprint</td>
+          <td class="src">—<small>no disclosure</small></td>
+        </tr>
+        <tr>
+          <td><span class="co">Applied Digital → ChronoScale<small>NASDAQ: CHRN</small></span></td>
+          <td><span class="tier none">—</span></td>
+          <td><span class="gn">undisclosed<small>cloud unit (~$75.2M TTM revenue, Aug '25) spun out as ChronoScale, May '26; parent is landlord for 400 MW CoreWeave campus</small></span></td>
+          <td>H100-class clusters</td>
+          <td>Ellendale ND (Polaris Forge 1–2, 600 MW leased) + colo sites</td>
+          <td class="src"><a href="https://ir.applieddigital.com/news-events/press-releases/detail/151/applied-digital-completes-separation-of-cloud-business" target="_blank" rel="noopener">applied digital IR</a><small>may '26</small></td>
+        </tr>
+      </tbody>
+    </table>
+    </div>
+    <p class="nb" style="margin-top:10px;font-size:12px;color:var(--ink-4)">* Voltage Park held Silver in ClusterMAX 2.0 (Nov 2025) and Lightning AI held Bronze; the merged company (Jan 2026) has not been re-rated. IREN landed in "Underperforming" in Nov 2025 — before its Microsoft GB300 deal and 150,000-GPU expansion, a reminder that ratings lag balance sheets.</p>
+  </section>
+
+  <section>
+    <div class="eyebrow">The registry · part 2</div>
+    <h2>Sovereign &amp; regional fleets</h2>
+    <p>National champions and regional clouds, mostly subsidy-backed. Fleets are smaller, but disclosure is often better — governments want receipts for their money.</p>
+    <div class="table-wrap">
+    <table>
+      <thead>
+        <tr>
+          <th scope="col">Provider</th>
+          <th scope="col">ClusterMAX</th>
+          <th scope="col">GPUs (verified)</th>
+          <th scope="col">Silicon</th>
+          <th scope="col">Footprint</th>
+          <th scope="col">Source · as of</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><span class="co">Yotta<small>india · shakti cloud</small></span></td>
+          <td><span class="tier none">Unavail. '25</span></td>
+          <td><span class="gn">16,384 live<small>H100s at NM1 Navi Mumbai; second 16,384 cluster planned at D1 Greater Noida for 32,768 total; B200s on the way</small></span></td>
+          <td>H100, L40S → +B200</td>
+          <td>NM1 Navi Mumbai (Tier IV) · D1 Greater Noida · 700 MW campus</td>
+          <td class="src"><a href="https://www.nvidia.com/en-us/case-studies/yotta-built-india-sovereign-ai-infrastructure-shakti-cloud/" target="_blank" rel="noopener">nvidia case study</a><small>jul '26</small></td>
+        </tr>
+        <tr>
+          <td><span class="co">Naver Cloud<small>korea</small></span></td>
+          <td><span class="tier none">Unavail. '25</span></td>
+          <td><span class="gn">60,000<small>allocated to public cloud within Korea's 260,000-GPU national compute project</small></span></td>
+          <td>Blackwell-class</td>
+          <td>Korea (sovereign)</td>
+          <td class="src"><a href="https://newsletter.semianalysis.com/p/clustermax-20-the-industry-standard" target="_blank" rel="noopener">semianalysis</a><small>nov '25</small></td>
+        </tr>
+        <tr>
+          <td><span class="co">Neysa<small>india · velocis</small></span></td>
+          <td><span class="tier bronze">Bronze</span></td>
+          <td><span class="gn">~2,000 live<small>scaling to 20,000+ on $1.2B Blackstone-led financing (Feb '26) — would be ~⅓ of India's AI GPU capacity</small></span></td>
+          <td>H100, H200, L40S, L4, MI300X</td>
+          <td>Mumbai · Chennai colos · Telangana MoU with NTT DATA</td>
+          <td class="src"><a href="https://www.weka.io/customers/neysa-ai/" target="_blank" rel="noopener">weka / press</a><small>feb '26</small></td>
+        </tr>
+        <tr>
+          <td><span class="co">GMI Cloud<small>us / taiwan</small></span></td>
+          <td><span class="tier bronze">Bronze</span></td>
+          <td><span class="gn">7,000<small>Blackwell GPUs at the $500M Taiwan AI DC opened Mar '26; US fleet undisclosed</small></span></td>
+          <td>H100, H200, GB200 NVL72/NVL4, B300</td>
+          <td>Taiwan (own DC) + US colos</td>
+          <td class="src"><a href="https://www.youtube.com/watch?v=F9Hl5fcZAxU" target="_blank" rel="noopener">taiwanplus</a><small>mar '26</small></td>
+        </tr>
+        <tr>
+          <td><span class="co">SoftBank<small>japan</small></span></td>
+          <td><span class="tier none">—</span></td>
+          <td><span class="gn">undisclosed<small>world's first DGX B200 SuperPOD; GB200 NVL72 system; lead on Noetra national project — 27,500 Rubin GPUs with 43 partners</small></span></td>
+          <td>B200, GB200 NVL72 → Rubin</td>
+          <td>Japan</td>
+          <td class="src"><a href="https://www.spheron.network/blog/gpu-cloud-providers-japan-2026/" target="_blank" rel="noopener">meti / press</a><small>jul '26</small></td>
+        </tr>
+        <tr>
+          <td><span class="co">Sakura Internet<small>japan</small></span></td>
+          <td><span class="tier none">Unavail. '25</span></td>
+          <td><span class="gn">2,000 → ~4,000<small>Hopper GPUs; ~10,800 total planned incl. B200 at Ishikari; largest METI subsidy recipient (~¥50.1B)</small></span></td>
+          <td>H100, H200 → B200</td>
+          <td>Ishikari, Hokkaido (renewable by '27)</td>
+          <td class="src"><a href="https://nvidianews.nvidia.com/news/japan-cloud-leaders-build-nvidia-ai-infrastructure-to-transform-industries" target="_blank" rel="noopener">nvidia news</a><small>nov '24</small></td>
+        </tr>
+        <tr>
+          <td><span class="co">GMO GPU Cloud<small>japan</small></span></td>
+          <td><span class="tier silver">Silver</span></td>
+          <td><span class="gn">undisclosed<small>TOP500/Green500-listed H200 cluster; +256 H200 added Q4 '25; HGX B300 deployed '26; METI-subsidized (~¥1.9B)</small></span></td>
+          <td>H200, B300</td>
+          <td>Tokyo</td>
+          <td class="src"><a href="https://group.gmo/en/news/article/833/" target="_blank" rel="noopener">gmo.jp</a><small>may '25</small></td>
+        </tr>
+        <tr>
+          <td><span class="co">NeevCloud<small>india</small></span></td>
+          <td><span class="tier bronze">Bronze</span></td>
+          <td><span class="gn">8,000 ordered<small>40,000 planned by end '26 (company statements via ClusterMAX 2.0)</small></span></td>
+          <td>H100-class</td>
+          <td>India</td>
+          <td class="src"><a href="https://newsletter.semianalysis.com/p/clustermax-20-the-industry-standard" target="_blank" rel="noopener">semianalysis</a><small>nov '25</small></td>
+        </tr>
+        <tr>
+          <td><span class="co">Scaleway<small>france · iliad</small></span></td>
+          <td><span class="tier silver">Silver</span></td>
+          <td><span class="gn">~5,000<small>"top-tier" GPUs per parent iliad (Feb '25); multiple 1,016-GPU H100 SuperPODs; €3B group AI plan</small></span></td>
+          <td>H100, H200, GB200</td>
+          <td>Paris DC5 (OpCore) · Warsaw</td>
+          <td class="src"><a href="https://www.samuel-knight.com/news-post/iliad-group-announces-euro-3-billion-investment-to-lead-europe-rsquo-s-ai-infrastructure" target="_blank" rel="noopener">iliad</a><small>feb '25</small></td>
+        </tr>
+        <tr>
+          <td><span class="co">Vultr<small>us · private, 33 regions</small></span></td>
+          <td><span class="tier silver">Silver</span></td>
+          <td><span class="gn">undisclosed<small>fleet size never published; GB300 NVL72 deployments via HPE announced Jun '26</small></span></td>
+          <td>NVIDIA + AMD; GB300 NVL72</td>
+          <td>33 cloud regions worldwide</td>
+          <td class="src"><a href="https://www.hpe.com/us/en/newsroom/press-release/2026/06/vultr-selects-hpe-and-nvidia-for-next-generation-ai-infrastructure-for-cloud-scale-data-centers.html" target="_blank" rel="noopener">hpe / businesswire</a><small>jun '26</small></td>
+        </tr>
+        <tr>
+          <td><span class="co">RunPod<small>us · dev cloud</small></span></td>
+          <td><span class="tier bronze">Bronze</span></td>
+          <td><span class="gn">undisclosed<small>"thousands of GPUs weekly" added; Q1 '26 deployments = 3× the entire prior-year fleet</small></span></td>
+          <td>H100, H200, B200, B300, RTX PRO 6000</td>
+          <td>31 global regions</td>
+          <td class="src"><a href="https://www.runpod.io/blog/the-gpu-supply-supercycle-is-here" target="_blank" rel="noopener">runpod.io</a><small>jun '26</small></td>
+        </tr>
+      </tbody>
+    </table>
+    </div>
+  </section>
+
+  <section>
+    <div class="eyebrow">The registry · part 3</div>
+    <h2>The medallion long tail</h2>
+    <p>Rated providers with no verified fleet disclosure. Listed so the census is complete — absence of a number is itself information.</p>
+    <div class="table-wrap">
+    <table style="min-width:760px">
+      <thead>
+        <tr>
+          <th scope="col">Provider</th>
+          <th scope="col">ClusterMAX</th>
+          <th scope="col">What's public</th>
+          <th scope="col">Silicon offered</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td><span class="co">Together AI</span></td><td><span class="tier silver">Silver</span></td><td class="mut">Fleet undisclosed; $305M Series B at $3.3B (Feb '25)</td><td>H100, H200, B200, GB200</td></tr>
+        <tr><td><span class="co">Cirrascale</span></td><td><span class="tier silver">Silver</span></td><td class="mut">Fleet undisclosed; long-running HPC cloud, GPU-backed debt facilities</td><td>H100, B200, MI300X</td></tr>
+        <tr><td><span class="co">Gcore</span></td><td><span class="tier silver">Silver</span></td><td class="mut">Fleet undisclosed; AI Cloud Stack software runs on customer estates of 20,000+ GPUs</td><td>H100, H200, B200, MI300X</td></tr>
+        <tr><td><span class="co">Hyperstack</span></td><td><span class="tier bronze">Bronze</span></td><td class="mut">Fleet undisclosed; NexGen Cloud arm, EU renewable DCs</td><td>H100, A100, L40</td></tr>
+        <tr><td><span class="co">Shadeform</span></td><td><span class="tier bronze">Bronze</span></td><td class="mut">Broker — owns no GPUs; aggregated marketplace across providers</td><td>multi-cloud catalog</td></tr>
+        <tr><td><span class="co">STN</span></td><td><span class="tier bronze">Bronze</span></td><td class="mut">Fleet undisclosed; US-based clusters</td><td>H100, H200, B200</td></tr>
+        <tr><td><span class="co">Atlas Cloud</span></td><td><span class="tier bronze">Bronze</span></td><td class="mut">Fleet undisclosed</td><td>H100, H200</td></tr>
+        <tr><td><span class="co">Prime Intellect</span></td><td><span class="tier bronze">Bronze</span></td><td class="mut">Aggregator — owns no fleet; decentralized training focus</td><td>marketplace catalog</td></tr>
+        <tr><td><span class="co">CUDO Compute</span></td><td><span class="tier bronze">Bronze</span></td><td class="mut">Fleet undisclosed; UK, partner-DC model</td><td>H100, H200, MI300X</td></tr>
+        <tr><td><span class="co">Qubrid</span></td><td><span class="tier bronze">Bronze</span></td><td class="mut">Fleet undisclosed</td><td>H100, H200</td></tr>
+        <tr><td><span class="co">Latitude.sh</span></td><td><span class="tier bronze">Bronze</span></td><td class="mut">Fleet undisclosed; bare-metal specialist, global edge sites</td><td>H100, H200, L40S</td></tr>
+        <tr><td><span class="co">Verda <small style="display:inline;font-size:9px;color:var(--ink-4)">(ex-DataCrunch)</small></span></td><td><span class="tier bronze">Bronze</span></td><td class="mut">Fleet undisclosed; Finland, EU-sovereign pricing floor</td><td>H100, H200, B200</td></tr>
+        <tr><td><span class="co">Denvr Data</span></td><td><span class="tier bronze">Bronze</span></td><td class="mut">Fleet undisclosed; Canada/US; also Intel Gaudi 3</td><td>GB200, B200, MI300X, Gaudi 3</td></tr>
+        <tr><td><span class="co">IBM Cloud</span></td><td><span class="tier bronze">Bronze</span></td><td class="mut">Fleet undisclosed</td><td>H100, H200, MI300X</td></tr>
+        <tr><td><span class="co">DigitalOcean</span></td><td><span class="tier bronze">Bronze</span></td><td class="mut">Fleet undisclosed; GPU Droplets + Paperspace lineage</td><td>H100, H200, MI300X, RTX 6000</td></tr>
+        <tr><td><span class="co">Hot Aisle</span></td><td><span class="tier bronze">Bronze</span></td><td class="mut">Fleet undisclosed; Michigan, AMD-focused, bare metal</td><td>MI300X, MI355X</td></tr>
+        <tr><td><span class="co">Buzz HPC</span></td><td><span class="tier bronze">Bronze</span></td><td class="mut">Fleet undisclosed; Canada, HIVE lineage</td><td>H100, H200</td></tr>
+        <tr><td><span class="co">Vast.ai</span></td><td><span class="tier bronze">Bronze</span></td><td class="mut">Owns zero GPUs — 1,400+ independent hosts list hardware; sells them the operating system</td><td>marketplace: RTX → B200</td></tr>
+      </tbody>
+    </table>
+    </div>
+  </section>
+
+  <section>
+    <div class="eyebrow">What it adds up to</div>
+    <h2>The census totals</h2>
+    <div class="totals">
+      <div class="total">
+        <div class="n">~500,000</div>
+        <div class="l">deployed · disclosed</div>
+        <p>Summing only company-stated figures across neoclouds — CoreWeave, IREN, Lightning AI, Firmus, Yotta, Nscale, TensorWave, GMI, Scaleway, Neysa. Lambda, Nebius, Crusoe, Vultr and RunPod are large but undisclosed, so the true neocloud total is well past this.</p>
+      </div>
+      <div class="total">
+        <div class="n">~400,000+</div>
+        <div class="l">ordered · contracted</div>
+        <p>Signed for delivery through 2027: Nscale's ~200k GB300 + 96k Rubin, IREN's 50k+ B300, Neysa's 18k expansion, Yotta's second 16.4k, Sakura's path to ~10.8k, Japan's 27.5k Rubin national order.</p>
+      </div>
+      <div class="total">
+        <div class="n">209</div>
+        <div class="l">providers tracked</div>
+        <p>SemiAnalysis's ClusterMAX 2.0 market view (Nov 2025) counts 209 GPU clouds, brokers and sovereign projects — 37 earned a medallion. The long tail explains why no census can stay finished.</p>
+      </div>
+    </div>
+    <p>Two calibrations for these numbers. First, the hyperscalers: AWS, Azure and Google never disclose GPU counts — though Microsoft alone admitted to 100,000+ GB300 access just through neocloud leases, and Google sells TPUs <em>to</em> neoclouds. Second, the single-site record isn't a cloud at all: xAI's Colossus campus in Memphis passed half a million GPUs under one roof, more than every disclosed neocloud fleet on this page combined.</p>
+  </section>
+
+  <section>
+    <div class="eyebrow">Questions this page answers</div>
+    <h2>Frequently asked</h2>
+    <div class="faq">
+      <div>
+        <h3>Is there an official list of GPU counts per cloud?</h3>
+        <p>No. SemiAnalysis tracks fleet size inside its paid models and scores it under ClusterMAX's availability criterion, but publishes no per-provider table. Public figures are scattered across SEC filings, earnings calls, company newsrooms and government subsidy announcements. This page assembles them, dated and sourced.</p>
+      </div>
+      <div>
+        <h3>Which neocloud has the most GPUs?</h3>
+        <p>CoreWeave — last disclosed count 250,000 (Dec 2024), certainly higher now with 43 DCs, 850 MW active and $31–35B of 2026 capex. IREN states 150,000 once its B300s finish deploying in late 2026. Nscale holds the largest signed private pipeline: ~200,000 GB300 for Microsoft plus 96,000 Rubin for 2027.</p>
+      </div>
+      <div>
+        <h3>Why do Crusoe and Fluidstack show no GPU count?</h3>
+        <p>Much of what they build isn't their silicon: Crusoe's Abilene racks belong to Oracle/OpenAI; Fluidstack operates Anthropic's and Mistral's clusters. A single "fleet size" would double-count customer chips. The census records their power and halls instead.</p>
+      </div>
+      <div>
+        <h3>What's the difference between deployed, ordered and planned?</h3>
+        <p>Deployed = racked and revenue-ready. Ordered/contracted = signed purchase with a delivery window. Planned = announced target, no confirmed hardware. Every figure here carries its class and date — a 2027 plan is not a rival's 2026 capacity.</p>
+      </div>
+      <div>
+        <h3>Why are ratings shown at all?</h3>
+        <p>Because fleet size and fleet quality move together in buyers' minds, and ClusterMAX (v2.0, Nov 2025) is the market's de-facto quality score. But note IREN: rated "Underperforming" in Nov 2025, a 150,000-GPU Microsoft-backed fleet by Mar 2026. Ratings lag balance sheets.</p>
+      </div>
+      <div>
+        <h3>A number is stale or wrong — what then?</h3>
+        <p>Send it through the <a href="https://forms.gle/UizJjZ2TH11J4mCe7" target="_blank" rel="noopener">corrections form</a> with a primary source. Corrections ship within a week and the stamp date moves. Private companies: a dated, verifiable fleet figure is always welcome — on the record.</p>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="eyebrow">Methodology</div>
+    <h2>How the census is built</h2>
+    <div class="method">
+      <p>Primary sources only: SEC filings (S-1, 10-K, 8-K), earnings materials, company newsrooms, named-customer press releases, and government announcements (METI subsidy awards, IndiaAI Mission, Korea's national compute project). Each row shows the figure, its class (deployed / ordered / planned), the silicon, the footprint, and the source with its date. We don't count landlords' buildings as GPU fleets, don't count marketplace listings as owned hardware, and don't repeat figures we can't trace. Verified 2 August 2026 · by Rahul Patwardhan · part of the <a href='/'>AI Infra Ecosystem Map</a>.</p>
+    </div>
+  </section>
+</main>
+
+<footer><div class="wrap">
+  <span>GPU Census · part of the <a href='/'>AI Infra Ecosystem Map</a></span>
+  <span>Verified 2 August 2026 · by Rahul Patwardhan</span>
+</div></footer>
+</body>
+</html>
